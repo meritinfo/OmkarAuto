@@ -254,7 +254,7 @@
                                         <div class="mb-3">
                                             <label for="formrow-inputCity">Qty Wt (MT)</label>
                                             <span style="color: red"> * </span> 
-                                            <input class="form-control" threedecimalonly 
+                                            <input class="form-control" threedecimalonly autocomplete="off" 
                                                 (change)="onRateChange()" formControlName="qtyWt"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['qtyWt'].invalid) }">
                                         </div>
@@ -271,7 +271,7 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputCity">Rate Per Ton</label>
-                                            <input class="form-control" decimalonly (change)="onRateChange()"
+                                            <input class="form-control" decimalonly autocomplete="off" (change)="onRateChange()"
                                                 formControlName="ratePerTon">
                                         </div>
                                     </div>                                        
@@ -281,7 +281,7 @@
                                         <div class="mb-3">
                                             <label for="formrow-inputCity"> Freight (Hire)</label>
                                             <span style="color: red"> * </span> 
-                                            <input class="form-control" decimalonly 
+                                            <input class="form-control" decimalonly autocomplete="off" 
                                                 formControlName="hireAmt" (change)="onChangeAdv()"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['hireAmt'].invalid) }">
                                         </div>

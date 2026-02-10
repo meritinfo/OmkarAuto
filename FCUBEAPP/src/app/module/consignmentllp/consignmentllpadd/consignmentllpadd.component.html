@@ -60,8 +60,8 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputState">GC Sl No.</label>
                                     <span style="color: red">*</span>
-                                    <input numbersonly type="text" id="formrow-inputCity" class="form-control" 
-                                        numbersonly maxlength="12" 
+                                    <input numbersonly autocomplete="off" type="text" id="formrow-inputCity" class="form-control" 
+                                        numbersonly autocomplete="off" maxlength="12" 
                                         formControlName="gcSlNo"  (change)="chkLrDuplicateLLP()"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['gcSlNo'].invalid) }">
                                 </div>
@@ -70,8 +70,8 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputState">GC Note No.</label>
                                     <span style="color: red">*</span>
-                                    <input numbersonly type="text" id="formrow-inputCity" class="form-control" 
-                                        numbersonly maxlength="12" minlength="1"
+                                    <input numbersonly autocomplete="off" type="text" id="formrow-inputCity" class="form-control" 
+                                        numbersonly autocomplete="off" maxlength="12" minlength="1"
                                         formControlName="gcNoteNo" 
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['gcNoteNo'].invalid) }">
                                 </div>
@@ -236,7 +236,7 @@
                             <div class="col-lg-1">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">KMs</label>
-                                    <input type="text" numbersonly maxlength="8" class="form-control" 
+                                    <input type="text" numbersonly autocomplete="off" maxlength="8" class="form-control" 
                                         formControlName="kms">
                                 </div>
                             </div>
@@ -271,7 +271,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Invoice Value</label>
-                                    <input type="text" decimalonly autoclose="false" class="form-control"
+                                    <input type="text" decimalonly autocomplete="off" autoclose="false" class="form-control"
                                         formControlName="invoiceValue" (change)="fillgrid()">
                                 </div>
                             </div>
@@ -345,7 +345,7 @@
                                                         formControlName="invDate">
                                                     </td>
                                                     <td class="col-lg-1">
-                                                        <input decimalonly type="text" class="form-control" 
+                                                        <input decimalonly autocomplete="off" type="text" class="form-control" 
                                                         formControlName="invValue">
                                                     </td>                                                
                                                     <td class="col-lg-1">
@@ -435,7 +435,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-4">
                                     <label for="formrow-inputZip">Cnor Mobile</label>
-                                    <input numbersonly class="form-control" formControlName="cnorMobile"
+                                    <input numbersonly autocomplete="off" class="form-control" formControlName="cnorMobile"
                                     maxlength="10">
                                 </div>
                             </div>                            
@@ -468,7 +468,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-4">
                                     <label for="formrow-inputZip">Cnor Pin</label>
-                                    <input numbersonly maxlength="6" class="form-control" 
+                                    <input numbersonly autocomplete="off" maxlength="6" class="form-control" 
                                     formControlName="cnorPin">
                                 </div>
                             </div>
@@ -516,7 +516,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-4">
                                     <label for="formrow-inputZip">Cnee Mobile</label>
-                                    <input numbersonly class="form-control" formControlName="cneeMobile"
+                                    <input numbersonly autocomplete="off" class="form-control" formControlName="cneeMobile"
                                     maxlength="10"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['cneeMobile'].invalid) }">
                                 </div>
@@ -550,7 +550,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-4">
                                     <label for="formrow-inputZip">Cnee Pin</label>
-                                    <input numbersonly maxlength="6" class="form-control" 
+                                    <input numbersonly autocomplete="off" maxlength="6" class="form-control" 
                                     formControlName="cneePin">
                                 </div>
                             </div>
@@ -615,20 +615,20 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Actual Weight</label>
-                                    <input type="text" threedecimalonly class="form-control" formControlName="actualWt">
+                                    <input type="text" threedecimalonly autocomplete="off" class="form-control" formControlName="actualWt">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Charged Weight</label><span style="color: red">*</span>
-                                    <input type="text" threedecimalonly class="form-control" formControlName="chargewt"
+                                    <input type="text" threedecimalonly autocomplete="off" class="form-control" formControlName="chargewt"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['chargewt'].invalid) }">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Qty/Pkgs</label><span style="color: red">*</span>
-                                    <input numbersonly autoclose="false" formControlName="noPackages"  
+                                    <input numbersonly autocomplete="off" autoclose="false" formControlName="noPackages"  
                                         class="form-control"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['noPackages'].invalid) }">
                                 </div>
@@ -880,39 +880,39 @@
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <input decimalonly class="form-control" maxlength="15"
+                                                                <input decimalonly autocomplete="off" class="form-control" maxlength="15"
                                                                 formControlName="rate" (change)="calAmount(i)">
                                                             </td>
                                                             <td>
-                                                                <input decimalonly class="form-control" maxlength="15"
+                                                                <input decimalonly autocomplete="off" class="form-control" maxlength="15"
                                                                 formControlName="amount" (change)="calculateAmount()">
                                                             </td>
                                                             <td>
-                                                                <input decimalonly class="form-control" maxlength="15"
+                                                                <input decimalonly autocomplete="off" class="form-control" maxlength="15"
                                                                 formControlName="sgstPct" (change)="calculateAmount()">
                                                             </td>
                                                             <td>
-                                                                <input decimalonly class="form-control" maxlength="15"
+                                                                <input decimalonly autocomplete="off" class="form-control" maxlength="15"
                                                                 formControlName="sgstAmt">
                                                             </td>
                                                             <td>
-                                                                <input decimalonly class="form-control" maxlength="15"
+                                                                <input decimalonly autocomplete="off" class="form-control" maxlength="15"
                                                                 formControlName="cgstPct" (change)="calculateAmount()">
                                                             </td>
                                                             <td>
-                                                                <input decimalonly class="form-control" maxlength="15"
+                                                                <input decimalonly autocomplete="off" class="form-control" maxlength="15"
                                                                 formControlName="cgstAmt">
                                                             </td>   
                                                             <td>
-                                                                <input decimalonly class="form-control" maxlength="15"
+                                                                <input decimalonly autocomplete="off" class="form-control" maxlength="15"
                                                                 formControlName="igstPct" (change)="calculateAmount()">
                                                             </td>
                                                             <td>
-                                                                <input decimalonly class="form-control" maxlength="15"
+                                                                <input decimalonly autocomplete="off" class="form-control" maxlength="15"
                                                                 formControlName="igstAmt">
                                                             </td>     
                                                             <td>
-                                                                <input decimalonly class="form-control" maxlength="15"
+                                                                <input decimalonly autocomplete="off" class="form-control" maxlength="15"
                                                                 formControlName="totalAmt">
                                                             </td>
                                                             <td class="col-lg-2">
@@ -940,21 +940,21 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Freight</label>
-                                    <input type="text" decimalonly class="form-control"  
+                                    <input type="text" decimalonly autocomplete="off" class="form-control"  
                                         formControlName="freightRs">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Statistical</label>
-                                    <input type="text" decimalonly class="form-control"  
+                                    <input type="text" decimalonly autocomplete="off" class="form-control"  
                                         formControlName="statisticalRs">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">FOV</label>
-                                    <input type="text" decimalonly class="form-control"  
+                                    <input type="text" decimalonly autocomplete="off" class="form-control"  
                                         formControlName="fovRs">
                                 </div>
                             </div>
@@ -963,42 +963,42 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Door Coll</label>
-                                    <input type="text" decimalonly class="form-control"  
+                                    <input type="text" decimalonly autocomplete="off" class="form-control"  
                                         formControlName="doorCollRs">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Handling</label>
-                                    <input type="text" decimalonly class="form-control"  
+                                    <input type="text" decimalonly autocomplete="off" class="form-control"  
                                         formControlName="handlingRs">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Loading Detn</label>
-                                    <input type="text" decimalonly class="form-control"  
+                                    <input type="text" decimalonly autocomplete="off" class="form-control"  
                                         formControlName="loadingDetnRs">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Enroute</label>
-                                    <input type="text" decimalonly class="form-control"  
+                                    <input type="text" decimalonly autocomplete="off" class="form-control"  
                                         formControlName="enrouteRs">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Misc</label>
-                                    <input type="text" decimalonly class="form-control"  
+                                    <input type="text" decimalonly autocomplete="off" class="form-control"  
                                         formControlName="miscRs">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Door Del</label>
-                                    <input type="text" decimalonly class="form-control"  
+                                    <input type="text" decimalonly autocomplete="off" class="form-control"  
                                         formControlName="doorDelRs">
                                 </div>
                             </div>
@@ -1007,35 +1007,35 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">UnLoading</label>
-                                    <input type="text" decimalonly class="form-control"  
+                                    <input type="text" decimalonly autocomplete="off" class="form-control"  
                                         formControlName="unLoadingRs">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">UnLoading Detn</label>
-                                    <input type="text" decimalonly class="form-control"  
+                                    <input type="text" decimalonly autocomplete="off" class="form-control"  
                                         formControlName="unLoadingDetnRs">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Extras</label>
-                                    <input type="text" decimalonly class="form-control"  
+                                    <input type="text" decimalonly autocomplete="off" class="form-control"  
                                         formControlName="extrasRS">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Others</label>
-                                    <input type="text" decimalonly class="form-control"  
+                                    <input type="text" decimalonly autocomplete="off" class="form-control"  
                                         formControlName="othersRs">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Sub Total</label>
-                                    <input type="text" decimalonly class="form-control"  
+                                    <input type="text" decimalonly autocomplete="off" class="form-control"  
                                         formControlName="subTotalRs">
                                 </div>
                             </div> 
@@ -1088,7 +1088,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Non Gst Amt1</label>
-                                    <input type="text" decimalonly class="form-control" (change)="calculateAmount()"
+                                    <input type="text" decimalonly autocomplete="off" class="form-control" (change)="calculateAmount()"
                                         formControlName="nonGstAmt1">
                                 </div>
                             </div>                                  
@@ -1102,7 +1102,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Non Gst Amt2</label>
-                                    <input type="text" decimalonly class="form-control" (change)="calculateAmount()"
+                                    <input type="text" decimalonly autocomplete="off" class="form-control" (change)="calculateAmount()"
                                         formControlName="nonGstAmt2">
                                 </div>
                             </div>                                  
@@ -1116,7 +1116,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Net Total</label>
-                                    <input type="text" decimalonly class="form-control" 
+                                    <input type="text" decimalonly autocomplete="off" class="form-control" 
                                         formControlName="gtotalRs">
                                 </div>
                             </div>                                

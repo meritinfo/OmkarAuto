@@ -70,7 +70,7 @@
                                     <div class="col-lg-3">
                                         <div class="mb-3">
                                             <label>Loan Amount</label>
-                                            <input decimalonly type="text" class="form-control" 
+                                            <input decimalonly autocomplete="off" type="text" class="form-control" 
                                                 maxlength="20"
                                                 formControlName="loanAmt">
                                         </div>
@@ -78,14 +78,14 @@
                                     <div class="col-lg-3">
                                         <div class="mb-3">
                                             <label>Cleared Amount</label>
-                                            <input decimalonly type="text" class="form-control" 
+                                            <input decimalonly autocomplete="off" type="text" class="form-control" 
                                                 formControlName="amountCleared">
                                         </div>
                                     </div>
                                     <div class="col-lg-3">
                                         <div class="mb-3">
                                             <label>Balance Amount</label>
-                                            <input decimalonly type="text" class="form-control" 
+                                            <input decimalonly autocomplete="off" type="text" class="form-control" 
                                                 formControlName="balance">
                                         </div>
                                     </div>
@@ -94,7 +94,7 @@
                                     <div class="col-lg-3">
                                         <div class="mb-3">
                                             <label>Paying Now</label><span style="color: red">*</span>
-                                            <input decimalonly type="text" class="form-control" 
+                                            <input decimalonly autocomplete="off" type="text" class="form-control" 
                                                 maxlength="20"
                                                 formControlName="loanPayAmt"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['loanPayAmt'].invalid) }">

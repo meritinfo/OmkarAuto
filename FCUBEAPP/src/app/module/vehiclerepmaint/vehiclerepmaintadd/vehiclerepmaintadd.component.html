@@ -221,7 +221,7 @@
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>KMs Reading: </label><span style="color: red">*</span> 
-                                            <input decimalonly type="text" class="form-control" 
+                                            <input decimalonly autocomplete="off" type="text" class="form-control" 
                                             formControlName="kmReading"
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['kmReading'].invalid) }">
                                         </div>
@@ -356,11 +356,11 @@
                                                         formControlName="availQty"> 
                                                     </td>
                                                     <td> 
-                                                        <input decimalonly autoclose="false" class="form-control"
+                                                        <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                         formControlName="itemQty" (change)="onPctChange(i,'itemQty')"> 
                                                     </td>
                                                     <td> 
-                                                        <input decimalonly autoclose="false" class="form-control"
+                                                        <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                         formControlName="itemRate" (change)="onPctChange(i,'itemRate')"> 
                                                     </td>
                                                     <td> 
@@ -368,7 +368,7 @@
                                                         formControlName="itemAmount" decimalonly> 
                                                     </td>
                                                     <td> 
-                                                        <input decimalonly autoclose="false" class="form-control"
+                                                        <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                         formControlName="sgstPct" (change)="onPctChange(i,'sgstPct')"> 
                                                     </td>
                                                     <td> 
@@ -376,7 +376,7 @@
                                                         formControlName="sgstAmt"> 
                                                     </td>
                                                     <td> 
-                                                        <input decimalonly autoclose="false" class="form-control"
+                                                        <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                         formControlName="cgstPct" (change)="onPctChange(i,'cgstPct')"> 
                                                     </td>
                                                     <td> 
@@ -384,7 +384,7 @@
                                                         formControlName="cgstAmt"> 
                                                     </td>
                                                     <td> 
-                                                        <input decimalonly autoclose="false" class="form-control"
+                                                        <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                         formControlName="igstPct" (change)="onPctChange(i,'igstPct')">  
                                                     </td>
                                                     <td> 

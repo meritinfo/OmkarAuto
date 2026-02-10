@@ -101,14 +101,14 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">CN Pkgs</label>
-                                            <input numbersonly autoclose="false" class="form-control"
+                                            <input numbersonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="cnPkgs" >
                                         </div>
                                     </div>  
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">CN Weight</label>
-                                            <input threedecimalonly autoclose="false" class="form-control"
+                                            <input threedecimalonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="cnActWt" >
                                         </div>
                                     </div>  
@@ -156,7 +156,7 @@
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Delivered Pkgs</label>
                                             <span style="color: red"> * </span>
-                                            <input numbersonly autoclose="false" class="form-control"
+                                            <input numbersonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="delPkgs" (change)="onDelPkgsChange($event)"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['delPkgs'].invalid) }">
                                         </div>
@@ -164,7 +164,7 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Pkgs (Short/Excess)</label>
-                                            <input numbersonly autoclose="false" class="form-control"
+                                            <input numbersonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="shExPkgs" >
                                         </div>
                                     </div>  
@@ -172,7 +172,7 @@
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Delivered Weight</label>
                                             <span style="color: red"> * </span>
-                                            <input threedecimalonly autoclose="false" class="form-control"
+                                            <input threedecimalonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="delActWt" (change)="onDelWtChange($event)"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['delActWt'].invalid) }">
                                         </div>
@@ -180,7 +180,7 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Weight (Short/Excess)</label>
-                                            <input threedecimalonly autoclose="false" class="form-control"
+                                            <input threedecimalonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="shExpActWt" >
                                         </div>
                                     </div>  
@@ -220,7 +220,7 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Delay Days</label>
-                                            <input numbersonly autoclose="false" class="form-control"
+                                            <input numbersonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="delayDays" >
                                         </div>
                                     </div>  
@@ -246,7 +246,7 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Detn Days</label>
-                                            <input numbersonly autoclose="false" class="form-control"
+                                            <input numbersonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="detnDays" >
                                         </div>
                                     </div>  
@@ -255,42 +255,42 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Balance Payable</label>
-                                            <input decimalonly autoclose="false" class="form-control"
+                                            <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="balancePayable" >
                                         </div>
                                     </div>  
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Handling Payable</label>
-                                            <input decimalonly autoclose="false" class="form-control"
+                                            <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                             (change)="calcTot()" formControlName="handlingPayable" >
                                         </div>
                                     </div>  
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Detiontion Payable </label>
-                                            <input decimalonly autoclose="false" class="form-control"
+                                            <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                             (change)="calcTot()" formControlName="detiontionPayable" >
                                         </div>
                                     </div>  
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Others1 Payable</label>
-                                            <input decimalonly autoclose="false" class="form-control"
+                                            <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="others1Payable" >
                                         </div>
                                     </div>   
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Others2 Payable</label>
-                                            <input decimalonly autoclose="false" class="form-control"
+                                            <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                             (change)="calcTot()" formControlName="others2Payable" >
                                         </div>
                                     </div>  
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Tot Ext Payable</label>
-                                            <input decimalonly autoclose="false" class="form-control"
+                                            <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                             (change)="calcTot()" formControlName="totExtPayable" >
                                         </div>
                                     </div>  
@@ -313,14 +313,14 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Shortage Claim</label>
-                                            <input decimalonly (change)="calcTot()" autoclose="false" class="form-control"
+                                            <input decimalonly autocomplete="off" (change)="calcTot()" autoclose="false" class="form-control"
                                                 formControlName="shortageClaim" >
                                         </div>
                                     </div>   
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Damage Claim</label>
-                                            <input decimalonly (change)="calcTot()" autoclose="false" class="form-control"
+                                            <input decimalonly autocomplete="off" (change)="calcTot()" autoclose="false" class="form-control"
                                                 formControlName="damageClaim" >
                                         </div>
                                     </div>  
@@ -346,7 +346,7 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Late Rpt Ded</label>
-                                            <input decimalonly (change)="calcTot()" 
+                                            <input decimalonly autocomplete="off" (change)="calcTot()" 
                                             autoclose="false" class="form-control" formControlName="lateRptDed" >
                                         </div>
                                     </div>  
@@ -362,14 +362,14 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Other Ded</label>
-                                            <input decimalonly (change)="calcTot()" 
+                                            <input decimalonly autocomplete="off" (change)="calcTot()" 
                                             autoclose="false" class="form-control" formControlName="othDed" >
                                         </div>
                                     </div>  
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Net Payable</label>
-                                            <input decimalonly autoclose="false" class="form-control"
+                                            <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="netPayable" >
                                         </div>
                                     </div>  

@@ -100,7 +100,7 @@
                                                     <div class="col-lg-2">
                                                         <div class="mb-3">
                                                             <label for="formrow-inputCity">Holidays + Sundays</label>
-                                                            <input autoclose="false" decimalonly maxlength="2" max="31"
+                                                            <input autoclose="false" decimalonly autocomplete="off" maxlength="2" max="31"
                                                             class="form-control" formControlName="holSun"
                                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['holSun'].invalid) }">
                                                         </div>
@@ -108,7 +108,7 @@
                                                     <div class="col-lg-2">
                                                         <div class="mb-3">
                                                             <label for="formrow-inputCity">Total Leaves</label>
-                                                            <input autoclose="false" decimalonly maxlength="2" max="31"
+                                                            <input autoclose="false" decimalonly autocomplete="off" maxlength="2" max="31"
                                                             class="form-control" formControlName="totLeaves" 
                                                             (change)="onchangeLeaves($event)"
                                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['totLeaves'].invalid) }">
@@ -117,7 +117,7 @@
                                                     <div class="col-lg-2">
                                                         <div class="mb-3">
                                                             <label for="formrow-inputCity">Loss of Pay Days </label>
-                                                            <input autoclose="false" decimalonly maxlength="2" max="31"
+                                                            <input autoclose="false" decimalonly autocomplete="off" maxlength="2" max="31"
                                                             class="form-control" formControlName="absentDays"
                                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['absentDays'].invalid) }">
                                                         </div>
@@ -125,7 +125,7 @@
                                                     <div class="col-lg-2">
                                                         <div class="mb-3">
                                                             <label for="formrow-inputCity">Total Pay Days</label>
-                                                            <input autoclose="false" decimalonly maxlength="2"  max="31"
+                                                            <input autoclose="false" decimalonly autocomplete="off" maxlength="2"  max="31"
                                                             class="form-control" formControlName="payDays"
                                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['payDays'].invalid) }">
                                                         </div>
@@ -183,7 +183,7 @@
                                                                 formControlName="totalLeaves">                                                         
                                                             </td>
                                                             <td class="col-lg-1">
-                                                                <input decimalonly autoclose="false" type="text" 
+                                                                <input decimalonly autocomplete="off" autoclose="false" type="text" 
                                                                 class="form-control" maxlength="2" max="31"
                                                                 formControlName="adjLeaves" (change)="onAdjLeaveChange(e,$event)">                                 
                                                             </td>                        
@@ -255,17 +255,17 @@
                                                                 formControlName="loanDate">                                                         
                                                             </td>
                                                             <td  class="col-lg-1"> 
-                                                                <input decimalonly autoclose="false" type="text" 
+                                                                <input decimalonly autocomplete="off" autoclose="false" type="text" 
                                                                 class="form-control" 
                                                                 formControlName="loanAmt">                                                         
                                                             </td>
                                                             <td class="col-lg-1">
-                                                                <input decimalonly autoclose="false" type="text" 
+                                                                <input decimalonly autocomplete="off" autoclose="false" type="text" 
                                                                 class="form-control" 
                                                                 formControlName="balAmt">                                 
                                                             </td>  
                                                             <td class="col-lg-1">
-                                                                <input decimalonly autoclose="false" type="text" 
+                                                                <input decimalonly autocomplete="off" autoclose="false" type="text" 
                                                                 class="form-control" (change)="onLoanadj(d,$event)"
                                                                 formControlName="loanAdjAmt">                                 
                                                             </td>                        

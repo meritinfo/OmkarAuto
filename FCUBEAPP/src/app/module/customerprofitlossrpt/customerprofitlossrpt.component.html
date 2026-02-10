@@ -19,28 +19,28 @@
                     <div class="col-md-2">
                         <div class="mb-3">
                             <label for="formrow-inputState">Min. Turnover</label><span style="color: red">*</span>    
-                            <input class="form-control" numbersonly formControlName="turnover"
+                            <input class="form-control" numbersonly autocomplete="off" formControlName="turnover"
                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['turnover'].invalid) }">
                         </div>
                     </div>                 
                     <div class="col-md-2">
                         <div class="mb-3">
                             <label for="formrow-inputState">Admin Expenses %</label><span style="color: red">*</span>    
-                            <input class="form-control" decimalonly formControlName="adminInt"
+                            <input class="form-control" decimalonly autocomplete="off" formControlName="adminInt"
                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['adminInt'].invalid) }">
                         </div>
                     </div>              
                     <div class="col-md-2">
                         <div class="mb-3">
                             <label for="formrow-inputState">Day After Int</label><span style="color: red">*</span>    
-                            <input class="form-control" numbersonly formControlName="dayAfterInt"
+                            <input class="form-control" numbersonly autocomplete="off" formControlName="dayAfterInt"
                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['dayAfterInt'].invalid) }">
                         </div>
                     </div>             
                     <div class="col-md-2">
                         <div class="mb-3">
                             <label for="formrow-inputState">Interest Rate</label><span style="color: red">*</span>    
-                            <input class="form-control" decimalonly formControlName="interest"
+                            <input class="form-control" decimalonly autocomplete="off" formControlName="interest"
                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['interest'].invalid) }">
                         </div>
                     </div>

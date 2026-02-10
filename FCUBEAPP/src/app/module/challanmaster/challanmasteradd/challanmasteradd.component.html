@@ -139,7 +139,7 @@
                             <div class="col-lg-1">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">KMs :</label>
-                                    <input type="text" numbersonly maxlength="8" class="form-control" 
+                                    <input type="text" numbersonly autocomplete="off" maxlength="8" class="form-control" 
                                         formControlName="distanceKms">
                                 </div>
                             </div>                            
@@ -219,7 +219,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">Broker Mobile</label>
-                                    <input numbersonly autoclose="false" maxlength="10" 
+                                    <input numbersonly autocomplete="off" autoclose="false" maxlength="10" 
                                         formControlName="brokerMblNo" class="form-control">
                                 </div>
                             </div>
@@ -228,21 +228,21 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">Advance1</label>
-                                    <input decimalonly autoclose="false" maxlength="15" 
+                                    <input decimalonly autocomplete="off" autoclose="false" maxlength="15" 
                                         formControlName="advance1" class="form-control">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">Advance2</label>
-                                    <input decimalonly autoclose="false" maxlength="15" 
+                                    <input decimalonly autocomplete="off" autoclose="false" maxlength="15" 
                                         formControlName="advance2" class="form-control">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">Advance3</label>
-                                    <input decimalonly autoclose="false" maxlength="15" 
+                                    <input decimalonly autocomplete="off" autoclose="false" maxlength="15" 
                                         formControlName="advance3" class="form-control">
                                 </div>
                             </div>
@@ -316,7 +316,7 @@
                                                     </td>                                                  
                                                     <td class="col-lg-1">
                                                         <input uppercaseonly type="text" class="form-control" 
-                                                        numbersonly maxlength="15" 
+                                                        numbersonly autocomplete="off" maxlength="15" 
                                                         formControlName="gcNoteNo" (change)="onGcNoteChange(i,$event)">
                                                         <input type="hidden" class="form-control" 
                                                         formControlName="consignmentId">
@@ -334,11 +334,11 @@
                                                         formControlName="tplace" >
                                                     </td>  
                                                     <td class="col-lg-1">
-                                                        <input numbersonly type="text" class="form-control" 
+                                                        <input numbersonly autocomplete="off" type="text" class="form-control" 
                                                         formControlName="challanPkgs" (change)="onPkgsChange()">
                                                     </td>     
                                                     <td class="col-lg-1">
-                                                        <input threedecimalonly type="text" class="form-control" 
+                                                        <input threedecimalonly autocomplete="off" type="text" class="form-control" 
                                                         formControlName="challanWT" (change)="onActWtChange()">
                                                     </td>                                                
                                                     <td class="col-lg-1">
@@ -365,7 +365,7 @@
                             </div>             
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <input type="text" numbersonly class="form-control" formControlName="totPkgs">
+                                    <input type="text" numbersonly autocomplete="off" class="form-control" formControlName="totPkgs">
                                 </div>
                             </div> 
                             <div class="col-lg-2">
@@ -375,7 +375,7 @@
                             </div> 
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <input type="text" decimalonly class="form-control" formControlName="totActWt">
+                                    <input type="text" decimalonly autocomplete="off" class="form-control" formControlName="totActWt">
                                 </div>
                             </div>
                         </div>
@@ -520,7 +520,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-4">
                                     <label for="formrow-inputZip">Vehi Owner Mobile</label>
-                                    <input numbersonly maxlength="10" class="form-control" 
+                                    <input numbersonly autocomplete="off" maxlength="10" class="form-control" 
                                     formControlName="vehicleOwnerMblNo">
                                 </div>
                             </div>                            
@@ -573,7 +573,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Driver Mobile No</label>
-                                    <input numbersonly maxlength="10" class="form-control" 
+                                    <input numbersonly autocomplete="off" maxlength="10" class="form-control" 
                                         formControlName="driverMblNo">
                                 </div>
                             </div> 
@@ -636,34 +636,34 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">ODC Length</label>
-                                    <input type="text" decimalonly class="form-control" formControlName="odcLength">
+                                    <input type="text" decimalonly autocomplete="off" class="form-control" formControlName="odcLength">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">ODC Width</label>
-                                    <input type="text" decimalonly class="form-control" 
+                                    <input type="text" decimalonly autocomplete="off" class="form-control" 
                                     maxlength="10" formControlName="odcWidth">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">ODC Height</label>
-                                    <input type="text" decimalonly class="form-control" 
+                                    <input type="text" decimalonly autocomplete="off" class="form-control" 
                                     maxlength="10" formControlName="odcHeight">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">ODC CFT</label>
-                                    <input type="text" decimalonly class="form-control" 
+                                    <input type="text" decimalonly autocomplete="off" class="form-control" 
                                     maxlength="10" formControlName="odcCFT">
                                 </div>
                             </div>
                             <div class="col-lg-1">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Chrg Wt</label>
-                                    <input type="text" decimalonly class="form-control" 
+                                    <input type="text" decimalonly autocomplete="off" class="form-control" 
                                     maxlength="10" formControlName="totChrgWt">
                                 </div>
                             </div>
@@ -672,14 +672,14 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Rate Per Ton</label>
-                                    <input type="text" decimalonly class="form-control" 
+                                    <input type="text" decimalonly autocomplete="off" class="form-control" 
                                     maxlength="15" formControlName="ratePerTon">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Lorry Hire</label>
-                                    <input type="text" decimalonly class="form-control" 
+                                    <input type="text" decimalonly autocomplete="off" class="form-control" 
                                     maxlength="15" 
                                         formControlName="lorryHire" (change)="calculateTotalAmount()">
                                 </div>
@@ -687,7 +687,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Extra Hire1</label>
-                                    <input type="text" decimalonly class="form-control" 
+                                    <input type="text" decimalonly autocomplete="off" class="form-control" 
                                     maxlength="15" 
                                         formControlName="extraHire1" (change)="calculateTotalAmount()">
                                 </div>
@@ -695,7 +695,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Extra Hire2</label>
-                                    <input type="text" decimalonly class="form-control" 
+                                    <input type="text" decimalonly autocomplete="off" class="form-control" 
                                     maxlength="15" 
                                         formControlName="extraHire2" (change)="calculateTotalAmount()">
                                 </div>
@@ -703,7 +703,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Extra Hire3</label>
-                                    <input type="text" decimalonly class="form-control" 
+                                    <input type="text" decimalonly autocomplete="off" class="form-control" 
                                     maxlength="15" 
                                         formControlName="extraHire3" (change)="calculateTotalAmount()">
                                 </div>
@@ -713,7 +713,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Deduction1</label>
-                                    <input type="text" decimalonly class="form-control" 
+                                    <input type="text" decimalonly autocomplete="off" class="form-control" 
                                     maxlength="15" 
                                         formControlName="deduction1" (change)="calculateTotalAmount()">
                                 </div>
@@ -721,7 +721,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Deduction2</label>
-                                    <input type="text" decimalonly class="form-control" 
+                                    <input type="text" decimalonly autocomplete="off" class="form-control" 
                                     maxlength="15" 
                                         formControlName="deduction2" (change)="calculateTotalAmount()">
                                 </div>
@@ -729,14 +729,14 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Sub Total</label>
-                                    <input type="text" decimalonly class="form-control" 
+                                    <input type="text" decimalonly autocomplete="off" class="form-control" 
                                         formControlName="subTotal">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">TDS Pct</label>
-                                    <input type="text" decimalonly class="form-control" 
+                                    <input type="text" decimalonly autocomplete="off" class="form-control" 
                                     maxlength="2" 
                                         formControlName="tdsPct">
                                 </div>
@@ -744,14 +744,14 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">TDS Amt</label>
-                                    <input type="text" decimalonly class="form-control" 
+                                    <input type="text" decimalonly autocomplete="off" class="form-control" 
                                         formControlName="tdsAmt">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Total Hire</label>
-                                    <input type="text" decimalonly class="form-control" 
+                                    <input type="text" decimalonly autocomplete="off" class="form-control" 
                                         formControlName="totalHire" >
                                 </div>
                             </div>
@@ -760,7 +760,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Cash Advance</label>
-                                    <input type="text" decimalonly class="form-control" 
+                                    <input type="text" decimalonly autocomplete="off" class="form-control" 
                                     maxlength="15" 
                                         formControlName="cashAdvance" (change)="calculateTotalAmount()">
                                 </div>
@@ -768,7 +768,7 @@
                             <div class="col-lg-2" *ngIf="false">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Card Advance</label>
-                                    <input type="text" decimalonly class="form-control" 
+                                    <input type="text" decimalonly autocomplete="off" class="form-control" 
                                     maxlength="15" 
                                         formControlName="cardAdvance" (change)="calculateTotalAmount()">
                                 </div>
@@ -776,14 +776,14 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Total Advance</label>
-                                    <input type="text" decimalonly class="form-control" 
+                                    <input type="text" decimalonly autocomplete="off" class="form-control" 
                                         formControlName="totalAdvance">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Balance</label>
-                                    <input type="text" decimalonly class="form-control" 
+                                    <input type="text" decimalonly autocomplete="off" class="form-control" 
                                         formControlName="balance">
                                 </div>
                             </div>

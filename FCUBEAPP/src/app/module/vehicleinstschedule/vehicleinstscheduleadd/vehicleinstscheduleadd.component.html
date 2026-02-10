@@ -78,7 +78,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">No Of Months</label>
                                                 <span style="color: red">*</span>
-                                                <input numbersonly autoclose="false" class="form-control"
+                                                <input numbersonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="noOfMonths" maxlength="4"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['noOfMonths'].invalid) }">
                                             </div>
@@ -89,7 +89,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Principal Emi</label>
                                                 <span style="color: red">*</span>
-                                                <input decimalonly autoclose="false" class="form-control"
+                                                <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="principalEmi" maxlength="20" (change)="calcEmi()"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['principalEmi'].invalid) }">
                                             </div>
@@ -97,7 +97,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Interest Emi</label>
-                                                <input decimalonly autoclose="false" class="form-control"
+                                                <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="interestEmi" maxlength="20" (change)="calcEmi()">
                                             </div>
                                         </div>
@@ -105,7 +105,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Total Emi</label>
                                                 <span style="color: red">*</span>
-                                                <input decimalonly autoclose="false" class="form-control"
+                                                <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="totalEmi" maxlength="20"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['totalEmi'].invalid) }">
                                             </div>
@@ -116,7 +116,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Total Principal</label>
                                                 <span style="color: red">*</span>
-                                                <input decimalonly autoclose="false" class="form-control"
+                                                <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="totalPrincipal" maxlength="20" (change)="calcTot()"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['totalPrincipal'].invalid) }">
                                             </div>
@@ -124,7 +124,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Total Interest</label>
-                                                <input decimalonly autoclose="false" class="form-control"
+                                                <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="totalInterest" maxlength="20" (change)="calcTot()">
                                             </div>
                                         </div>
@@ -132,7 +132,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Total Loan Amt</label>
                                                 <span style="color: red">*</span>
-                                                <input decimalonly autoclose="false" class="form-control"
+                                                <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="totalLoanAmt" maxlength="20"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['totalLoanAmt'].invalid) }">
                                             </div>
@@ -212,15 +212,15 @@
                                                             formControlName="instDate">
                                                     </td>
                                                     <td>
-                                                        <input decimalonly autoclose="false" class="form-control"
+                                                        <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                             formControlName="pri_InstAmt" (change)="calInt(i)">
                                                     </td>
                                                     <td>
-                                                        <input decimalonly autoclose="false" class="form-control"
+                                                        <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                             formControlName="int_InstAmt" (change)="calInt(i)">
                                                     </td>
                                                     <td>
-                                                        <input decimalonly autoclose="false" class="form-control"
+                                                        <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                             formControlName="tot_InstAmt">
                                                     </td>
                                                     <td class="col-lg-4 remark-td">

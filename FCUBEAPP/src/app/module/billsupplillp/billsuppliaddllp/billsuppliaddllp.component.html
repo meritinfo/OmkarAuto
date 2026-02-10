@@ -46,7 +46,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Bill Sl No</label><span style="color: red"> * </span>
-                                                <input autoclose="false" type="text" numbersonly class="form-control"
+                                                <input autoclose="false" type="text" numbersonly autocomplete="off" class="form-control"
                                                 formControlName="billSlNo"  (change)="chkBillDuplicateLLP()"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['billSlNo'].invalid) }">
                                             </div>
@@ -54,7 +54,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Bill No.</label><span style="color: red"> * </span>
-                                                <input autoclose="false" type="text" numbersonly class="form-control"
+                                                <input autoclose="false" type="text" numbersonly autocomplete="off" class="form-control"
                                                 formControlName="billNo" 
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['billNo'].invalid) }">
                                             </div>
@@ -226,11 +226,11 @@
                                                                 formControlName="toPlace">
                                                     </td>    
                                                     <td>
-                                                        <input decimalonly autoclose="false" class="form-control"
+                                                        <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                                 formControlName="freightRs" (change)="calculateTotal()">
                                                     </td>    
                                                     <td>
-                                                        <input decimalonly autoclose="false" class="form-control"
+                                                        <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                                 formControlName="others" (change)="calculateTotal()">
                                                     </td>   
                                                     <td>
@@ -238,7 +238,7 @@
                                                                 formControlName="remarks1">
                                                     </td>   
                                                     <td>
-                                                        <input decimalonly autoclose="false" class="form-control"
+                                                        <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                                 formControlName="extras" (change)="calculateTotal()">
                                                     </td>   
                                                     <td>
@@ -246,7 +246,7 @@
                                                                 formControlName="remarks2">
                                                     </td>   
                                                     <td>
-                                                        <input decimalonly autoclose="false" class="form-control"
+                                                        <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                                 formControlName="nonGstAmt1" (change)="calculateTotal()">
                                                     </td>   
                                                     <td>
@@ -258,7 +258,7 @@
                                                                 formControlName="suppBillDetRemarks">
                                                     </td>   
                                                     <td>
-                                                        <input decimalonly autoclose="false" class="form-control"
+                                                        <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                                 formControlName="gtotal">
                                                     </td> 
                                                 </div>
@@ -474,7 +474,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="col-lg-2">
-                                                      <input decimalonly autoclose="false" class="form-control"
+                                                      <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                                 formControlName="freightAmt" >
                                                 </td>
                                                 <td class="col-lg-4">

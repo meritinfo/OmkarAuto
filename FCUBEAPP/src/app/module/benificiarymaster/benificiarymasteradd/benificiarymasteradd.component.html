@@ -84,7 +84,7 @@
                            <div class="col-sm-2">
                               <label for="horizontal-firstname-input" numbersonly
                                  class="col-form-label"> Pin Code </label>                              
-                              <input type="text" numbersonly maxlength="6" autofocus="autofocus" 
+                              <input type="text" numbersonly autocomplete="off" maxlength="6" autofocus="autofocus" 
                                  class="form-control" formControlName="pinCode">
                            </div> 
                            <div class="col-sm-4">
@@ -102,13 +102,13 @@
                            <div class="col-sm-2">
                               <label for="horizontal-firstname-input" 
                                  class="col-form-label"> Phone</label>
-                              <input type="text" numbersonly autofocus="autofocus" 
+                              <input type="text" numbersonly autocomplete="off" autofocus="autofocus" 
                                  class="form-control" formControlName="benPhone">
                            </div>                  
                            <div class="col-sm-2">
                               <label for="horizontal-firstname-input" 
                                  class="col-form-label"> Mobile</label>
-                              <input type="text" numbersonly autofocus="autofocus" 
+                              <input type="text" numbersonly autocomplete="off" autofocus="autofocus" 
                                  class="form-control" formControlName="benMobile"
                                  [ngClass]=>
                            </div>
@@ -147,7 +147,7 @@
                            <div class="col-sm-3">
                               <label for="horizontal-firstname-input" 
                                  class="col-form-label"> Bank Ac No</label>
-                              <input type="text" numbersonly  autofocus="autofocus"  (change)="chkDuplicateBenAccountNo()"
+                              <input type="text" numbersonly autocomplete="off"  autofocus="autofocus"  (change)="chkDuplicateBenAccountNo()"
                                  class="form-control" formControlName="benBankAcNo">
                            </div>
                            <div class="col-sm-2">
@@ -159,7 +159,7 @@
                            <div class="col-sm-2">
                               <label for="horizontal-firstname-input" 
                                  class="col-form-label">Amount Limit </label>
-                              <input type="text" decimalonly autofocus="autofocus" 
+                              <input type="text" decimalonly autocomplete="off" autofocus="autofocus" 
                                  class="form-control" formControlName="amountLimit" uppercaseonly>
                            </div>
                         </div>

@@ -91,7 +91,7 @@ export class HeaderComponent {
     // timer(0, 1200000) call the function immediately and every 1200 seconds 
     this.timerSubscription = timer(0, 1200000).pipe(
       map(() => {
-        var data = {"userName": this.user}
+        //var data = {"userName": this.user}
         this.loginModel.userName = this.user;
         this.sharedService.refreshToken(this.loginModel).subscribe((res: LoggedinUsermodel) => {
           sessionStorage.setItem("token", res.token);

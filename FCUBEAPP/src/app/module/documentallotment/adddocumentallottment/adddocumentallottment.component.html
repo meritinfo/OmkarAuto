@@ -43,7 +43,7 @@
                             <div class="mb-3">
                                 <label for="formrow-inputZip">Doc Num Code</label>
                                 <span style="color: red">*</span>
-                                <input numbersonly type="text" class="form-control"  
+                                <input numbersonly autocomplete="off" type="text" class="form-control"  
                                 formControlName="docNumCode" 
                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['docNumCode'].invalid) }">
                             </div>
@@ -63,7 +63,7 @@
                             <div class="mb-3">
                                 <label for="formrow-inputZip">Range From</label>
                                 <span style="color: red">*</span>
-                                <input numbersonly type="text" class="form-control"
+                                <input numbersonly autocomplete="off" type="text" class="form-control"
                                  formControlName="rangeFrom" maxlength="12"     
                                 (change)="checkDocumentRange()"
                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['rangeFrom'].invalid) }">
@@ -73,7 +73,7 @@
                             <div class="mb-3">
                                 <label for="formrow-inputZip">Range To</label>
                                 <span style="color: red">*</span>
-                                <input numbersonly type="text" class="form-control"
+                                <input numbersonly autocomplete="off" type="text" class="form-control"
                                 formControlName="rangeTo" maxlength="12"    
                                 (change)="checkDocumentRange()"    
                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['rangeTo'].invalid) }">
@@ -85,7 +85,7 @@
                             <div class="mb-3">
                                 <label for="formrow-inputZip">Doc Count</label>
                                 <span style="color: red">*</span>
-                                <input numbersonly autoclose="false" class="form-control"   
+                                <input numbersonly autocomplete="off" autoclose="false" class="form-control"   
                                 formControlName="docCount" maxlength="5"      
                                  [ngClass]="{ 'is-invalid': formSubmitted && (f['docCount'].invalid) }">
                             </div>

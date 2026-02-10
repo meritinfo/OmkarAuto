@@ -151,7 +151,7 @@
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         <label for="formrow-inputZip">Cash / Chq Amt</label>
-                                        <input decimalonly class="form-control" formControlName="cheqCashAmt" 
+                                        <input decimalonly autocomplete="off" class="form-control" formControlName="cheqCashAmt" 
                                         (change)="adjAmtChange()"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['cheqCashAmt'].invalid) }">
                                     </div>
@@ -170,7 +170,7 @@
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         <label for="formrow-inputZip">Total Amt</label>
-                                        <input decimalonly class="form-control" formControlName="totalAmt" >
+                                        <input decimalonly autocomplete="off" class="form-control" formControlName="totalAmt" >
                                     </div>
                                 </div>
                             </div>
@@ -178,7 +178,7 @@
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         <label for="formrow-inputZip">On A/C Amt</label>
-                                        <input decimalonly class="form-control" formControlName="onAcNewAmt" >
+                                        <input decimalonly autocomplete="off" class="form-control" formControlName="onAcNewAmt" >
                                     </div>
                                 </div>
                             </div>
@@ -235,7 +235,7 @@
                                                     </td>
                                                     <td>
                                                         <div class="mb-3">
-                                                            <input class="form-control" decimalonly (change)="adjAmtChange()" 
+                                                            <input class="form-control" decimalonly autocomplete="off" (change)="adjAmtChange()" 
                                                             formControlName="adjAmt">
                                                         </div>
                                                     </td>
@@ -249,7 +249,7 @@
                                                 <td>
                                                     <div class="mb-3">
                                                         <label for="formrow-inputZip">Adj Total Amt</label>
-                                                        <input decimalonly class="form-control" formControlName="onAcAdjAmt" >
+                                                        <input decimalonly autocomplete="off" class="form-control" formControlName="onAcAdjAmt" >
                                                     </div>
                                                 </td>
                                             </tr>                                     
@@ -336,65 +336,65 @@
                                                     formControlName="billLrDate">
                                             </td> 
                                             <td style="width: 120px;">
-                                                <input decimalonly autoclose="false" class="form-control"
+                                                <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                     formControlName="dueAmt">
                                                 <input type="hidden" autoclose="false" class="form-control"
                                                     formControlName="oldDueAmt">
                                             </td> 
                                             <td style="width: 120px;">
-                                                <input decimalonly autoclose="false" class="form-control"
+                                                <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                     formControlName="recdAmt" (change)="amtcheck(i,'recdAmt')">
                                             </td>  
                                             <td style="width: 120px;">
-                                                <input decimalonly autoclose="false" class="form-control"
+                                                <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                     formControlName="freightDed" (change)="amtcheck(i,'freightDed')">
                                             </td> 
                                             <td style="width: 100px;">
-                                                <input decimalonly autoclose="false" class="form-control"
+                                                <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                     formControlName="tdsDed" (change)="amtcheck(i,'tdsDed')">
                                             </td>   
                                             <td style="width: 100px;">
-                                                <input decimalonly autoclose="false" class="form-control"
+                                                <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                     formControlName="claimsDed" (change)="amtcheck(i,'claimsDed')">
                                             </td>   
                                             <td style="width: 100px;">
-                                                <input decimalonly autoclose="false" class="form-control"
+                                                <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                     formControlName="bankChrgDed" (change)="amtcheck(i,'bankChrgDed')">
                                             </td>    
                                             <td style="width: 100px;">
-                                                <input decimalonly autoclose="false" class="form-control"
+                                                <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                     formControlName="othersDed" (change)="amtcheck(i,'othersDed')">
                                             </td> 
                                             <td style="width: 100px;">
-                                                <input decimalonly autoclose="false" class="form-control"
+                                                <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                     formControlName="othersDed1" (change)="amtcheck(i,'othersDed1')">
                                             </td>   
                                             <td style="width: 100px;">
-                                                <input decimalonly autoclose="false" class="form-control"
+                                                <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                     formControlName="othersDed2" (change)="amtcheck(i,'othersDed2')">
                                             </td>   
                                             <td style="width: 100px;">
-                                                <input decimalonly autoclose="false" class="form-control"
+                                                <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                     formControlName="othersDed3" (change)="amtcheck(i,'othersDed3')">
                                             </td>                                               
                                             <!-- <td>
-                                                <input decimalonly autoclose="false" class="form-control"
+                                                <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                     formControlName="recoverable" (change)="amtcheck(i,'recoverable')">
                                             </td>                                              -->                                            
                                             <td style="width: 100px;">
-                                                <input decimalonly autoclose="false" class="form-control"
+                                                <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                     formControlName="totDed" >
                                             </td>   
                                             <td style="width: 100px;">
-                                                <input decimalonly autoclose="false" class="form-control"
+                                                <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                     formControlName="sdEmdDed" (change)="amtcheck(i,'sdEmdDed')">
                                             </td>  
                                             <td style="width: 100px;">
-                                                <input decimalonly autoclose="false" class="form-control"
+                                                <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                     formControlName="excessRecd" (change)="calTot()">
                                             </td> 
                                             <td style="width: 100px;">
-                                                <input decimalonly autoclose="false" class="form-control"
+                                                <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                     formControlName="others1Recd" (change)="calTot()">
                                             </td>  
                                             <td style="width: 100px;">
@@ -420,72 +420,72 @@
                                         <td></td>  
                                         <td style="width: 100px;">                                                
                                             <label for="formrow-inputZip">Tot Recd </label>
-                                            <input decimalonly autoclose="false" class="form-control"
+                                            <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="totalRecdAmt">
                                         </td>     
                                         <td style="width: 100px;">  
                                             <label for="formrow-inputZip">Tot FRT </label>
-                                            <input decimalonly autoclose="false" class="form-control"
+                                            <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="totalFreightDed">
                                         </td>   
                                         <td style="width: 100px;">    
                                             <label for="formrow-inputZip">Tot TDS </label>
-                                            <input decimalonly autoclose="false" class="form-control"
+                                            <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="totalTDSDed">
                                         </td> 
                                         <td style="width: 100px;">      
                                             <label for="formrow-inputZip">Tot Claim </label>
-                                            <input decimalonly autoclose="false" class="form-control"
+                                            <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="totalClaimsDed">
                                         </td>   
                                         <td style="width: 100px;">    
                                             <label for="formrow-inputZip">Tot Bank Chrg </label>
-                                            <input decimalonly autoclose="false" class="form-control"
+                                            <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="totalBankChrgDed">
                                         </td>   
                                         <td style="width: 100px;">    
                                             <label for="formrow-inputZip">Tot Oth Ded </label>
-                                            <input decimalonly autoclose="false" class="form-control"
+                                            <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="totalOthersDed">
                                         </td>   
                                         <td style="width: 100px;">    
                                             <label for="formrow-inputZip">Tot Cash Disc </label>
-                                            <input decimalonly autoclose="false" class="form-control"
+                                            <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="totalOthersDed1">
                                         </td> 
                                         <td style="width: 100px;">       
                                             <label for="formrow-inputZip">Tot Oth Ded2 </label>
-                                            <input decimalonly autoclose="false" class="form-control"
+                                            <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="totalOthersDed2">
                                         </td>   
                                         <td style="width: 100px;">    
                                             <label for="formrow-inputZip">Tot Oth Ded3 </label>
-                                            <input decimalonly autoclose="false" class="form-control"
+                                            <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="totalOthersDed3">
                                         </td>                                               
                                         <!-- <td>       
                                             <label for="formrow-inputZip">Tot Recov </label>
-                                            <input decimalonly autoclose="false" class="form-control"
+                                            <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="totalRecoverable">
                                         </td>                                                 -->
                                         <td style="width: 100px;"> 
                                             <label for="formrow-inputZip">Tot Ded </label>
-                                            <input decimalonly autoclose="false" class="form-control"
+                                            <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="totalDed">
                                         </td>    
                                         <td style="width: 100px;">   
                                             <label for="formrow-inputZip">Tot Sd Emd Ded </label>
-                                            <input decimalonly autoclose="false" class="form-control"
+                                            <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="totalSdEmdDed">
                                         </td>   
                                         <td style="width: 100px;">    
                                             <label for="formrow-inputZip">Tot Excess </label>
-                                            <input decimalonly autoclose="false" class="form-control"
+                                            <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="totalExcess">
                                         </td>    
                                         <td style="width: 100px;">   
                                             <label for="formrow-inputZip">Tot Ded Recd </label>
-                                            <input decimalonly autoclose="false" class="form-control"
+                                            <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="totalOthers1">
                                         </td>  
                                     </tr>
@@ -576,7 +576,7 @@
                     <div class="row">
                         <div class="col-lg-3">                                            
                             <label for="formrow-inputState">Cheque No</label>
-                            <input numbersonly class="form-control"    
+                            <input numbersonly autocomplete="off" class="form-control"    
                                 formControlName="chequeNo" maxlength="6" >
                         </div>                 
                         <div class="col-lg-2">                             

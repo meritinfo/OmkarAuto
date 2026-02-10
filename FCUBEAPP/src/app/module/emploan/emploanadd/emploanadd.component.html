@@ -68,7 +68,7 @@
                                     <div class="col-lg-3">
                                         <div class="mb-3">
                                             <label>Loan Amount</label><span style="color: red">*</span>
-                                            <input decimalonly type="text" class="form-control" 
+                                            <input decimalonly autocomplete="off" type="text" class="form-control" 
                                                 maxlength="20"
                                                 formControlName="loanAmt"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['loanAmt'].invalid) }">
@@ -79,7 +79,7 @@
                                     <div class="col-lg-3">
                                         <div class="mb-3">
                                             <label>EMI Amount</label><span style="color: red">*</span>
-                                            <input decimalonly type="text" class="form-control" 
+                                            <input decimalonly autocomplete="off" type="text" class="form-control" 
                                                 formControlName="repaymentMonths"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['repaymentMonths'].invalid) }">
                                         </div>

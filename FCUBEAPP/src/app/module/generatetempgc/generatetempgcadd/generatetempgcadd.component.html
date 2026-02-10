@@ -34,7 +34,7 @@
                                             <label for="formrow-inputCity">CN NO: </label>
                                             <span style="color: red">*</span>  
                                             <input uppercaseonly type="text" class="form-control" 
-                                            numbersonly maxlength="15" 
+                                            numbersonly autocomplete="off" maxlength="15" 
                                             formControlName="gcNoteNo" >
                                         </div>
                                     </div>
@@ -148,7 +148,7 @@
                                             <label for="formrow-inputZip">EWay Bill No</label>
                                             <span style="color: red">*</span>  
                                             <div class="hstack gap-1">
-                                                <input numbersonly type="text" class="form-control" 
+                                                <input numbersonly autocomplete="off" type="text" class="form-control" 
                                                     formControlName="ewayBillNo" maxlength="12"
                                                     [ngClass]="{'is-invalid': formSubmitted && (f['ewayBillNo'].invalid) }">
                                                 <button type="button" class="btn btn-primary"
@@ -199,7 +199,7 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Invoice Value</label>
-                                            <input type="text" decimalonly autoclose="false" class="form-control"
+                                            <input type="text" decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="goodsValue" >
                                         </div>
                                     </div>
@@ -274,7 +274,7 @@
                                     <div class="col-lg-2">
                                         <div class="mb-2">
                                             <label for="formrow-inputZip">Cnor Pin: </label>
-                                            <input numbersonly type="text" maxlength="6" 
+                                            <input numbersonly autocomplete="off" type="text" maxlength="6" 
                                                 class="form-control" formControlName="cnorPin">                                           
                                         </div>
                                     </div>
@@ -356,7 +356,7 @@
                                     <div class="col-lg-2">
                                         <div class="mb-2">
                                             <label for="formrow-inputZip">Cnee Pin: </label>
-                                            <input numbersonly type="text" maxlength="6" 
+                                            <input numbersonly autocomplete="off" type="text" maxlength="6" 
                                                 class="form-control" formControlName="cneePin" >                                           
                                         </div>
                                     </div>
@@ -371,7 +371,7 @@
                                         <div class="mb-2">
                                             <label for="formrow-inputZip">Cnee Mobile: </label>
                                             <span style="color: red">*</span>  
-                                            <input numbersonly type="text" maxlength="10" 
+                                            <input numbersonly autocomplete="off" type="text" maxlength="10" 
                                                 class="form-control" formControlName="cneeMob"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['cneeMob'].invalid) }" >                                           
                                         </div>
@@ -406,7 +406,7 @@
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Packages: </label><span style="color: red">*</span>  
-                                            <input numbersonly type="text" class="form-control" 
+                                            <input numbersonly autocomplete="off" type="text" class="form-control" 
                                             formControlName="noPackages" 
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['noPackages'].invalid) }">
                                         </div>
@@ -414,7 +414,7 @@
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Actual Wt: </label><span style="color: red">*</span>  
-                                            <input threedecimalonly type="text" maxlength="20"
+                                            <input threedecimalonly autocomplete="off" type="text" maxlength="20"
                                             class="form-control" formControlName="actualWt" 
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['actualWt'].invalid) }">
                                         </div>
@@ -422,7 +422,7 @@
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Charge wt: </label><span style="color: red">*</span>  
-                                            <input threedecimalonly type="text" maxlength="20"
+                                            <input threedecimalonly autocomplete="off" type="text" maxlength="20"
                                             class="form-control" formControlName="chargewt" 
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['chargewt'].invalid) }">
                                         </div>
@@ -492,7 +492,7 @@
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Owner Mobile: </label>
-                                            <input numbersonly type="text" maxlength="10"
+                                            <input numbersonly autocomplete="off" type="text" maxlength="10"
                                             class="form-control" formControlName="vehOwnerMobile" >
                                         </div>
                                     </div>   
@@ -555,7 +555,7 @@
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Driver Mob: </label><span style="color: red">*</span>
-                                            <input numbersonly type="text" class="form-control" 
+                                            <input numbersonly autocomplete="off" type="text" class="form-control" 
                                             formControlName="driverMob1" maxlength="10"
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['driverMob1'].invalid) }">
                                         </div>
@@ -677,7 +677,7 @@
                                                     formControlName="invDate">
                                                 </td>
                                                 <td class="col-lg-2">
-                                                    <input decimalonly type="text" class="form-control" 
+                                                    <input decimalonly autocomplete="off" type="text" class="form-control" 
                                                     formControlName="invValue">
                                                 </td>                                                
                                                 <td class="col-lg-1">

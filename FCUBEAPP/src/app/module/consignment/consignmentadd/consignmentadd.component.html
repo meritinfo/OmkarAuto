@@ -46,8 +46,8 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputState">GC Note No.</label>
                                     <span style="color: red">*</span>
-                                    <input numbersonly type="text" id="formrow-inputCity" class="form-control" 
-                                        numbersonly maxlength="15" 
+                                    <input numbersonly autocomplete="off" type="text" id="formrow-inputCity" class="form-control" 
+                                        numbersonly autocomplete="off" maxlength="15" 
                                         formControlName="gcNoteNo" (change)="chkLrDuplicate()"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['gcNoteNo'].invalid) }">
                                 </div>
@@ -211,7 +211,7 @@
                             <div class="col-lg-1">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">KMs</label>
-                                    <input type="text" numbersonly maxlength="8" class="form-control" 
+                                    <input type="text" numbersonly autocomplete="off" maxlength="8" class="form-control" 
                                         formControlName="kms">
                                 </div>
                             </div>
@@ -240,7 +240,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Invoice Value</label><span style="color: red">*</span>
-                                    <input type="text" decimalonly autoclose="false" class="form-control"
+                                    <input type="text" decimalonly autocomplete="off" autoclose="false" class="form-control"
                                         formControlName="invoiceValue" (change)="fillgrid()"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['invoiceValue'].invalid) }">
                                 </div>
@@ -337,7 +337,7 @@
                                                         formControlName="invDate">
                                                     </td>
                                                     <td class="col-lg-1">
-                                                        <input decimalonly type="text" class="form-control" 
+                                                        <input decimalonly autocomplete="off" type="text" class="form-control" 
                                                         formControlName="invValue">
                                                     </td>                                                
                                                     <td class="col-lg-1">
@@ -426,7 +426,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-4">
                                     <label for="formrow-inputZip">Cnor Mobile</label>
-                                    <input numbersonly class="form-control" formControlName="cnorMobile"
+                                    <input numbersonly autocomplete="off" class="form-control" formControlName="cnorMobile"
                                     maxlength="10">
                                 </div>
                             </div>                            
@@ -459,7 +459,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-4">
                                     <label for="formrow-inputZip">Cnor Pin</label>
-                                    <input numbersonly maxlength="6" class="form-control" 
+                                    <input numbersonly autocomplete="off" maxlength="6" class="form-control" 
                                     formControlName="cnorPin">
                                 </div>
                             </div>
@@ -506,7 +506,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-4">
                                     <label for="formrow-inputZip">Cnee Mobile</label><span style="color: red">*</span>
-                                    <input numbersonly class="form-control" formControlName="cneeMobile"
+                                    <input numbersonly autocomplete="off" class="form-control" formControlName="cneeMobile"
                                     maxlength="10"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['cneeMobile'].invalid) }">
                                 </div>
@@ -540,7 +540,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-4">
                                     <label for="formrow-inputZip">Cnee Pin</label>
-                                    <input numbersonly maxlength="6" class="form-control" 
+                                    <input numbersonly autocomplete="off" maxlength="6" class="form-control" 
                                     formControlName="cneePin">
                                 </div>
                             </div>
@@ -601,25 +601,25 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Load Length</label>
-                                    <input type="text" decimalonly class="form-control" formControlName="loadLength">
+                                    <input type="text" decimalonly autocomplete="off" class="form-control" formControlName="loadLength">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Load Width</label>
-                                    <input type="text" decimalonly class="form-control" formControlName="loadWidth">
+                                    <input type="text" decimalonly autocomplete="off" class="form-control" formControlName="loadWidth">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Load Height</label>
-                                    <input type="text" decimalonly class="form-control" formControlName="loadHeight">
+                                    <input type="text" decimalonly autocomplete="off" class="form-control" formControlName="loadHeight">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Load CFT</label>
-                                    <input type="text" decimalonly class="form-control" formControlName="loadCFT">
+                                    <input type="text" decimalonly autocomplete="off" class="form-control" formControlName="loadCFT">
                                 </div>
                             </div>
                         </div>
@@ -639,28 +639,28 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Actual Weight</label><span style="color: red">*</span>
-                                    <input type="text" threedecimalonly class="form-control" formControlName="actualWt"
+                                    <input type="text" threedecimalonly autocomplete="off" class="form-control" formControlName="actualWt"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['actualWt'].invalid) }">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Sender Weight</label><span style="color: red">*</span>
-                                    <input type="text" threedecimalonly class="form-control" formControlName="senderWt"
+                                    <input type="text" threedecimalonly autocomplete="off" class="form-control" formControlName="senderWt"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['senderWt'].invalid) }">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Charged Weight</label><span style="color: red">*</span>
-                                    <input type="text" threedecimalonly class="form-control" formControlName="chargewt"
+                                    <input type="text" threedecimalonly autocomplete="off" class="form-control" formControlName="chargewt"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['chargewt'].invalid) }">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Qty/Pkgs</label><span style="color: red">*</span>
-                                    <input numbersonly autoclose="false" formControlName="noPackages"  
+                                    <input numbersonly autocomplete="off" autoclose="false" formControlName="noPackages"  
                                         class="form-control"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['noPackages'].invalid) }">
                                 </div>
@@ -724,28 +724,28 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Rate</label>
-                                    <input type="text" decimalonly class="form-control"  
+                                    <input type="text" decimalonly autocomplete="off" class="form-control"  
                                         formControlName="rateRs" (change)="calcFrt()">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Freight</label>
-                                    <input type="text" decimalonly class="form-control"  
+                                    <input type="text" decimalonly autocomplete="off" class="form-control"  
                                         formControlName="freightRs" (change)="calcRate()" >
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Statistical</label>
-                                    <input type="text" decimalonly class="form-control"  
+                                    <input type="text" decimalonly autocomplete="off" class="form-control"  
                                         formControlName="statisticalRs" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">FOV</label>
-                                    <input type="text" decimalonly class="form-control"  
+                                    <input type="text" decimalonly autocomplete="off" class="form-control"  
                                         formControlName="fovRs" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
@@ -754,42 +754,42 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Door Coll</label>
-                                    <input type="text" decimalonly class="form-control"  
+                                    <input type="text" decimalonly autocomplete="off" class="form-control"  
                                         formControlName="doorCollRs" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Handling</label>
-                                    <input type="text" decimalonly class="form-control"  
+                                    <input type="text" decimalonly autocomplete="off" class="form-control"  
                                         formControlName="handlingRs" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Loading Detn</label>
-                                    <input type="text" decimalonly class="form-control"  
+                                    <input type="text" decimalonly autocomplete="off" class="form-control"  
                                         formControlName="loadingDetnRs" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Enroute</label>
-                                    <input type="text" decimalonly class="form-control"  
+                                    <input type="text" decimalonly autocomplete="off" class="form-control"  
                                         formControlName="enrouteRs" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Misc</label>
-                                    <input type="text" decimalonly class="form-control"  
+                                    <input type="text" decimalonly autocomplete="off" class="form-control"  
                                         formControlName="miscRs" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Door Del</label>
-                                    <input type="text" decimalonly class="form-control"  
+                                    <input type="text" decimalonly autocomplete="off" class="form-control"  
                                         formControlName="doorDelRs" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
@@ -798,35 +798,35 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">UnLoading</label>
-                                    <input type="text" decimalonly class="form-control"  
+                                    <input type="text" decimalonly autocomplete="off" class="form-control"  
                                         formControlName="unLoadingRs" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">UnLoading Detn</label>
-                                    <input type="text" decimalonly class="form-control"  
+                                    <input type="text" decimalonly autocomplete="off" class="form-control"  
                                         formControlName="unLoadingDetnRs" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Extras</label>
-                                    <input type="text" decimalonly class="form-control"  
+                                    <input type="text" decimalonly autocomplete="off" class="form-control"  
                                         formControlName="extrasRS" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Others</label>
-                                    <input type="text" decimalonly class="form-control"  
+                                    <input type="text" decimalonly autocomplete="off" class="form-control"  
                                         formControlName="othersRs" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Sub Total</label>
-                                    <input type="text" decimalonly class="form-control"  
+                                    <input type="text" decimalonly autocomplete="off" class="form-control"  
                                         formControlName="subTotalRs">
                                 </div>
                             </div> 
@@ -891,7 +891,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Non Gst Amt1</label>
-                                    <input type="text" decimalonly class="form-control" (change)="calculateTotalAmount()"
+                                    <input type="text" decimalonly autocomplete="off" class="form-control" (change)="calculateTotalAmount()"
                                         formControlName="nonGstAmt1" [ngClass]=>
                                 </div>
                             </div>                                  
@@ -905,7 +905,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Non Gst Amt2</label>
-                                    <input type="text" decimalonly class="form-control" (change)="calculateTotalAmount()"
+                                    <input type="text" decimalonly autocomplete="off" class="form-control" (change)="calculateTotalAmount()"
                                         formControlName="nonGstAmt2" [ngClass]=>
                                 </div>
                             </div>                                  
@@ -919,7 +919,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Net Total</label>
-                                    <input type="text" decimalonly class="form-control" 
+                                    <input type="text" decimalonly autocomplete="off" class="form-control" 
                                         formControlName="gtotalRs" [ngClass]=>
                                 </div>
                             </div>                                

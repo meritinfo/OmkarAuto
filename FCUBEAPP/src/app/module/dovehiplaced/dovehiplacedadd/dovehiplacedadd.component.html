@@ -120,7 +120,7 @@
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label >Vehicle Capacity: </label><span style="color: red">*</span>  
-                                            <input threedecimalonly class="form-control" formControlName="vehicleCapacity" 
+                                            <input threedecimalonly autocomplete="off" class="form-control" formControlName="vehicleCapacity" 
                                             (change)="onratepct()"
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleCapacity'].invalid) }">
                                         </div>
@@ -186,14 +186,14 @@
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Hire Rate: </label>
-                                            <input decimalonly type="text" class="form-control" 
+                                            <input decimalonly autocomplete="off" type="text" class="form-control" 
                                             (change)="onratepct()" formControlName="hireRate">
                                         </div>
                                     </div>  
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Hire Amount: </label><span style="color: red">*</span> 
-                                            <input decimalonly type="text" class="form-control" 
+                                            <input decimalonly autocomplete="off" type="text" class="form-control" 
                                             formControlName="hireAmt" 
                                             [ngClass]="{'is-invalid': formSubmitted && (f['hireAmt'].invalid)}">
                                         </div>

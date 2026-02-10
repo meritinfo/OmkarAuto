@@ -46,7 +46,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Bill Sl No</label><span style="color: red"> * </span>
-                                                <input autoclose="false" type="text" numbersonly class="form-control"
+                                                <input autoclose="false" type="text" numbersonly autocomplete="off" class="form-control"
                                                 formControlName="billSlNo"  (change)="chkBillDuplicateLLP()"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['billSlNo'].invalid) }">
                                             </div>
@@ -54,7 +54,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Bill No.</label><span style="color: red"> * </span>
-                                                <input autoclose="false" type="text" numbersonly class="form-control"
+                                                <input autoclose="false" type="text" numbersonly autocomplete="off" class="form-control"
                                                 formControlName="billNo" 
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['billNo'].invalid) }">
                                             </div>

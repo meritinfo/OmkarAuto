@@ -125,7 +125,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Defined Mileage</label>
-                                                <input class="form-control" decimalonly formControlName="definedMileage"
+                                                <input class="form-control" decimalonly autocomplete="off" formControlName="definedMileage"
                                                 (change)="onKmrChange()"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['definedMileage'].invalid) }">
                                             </div>
@@ -133,7 +133,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Closing KMR</label>
-                                                <input class="form-control" decimalonly formControlName="closingKMR"  
+                                                <input class="form-control" decimalonly autocomplete="off" formControlName="closingKMR"  
                                                 (change)="onKmrChange()"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['closingKMR'].invalid) }">
                                             </div>
@@ -141,21 +141,21 @@
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Opening KMR</label>
-                                                <input class="form-control" decimalonly formControlName="openingKMR" 
+                                                <input class="form-control" decimalonly autocomplete="off" formControlName="openingKMR" 
                                                 (change)="onKmrChange()">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Distance Trip KM</label>
-                                                <input class="form-control" decimalonly formControlName="distanceTripKM"
+                                                <input class="form-control" decimalonly autocomplete="off" formControlName="distanceTripKM"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['distanceTripKM'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity"> Lts Dsl To Be</label>
-                                                <input class="form-control" decimalonly formControlName="ltsDslToBe">
+                                                <input class="form-control" decimalonly autocomplete="off" formControlName="ltsDslToBe">
                                             </div>
                                         </div>
                                     </div>
@@ -233,7 +233,7 @@
                                                     formControlName="loadWt">
                                                 </td>
                                                 <td>
-                                                    <input decimalonly type="text" class="form-control" 
+                                                    <input decimalonly autocomplete="off" type="text" class="form-control" 
                                                     formControlName="unloadWt">
                                                 </td>
                                                 <td>
@@ -375,7 +375,7 @@
                                                     formControlName="detailID">
                                                 </td>
                                                 <td>
-                                                    <input type="text" decimalonly class="form-control" 
+                                                    <input type="text" decimalonly autocomplete="off" class="form-control" 
                                                     formControlName="ftAmount" (change)="onFastAmt()">
                                                 </td>
                                                 <td>
@@ -497,38 +497,38 @@
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Issued Dsl Ltrs</label>
-                                        <input class="form-control" decimalonly 
+                                        <input class="form-control" decimalonly autocomplete="off" 
                                         formControlName="issuedDslLtrs">
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Issued Dsl Amt</label>
-                                        <input class="form-control" decimalonly formControlName="issuedDslAmt">
+                                        <input class="form-control" decimalonly autocomplete="off" formControlName="issuedDslAmt">
                                     </div>
                                 </div>
                                 <!-- <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Open Bal Driver</label>
-                                        <input class="form-control" decimalonly formControlName="opBalDriver">
+                                        <input class="form-control" decimalonly autocomplete="off" formControlName="opBalDriver">
                                     </div>
                                 </div> -->
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Paid Driver Expenses</label>
-                                        <input class="form-control" decimalonly formControlName="paidDriverAdvance">
+                                        <input class="form-control" decimalonly autocomplete="off" formControlName="paidDriverAdvance">
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Expenses By Driver</label>
-                                        <input class="form-control" decimalonly formControlName="expensesByDriver">
+                                        <input class="form-control" decimalonly autocomplete="off" formControlName="expensesByDriver">
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Fastag Amount</label>
-                                        <input class="form-control" decimalonly (change)="calTotal()"
+                                        <input class="form-control" decimalonly autocomplete="off" (change)="calTotal()"
                                         formControlName="fastagAmount">
                                     </div>
                                 </div>
@@ -537,19 +537,19 @@
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Trip Total Freight</label>
-                                        <input class="form-control" decimalonly formControlName="tripTotalFreight">
+                                        <input class="form-control" decimalonly autocomplete="off" formControlName="tripTotalFreight">
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Expenses By Company</label>
-                                        <input class="form-control" decimalonly formControlName="expensesByComp">
+                                        <input class="form-control" decimalonly autocomplete="off" formControlName="expensesByComp">
                                     </div>
                                 </div> 
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Trip Total Expenses</label>
-                                        <input class="form-control" decimalonly formControlName="tripTotalExpenses"
+                                        <input class="form-control" decimalonly autocomplete="off" formControlName="tripTotalExpenses"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['tripTotalExpenses'].invalid) }" >
                                     </div>
                                 </div>
