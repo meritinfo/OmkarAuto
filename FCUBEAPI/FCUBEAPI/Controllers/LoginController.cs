@@ -38,10 +38,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        /// <summary>
-        /// Controller method for login to the application
-        /// </summary>
-        /// <param name="loginModel"></param>
+        
         [HttpPost("RefreshToken")]
         public async Task<IActionResult> RefreshToken(LoginModel request)
         {

@@ -7,7 +7,7 @@ export class Constants {
  // public static API_ENDPOINT = "/jrwapi/api/";
  // public static API_ENDPOINT = "/rafleetapi/api/";
  // public static API_ENDPOINT = "/lalitaapi/api/";
-  //public static API_ENDPOINT = "/fcubeapi/api/";
+ // public static API_ENDPOINT = "/fcubeapi/api/";
   //public static API_ENDPOINT = "/velapi/api/";
 
  //public static API_ENDPOINT = "http://103.180.163.199/fcubeapi/api/"; 
