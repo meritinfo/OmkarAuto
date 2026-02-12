@@ -79,7 +79,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@AttachPath", request.AttachPath),
                             new SqlParameter("@LoggedInUser", request.LoggedInUser)
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_RechargeRequestSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_BpclRechargeRequestSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -122,7 +122,7 @@ namespace FleetTrans.Repository
 
                         };
 
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getRechargeRequestList", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBpclRechargeRequestList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -180,7 +180,7 @@ namespace FleetTrans.Repository
 
                         };
 
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getRechargeRequestApproveList", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBpclRechargeRequestApproveList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -405,7 +405,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@LoggedInUser", req.ApprovedBy)
                         };
 
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_RechargeRequestApproveSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_BpclRechargeRequestApproveSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -440,7 +440,7 @@ namespace FleetTrans.Repository
                         {
                             new SqlParameter("@ReqId", requestModel.strRequest),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_RechargeRequestDelete", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_BpclRechargeRequestDelete", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -473,7 +473,7 @@ namespace FleetTrans.Repository
                         {
                             new SqlParameter("@VehicleNo", requestModel.strRequest),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehiBpclCardDetails", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBpclCardDetails", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -596,7 +596,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@TransactionId", request.TransactionId),
                             new SqlParameter("@LoggedInUser", request.LoggedInUser)
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_FleetCardReturnTransferSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_BpclReturnTransferSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -694,7 +694,7 @@ namespace FleetTrans.Repository
 
                         };
 
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getFleetCardReturnTransferList", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBpclReturnTransferList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {

@@ -184,33 +184,33 @@ dashboard: string ="";
     };
     dieselStmt(){
       this.dtOptions = {
-          pagingType: 'full_numbers',
-          pageLength: 50,
-          serverSide: true,
-          processing: true,
-          searching:false,   
+        pagingType: 'full_numbers',
+        pageLength: 50,
+        serverSide: true,
+        processing: true,
+        searching:false,   
         language: {
           zeroRecords: ''
         }, 
-          ajax: (dataTablesParameters: any, callback) => {
-            this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
-            this.filter.pageSize = dataTablesParameters.length;
-            this.filter.sortColumn = 'branch';
-            this.filter.sortOrder = 'asc';
-            this.filter.search = '';
-            callback({
-              recordsTotal: 0,
-              recordsFiltered: 0,
-              data: []
-            });
-            this.dieselstmtrptService.getDieselstmtrptList(this.filter).subscribe(resp => {
-               this.allDieselstmtrptlist = resp;
-                callback({
-                  recordsTotal: resp.pageMetaData.totalCount,
-                  recordsFiltered: resp.pageMetaData.totalCount,
-                  data: []
-                });
+        ajax: (dataTablesParameters: any, callback) => {
+          this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
+          this.filter.pageSize = dataTablesParameters.length;
+          this.filter.sortColumn = 'branch';
+          this.filter.sortOrder = 'asc';
+          this.filter.search = '';
+          callback({
+            recordsTotal: 0,
+            recordsFiltered: 0,
+            data: []
+          });
+          this.dieselstmtrptService.getDieselstmtrptList(this.filter).subscribe(resp => {
+            this.allDieselstmtrptlist = resp;
+              callback({
+                recordsTotal: resp.pageMetaData.totalCount,
+                recordsFiltered: resp.pageMetaData.totalCount,
+                data: []
               });
+            });
           }, 
           columns: [ 
           {
@@ -264,12 +264,12 @@ dashboard: string ="";
       this.filter.search      = this.loggedInUserID;
       this.filter.filterStr  = selectedDataVal.branch ;
       this.filter.filterStr1  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
-      this.filter.filterStr2  = "Y";
+      this.filter.filterStr2  = selectedDataVal.rptType;
   
       this.dieselstmtrptService.getDieselstmtrptExcel(this.filter).subscribe(resp => {
         if(resp.status){      
           let link = document.createElement("a");
-          link.download = "Diesel Statement Report" + "_" + new Date().getTime() + '.xlsx';
+          link.download = "DieselStatementReport" + "_" + new Date().getTime() + '.xlsx';
           link.href = "assets\\reports\\Download\\" + resp.message;
           link.click();
         }
