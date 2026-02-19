@@ -395,7 +395,7 @@ export class AddcostrecentryaddComponent {
         return;
       }
 
-      for (var i = 0; i < res.addCostRecDtlList.length; i++) {
+      for (let i = 0; i < res.addCostRecDtlList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("docYear")?.setValue(res.addCostRecDtlList[i].docYear);
         this.formArray.controls[i].get("docBranch")?.setValue(res.addCostRecDtlList[i].docBranch);  
@@ -424,7 +424,7 @@ export class AddcostrecentryaddComponent {
       
     this.addcostrecorveryrptService.getAddcostrecInnerGridList(this.requestmodel).subscribe((res) => {
       this.formArray.clear();
-      for (var i = 0; i < res.addCostRecDtlList.length; i++) {
+      for (let i = 0; i < res.addCostRecDtlList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("docYear")?.setValue(res.addCostRecDtlList[i].docYear);
         this.formArray.controls[i].get("docBranch")?.setValue(res.addCostRecDtlList[i].docBranch);  
@@ -545,7 +545,7 @@ export class AddcostrecentryaddComponent {
       totalAmount = parseFloat(selectedData.totalAmount);
     }   
     if(selectedData.divisionOption ==  "ME"){
-      for(var i = 0; i < selectedData.arrayList.length; i++){
+      for(let i = 0; i < selectedData.arrayList.length; i++){
         this.formArray.controls[i].get("costAmt")?.setValue("");   
         this.formArray.controls[i].get("othAmt")?.setValue("");   
         this.formArray.controls[i].get("totAmt")?.setValue(""); 
@@ -553,7 +553,7 @@ export class AddcostrecentryaddComponent {
       }   
     }
     else{
-      for(var i = 0; i < selectedData.arrayList.length; i++){
+      for(let i = 0; i < selectedData.arrayList.length; i++){
         if(selectedData.arrayList[i].selected){
           cnt = cnt + 1;
           var freightRs = 0 ,chargewt=0
@@ -567,7 +567,7 @@ export class AddcostrecentryaddComponent {
           totchargewt = totchargewt + chargewt;
         } 
       }
-      for(var i = 0; i < selectedData.arrayList.length; i++){
+      for(let i = 0; i < selectedData.arrayList.length; i++){
         if(selectedData.arrayList[i].selected){
           if(selectedData.divisionOption ==  "DF"){
             costAmt = (totalAmount *  parseFloat(selectedData.arrayList[i].freightRs))/totfreightRs
@@ -604,7 +604,7 @@ export class AddcostrecentryaddComponent {
     var selectedData = this.formUser.getRawValue();
     var tot = 0, totalAmount = 0, costTot = 0, othTot = 0, grossTot = 0
 
-    for(var i = 0; i < selectedData.arrayList.length; i++){
+    for(let i = 0; i < selectedData.arrayList.length; i++){
       if(selectedData.manualOrDateRange!='M'){
       if(selectedData.arrayList[i].selected){
         tot = 0
@@ -638,7 +638,7 @@ export class AddcostrecentryaddComponent {
         this.formArray.controls[i].get("othAmt")?.enable();
         totalAmount = totalAmount + tot;
         grossTot = grossTot + tot;
-    }
+      }
     }
     // var tdsRate = selectedData.tdsRate==""?0:parseFloat(selectedData.tdsRate);
     // var tdsAmt = grossTot * tdsRate/100;
@@ -666,12 +666,12 @@ export class AddcostrecentryaddComponent {
     var selectedData = this.formUser.getRawValue();
     var divOpt = e.target.value;
     if(divOpt ==  "ME"){
-      for(var i = 0; i < selectedData.arrayList.length; i++){
+      for(let i = 0; i < selectedData.arrayList.length; i++){
         this.formArray.controls[i].get("costAmt")?.enable();  
       }   
     }
     else{
-      for(var i = 0; i < selectedData.arrayList.length; i++){
+      for(let i = 0; i < selectedData.arrayList.length; i++){
         this.formArray.controls[i].get("costAmt")?.disable();  
       }   
     }
@@ -786,16 +786,16 @@ export class AddcostrecentryaddComponent {
     this.addcostrecmstmodel.loggedInUser        = this.loggedInUserID;
 
     if(this.addcostrecmstmodel.manualOrDateRange=="M"){      
-      for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+      for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
         this.formArray.controls[i].get("selected")?.setValue("Y");
       }
     }
 
-    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
       if (selectedDataValue.arrayList[i].selected){
         this.addcostrecmstmodel.addCostRecDtlList.push({
           'masterID' : "",
-          'addCostID' :"",
+          'addCostID' : "",
           'documentType':selectedDataValue.documentType.toString(),
           'docYear' : selectedDataValue.arrayList[i].docYear.toString(),
           'docBranch' : selectedDataValue.arrayList[i].docBranch.toString(),

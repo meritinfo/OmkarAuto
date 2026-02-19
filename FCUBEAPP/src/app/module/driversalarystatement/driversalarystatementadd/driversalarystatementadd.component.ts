@@ -247,11 +247,11 @@ exit(): void {
     this.driverSalaryStatementService.getDriverSalaryInnerGridList(this.requestmodel).subscribe((res) => {
       this.driversalarysearchlistmodel = res;
      
-      for (var i = 0; i < this.formArray.length; i++) {
+      for (let i = 0; i < this.formArray.length; i++) {
         this.formArray.removeAt(i);
      }     
       
-      for (var i = 0; i < res.driverSalarySearchList.length; i++) {
+      for (let i = 0; i < res.driverSalarySearchList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("vehicleNo")?.setValue(res.driverSalarySearchList[i].vehicleNo);
         this.formArray.controls[i].get("driverName")?.setValue(this.commonService.formatDate(res.driverSalarySearchList[i].driverName));
@@ -312,7 +312,7 @@ saveStatementDetails(): void {
   this.driversalarystatementmodel.yearId = this.year;
   this.driversalarystatementmodel.loggedInUser = this.loggedInUserID;
   this.driversalarystatementmodel.driverSalaryListData = [];
-  for (var i = 0; i < this.driversalarysearchlistmodel.driverSalarySearchList.length; i++) {
+  for (let i = 0; i < this.driversalarysearchlistmodel.driverSalarySearchList.length; i++) {
     //if (this.formDistanceMasterTrip.value.arrayList[i].toLocation != '') {
       this.driversalarystatementmodel.driverSalaryListData.push({
         'detailId':'', //this.driversalarysearchlistmodel.driverSalarySearchList.length > i ? this.driversalarystatementmodel.driverSalaryListData[i].detailId : '',
@@ -361,7 +361,7 @@ calculateTotal() {
   var netpay = 0;
   var diesellistarray=this.driversalarystatementmodel.driverSalaryListData;
 
-  for (var i = 0; i <  this.driversalarysearchlistmodel.driverSalarySearchList.length; i++) {
+  for (let i = 0; i <  this.driversalarysearchlistmodel.driverSalarySearchList.length; i++) {
     if (this.driversalarysearchlistmodel.driverSalarySearchList[i].selected) {
       if ( this.driversalarysearchlistmodel.driverSalarySearchList[i].salaryAmt !== "") {
         totalSalAmount = totalSalAmount + parseFloat( this.driversalarysearchlistmodel.driverSalarySearchList[i].salaryAmt);

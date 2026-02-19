@@ -178,7 +178,7 @@ export class EmpsalcalculationaddComponent {
     this.emppaycalculateService.getEmpPayEarnList(this.requestmodel).subscribe((res) => {
       this.emppaycalcmodel = res;
       this.formErnArray.clear();
-      for (var i = 0; i < res.empSalaryDtlList.length; i++) {
+      for (let i = 0; i < res.empSalaryDtlList.length; i++) {
         this.formErnArray.push(this.createInitialArray());
         this.formErnArray.controls[i].get("edName")?.setValue(res.empSalaryDtlList[i].edName);
         this.formErnArray.controls[i].get("edCode")?.setValue(res.empSalaryDtlList[i].edCode);
@@ -197,7 +197,7 @@ export class EmpsalcalculationaddComponent {
     this.emppaycalculateService.getEmpPayDedList(this.requestmodel).subscribe((res) => {
       this.emppaycalcmodel = res;
       this.formDedArray.clear();
-      for (var i = 0; i < res.empSalaryDtlList.length; i++) {
+      for (let i = 0; i < res.empSalaryDtlList.length; i++) {
         this.formDedArray.push(this.createInitialArray());
         this.formDedArray.controls[i].get("edName")?.setValue(res.empSalaryDtlList[i].edName);
         this.formDedArray.controls[i].get("edCode")?.setValue(res.empSalaryDtlList[i].edCode);
@@ -216,7 +216,7 @@ export class EmpsalcalculationaddComponent {
     this.emppaycalculateService.getEmpPayLeaveList(this.requestmodel).subscribe((res) => {
       this.emppaycalcmodel = res;
       this.formLeaveArray.clear();
-      for (var i = 0; i < res.empLeavesList.length; i++) {
+      for (let i = 0; i < res.empLeavesList.length; i++) {
         this.formLeaveArray.push(this.createLeaveArray());
         this.formLeaveArray.controls[i].get("leaveId")?.setValue(res.empLeavesList[i].leaveId);
         this.formLeaveArray.controls[i].get("leaveCode")?.setValue(res.empLeavesList[i].leaveCode);
@@ -238,7 +238,7 @@ export class EmpsalcalculationaddComponent {
     this.emppaycalculateService.getEmpPayLoanList(this.requestmodel).subscribe((res) => {
       this.emppaycalcmodel = res;
       this.formLoanArray.clear();
-      for (var i = 0; i < res.empLoanDtlList.length; i++) {
+      for (let i = 0; i < res.empLoanDtlList.length; i++) {
         this.formLoanArray.push(this.createLoanArray());
         this.formLoanArray.controls[i].get("loanId")?.setValue(res.empLoanDtlList[i].loanId);
         this.formLoanArray.controls[i].get("loanNumber")?.setValue(res.empLoanDtlList[i].loanNumber);
@@ -266,7 +266,7 @@ export class EmpsalcalculationaddComponent {
     this.emppaycalculateService.getEmpSalaryEarnList(this.empsalarymstmodel).subscribe((res) => {
       this.emppaycalcmodel = res;
       this.formErnArray.clear();
-      for (var i = 0; i < res.empSalaryDtlList.length; i++) {
+      for (let i = 0; i < res.empSalaryDtlList.length; i++) {
         this.formErnArray.push(this.createInitialArray());
         this.formErnArray.controls[i].get("edName")?.setValue(res.empSalaryDtlList[i].edName);
         this.formErnArray.controls[i].get("edCode")?.setValue(res.empSalaryDtlList[i].edCode);
@@ -285,7 +285,7 @@ export class EmpsalcalculationaddComponent {
     this.emppaycalculateService.getEmpSalaryDedList(this.empsalarymstmodel).subscribe((res) => {
       this.emppaycalcmodel = res;
       this.formDedArray.clear();
-      for (var i = 0; i < res.empSalaryDtlList.length; i++) {
+      for (let i = 0; i < res.empSalaryDtlList.length; i++) {
         this.formDedArray.push(this.createInitialArray());
         this.formDedArray.controls[i].get("edName")?.setValue(res.empSalaryDtlList[i].edName);
         this.formDedArray.controls[i].get("edCode")?.setValue(res.empSalaryDtlList[i].edCode);
@@ -305,7 +305,7 @@ export class EmpsalcalculationaddComponent {
     this.emppaycalculateService.getEmpLeaveList(this.empleave).subscribe((res) => {
       this.emppaycalcmodel = res;
       this.formLeaveArray.clear();
-      for (var i = 0; i < res.empLeavesList.length; i++) {
+      for (let i = 0; i < res.empLeavesList.length; i++) {
         this.formLeaveArray.push(this.createLeaveArray());
         this.formLeaveArray.controls[i].get("leaveId")?.setValue(res.empLeavesList[i].leaveId);
         this.formLeaveArray.controls[i].get("leaveCode")?.setValue(res.empLeavesList[i].leaveCode);
@@ -335,7 +335,7 @@ export class EmpsalcalculationaddComponent {
     this.emppaycalculateService.getEmpLoanList(this.requestmodel).subscribe((res) => {
       this.emppaycalcmodel = res;
       this.formLoanArray.clear();
-      for (var i = 0; i < res.empLoanDtlList.length; i++) {
+      for (let i = 0; i < res.empLoanDtlList.length; i++) {
         this.formLoanArray.push(this.createLoanArray());
         this.formLoanArray.controls[i].get("loanId")?.setValue(res.empLoanDtlList[i].loanId);
         this.formLoanArray.controls[i].get("loanNumber")?.setValue(res.empLoanDtlList[i].loanNumber);
@@ -431,7 +431,7 @@ export class EmpsalcalculationaddComponent {
     var payday = parseFloat(totdays)-parseFloat(absDays)
 
     if(payday>=15){
-      for (var i = 0; i < selectedDataVal.arrayLeaveList.length; i++) {
+      for (let i = 0; i < selectedDataVal.arrayLeaveList.length; i++) {
         if(selectedDataVal.arrayLeaveList[i].leaveCode == "CL" ){          
             this.formLeaveArray.controls[i].get("accumLeaves")?.setValue("1"); 
         }
@@ -444,7 +444,7 @@ export class EmpsalcalculationaddComponent {
       }
     } 
     else{
-      for (var i = 0; i < selectedDataVal.arrayLeaveList.length; i++) {
+      for (let i = 0; i < selectedDataVal.arrayLeaveList.length; i++) {
         this.formLeaveArray.controls[i].get("accumLeaves")?.setValue("0"); 
       }
     }     
@@ -469,7 +469,7 @@ export class EmpsalcalculationaddComponent {
     var netpay = 0;
 
     //earning cal
-    for (var i = 0; i < selectedDataVal.arrayErnList.length; i++) {
+    for (let i = 0; i < selectedDataVal.arrayErnList.length; i++) {
       if(parseFloat(payDay)==parseFloat(totdays)){ 
         ern = parseFloat(selectedDataVal.arrayErnList[i].actAmt);   
       }
@@ -484,7 +484,7 @@ export class EmpsalcalculationaddComponent {
     } 
 
     //deduction cal
-    for (var i = 0; i < selectedDataVal.arrayDedList.length; i++) {
+    for (let i = 0; i < selectedDataVal.arrayDedList.length; i++) {
       ded = parseFloat(selectedDataVal.arrayDedList[i].actAmt); 
       
       if(selectedDataVal.arrayDedList[i].edCode=='3') {
@@ -524,7 +524,7 @@ export class EmpsalcalculationaddComponent {
   calTotAdjLeaves(){
     var selectedDataVal = this.formUser.getRawValue();
     var totAdjLv = 0;
-    for (var i = 0; i < selectedDataVal.arrayLeaveList.length; i++) {
+    for (let i = 0; i < selectedDataVal.arrayLeaveList.length; i++) {
       if(selectedDataVal.arrayLeaveList[i].adjLeaves == "" ){          
         totAdjLv = totAdjLv + 0 ; 
       }
@@ -592,7 +592,7 @@ export class EmpsalcalculationaddComponent {
     var grossded = 0;
     var netpay = 0;
     var selectedDataVal = this.formUser.getRawValue();
-    for (var i = 0; i < selectedDataVal.arrayErnList.length; i++) {
+    for (let i = 0; i < selectedDataVal.arrayErnList.length; i++) {
       grossern = grossern + parseFloat(selectedDataVal.arrayErnList[i].edAmt); 
     } 
      
@@ -611,7 +611,7 @@ export class EmpsalcalculationaddComponent {
     var grossded = 0;
     var netpay = 0;
     var selectedDataVal = this.formUser.getRawValue();
-    for (var i = 0; i < selectedDataVal.arrayDedList.length; i++) {
+    for (let i = 0; i < selectedDataVal.arrayDedList.length; i++) {
       grossded = grossded + parseFloat(selectedDataVal.arrayDedList[i].edAmt); 
     } 
      
@@ -879,7 +879,7 @@ export class EmpsalcalculationaddComponent {
 
     this.emppaycalcmodel.empSalaryDtlList = [];
 
-    for (var i = 0; i < selectedDataVal.arrayErnList.length; i++) {
+    for (let i = 0; i < selectedDataVal.arrayErnList.length; i++) {
       if(selectedDataVal.arrayErnList[i].edCode != "" && selectedDataVal.arrayErnList[i].edAmt != ""){
         this.emppaycalcmodel.empSalaryDtlList.push({
           'masterId': '',
@@ -894,7 +894,7 @@ export class EmpsalcalculationaddComponent {
       }
     }
 
-    for (var i = 0; i < selectedDataVal.arrayDedList.length; i++) {
+    for (let i = 0; i < selectedDataVal.arrayDedList.length; i++) {
       if(selectedDataVal.arrayDedList[i].edCode != "" && selectedDataVal.arrayDedList[i].edAmt != ""){
         this.emppaycalcmodel.empSalaryDtlList.push({
           'masterId': '',
@@ -927,7 +927,7 @@ export class EmpsalcalculationaddComponent {
     
     this.emppaycalcmodel.empLeavesList = [];
 
-    for (var i = 0; i < selectedDataVal.arrayLeaveList.length; i++) {
+    for (let i = 0; i < selectedDataVal.arrayLeaveList.length; i++) {
       if(selectedDataVal.arrayLeaveList[i].leaveId != "" ){
         var totleave = parseFloat(selectedDataVal.arrayLeaveList[i].totalLeaves) + parseFloat(selectedDataVal.arrayLeaveList[i].accumLeaves)
         this.emppaycalcmodel.empLeavesList.push({
@@ -946,7 +946,7 @@ export class EmpsalcalculationaddComponent {
 
     this.emppaycalcmodel.empLoanDtlList = [];
 
-    for (var i = 0; i < selectedDataVal.arrayLoanList.length; i++) {
+    for (let i = 0; i < selectedDataVal.arrayLoanList.length; i++) {
       if(selectedDataVal.arrayLoanList[i].leaveId != "" ){
         this.emppaycalcmodel.empLoanDtlList.push({
           'transId': '',

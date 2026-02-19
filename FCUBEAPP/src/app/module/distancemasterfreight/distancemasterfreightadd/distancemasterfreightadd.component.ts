@@ -117,7 +117,7 @@ dashboard: string ="";
     this.distanceMasterFreightService.getFreightInnerGridList(this.requestmodel).subscribe((res) => {
       this.distancemstfrtmodel = res;
       this.formArray.clear();
-      for (var i = 0; i < res.distanceDetailsFreightList.length; i++) {
+      for (let i = 0; i < res.distanceDetailsFreightList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("fromLocation")?.setValue(this.locationList.find(e => e.dataId == res.distanceDetailsFreightList[i].fromLocation));
         this.formArray.controls[i].get("toLocation")?.setValue(this.locationList.find(e => e.dataId == res.distanceDetailsFreightList[i].toLocation));
@@ -141,7 +141,7 @@ dashboard: string ="";
       this.formArray.controls[index].get("toLocation")?.setValue("");
       return;
     }
-    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
       if(ToPlace == selectedDataValue.arrayList[i].toLocation.dataId)
       {
         this.toasterService.warning("To location already exits in grid");
@@ -232,7 +232,7 @@ dashboard: string ="";
     this.distancemasterfreightmodel.loggedInUser  = this.loggedInUserID;
 
     this.distancemasterfreightmodel.distanceDetailsFreightList = [];
-    for (var i = 0; i < this.formDistanceMasterFreight.value.arrayList.length; i++) {
+    for (let i = 0; i < this.formDistanceMasterFreight.value.arrayList.length; i++) {
       if (this.formDistanceMasterFreight.value.arrayList[i].toLocation != '') {
         this.distancemasterfreightmodel.distanceDetailsFreightList.push({     
           'masterID': '',

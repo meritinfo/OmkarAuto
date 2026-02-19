@@ -125,7 +125,7 @@ dashboard: string ="";
     this.empsalaryService.getEmpSalaryEarnList(this.requestmodel).subscribe((res) => {
       this.empsalarymstmodel = res;
       this.formErnArray.clear();
-      for (var i = 0; i < res.empSalaryDtlList.length; i++) {
+      for (let i = 0; i < res.empSalaryDtlList.length; i++) {
         this.formErnArray.push(this.createInitialArray());
         this.formErnArray.controls[i].get("edCode")?.setValue(res.empSalaryDtlList[i].edCode);
         this.formErnArray.controls[i].get("edAmt")?.setValue(res.empSalaryDtlList[i].edAmt);
@@ -138,7 +138,7 @@ dashboard: string ="";
     this.empsalaryService.getEmpSalaryDedList(this.requestmodel).subscribe((res) => {
       this.empsalarymstmodel = res;
       this.formDedArray.clear();
-      for (var i = 0; i < res.empSalaryDtlList.length; i++) {
+      for (let i = 0; i < res.empSalaryDtlList.length; i++) {
         this.formDedArray.push(this.createInitialArray());
         this.formDedArray.controls[i].get("edCode")?.setValue(res.empSalaryDtlList[i].edCode);
         this.formDedArray.controls[i].get("edAmt")?.setValue(res.empSalaryDtlList[i].edAmt);
@@ -335,7 +335,7 @@ dashboard: string ="";
 
     this.empsalarymstmodel.empSalaryDtlList = [];
     var grsAmt = 0;
-    for (var i = 0; i < selectedDataVal.arrayErnList.length; i++) {
+    for (let i = 0; i < selectedDataVal.arrayErnList.length; i++) {
       if(selectedDataVal.arrayErnList[i].edCode != "" && selectedDataVal.arrayErnList[i].edAmt != ""){
         grsAmt = grsAmt + parseFloat(selectedDataVal.arrayErnList[i].edAmt);
         this.empsalarymstmodel.empSalaryDtlList.push({
@@ -356,7 +356,7 @@ dashboard: string ="";
       return;
     }
 
-    for (var i = 0; i < selectedDataVal.arrayDedList.length; i++) {
+    for (let i = 0; i < selectedDataVal.arrayDedList.length; i++) {
       if(selectedDataVal.arrayDedList[i].edCode != "" && selectedDataVal.arrayDedList[i].edAmt != ""){
         this.empsalarymstmodel.empSalaryDtlList.push({
           'masterId': '',

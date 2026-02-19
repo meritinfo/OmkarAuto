@@ -520,7 +520,7 @@ dashboard: string ="";
       this.formMrArray.clear();
       this.formDelvAckArray.clear();
 
-      for (var i = 0; i < res.invList.length; i++) {
+      for (let i = 0; i < res.invList.length; i++) {
         this.formInvArray.push(this.createInvInitialArray());
         this.formInvArray.controls[i].get("ewayBillNo")?.setValue(res.invList[i].ewayBillNo);
         this.formInvArray.controls[i].get("ewayBillDate")?.setValue(res.invList[i].ewayBillDate);
@@ -536,7 +536,7 @@ dashboard: string ="";
         this.formInvArray.controls[i].get("invValue")?.disable();     
       }    
 
-      for (var i = 0; i < res.chlnList.length; i++) {
+      for (let i = 0; i < res.chlnList.length; i++) {
         this.formChlnArray.push(this.createChlnInitialArray());
         this.formChlnArray.controls[i].get("challanNo")?.setValue(res.chlnList[i].challanNo);
         this.formChlnArray.controls[i].get("challanDate")?.setValue(res.chlnList[i].challanDate);
@@ -570,7 +570,7 @@ dashboard: string ="";
         this.formChlnArray.controls[i].get("balance")?.disable();
       }         
       
-      for (var i = 0; i < res.lhpmList.length; i++) {
+      for (let i = 0; i < res.lhpmList.length; i++) {
         this.formLhpmArray.push(this.createLhpmInitialArray());
         this.formLhpmArray.controls[i].get("pmtStation")?.setValue(res.lhpmList[i].pmtStation);
         this.formLhpmArray.controls[i].get("pmtNo")?.setValue(res.lhpmList[i].pmtNo);
@@ -612,7 +612,7 @@ dashboard: string ="";
         this.formLhpmArray.controls[i].get("extraRemarks")?.disable();
       }         
       
-      for (var i = 0; i < res.billList.length; i++) {
+      for (let i = 0; i < res.billList.length; i++) {
         this.formBillArray.push(this.createBillInitialArray());
         this.formBillArray.controls[i].get("billingStation")?.setValue(res.billList[i].billingStation);
         this.formBillArray.controls[i].get("billNo")?.setValue(res.billList[i].billNo);
@@ -643,7 +643,7 @@ dashboard: string ="";
         this.formBillArray.controls[i].get("igstAmt")?.disable();
         this.formBillArray.controls[i].get("gtotal")?.disable();
       }    
-      for (var i = 0; i < res.dprList.length; i++) {
+      for (let i = 0; i < res.dprList.length; i++) {
         this.formDprArray.push(this.createDprInitialArray());
         this.formDprArray.controls[i].get("dprBranch")?.setValue(res.dprList[i].dprBranch);
         this.formDprArray.controls[i].get("dprSlNo")?.setValue(res.dprList[i].dprSlNo);
@@ -658,7 +658,7 @@ dashboard: string ="";
         this.formDprArray.controls[i].get("chargeWt")?.disable();
         this.formDprArray.controls[i].get("totFreightAmt")?.disable();     
       }    
-      for (var i = 0; i < res.mrList.length; i++) {
+      for (let i = 0; i < res.mrList.length; i++) {
         this.formMrArray.push(this.createMrInitialArray());
         this.formMrArray.controls[i].get("mrNo")?.setValue(res.mrList[i].mrNo);
         this.formMrArray.controls[i].get("mrDate")?.setValue(res.mrList[i].mrDate);
@@ -681,7 +681,7 @@ dashboard: string ="";
         this.formMrArray.controls[i].get("excessRecd")?.disable();  
         this.formMrArray.controls[i].get("dedRecovery")?.disable();  
       }    
-      for (var i = 0; i < res.delAckList.length; i++) {
+      for (let i = 0; i < res.delAckList.length; i++) {
         this.formDelvAckArray.push(this.createDelvAckInitialArray());
         this.formDelvAckArray.controls[i].get("ackBranch")?.setValue(res.delAckList[i].ackBranch);
         this.formDelvAckArray.controls[i].get("ackSlNo")?.setValue(res.delAckList[i].ackSlNo );
@@ -718,7 +718,7 @@ dashboard: string ="";
         this.formDelvAckArray.controls[i].get("podDelayDays")?.disable(); 
         this.formDelvAckArray.controls[i].get("netPayable")?.disable(); 
       }  
-       for (var i = 0; i < res.billSubmitList.length; i++) {
+       for (let i = 0; i < res.billSubmitList.length; i++) {
         this.formDprArray.push(this.createBillSubmitInitialArray());
         this.formDprArray.controls[i].get("billSubmitNo")?.setValue(res.billSubmitList[i].billSubmitNo);
         this.formDprArray.controls[i].get("submitNo")?.setValue(res.billSubmitList[i].submitNo);

@@ -513,7 +513,7 @@ dashboard: string ="";
       this.formFasttagArray.clear();
       this.formCmpExpTypeArray.clear();
 
-      for (var i = 0; i < res.driverList.length; i++) {
+      for (let i = 0; i < res.driverList.length; i++) {
         this.formDriverArray.push(this.createDriverArray());
         this.formDriverArray.controls[i].get("pmtId")?.setValue(res.driverList[i].pmtId);
         this.formDriverArray.controls[i].get("pmtBranch")?.setValue(res.driverList[i].pmtBranch);
@@ -530,7 +530,7 @@ dashboard: string ="";
         this.formDriverArray.controls[i].get("amountPaid")?.disable();
         this.formDriverArray.controls[i].get("remarks")?.disable();
       }
-      for (var i = 0; i < res.routeList.length; i++) {
+      for (let i = 0; i < res.routeList.length; i++) {
         this.formRouteArray.push(this.createRouteArray());
         this.formRouteArray.controls[i].get("loadId")?.setValue(res.routeList[i].loadId);
         this.formRouteArray.controls[i].get("loadBranch")?.setValue(res.routeList[i].loadBranch);
@@ -562,7 +562,7 @@ dashboard: string ="";
         this.formRouteArray.controls[i].get("hireAmt")?.disable();
         this.formRouteArray.controls[i].get("remarks")?.disable();
       }
-      for (var i = 0; i < res.dieselList.length; i++) {
+      for (let i = 0; i < res.dieselList.length; i++) {
         this.formDieselArray.push(this.createDieselArray());
         this.formDieselArray.controls[i].get("detailID")?.setValue(res.dieselList[i].detailID);
         this.formDieselArray.controls[i].get("transDate")?.setValue(this.commonService.formatDate(res.dieselList[i].transDate));
@@ -581,7 +581,7 @@ dashboard: string ="";
         this.formDieselArray.controls[i].get("remarks")?.disable();
       }
 
-      for (var i = 0; i < res.fasttagList.length; i++) {
+      for (let i = 0; i < res.fasttagList.length; i++) {
         this.formFasttagArray.push(this.createFasttagArray());
         this.formFasttagArray.controls[i].get("detailID")?.setValue(res.fasttagList[i].detailID);
         this.formFasttagArray.controls[i].get("transDate")?.setValue(this.commonService.formatDate(res.fasttagList[i].transDate));
@@ -596,7 +596,7 @@ dashboard: string ="";
       }
 
       
-      for (var i = 0; i < res.cmpExpList.length; i++) {
+      for (let i = 0; i < res.cmpExpList.length; i++) {
         this.formCmpExpTypeArray.push(this.createTripCmpExpArray());
         this.formCmpExpTypeArray.controls[i].get("enrouteExpId")?.setValue(res.cmpExpList[i].enrouteExpId);
         this.formCmpExpTypeArray.controls[i].get("expId")?.setValue(res.cmpExpList[i].expId);
@@ -639,7 +639,7 @@ dashboard: string ="";
       this.formFasttagArray.clear();
       this.formCmpExpTypeArray.clear();
       
-      for (var i = 0; i < res.driverList.length; i++) {
+      for (let i = 0; i < res.driverList.length; i++) {
         this.formDriverArray.push(this.createDriverArray());
         this.formDriverArray.controls[i].get("pmtId")?.setValue(res.driverList[i].pmtId);
         this.formDriverArray.controls[i].get("pmtBranch")?.setValue(res.driverList[i].pmtBranch);
@@ -655,7 +655,7 @@ dashboard: string ="";
         this.formDriverArray.controls[i].get("amountPaid")?.disable();
         this.formDriverArray.controls[i].get("remarks")?.disable();
       }
-      for (var i = 0; i < res.routeList.length; i++) {
+      for (let i = 0; i < res.routeList.length; i++) {
         this.formRouteArray.push(this.createRouteArray());
         this.formRouteArray.controls[i].get("loadId")?.setValue(res.routeList[i].loadId);
         this.formRouteArray.controls[i].get("loadBranch")?.setValue(res.routeList[i].loadBranch);
@@ -685,7 +685,7 @@ dashboard: string ="";
         this.formRouteArray.controls[i].get("hireAmt")?.disable();
         this.formRouteArray.controls[i].get("remarks")?.disable();
       }
-      for (var i = 0; i < res.dieselList.length; i++) {
+      for (let i = 0; i < res.dieselList.length; i++) {
         this.formDieselArray.push(this.createDieselArray());
         this.formDieselArray.controls[i].get("detailID")?.setValue(res.dieselList[i].detailID);
         this.formDieselArray.controls[i].get("transDate")?.setValue(this.commonService.formatDate(res.dieselList[i].transDate));
@@ -701,7 +701,7 @@ dashboard: string ="";
         this.formDieselArray.controls[i].get("remarks")?.disable();
       }
 
-      for (var i = 0; i < res.fasttagList.length; i++) {
+      for (let i = 0; i < res.fasttagList.length; i++) {
         this.formFasttagArray.push(this.createFasttagArray());
         this.formFasttagArray.controls[i].get("detailID")?.setValue(res.fasttagList[i].detailID);
         this.formFasttagArray.controls[i].get("transDate")?.setValue(this.commonService.formatDate(res.fasttagList[i].transDate));
@@ -713,7 +713,7 @@ dashboard: string ="";
         this.formFasttagArray.controls[i].get("remarks")?.disable();
       }
       
-      for (var i = 0; i < res.drExpList.length; i++) {
+      for (let i = 0; i < res.drExpList.length; i++) {
         this.formDrExpTypeArray.push(this.createTripDrExpArray());
         this.formDrExpTypeArray.controls[i].get("expId")?.setValue(res.drExpList[i].expId);
         this.formDrExpTypeArray.controls[i].get("expParticulars")?.setValue(res.drExpList[i].expParticulars);
@@ -724,7 +724,7 @@ dashboard: string ="";
         this.formDrExpTypeArray.controls[i].get("expAmt")?.disable();
       }
       
-      for (var i = 0; i < res.cmpExpList.length; i++) {
+      for (let i = 0; i < res.cmpExpList.length; i++) {
         this.formCmpExpTypeArray.push(this.createTripCmpExpArray());
         this.formCmpExpTypeArray.controls[i].get("expId")?.setValue(res.cmpExpList[i].expId);
         this.formCmpExpTypeArray.controls[i].get("expParticulars")?.setValue(res.cmpExpList[i].expParticulars);
@@ -867,7 +867,7 @@ dashboard: string ="";
   onExpAmt(){    
     var expensesByDriver = 0;
     var selectedDataValue = this.formTripsheet.getRawValue();
-    for (var i = 0; i < selectedDataValue.drExpList.length; i++) {
+    for (let i = 0; i < selectedDataValue.drExpList.length; i++) {
       if(selectedDataValue.drExpList[i].expId!=''){
         expensesByDriver = expensesByDriver + parseFloat(selectedDataValue.drExpList[i].expAmt);
       }
@@ -1025,7 +1025,7 @@ dashboard: string ="";
     this.tripsheetmodel.fasttagList = [];
     this.tripsheetmodel.drExpList = [];
 
-    for (var i = 0; i < selectedDataValue.driverList.length; i++) {
+    for (let i = 0; i < selectedDataValue.driverList.length; i++) {
       if(selectedDataValue.driverList[i].pmtId!=''){
         this.tripsheetmodel.driverList.push({
           'pmtId': selectedDataValue.driverList[i].pmtId,
@@ -1039,7 +1039,7 @@ dashboard: string ="";
       }
     }
     
-    for (var i = 0; i < selectedDataValue.routeList.length; i++) {
+    for (let i = 0; i < selectedDataValue.routeList.length; i++) {
       if(selectedDataValue.routeList[i].loadId!=''){
         var loadingfrom= this.locationList.find(e => e.dataName == selectedDataValue.routeList[i].loadingFrom) 
         var loadingto= this.locationList.find(e => e.dataName == selectedDataValue.routeList[i].loadingTo) 
@@ -1066,7 +1066,7 @@ dashboard: string ="";
       }
     }
 
-    for (var i = 0; i < selectedDataValue.dieselList.length; i++) {
+    for (let i = 0; i < selectedDataValue.dieselList.length; i++) {
       if(selectedDataValue.dieselList[i].detailID!=''){
         this.tripsheetmodel.dieselList.push({
           'detailID': selectedDataValue.dieselList[i].detailID,
@@ -1079,7 +1079,7 @@ dashboard: string ="";
       }
     }
     
-    for (var i = 0; i < selectedDataValue.fasttagList.length; i++) {
+    for (let i = 0; i < selectedDataValue.fasttagList.length; i++) {
       if(selectedDataValue.fasttagList[i].detailID!=''){
         this.tripsheetmodel.fasttagList.push({
           'detailID': selectedDataValue.fasttagList[i].detailID,
@@ -1090,7 +1090,7 @@ dashboard: string ="";
       }
     }
     
-    for (var i = 0; i < selectedDataValue.drExpList.length; i++) {
+    for (let i = 0; i < selectedDataValue.drExpList.length; i++) {
       if(selectedDataValue.drExpList[i].expId!=''){
         this.tripsheetmodel.drExpList.push({
           'expId': selectedDataValue.drExpList[i].expId,

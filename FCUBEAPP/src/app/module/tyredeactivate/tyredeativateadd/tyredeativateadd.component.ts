@@ -193,7 +193,7 @@ dashboard: string ="";
         return;
       }
       else{
-        for (var i = 0; i < res.tyreDeActivateDtlList.length; i++) {
+        for (let i = 0; i < res.tyreDeActivateDtlList.length; i++) {
           this.formTyreArray.push(this.createTyreArray());
           this.formTyreArray.controls[i].get("brandId")?.setValue(res.tyreDeActivateDtlList[i].brandId);
           this.formTyreArray.controls[i].get("tyreId")?.setValue(this.tyreList.find(e=> e.dataId == res.tyreDeActivateDtlList[i].tyreId));
@@ -275,7 +275,7 @@ dashboard: string ="";
     this.tyredeactivateService.getTyredeactivateMasterInnerGridList(this.requestmodel).subscribe((res) => {
       this.formTyreArray.clear();
       this.tyredeactivate = res;
-      for (var i = 0; i < res.tyreDeActivateDtlList.length; i++) {
+      for (let i = 0; i < res.tyreDeActivateDtlList.length; i++) {
         this.formTyreArray.push(this.createTyreArray());
         this.formTyreArray.controls[i].get("brandId")?.setValue(res.tyreDeActivateDtlList[i].brandId);
         this.formTyreArray.controls[i].get("tyreId")?.setValue(this.tyreList.find(e=> e.dataId == res.tyreDeActivateDtlList[i].tyreId));  
@@ -298,7 +298,7 @@ dashboard: string ="";
     
     var selectedDate = this.formUser.getRawValue();
 
-    for (var i = 0; i < this.formTyreArray.controls.length; i++) {
+    for (let i = 0; i < this.formTyreArray.controls.length; i++) {
       if (selectedDate.arrayList[i].usableAmount?selectedDate.arrayList[i].usableAmount:""!="") {
         usableTyreAmt = usableTyreAmt + parseFloat(selectedDate.arrayList[i].usableAmount);   
       }
@@ -383,7 +383,7 @@ dashboard: string ="";
       return;
     }
       
-    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
       if (selectedDataValue.arrayList[i].selected) {   
         this.tyredeactivate.tyreDeActivateDtlList.push({
           'deActivateMasterID': "",

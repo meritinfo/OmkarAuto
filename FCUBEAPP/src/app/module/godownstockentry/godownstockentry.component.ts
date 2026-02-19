@@ -121,7 +121,7 @@ export class GodownstockentryComponent {
   checkduplicate(index: number){
     var selectedData= this.formGodownStockEntryMaster.getRawValue();
     var arr=selectedData.arrayList;
-    for (var i = 0; i < arr.length; i++) { 
+    for (let i = 0; i < arr.length; i++) { 
         if(i!=index && arr[index].brandId==arr[i].brandId &&  arr[index].spareLubId==arr[i].spareLubId ){
         this.toasterService.warning("Details already exists");
         this.formArray.controls[index].get("brandId")?.setValue('');
@@ -134,7 +134,7 @@ export class GodownstockentryComponent {
   // selectNewEvent(item: any,index:number) {
   //   var spareLubId = item.dataId;
   //   var selectedDataValue=this.formGodownStockEntryMaster.getRawValue();
-  //   for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+  //   for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
   //     if(spareLubId == selectedDataValue.arrayList[i].spareLubId.dataId)
   //     {
   //       this.toasterService.warning("Spare/Lube already selected in grid");
@@ -156,7 +156,7 @@ export class GodownstockentryComponent {
   addItem(index: number): void {
     var selectedData= this.formGodownStockEntryMaster.getRawValue();
     var arr=selectedData.arrayList;
-    for (var i = 0; i < arr.length; i++) { 
+    for (let i = 0; i < arr.length; i++) { 
        if(i!=index && arr[index].brandId==arr[i].brandId &&  arr[index].spareLubId==arr[i].spareLubId){
         this.toasterService.warning("Details already exists");
         return;
@@ -187,7 +187,7 @@ export class GodownstockentryComponent {
     if(res.godownStockModellst && res.godownStockModellst.length>0)
     {
       this.godownstockmodel = res;
-      for (var i = 0; i < res.godownStockModellst.length; i++) {
+      for (let i = 0; i < res.godownStockModellst.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("spareLubId")?.setValue(this.sparesList.find(e=>e.dataId==res.godownStockModellst[i].spareLubId))
         this.formArray.controls[i].get("brandId")?.setValue(res.godownStockModellst[i].brandId);
@@ -222,7 +222,7 @@ export class GodownstockentryComponent {
     this.godownstockmodel.godownId=selectedDataVal.godownId.toString();
     this.formSubmitted = true;
     this.godownstockmodel.godownStockModellst = [];
-    for (var i = 0; i < selectedDataVal.arrayList.length; i++) {  
+    for (let i = 0; i < selectedDataVal.arrayList.length; i++) {  
       if (selectedDataVal.arrayList[i].spareLubId =='' ) {
       this.toasterService.warning("Please select Spare/Lube");
         return;

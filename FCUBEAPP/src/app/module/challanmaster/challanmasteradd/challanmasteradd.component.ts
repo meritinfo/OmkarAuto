@@ -398,7 +398,7 @@ modifiedBy: string = "";
       this.formArray.clear();
       var pkgs = 0;
       var wt = 0.0;
-      for (var i = 0; i < res.challanDtls.length; i++) {
+      for (let i = 0; i < res.challanDtls.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("gcYear")?.setValue(res.challanDtls[i].gcYear);
         this.formArray.controls[i].get("gcBook")?.setValue(res.challanDtls[i].gcBook);
@@ -630,7 +630,7 @@ modifiedBy: string = "";
   onPkgsChange(){
     var totPkgs = 0
     var selectedDataValue = this.formUser.getRawValue();
-    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
       if(selectedDataValue.arrayList[i].challanPkgs!="") {
         totPkgs = totPkgs + parseFloat(selectedDataValue.arrayList[i].challanPkgs);
       }         
@@ -643,7 +643,7 @@ modifiedBy: string = "";
   onActWtChange(){
     var totActWt = 0
     var selectedDataValue = this.formUser.getRawValue();
-    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
       if(selectedDataValue.arrayList[i].challanWT!="") {
         totActWt = totActWt + parseFloat(selectedDataValue.arrayList[i].challanWT);
       }         
@@ -1273,7 +1273,7 @@ modifiedBy: string = "";
 
     this.challanmodel.challanDtls = [];
 
-    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
       if (selectedDataValue.arrayList[i].consignmentId != "" && selectedDataValue.arrayList[i].challanPkgs != "" 
         && selectedDataValue.arrayList[i].challanWT != "") {
         this.challanmodel.challanDtls.push({

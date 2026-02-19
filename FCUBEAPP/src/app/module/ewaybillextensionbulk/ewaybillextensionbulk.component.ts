@@ -132,7 +132,7 @@ export class EwaybillextensionbulkComponent {
     this.ewaybillextService.getEwaybillextList(this.filter).subscribe((res) => {
       this.eway = res;
       this.formArray.clear();
-      for (var i = 0; i < res.ewaybillextList.length; i++) {
+      for (let i = 0; i < res.ewaybillextList.length; i++) {
         this.formArray.push(this.createArray());
         this.formArray.controls[i].get("selected")?.setValue("Y");
         this.formArray.controls[i].get("ewayBillNo")?.setValue(res.ewaybillextList[i].ewayBillNo);
@@ -180,7 +180,7 @@ export class EwaybillextensionbulkComponent {
     this.formSubmitted = true;
     this.eway.ewaybillextList = [];
     
-    for (var i = 0; i < selectedDataVal.arrayList.length; i++) {   
+    for (let i = 0; i < selectedDataVal.arrayList.length; i++) {   
       if(selectedDataVal.arrayList[i].selected){
         var kms=""; 
         if(selectedDataVal.arrayList[i].currentPlace==""){

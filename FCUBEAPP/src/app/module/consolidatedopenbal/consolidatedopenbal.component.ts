@@ -130,7 +130,7 @@ export class ConsolidatedopenbalComponent {
     this.request.strRequest = this.year;   
     this.consolidatedopnbalService.getConsolidateOpeningBalGridList(this.request).subscribe((res) => {    
       this.balList = res;
-      for (var i = 0; i < res.consolidateopenballist.length; i++) {
+      for (let i = 0; i < res.consolidateopenballist.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("accountName")?.setValue(res.consolidateopenballist[i].accountName);
         this.formArray.controls[i].get("balAmt")?.setValue(res.consolidateopenballist[i].balAmt);

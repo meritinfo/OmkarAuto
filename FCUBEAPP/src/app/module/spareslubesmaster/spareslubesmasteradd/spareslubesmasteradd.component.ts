@@ -146,7 +146,7 @@ export class SpareslubesmasteraddComponent {
   checkduplicate(index: number){
     var selectedData= this.formSparesMaster.getRawValue();
     var arr=selectedData.arrayList;
-    for (var i = 0; i < arr.length; i++) {  
+    for (let i = 0; i < arr.length; i++) {  
       if(i!=index && arr[index].godownId==arr[i].godownId && arr[index].brandId==arr[i].brandId){
         this.toasterService.warning("Godown & Brand already selected in grid");
         this.formArray.controls[index].get("brandId")?.setValue('');
@@ -159,7 +159,7 @@ export class SpareslubesmasteraddComponent {
   addItem(index: number): void {
     var selectedData= this.formSparesMaster.getRawValue();
     var arr=selectedData.arrayList;
-    for (var i = 0; i < arr.length; i++) {   
+    for (let i = 0; i < arr.length; i++) {   
       if(i!=index && arr[index].godownId==arr[i].godownId && arr[index].brandId==arr[i].brandId){
         this.toasterService.warning("Godown & Brand already selected");
         return;
@@ -203,7 +203,7 @@ export class SpareslubesmasteraddComponent {
         this.formArray.clear();
       }
       this.sparesLubesMasterModel = res;
-      for (var i = 0; i < res.sparesLubesDetailList.length; i++) {
+      for (let i = 0; i < res.sparesLubesDetailList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("godownId")?.setValue(res.sparesLubesDetailList[i].godownId);   
         this.formArray.controls[i].get("brandId")?.setValue(res.sparesLubesDetailList[i].brandId);
@@ -267,7 +267,7 @@ export class SpareslubesmasteraddComponent {
     this.sparesLubesMasterModel.sparesLubesDetailList = [];
 
     if(selectedDataVal.inventroyYN=="Y"){
-      for (var i = 0; i < selectedDataVal.arrayList.length; i++) {  
+      for (let i = 0; i < selectedDataVal.arrayList.length; i++) {  
         if (selectedDataVal.arrayList[i].godownId =='' ) {
           this.toasterService.warning("Please select Godown");
           return;

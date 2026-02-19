@@ -154,7 +154,7 @@ export class UnbilledprovisionmstaddComponent {
     this.unbilledProvisionMstService.getprovisionSearchList(this.docDetails).subscribe((res: Unbilledprovisionmstmodel) => {
       this.unbilledprovisionmstmodel = res;
       this.formArray.clear();      
-      for (var i = 0; i < res.unBillProvisionDtlList.length; i++) {
+      for (let i = 0; i < res.unBillProvisionDtlList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("branchCode")?.setValue(res.unBillProvisionDtlList[i].branchCode);
         this.formArray.controls[i].get("partyCode")?.setValue(res.unBillProvisionDtlList[i].partyCode);
@@ -186,7 +186,7 @@ export class UnbilledprovisionmstaddComponent {
       this.unbilledprovisionmstmodel = res;
      
       this.formArray.clear();      
-      for (var i = 0; i < res.unBillProvisionDtlList.length; i++) {
+      for (let i = 0; i < res.unBillProvisionDtlList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("branchCode")?.setValue(res.unBillProvisionDtlList[i].branchCode );
         this.formArray.controls[i].get("partyCode")?.setValue(res.unBillProvisionDtlList[i].partyCode );
@@ -244,7 +244,7 @@ export class UnbilledprovisionmstaddComponent {
 
     this.unbilledprovisionmstmodel.unBillProvisionDtlList = [];
 
-    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
       if (selectedDataValue.arrayList[i].branchCode == "" || 
           selectedDataValue.arrayList[i].partyCode == ""  || selectedDataValue.arrayList[i].amount=="") {
         this.toasterService.warning("Please Enter  Detail");

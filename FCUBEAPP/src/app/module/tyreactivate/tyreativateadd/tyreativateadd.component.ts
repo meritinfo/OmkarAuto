@@ -270,7 +270,7 @@ dashboard: string ="";
     this.tyreactivateService.getTyreactivateMasterInnerGridList(this.requestmodel).subscribe((res) => {
       this.formTyreArray.clear();
       this.tyreactivate = res;
-      for (var i = 0; i < res.tyreActivateDtlList.length; i++) {
+      for (let i = 0; i < res.tyreActivateDtlList.length; i++) {
         this.formTyreArray.push(this.createTyreArray());        
         this.formTyreArray.controls[i].get("brandId")?.setValue(res.tyreActivateDtlList[i].brandId);
         this.formTyreArray.controls[i].get("tyreId")?.setValue(this.tyreList.find(e=> e.dataId == res.tyreActivateDtlList[i].tyreId));  
@@ -290,7 +290,7 @@ dashboard: string ="";
     
     var selectedDate = this.formUser.getRawValue();
 
-    for (var i = 0; i < this.formTyreArray.controls.length; i++) {
+    for (let i = 0; i < this.formTyreArray.controls.length; i++) {
       if (selectedDate.arrayList[i].tyreCostAmt!="") {
         totalTyresAmt = totalTyresAmt + parseFloat(selectedDate.arrayList[i].tyreCostAmt);   
       }
@@ -411,7 +411,7 @@ dashboard: string ="";
       return;
     }
       
-    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
       if (this.formTyreArray.value[i].brandId == "" || this.formTyreArray.value[i].tyreId=="" ||
         this.formTyreArray.value[i].tyrePosID=="") {
         this.toastrService.warning("Please Enter Details Properly");

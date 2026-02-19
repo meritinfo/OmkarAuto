@@ -589,7 +589,7 @@ export class VehiclerepmaintaddComponent {
     this.vehiclerepmaintMasterService.getVehiclerepmaintMasterInnerGridList(this.requestmodel).subscribe((res) => {
       this.formTyreArray.clear();
       this.vehicleRepmaintMaster = res;
-      for (var i = 0; i < res.vehicleRepMaintDtlList.length; i++) {
+      for (let i = 0; i < res.vehicleRepMaintDtlList.length; i++) {
         this.formTyreArray.push(this.createVehicleArray());
         this.formTyreArray.controls[i].get("vrmTransDtlId")?.setValue(res.vehicleRepMaintDtlList[i].vrmTransDtlId);
         this.formTyreArray.controls[i].get("vrmTransId")?.setValue(res.vehicleRepMaintDtlList[i].vrmTransId);  
@@ -645,7 +645,7 @@ export class VehiclerepmaintaddComponent {
   }
 
   gstChange(gsttype: string){
-    for (var i = 0; i < this.formTyreArray.controls.length; i++) { 
+    for (let i = 0; i < this.formTyreArray.controls.length; i++) { 
       this.formTyreArray.controls[i].get("sgstPct")?.setValue("0");
       this.formTyreArray.controls[i].get("cgstPct")?.setValue("0");
       this.formTyreArray.controls[i].get("igstPct")?.setValue("0");
@@ -762,7 +762,7 @@ export class VehiclerepmaintaddComponent {
 
     var selectedDate = this.formUser.getRawValue();
 
-    for (var i = 0; i < this.formTyreArray.controls.length; i++) {  
+    for (let i = 0; i < this.formTyreArray.controls.length; i++) {  
       this.formTyreArray.controls[i].get("sgstAmt")?.setValue("");
       this.formTyreArray.controls[i].get("cgstAmt")?.setValue("");
       this.formTyreArray.controls[i].get("igstAmt")?.setValue(""); 
@@ -940,7 +940,7 @@ export class VehiclerepmaintaddComponent {
       return;
     }
       
-    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
       if (selectedDataValue.arrayList[i].brandID == "" || selectedDataValue.arrayList[i].netAmount=="" ) {
         this.toastrService.warning("Please Enter Details Properly");
         return;

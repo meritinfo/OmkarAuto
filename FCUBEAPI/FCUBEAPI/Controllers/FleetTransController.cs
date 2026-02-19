@@ -704,6 +704,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetTripMasterInnerGridRefreshLlpList")]
+        public async Task<IActionResult> GetTripMasterInnerGridRefreshLlpList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripMasterLlpBusiness.GetTripMasterInnerGridRefreshLlpList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("TripMasterLlpDelete")]
         public async Task<IActionResult> TripMasterLlpDelete(RequestModel request)
         {

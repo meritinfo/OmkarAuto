@@ -127,14 +127,14 @@ dashboard: string ="";
   }
 
   onCreditAmtChange(e: any,i: number) {
-    var creditamt=e.target.value;
+    var creditamt = e.target.value;
     this.formArray.controls[i].get("creditAmt")?.setValue(creditamt);
     this.formArray.controls[i].get("debitAmt")?.setValue("0.00");
     this.calTotals();
   }
 
   onDebitAmtChange(e: any,i: number) {
-    var debitsmt=e.target.value;
+    var debitsmt = e.target.value;
     this.formArray.controls[i].get("creditAmt")?.setValue("0.00");
     this.formArray.controls[i].get("debitAmt")?.setValue(debitsmt);
     this.calTotals();
@@ -144,7 +144,7 @@ dashboard: string ="";
     var totdebitamount=0.00;
     var totcreditamount=0.00;
     var selectedDataVal = this.formFinOpenBal.getRawValue();
-    for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataVal.arrayList.length; i++) {
         totcreditamount=totcreditamount+parseFloat(selectedDataVal.arrayList[i].creditAmt);
         totdebitamount=totdebitamount+parseFloat(selectedDataVal.arrayList[i].debitAmt);
     }
@@ -157,8 +157,8 @@ dashboard: string ="";
   selectEvent(e: any,index:number) {    
     var account = e.dataId;
     var selectedDataVal = this.formFinOpenBal.getRawValue();    
-     for (var i = 0; i < selectedDataVal.arrayList.length-1; i++) {
-       if(selectedDataVal.arrayList[i].accountID.dataId==account) {    
+    for (let i = 0; i < selectedDataVal.arrayList.length-1; i++) {
+      if(selectedDataVal.arrayList[i].accountID.dataId==account) {    
         this.toasterService.warning("Selected Account Already Exists in grid");        
         this.removeItem(index);
         this.formArray.push(this.createInitialArray());  
@@ -224,7 +224,7 @@ dashboard: string ="";
 
       if(res.openingBalDetailList.length>0){        
         this.formArray.clear();
-        for (var i = 0; i < res.openingBalDetailList.length; i++) {
+        for (let i = 0; i < res.openingBalDetailList.length; i++) {
           debitamount="0.00",creditamount="0.00";
           if(res.openingBalDetailList[i].openingBalanceCrDr=="C"){
             creditamount=res.openingBalDetailList[i].openingBalanceAmt;
@@ -313,7 +313,7 @@ dashboard: string ="";
     this.openbalancemodel.openingBalDetailList = [];
     var crdr = "";
     var amt = "";
-    for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataVal.arrayList.length; i++) {
       if (selectedDataVal.arrayList[i].accountID != "") 
       {
         if(parseFloat(selectedDataVal.arrayList[i].creditAmt) > 0){

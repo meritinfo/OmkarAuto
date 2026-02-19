@@ -154,7 +154,7 @@ export class VehicleinstscheduleaddComponent {
     this.vehicleinstscheduleService.getVehicleinstscheduleInnerGrid(this.requestmodel).subscribe((res) => {
       this.ratesmstmodel = res;
       this.formArray.clear();
-      for (var i = 0; i < res.instScheduleDtls.length; i++) {
+      for (let i = 0; i < res.instScheduleDtls.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("instNo")?.setValue(res.instScheduleDtls[i].instNo);
         this.formArray.controls[i].get("instDate")?.setValue(this.commonService.formatDate(res.instScheduleDtls[i].instDate));
@@ -390,7 +390,7 @@ export class VehicleinstscheduleaddComponent {
     var totEmi = parseFloat(selectedDataVal.totalEmi);
     
     this.formArray.clear();
-    for (var i = 0; i < noofmon; i++) {
+    for (let i = 0; i < noofmon; i++) {
       month = month + 1;
       if (month>11)
       {
@@ -443,7 +443,7 @@ export class VehicleinstscheduleaddComponent {
       var month = startDt.getMonth();   
       
       this.formArray.clear();
-      for (var i = 0; i < this.data.length; i++) { 
+      for (let i = 0; i < this.data.length; i++) { 
         month = month + 1;  
         if (this.data[i+1][2]!="")  
         {
@@ -586,7 +586,7 @@ export class VehicleinstscheduleaddComponent {
     var totintEmi = 0;
     var totEmi = 0;
 
-    for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataVal.arrayList.length; i++) {
       if(selectedDataVal.arrayList[i].tot_InstAmt!=''){
         totpriEmi = totpriEmi + parseFloat(selectedDataVal.arrayList[i].pri_InstAmt)
         totintEmi = totintEmi + parseFloat(selectedDataVal.arrayList[i].int_InstAmt)

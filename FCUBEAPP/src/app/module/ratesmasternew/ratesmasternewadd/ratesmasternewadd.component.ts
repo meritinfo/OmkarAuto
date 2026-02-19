@@ -199,7 +199,7 @@ dashboard: string ="";
         this.ratesMasterNewService.getRatesMasterNewInnerGridList(this.requestmodel).subscribe((res) => {
           this.formRatesArray.clear();
           this.ratesmasternewmodel = res;
-          for (var i = 0; i < res.ratesMasterNewDetailList.length; i++) {
+          for (let i = 0; i < res.ratesMasterNewDetailList.length; i++) {
             this.formRatesArray.push(this.createRatesArray());
             this.formRatesArray.controls[i].get("rateDtlId")?.setValue(res.ratesMasterNewDetailList[i].rateDtlId);
             this.formRatesArray.controls[i].get("rateId")?.setValue(res.ratesMasterNewDetailList[i].rateId);  
@@ -316,7 +316,7 @@ dashboard: string ="";
           this.formRatesArray.controls[index].get("destination")?.setValue("");
           return;
         }
-        // for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+        // for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
         //   if(ToPlace == selectedDataValue.arrayList[i].destination.dataId)
         //   {
         //     this.toastrService.warning("Destination already exits in grid");
@@ -330,7 +330,7 @@ dashboard: string ="";
        console.log(e.target.value);
     var pr = e.target.value;
         var selectedDataValue=this.formUser.getRawValue();
-        for (var i = 1; i < selectedDataValue.arrayList.length; i++) {
+        for (let i = 1; i < selectedDataValue.arrayList.length; i++) {
           var t = i-1
           if( selectedDataValue.arrayList[index].destination.dataId == selectedDataValue.arrayList[t].destination.dataId && selectedDataValue.arrayList[t].productId==e.target.value)
           {
@@ -435,7 +435,7 @@ dashboard: string ="";
         //   return;
         // }
           
-        for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+        for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
            if (selectedDataValue.arrayList[i].productId == "" || selectedDataValue.arrayList[i].destination==""|| selectedDataValue.arrayList[i].rateRs=="" ) {
              this.toastrService.warning("Please Enter  Detail");
              return;

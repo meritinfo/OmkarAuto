@@ -166,7 +166,9 @@ export class FreightreportsService {
   getLrwithoutchallanrptExcel(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetLRWithOutChallanRptExcel', filter, this.httpOptions);
   } 
-
+  getLrRealisationStatusExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetLrRealisationStatusExcel', filter, this.httpOptions);
+  } 
   getMrregisterrptList(filter: Reportmodel): Observable<Mrregisterrptlistmodel> {
     return this.httpClient.post<Mrregisterrptlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetMRRegisterRptList', filter, this.httpOptions);
   }  

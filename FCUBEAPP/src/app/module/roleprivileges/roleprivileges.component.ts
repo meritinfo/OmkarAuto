@@ -140,7 +140,7 @@ dashboard: string ="";
     this.requestmodel.strRequest = roleid;
     this.roleprivilegesService.getRolePrivilegesList(this.requestmodel).subscribe((res) => {
       this.roleprivileges = res;
-      for (var i = 0; i < res.rolePrivilegesMasterList.length; i++) {
+      for (let i = 0; i < res.rolePrivilegesMasterList.length; i++) {
         this.formMasterArray.push(this.createMasterArray());
         this.formMasterArray.controls[i].get("moduleName")?.setValue(res.rolePrivilegesMasterList[i].moduleName);
         this.formMasterArray.controls[i].get("moduleId")?.setValue(res.rolePrivilegesMasterList[i].moduleId);
@@ -154,7 +154,7 @@ dashboard: string ="";
         this.formMasterArray.controls[i].get("moduleName")?.disable();
         this.formMasterArray.controls[i].get("menuName")?.disable();
       }
-      for (var i = 0; i < res.rolePrivilegesReportList.length; i++) {
+      for (let i = 0; i < res.rolePrivilegesReportList.length; i++) {
         this.formReportArray.push(this.createMasterArray());
         this.formReportArray.controls[i].get("moduleName")?.setValue(res.rolePrivilegesReportList[i].moduleName);
         this.formReportArray.controls[i].get("moduleId")?.setValue(res.rolePrivilegesReportList[i].moduleId);
@@ -201,7 +201,7 @@ dashboard: string ="";
     this.roleprivilegeslistmodel.rolePrivilegesMasterList = [];
     this.roleprivilegeslistmodel.rolePrivilegesReportList = [];
 
-    for (var i = 0; i < selectedDataVal.masterList.length; i++) {
+    for (let i = 0; i < selectedDataVal.masterList.length; i++) {
       
       var view = selectedDataVal.masterList[i].viewYN;
       if(view=="N" && (selectedDataVal.masterList[i].createYN=="Y"|| 
@@ -225,7 +225,7 @@ dashboard: string ="";
         'menuType': '',            
       });
     }
-    for (var i = 0; i < selectedDataVal.reportList.length; i++) {
+    for (let i = 0; i < selectedDataVal.reportList.length; i++) {
       this.roleprivilegeslistmodel.rolePrivilegesReportList.push({
         'roleId': selectedDataVal.roleId,
         'moduleId': selectedDataVal.reportList[i].moduleId,

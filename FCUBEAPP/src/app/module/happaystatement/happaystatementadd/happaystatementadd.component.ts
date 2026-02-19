@@ -229,7 +229,7 @@ dashboard: string ="";
         this.formDieselStatement.controls["toDate"].disable();
         }
         this.formArray.clear();
-        for (var i = 0; i < res.dieselStatementListData.length; i++) {
+        for (let i = 0; i < res.dieselStatementListData.length; i++) {
           this.formArray.push(this.createInitialArray());
           this.formArray.controls[i].get("branch")?.setValue(res.dieselStatementListData[i].branch);
           this.formArray.controls[i].get("pmtDate")?.setValue(this.commonService.formatDate(res.dieselStatementListData[i].pmtDate));
@@ -256,13 +256,13 @@ dashboard: string ="";
 
   selectAll(e: any) {
     if(e.target.checked){
-      for (var i = 0; i < this.DieselStatementmodel.dieselStatementListData.length; i++) {
+      for (let i = 0; i < this.DieselStatementmodel.dieselStatementListData.length; i++) {
         this.DieselStatementmodel.dieselStatementListData[i].selected = true;
         this.formArray.controls[i].get("selected")?.setValue('Y');
       }
     }
     else{
-      for (var i = 0; i < this.DieselStatementmodel.dieselStatementListData.length; i++) {
+      for (let i = 0; i < this.DieselStatementmodel.dieselStatementListData.length; i++) {
         this.DieselStatementmodel.dieselStatementListData[i].selected = false;
         this.formArray.controls[i].get("selected")?.setValue('');
       }
@@ -279,7 +279,7 @@ dashboard: string ="";
     var totalStatementAmount = 0;
     var diesellistarray=this.DieselStatementmodel.dieselStatementListData;
 
-    for (var i = 0; i < diesellistarray.length; i++) {
+    for (let i = 0; i < diesellistarray.length; i++) {
       if (diesellistarray[i].selected) {
         totalStatementAmount = totalStatementAmount + parseFloat(diesellistarray[i].amountPaid);
       }
@@ -322,7 +322,7 @@ dashboard: string ="";
       this.DieselStatementmodel = res;
       this.formArray.clear();
       
-      for (var i = 0; i < res.dieselStatementListData.length; i++) {
+      for (let i = 0; i < res.dieselStatementListData.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("branch")?.setValue(res.dieselStatementListData[i].branch);
         this.formArray.controls[i].get("pmtDate")?.setValue(this.commonService.formatDate(res.dieselStatementListData[i].pmtDate));
@@ -360,7 +360,7 @@ dashboard: string ="";
     var selectedDataVal=this.formDieselStatement.getRawValue();
     var diesellistarray = this.DieselStatementmodel.dieselStatementListData;
     var IsItemSelected = false;
-    for (var i = 0; i < diesellistarray.length; i++) {
+    for (let i = 0; i < diesellistarray.length; i++) {
       if (diesellistarray[i].selected) {
         IsItemSelected = true;
       }

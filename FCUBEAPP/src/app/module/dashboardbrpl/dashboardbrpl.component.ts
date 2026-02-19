@@ -22,7 +22,7 @@ export class DashboardbrplComponent  implements OnInit {
 
   ngOnInit(): void {
     
-        var userData = sessionStorage.getItem('uid')?.toString();
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.selectedUserID = userData;
     }

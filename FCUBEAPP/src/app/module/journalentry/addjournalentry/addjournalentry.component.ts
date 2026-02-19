@@ -190,7 +190,7 @@ export class AddjournalentryComponent{
       }      
       var totalAmount = 0;
       
-      for (var i = 0; i < res.detailList.length; i++) {
+      for (let i = 0; i < res.detailList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("typeSign")?.setValue(res.detailList[i].typeSign);
         this.formArray.controls[i].get("amount")?.setValue(res.detailList[i].amount);
@@ -470,7 +470,7 @@ export class AddjournalentryComponent{
     this.bankrecEntrymodel.detailList = [];
     
     if (this.formArray.value != undefined) {
-      for (var i = 0; i < this.formArray.value.length; i++) {        
+      for (let i = 0; i < this.formArray.value.length; i++) {        
         if(this.formArray.value[i].subLedger=="Y" && this.formArray.value[i].reference =="") {
           this.toasterService.warning("SubLedger cannot be Empty for " + this.formArray.value[i].accountID.dataName);
           return;

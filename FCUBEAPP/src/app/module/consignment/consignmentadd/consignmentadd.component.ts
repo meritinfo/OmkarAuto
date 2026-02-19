@@ -376,7 +376,7 @@ export class ConsignmentaddComponent implements OnInit {
     this.lrentryService.getLrInnerGridList(this.requestmodel).subscribe((res) => {
       this.lrmodel = res;
       this.formArray.clear();
-      for (var i = 0; i < res.invList.length; i++) {
+      for (let i = 0; i < res.invList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("ewayBillNo")?.setValue(res.invList[i].ewayBillNo);
              this.formArray.controls[i].get("ewayBillDate")?.setValue(this.commonService.formatDate(res.invList[i].ewayBillDate));
@@ -1148,7 +1148,7 @@ export class ConsignmentaddComponent implements OnInit {
 
     this.lrmodel.invList = [];
 
-    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
       if (selectedDataValue.arrayList[i].invNo != "" && selectedDataValue.arrayList[i].invDate != "" 
         && selectedDataValue.arrayList[i].invValue != "") {
         this.lrmodel.invList.push({

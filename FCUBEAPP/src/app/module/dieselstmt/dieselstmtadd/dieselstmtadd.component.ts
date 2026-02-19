@@ -272,7 +272,7 @@ export class DieselstmtaddComponent {
       this.dieselStatementmodel = res;
       this.formArray.clear();
       
-      for (var i = 0; i < res.dieselStmtDtlsList.length; i++) {
+      for (let i = 0; i < res.dieselStmtDtlsList.length; i++) {
         this.formArray.push(this.createInitialArray());   
         this.formArray.controls[i].get("transRefNo")?.setValue(res.dieselStmtDtlsList[i].transRefNo);
         this.formArray.controls[i].get("vehicleNo")?.setValue(this.vehicleList.find(e => e.dataId == res.dieselStmtDtlsList[i].vehicleMasterId));
@@ -317,7 +317,7 @@ export class DieselstmtaddComponent {
       var selectedDataVal = this.formDieselStatement.getRawValue();
       var j=0;
       this.formArray.clear();
-      for (var i = 0; i < this.data.length; i++) { 
+      for (let i = 0; i < this.data.length; i++) { 
         if (this.data[i+1][0]!="")  
         {  
           if (this.data[i+1][1]=="Debit" && this.data[i+1][5]=="DIESEL" && this.data[i+1][9]=="Settled")  
@@ -372,7 +372,7 @@ export class DieselstmtaddComponent {
 
     var selectedData = this.formDieselStatement.getRawValue(); 
 
-    for (var i = 0; i < selectedData.arrayList.length; i++) {
+    for (let i = 0; i < selectedData.arrayList.length; i++) {
       if (selectedData.arrayList[i].dslQty != "") {
         totalDslLtrs = totalDslLtrs + parseFloat(selectedData.arrayList[i].dslQty);
       }
@@ -490,7 +490,7 @@ export class DieselstmtaddComponent {
 
     var arr=selectedDataVal.arrayList;
 
-    for (var i = 0; i < arr.length; i++) {
+    for (let i = 0; i < arr.length; i++) {
       if(arr[i].vehicleNo?arr[i].vehicleNo.dataId:""!='' && 
           arr[i].vehicleNo[i].dslQty!='' && arr[i].vehicleNo[i].dslRate!=''){
         this.dieselStatementmodel.dieselStmtDtlsList.push({

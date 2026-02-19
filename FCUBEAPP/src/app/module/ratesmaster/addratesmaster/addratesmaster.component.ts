@@ -166,7 +166,7 @@ dashboard: string ="";
     this.requestmodel.strRequest = this.selectedRatesMaster.masterID;
     this.ratesMasterService.getFreightRateInnerGridList(this.requestmodel).subscribe((res) => {
       this.ratesmstmodel = res;
-      for (var i = 0; i < res.freightRatesDetailsList.length; i++) {
+      for (let i = 0; i < res.freightRatesDetailsList.length; i++) {
         this.formArray.push(this.createInitialArray());
         if (this.selectedRatesMaster.rateForStateOrToPlace == "P"){
           this.formArray.controls[i].get("destState")?.disable();
@@ -257,7 +257,7 @@ dashboard: string ="";
     var ToPlace = item.dataId;
     var selectedDataValue=this.formRatesMaster.getRawValue();
 
-    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
       if(ToPlace == selectedDataValue.arrayList[i].toPlace.dataId)
       {
         this.toasterService.warning("To location already exits in grid");
@@ -396,7 +396,7 @@ dashboard: string ="";
       return;
     }
 
-    for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataVal.arrayList.length; i++) {
       if(selectedDataVal.arrayList[i].destState!='' || selectedDataVal.arrayList[i].toPlace !=''){
         this.ratesmastermodel.freightRatesDetailsList.push({
           'dtlId': '',

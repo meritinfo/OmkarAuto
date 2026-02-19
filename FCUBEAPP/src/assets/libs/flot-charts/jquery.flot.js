@@ -203,7 +203,7 @@ Licensed under the MIT license.
 
 								var positions = styleCache[key].positions;
 
-								for (var i = 0, position; position = positions[i]; i++) {
+								for (let i = 0, position; position = positions[i]; i++) {
 									if (position.active) {
 										if (!position.rendered) {
 											layer.append(position.element);
@@ -423,7 +423,7 @@ Licensed under the MIT license.
 		// Determine whether this text already exists at this position.
 		// If so, mark it for inclusion in the next render pass.
 
-		for (var i = 0, position; position = positions[i]; i++) {
+		for (let i = 0, position; position = positions[i]; i++) {
 			if (position.x == x && position.y == y) {
 				position.active = true;
 				return;
@@ -484,7 +484,7 @@ Licensed under the MIT license.
 						for (var key in styleCache) {
 							if (hasOwnProperty.call(styleCache, key)) {
 								var positions = styleCache[key].positions;
-								for (var i = 0, position; position = positions[i]; i++) {
+								for (let i = 0, position; position = positions[i]; i++) {
 									position.active = false;
 								}
 							}
@@ -494,7 +494,7 @@ Licensed under the MIT license.
 			}
 		} else {
 			var positions = this.getTextInfo(layer, text, font, angle).positions;
-			for (var i = 0, position; position = positions[i]; i++) {
+			for (let i = 0, position; position = positions[i]; i++) {
 				if (position.x == x && position.y == y) {
 					position.active = false;
 				}
@@ -713,7 +713,7 @@ Licensed under the MIT license.
 
         function executeHooks(hook, args) {
             args = [plot].concat(args);
-            for (var i = 0; i < hook.length; ++i)
+            for (let i = 0; i < hook.length; ++i)
                 hook[i].apply(this, args);
         }
 
@@ -725,7 +725,7 @@ Licensed under the MIT license.
                 Canvas: Canvas
             };
 
-            for (var i = 0; i < plugins.length; ++i) {
+            for (let i = 0; i < plugins.length; ++i) {
                 var p = plugins[i];
                 p.init(plot, classes);
                 if (p.options)
@@ -886,7 +886,7 @@ Licensed under the MIT license.
 
         function parseData(d) {
             var res = [];
-            for (var i = 0; i < d.length; ++i) {
+            for (let i = 0; i < d.length; ++i) {
                 var s = $.extend(true, {}, options.series);
 
                 if (d[i].data != null) {
@@ -1407,7 +1407,7 @@ Licensed under the MIT license.
                 layer = "flot-" + axis.direction + "-axis flot-" + axis.direction + axis.n + "-axis " + legacyStyles,
                 font = opts.font || "flot-tick-label tickLabel";
 
-            for (var i = 0; i < ticks.length; ++i) {
+            for (let i = 0; i < ticks.length; ++i) {
 
                 var t = ticks[i];
 
@@ -1878,7 +1878,7 @@ Licensed under the MIT license.
                 drawGrid();
             }
 
-            for (var i = 0; i < series.length; ++i) {
+            for (let i = 0; i < series.length; ++i) {
                 executeHooks(hooks.drawSeries, [ctx, series[i]]);
                 drawSeries(series[i]);
             }
@@ -1900,7 +1900,7 @@ Licensed under the MIT license.
         function extractRange(ranges, coord) {
             var axis, from, to, key, axes = allAxes();
 
-            for (var i = 0; i < axes.length; ++i) {
+            for (let i = 0; i < axes.length; ++i) {
                 axis = axes[i];
                 if (axis.direction == coord) {
                     key = coord + axis.n + "axis";
@@ -2197,7 +2197,7 @@ Licensed under the MIT license.
                 if (!axis.show || axis.ticks.length == 0)
                     return;
 
-                for (var i = 0; i < axis.ticks.length; ++i) {
+                for (let i = 0; i < axis.ticks.length; ++i) {
 
                     tick = axis.ticks[i];
                     if (!tick.label || tick.v < axis.min || tick.v > axis.max)
@@ -2244,7 +2244,7 @@ Licensed under the MIT license.
                     prevx = null, prevy = null;
 
                 ctx.beginPath();
-                for (var i = ps; i < points.length; i += ps) {
+                for (let i = ps; i < points.length; i += ps) {
                     var x1 = points[i - ps], y1 = points[i - ps + 1],
                         x2 = points[i], y2 = points[i + 1];
 
@@ -2495,7 +2495,7 @@ Licensed under the MIT license.
             function plotPoints(datapoints, radius, fillStyle, offset, shadow, axisx, axisy, symbol) {
                 var points = datapoints.points, ps = datapoints.pointsize;
 
-                for (var i = 0; i < points.length; i += ps) {
+                for (let i = 0; i < points.length; i += ps) {
                     var x = points[i], y = points[i + 1];
                     if (x == null || x < axisx.min || x > axisx.max || y < axisy.min || y > axisy.max)
                         continue;
@@ -2663,7 +2663,7 @@ Licensed under the MIT license.
             function plotBars(datapoints, barLeft, barRight, fillStyleCallback, axisx, axisy) {
                 var points = datapoints.points, ps = datapoints.pointsize;
 
-                for (var i = 0; i < points.length; i += ps) {
+                for (let i = 0; i < points.length; i += ps) {
                     if (points[i] == null)
                         continue;
                     drawBar(points[i], points[i + 1], points[i + 2], barLeft, barRight, fillStyleCallback, axisx, axisy, ctx, series.bars.horizontal, series.bars.lineWidth);
@@ -2726,7 +2726,7 @@ Licensed under the MIT license.
 
             // Build a list of legend entries, with each having a label and a color
 
-            for (var i = 0; i < series.length; ++i) {
+            for (let i = 0; i < series.length; ++i) {
                 s = series[i];
                 if (s.label) {
                     label = lf ? lf(s.label, s) : s.label;
@@ -2758,7 +2758,7 @@ Licensed under the MIT license.
 
             // Generate markup for the list of entries, in their final order
 
-            for (var i = 0; i < entries.length; ++i) {
+            for (let i = 0; i < entries.length; ++i) {
 
                 var entry = entries[i];
 
@@ -2964,7 +2964,7 @@ Licensed under the MIT license.
 
             if (options.grid.autoHighlight) {
                 // clear auto-highlights
-                for (var i = 0; i < highlights.length; ++i) {
+                for (let i = 0; i < highlights.length; ++i) {
                     var h = highlights[i];
                     if (h.auto == eventname &&
                         !(item && h.series == item.series &&
@@ -3022,7 +3022,7 @@ Licensed under the MIT license.
                 point = s.datapoints.points.slice(ps * point, ps * (point + 1));
             }
 
-            var i = indexOfHighlight(s, point);
+            let i = indexOfHighlight(s, point);
             if (i == -1) {
                 highlights.push({ series: s, point: point, auto: auto });
 
@@ -3047,7 +3047,7 @@ Licensed under the MIT license.
                 point = s.datapoints.points.slice(ps * point, ps * (point + 1));
             }
 
-            var i = indexOfHighlight(s, point);
+            let i = indexOfHighlight(s, point);
             if (i != -1) {
                 highlights.splice(i, 1);
 
@@ -3056,7 +3056,7 @@ Licensed under the MIT license.
         }
 
         function indexOfHighlight(s, p) {
-            for (var i = 0; i < highlights.length; ++i) {
+            for (let i = 0; i < highlights.length; ++i) {
                 var h = highlights[i];
                 if (h.series == s && h.point[0] == p[0]
                     && h.point[1] == p[1])
@@ -3121,7 +3121,7 @@ Licensed under the MIT license.
                 // what we support too
                 var gradient = ctx.createLinearGradient(0, top, 0, bottom);
 
-                for (var i = 0, l = spec.colors.length; i < l; ++i) {
+                for (let i = 0, l = spec.colors.length; i < l; ++i) {
                     var c = spec.colors[i];
                     if (typeof c != "string") {
                         var co = $.color.parse(defaultColor);
