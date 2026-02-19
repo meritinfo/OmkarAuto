@@ -46,7 +46,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label>Age</label><span style="color: red">*</span>
-                                                <input numbersonly type="text" class="form-control"
+                                                <input numbersonly autocomplete="off" type="text" class="form-control"
                                                     formControlName="age"   maxlength="2"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['age'].invalid) }">
                                             </div>
@@ -81,7 +81,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label>Mobile No</label><span style="color: red">*</span>
-                                                <input numbersonly type="text" class="form-control"
+                                                <input numbersonly autocomplete="off" type="text" class="form-control"
                                                     formControlName="introByMobileNo" maxlength="10"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['introByMobileNo'].invalid) }">
                                             </div>
@@ -130,7 +130,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label>Aadhar No</label><span style="color: red">*</span>
-                                                <input numbersonly type="text" class="form-control"
+                                                <input numbersonly autocomplete="off" type="text" class="form-control"
                                                     formControlName="driverAadharNo"   maxlength="16"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['driverAadharNo'].invalid) }">
                                             </div>
@@ -218,14 +218,14 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label>Pin</label>
-                                                <input numbersonly type="text" class="form-control" maxlength="6"
+                                                <input numbersonly autocomplete="off" type="text" class="form-control" maxlength="6"
                                                     formControlName="temporaryAddrPin"  >
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label>Phone</label>
-                                                <input numbersonly type="text" maxlength="10" class="form-control"
+                                                <input numbersonly autocomplete="off" type="text" maxlength="10" class="form-control"
                                                     formControlName="tempAddPhone"  >
                                             </div>
                                         </div>
@@ -248,14 +248,14 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label>Pin</label>
-                                                <input numbersonly type="text" class="form-control" maxlength="6"
+                                                <input numbersonly autocomplete="off" type="text" class="form-control" maxlength="6"
                                                     formControlName="permanentAddrPin"  >
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label>Phone</label>
-                                                <input numbersonly type="text" class="form-control" maxlength="10"
+                                                <input numbersonly autocomplete="off" type="text" class="form-control" maxlength="10"
                                                     formControlName="permAddPhone"  >
                                             </div>
                                         </div>
@@ -273,7 +273,7 @@
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
                                                         <label>Years</label>
-                                                        <input numbersonly maxlength="4" type="text"
+                                                        <input numbersonly autocomplete="off" maxlength="4" type="text"
                                                             class="form-control" formControlName="previousExpYears"
                                                              >
                                                     </div>
@@ -283,7 +283,7 @@
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
                                                         <label>Mobile 1</label><span style="color: red">*</span>
-                                                        <input numbersonly type="text" class="form-control"
+                                                        <input numbersonly autocomplete="off" type="text" class="form-control"
                                                               formControlName="driverMobile1"
                                                             maxlength="10"
                                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['driverMobile1'].invalid) }">
@@ -292,7 +292,7 @@
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
                                                         <label>Mobile 2</label>
-                                                        <input numbersonly type="text" maxlength="10"
+                                                        <input numbersonly autocomplete="off" type="text" maxlength="10"
                                                             formControlName="driverMobile2" class="form-control"
                                                              >
                                                     </div>
@@ -387,7 +387,7 @@
                                             <div class="col-lg-4">
                                                 <div class="mb-3">
                                                     <label>Bank Account No</label>
-                                                    <input numbersonly type="text" class="form-control"
+                                                    <input numbersonly autocomplete="off" type="text" class="form-control"
                                                         formControlName="bankAcNo"  
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['bankAcNo'].invalid) }">
                                                 </div>

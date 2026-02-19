@@ -1,13 +1,12 @@
 
 import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Reportmodel } from 'src/app/models/reportmodel';
+import { Repreqmodel } from 'src/app/models/repreqmodel';
 import { FormBuilder, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/services/common.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
-import { Ledgerrptlistmodel  } from 'src/app/models/ledgerrptlistmodel';
 import { FinreportsService } from 'src/app/services/finreports.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Menureportaccessrightsmodel } from 'src/app/models/menureportaccessmodel';
@@ -20,14 +19,15 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./multipleledgerreport.component.css']
 })
 export class MultipleledgerreportComponent {
-   loggedInUserID: string = '';
+  parentIds: string[] = []; // parent
+  childIds: string[] = [];  //  child 
+  loggedInUserID: string = '';
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string =""; 
+  dashboard: string =""; 
 
-  accountList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
   menuList: Menureportaccessrightsmodel[] = [];
@@ -37,7 +37,7 @@ dashboard: string ="";
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
   
-  filter: Reportmodel = {
+  filter: Repreqmodel = {
     pageNumber: 1,
     pageSize: 10,
     sortColumn: 'fromPlace',
@@ -49,6 +49,9 @@ dashboard: string ="";
     filterStr1:'',
     filterStr2:'',
     filterStr3:'',
+    filterStr4:'',
+    filterStr5:'',
+    filterStr6:'',
   }
 
   formFilter!: FormGroup;
@@ -122,7 +125,6 @@ dashboard: string ="";
   
     this.sharedService.loading=true;
     this.getBranchList();
-    this.getAccountList();  
     this.sharedService.loading=false;
     
     this.formFilter = this.formBuilder.group({
@@ -142,12 +144,6 @@ dashboard: string ="";
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;
-    });
-  }
-
-  getAccountList(): void {
-    this.ledgerrptService.getLedgerList().subscribe((res) => {
-      this.accountList = res;
     });
   }
   
@@ -190,60 +186,89 @@ dashboard: string ="";
     item.isExpanded = !item.isExpanded;
   }
 
-  toggleCheck(item: Menureportaccessrightsmodel): void {
-    item.checked = !item.checked;
+
+
+toggleCheck(item: Menureportaccessrightsmodel): void {
+  item.checked = !item.checked;
+  if (item.children && item.children.length > 0) {
     this.checkChildren(item, item.checked);
-    this.updateParentCheckStatus(this.menuList, item);
   }
+  this.updateParentCheckStatus(this.menuList);
+  this.updateIds(this.menuList);
+}
 
-  checkChildren(item: Menureportaccessrightsmodel, checked: boolean): void {
+checkChildren(item: Menureportaccessrightsmodel, checked: boolean): void {
+  if (item.children && item.children.length > 0) {
+    for (var i = 0; i < item.children.length; i++) {
+      var child = item.children[i];
+      child.checked = checked;
+      this.checkChildren(child, checked);
+    }
+  }
+}
+
+updateParentCheckStatus(items: Menureportaccessrightsmodel[]): void {
+  for (var i = 0; i < items.length; i++) {
+    var item = items[i];
     if (item.children && item.children.length > 0) {
-      for (var i = 0; i < item.children.length; i++) {
-        var child = item.children[i];
-        child.checked = checked;
-        this.checkChildren(child, checked);
-      }
-    }
-  }
+      // First update children
+      this.updateParentCheckStatus(item.children);
 
-  updateParentCheckStatus(items: Menureportaccessrightsmodel[], changedItem: Menureportaccessrightsmodel): void {
-    for (var i = 0; i < items.length; i++) {
-      var item = items[i];
-      if (item.children && item.children.indexOf(changedItem) !== -1) {
-        var allChecked = true;
-        for (var j = 0; j < item.children.length; j++) {
-          if (!item.children[j].checked) {
-            allChecked = false;
-            break;
-          }
+      // Parent is checked only if all children are checked
+      let allChecked = true;
+      for (let j = 0; j < item.children.length; j++) {
+        if (!item.children[j].checked) {
+          allChecked = false;
+          break;
         }
-        item.checked = allChecked;
-        this.updateParentCheckStatus(this.menuList, item);
-      } else if (item.children && item.children.length > 0) {
-        this.updateParentCheckStatus(item.children, changedItem);
       }
+      item.checked = allChecked;
     }
   }
+}
+
+updateIds(items: Menureportaccessrightsmodel[]): void {
+  this.parentIds = [];
+  this.childIds = [];
+  var traverse = (item: Menureportaccessrightsmodel) => {
+    if (item.children && item.children.length > 0) {
+      if (item.checked) {
+        this.parentIds.push(item.accountID);
+      } else {
+        for (let i = 0; i < item.children.length; i++) {
+          traverse(item.children[i]);
+        }
+      }
+    } else {
+      if (item.checked) {
+        this.childIds.push(item.accountID);
+      }
+    }
+  };
+
+  for (var i = 0; i < items.length; i++) {
+    traverse(items[i]);
+  }
+}
 
   setSelectedItem(item: Menureportaccessrightsmodel): void {
-    if (this.selectedItem === item) {
-      item.isExpanded = !item.isExpanded;
-    } else {
+    if (this.selectedItem === item) item.isExpanded = !item.isExpanded;
+    else {
       this.selectedItem = item;
-      if (item.children && item.children.length > 0) {
-        item.isExpanded = true;
-      }
+      if (item.children && item.children.length > 0) item.isExpanded = true;
     }
   }
 
-  saveSelectedIds() {
-    var selectedIdsArray = this.getSelectedIds(this.menuList);
-    var selectedIds = selectedIdsArray.join(','); 
+  saveSelectedIds(): { parents: string[], children: string[] } {
+    return { parents: this.parentIds, children: this.childIds };
   }
+
+
+
 
 
   getSelectedIds(items: any[]): number[] {
-    let ids: number[] = [];
+    var ids: number[] = [];
     items.forEach(item => {
       if (item.checked) {
         ids.push(item.accountID);
@@ -313,22 +338,25 @@ dashboard: string ="";
       return;
     }
 
-    var selectedIdsArray = this.getSelectedIds(this.menuList);
-    var selectedIds = selectedIdsArray.join(',');
+    var selectedIdsArray = this.saveSelectedIds();
+    selectedIdsArray.parents = selectedIdsArray.parents.concat(selectedIdsArray.children)
+    var childIdsStr = selectedIdsArray.parents.join(',');
 
-    if(selectedIds.length>1500){
-      this.toastrService.warning("Please select less number of Accounts");
-      return;
-    }
+
+    // if(selectedIds.length>3000){
+    //   this.toastrService.warning("Please select less number of Accounts");
+    //   return;
+    //   //selectedIds1 = selectedIds.substring(3000);
+    // }
 
     this.filter.fromDate      = selectedDataVal.fromDate;
     this.filter.toDate        = selectedDataVal.toDate;
     this.filter.filterStr     = selectedDataVal.branch==""?"0":selectedDataVal.branch;
     this.filter.filterStr1    = this.year;
-    this.filter.filterStr2    = selectedIds//selectedDataVal.accountID.dataId;
-     
-    this.filter.sortColumn = selectedDataVal.subType.toString().toUpperCase();
-    this.filter.sortOrder = selectedDataVal.subLedger;
+    this.filter.filterStr2    = childIdsStr.toString();
+    this.filter.filterStr6    = "";
+    this.filter.sortColumn    = selectedDataVal.subType.toString().toUpperCase();
+    this.filter.sortOrder     = selectedDataVal.subLedger;
 
     if(selectedDataVal.branchorCon == "C"){
       this.filter.filterStr3    = "C";

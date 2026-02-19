@@ -1,18 +1,19 @@
-﻿using FleetTrans.Models;
+﻿using DocumentFormat.OpenXml.Office2016.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Wordprocessing;
+using FleetTrans.Models;
 using Microsoft.Extensions.Options;
-using SqlHelper.Models;
+using Microsoft.Office.Interop.Excel;
+using Newtonsoft.Json;
 using Shared.Models;
-using System.Numerics;
+using Shared.Repository;
+using SqlHelper.Models;
 using System.Data;
 using System.Data.SqlClient;
-using DocumentFormat.OpenXml.Spreadsheet;
-using System.Transactions;
-using Newtonsoft.Json;
-using Shared.Repository;
+using System.Globalization;
+using System.Numerics;
 using System.Text;
-using DocumentFormat.OpenXml.Office2016.Excel;
-using Microsoft.Office.Interop.Excel;
-using DocumentFormat.OpenXml.Wordprocessing;
+using System.Transactions;
 
 namespace FleetTrans.Repository
 {
@@ -777,6 +778,9 @@ namespace FleetTrans.Repository
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + requestModel.strRequest);
                 client.DefaultRequestHeaders.Add("Cookie", "ROUTE=.api-7f4488bdbd-qgbdp");
 
+                var fromdt = Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+                var todt = Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+
                 var data = new
                 {
                     reportType= "SALES_TRANSACTION",
@@ -784,8 +788,8 @@ namespace FleetTrans.Repository
                     sort = "transactionDate-desc",
                     vehicleNumber = request.FilterStr,
                     pageSize ="100",
-                    fromDate = Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy"), 
-                    toDate = Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy"),
+                    fromDate = fromdt, 
+                    toDate = todt,
                     channel = "Web",
                     accountId = requestModel.strRequest1
                 };

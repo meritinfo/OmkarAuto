@@ -116,7 +116,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip"> Pin</label>
                                                 <span style="color: red">*</span>
-                                                <input numbersonly autoclose="false" class="form-control" 
+                                                <input numbersonly autocomplete="off" autoclose="false" class="form-control" 
                                                 formControlName="pinCode" maxlength="6"      
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['pinCode'].invalid) }">
                                             </div>
@@ -128,7 +128,7 @@
                                                 <label for="formrow-inputZip">Office Phone1</label>
                                                 <span style="color: red">*</span>
                                                 <input autoclose="false" class="form-control" 
-                                                formControlName="offPhone1" numbersonly  maxlength="10"     
+                                                formControlName="offPhone1" numbersonly autocomplete="off"  maxlength="10"     
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['offPhone1'].invalid) }">
                                             </div>
                                         </div>
@@ -136,7 +136,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Office Phone2</label>
                                                 <input autoclose="false" class="form-control" numbersonly
-                                                formControlName="offPhone2" numbersonly  maxlength="10"     >
+                                                formControlName="offPhone2" numbersonly autocomplete="off"  maxlength="10"     >
                                             </div>
                                         </div>
                                       
@@ -145,7 +145,7 @@
                                                 <label for="formrow-inputZip">Office Mobile No</label>
                                                 <span style="color: red">*</span>
                                                 <input  maxlength="10"  autoclose="false" class="form-control"  
-                                                formControlName="mobileNo" numbersonly      
+                                                formControlName="mobileNo" numbersonly autocomplete="off"      
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['mobileNo'].invalid) }">
                                             </div>
                                         </div>
@@ -172,7 +172,7 @@
                                                 <label for="formrow-inputZip">Manager Mobile No</label>
                                                 <span style="color: red">*</span>
                                                 <input  maxlength="10"  autoclose="false" class="form-control" 
-                                                formControlName="managerMobileNo"   numbersonly        
+                                                formControlName="managerMobileNo"   numbersonly autocomplete="off"        
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['managerMobileNo'].invalid) }">
                                             </div>
                                         </div>
@@ -202,7 +202,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Entry Lock Days </label>
-                                                <input numbersonly maxlength="3" autoclose="false" class="form-control" 
+                                                <input numbersonly autocomplete="off" maxlength="3" autoclose="false" class="form-control" 
                                                 formControlName="entryLockDays" >
                                             </div>
                                         </div>  
@@ -228,21 +228,21 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Zone Code</label>
-                                                <input numbersonly maxlength="3" autoclose="false" class="form-control" 
+                                                <input numbersonly autocomplete="off" maxlength="3" autoclose="false" class="form-control" 
                                                 formControlName="znNumCode" (change)="onChange()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Branch Code </label>
-                                                <input numbersonly maxlength="2" autoclose="false" class="form-control"
+                                                <input numbersonly autocomplete="off" maxlength="2" autoclose="false" class="form-control"
                                                 formControlName="brNumCode" (change)="onChange()">
                                             </div>
                                         </div>   
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Doc Num Code </label>
-                                                <input numbersonly maxlength="2" autoclose="false" class="form-control"
+                                                <input numbersonly autocomplete="off" maxlength="2" autoclose="false" class="form-control"
                                                 formControlName="docNumCode">
                                             </div>
                                         </div>   

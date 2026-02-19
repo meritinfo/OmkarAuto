@@ -32,7 +32,7 @@
                                             <label for="formrow-inputZip">LR No</label>
                                             <span style="color: red">*</span>
                                             <input autoclose="false" class="form-control"
-                                            numbersonly maxlength="15" 
+                                            numbersonly autocomplete="off" maxlength="15" 
                                                 formControlName="gcNoteNo" (change)="getConsignmentDetails($event)"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['gcNoteNo'].invalid) }">
                                         </div>
@@ -143,21 +143,21 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Pkgs</label>
-                                            <input numbersonly autoclose="false" class="form-control"
+                                            <input numbersonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="noPackages" >
                                         </div>
                                     </div>  
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Actual Weight</label>
-                                            <input threedecimalonly autoclose="false" class="form-control"
+                                            <input threedecimalonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="actualWt" >
                                         </div>
                                     </div>  
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Charge Weight</label>
-                                            <input threedecimalonly autoclose="false" class="form-control"
+                                            <input threedecimalonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="chargewt" >
                                         </div>
                                     </div>  
@@ -265,14 +265,14 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Rate</label>
-                                            <input type="text" decimalonly class="form-control" 
+                                            <input type="text" decimalonly autocomplete="off" class="form-control" 
                                                 formControlName="rateRs">
                                         </div>
                                     </div>
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Freight</label>
-                                            <input type="text" decimalonly class="form-control"  
+                                            <input type="text" decimalonly autocomplete="off" class="form-control"  
                                                 formControlName="freightRs" (change)="calculateTotalAmount()">
                                         </div>
                                     </div> 
@@ -288,7 +288,7 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Statistical</label>
-                                            <input type="text" decimalonly class="form-control"  
+                                            <input type="text" decimalonly autocomplete="off" class="form-control"  
                                                 formControlName="statisticalRs" (change)="calculateTotalAmount()">
                                         </div>
                                     </div> 
@@ -302,7 +302,7 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">FOV</label>
-                                            <input type="text" decimalonly class="form-control"  
+                                            <input type="text" decimalonly autocomplete="off" class="form-control"  
                                                 formControlName="fovRs" (change)="calculateTotalAmount()">
                                         </div>
                                     </div> 
@@ -318,7 +318,7 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Door Coll</label>
-                                            <input type="text" decimalonly class="form-control"  
+                                            <input type="text" decimalonly autocomplete="off" class="form-control"  
                                                 formControlName="doorCollRs" (change)="calculateTotalAmount()">
                                         </div>
                                     </div> 
@@ -332,7 +332,7 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Handling</label>
-                                            <input type="text" decimalonly class="form-control"  
+                                            <input type="text" decimalonly autocomplete="off" class="form-control"  
                                                 formControlName="handlingRs" (change)="calculateTotalAmount()">
                                         </div>
                                     </div> 
@@ -348,7 +348,7 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Loading Detn</label>
-                                            <input type="text" decimalonly class="form-control"  
+                                            <input type="text" decimalonly autocomplete="off" class="form-control"  
                                                 formControlName="loadingDetnRs" (change)="calculateTotalAmount()">
                                         </div>
                                     </div> 
@@ -362,7 +362,7 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Enroute</label>
-                                            <input type="text" decimalonly class="form-control"  
+                                            <input type="text" decimalonly autocomplete="off" class="form-control"  
                                                 formControlName="enrouteRs" (change)="calculateTotalAmount()">
                                         </div>
                                     </div> 
@@ -378,7 +378,7 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Misc</label>
-                                            <input type="text" decimalonly class="form-control"  
+                                            <input type="text" decimalonly autocomplete="off" class="form-control"  
                                                 formControlName="miscRs" (change)="calculateTotalAmount()">
                                         </div>
                                     </div> 
@@ -392,7 +392,7 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Door Del</label>
-                                            <input type="text" decimalonly class="form-control"  
+                                            <input type="text" decimalonly autocomplete="off" class="form-control"  
                                                 formControlName="doorDelRs" (change)="calculateTotalAmount()">
                                         </div>
                                     </div> 
@@ -421,7 +421,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Detn Days</label>
-                                                <input type="text" decimalonly class="form-control"  
+                                                <input type="text" decimalonly autocomplete="off" class="form-control"  
                                                     formControlName="ulDetentionDays">
                                             </div>
                                         </div> 
@@ -430,7 +430,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">UnLoading</label>
-                                                <input type="text" decimalonly class="form-control"  
+                                                <input type="text" decimalonly autocomplete="off" class="form-control"  
                                                     formControlName="unLoadingRs" (change)="calculateTotalAmount()">
                                             </div>
                                         </div> 
@@ -444,7 +444,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">UnLoading Detn</label>
-                                                <input type="text" decimalonly class="form-control"  
+                                                <input type="text" decimalonly autocomplete="off" class="form-control"  
                                                     formControlName="unLoadingDetnRs" (change)="calculateTotalAmount()">
                                             </div>
                                         </div> 
@@ -460,7 +460,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Extras</label>
-                                                <input type="text" decimalonly class="form-control"  
+                                                <input type="text" decimalonly autocomplete="off" class="form-control"  
                                                     formControlName="extrasRS" (change)="calculateTotalAmount()">
                                             </div>
                                         </div> 
@@ -474,7 +474,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Others </label>
-                                                <input type="text" decimalonly class="form-control"  
+                                                <input type="text" decimalonly autocomplete="off" class="form-control"  
                                                     formControlName="othersRs" (change)="calculateTotalAmount()">
                                             </div>
                                         </div> 
@@ -490,7 +490,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Sub Total</label>
-                                                <input type="text" decimalonly class="form-control"  
+                                                <input type="text" decimalonly autocomplete="off" class="form-control"  
                                                     formControlName="subTotalRs" >
                                             </div>
                                         </div> 
@@ -555,7 +555,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Non Gst Amt1</label>
-                                                <input type="text" decimalonly class="form-control" (change)="calculateTotalAmount()"
+                                                <input type="text" decimalonly autocomplete="off" class="form-control" (change)="calculateTotalAmount()"
                                                     formControlName="nonGstAmt1" [ngClass]=>
                                             </div>
                                         </div>                                  
@@ -569,7 +569,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Non Gst Amt2</label>
-                                                <input type="text" decimalonly class="form-control" (change)="calculateTotalAmount()"
+                                                <input type="text" decimalonly autocomplete="off" class="form-control" (change)="calculateTotalAmount()"
                                                     formControlName="nonGstAmt2" [ngClass]=>
                                             </div>
                                         </div>                                  
@@ -583,7 +583,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Net Total</label>
-                                                <input type="text" decimalonly class="form-control" 
+                                                <input type="text" decimalonly autocomplete="off" class="form-control" 
                                                     formControlName="gtotalRs" [ngClass]=>
                                             </div>
                                         </div>                              

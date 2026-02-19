@@ -4493,6 +4493,25 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetBpclCardBalAmount")]
+        public async Task<IActionResult> GetBpclCardBalAmount(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await rechargeRequestBusiness.GetBpclCardBalAmount(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("GetBpclBalanceAmount")]
         public async Task<IActionResult> GetBpclBalanceAmount(ReportRequestModel request)
         {
@@ -4503,6 +4522,45 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await rechargeRequestBusiness.GetBpclBalanceAmount(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("FleetCardReturnTransferSave")]
+        public async Task<IActionResult> FleetCardReturnTransferSave(FleetCardReturnTransferModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await rechargeRequestBusiness.FleetCardReturnTransferSave(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetFleetCardReturnTransferList")]
+        public async Task<IActionResult> GetFleetCardReturnTransferList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await rechargeRequestBusiness.GetFleetCardReturnTransferList(request);
 
                 return Ok(result);
             }

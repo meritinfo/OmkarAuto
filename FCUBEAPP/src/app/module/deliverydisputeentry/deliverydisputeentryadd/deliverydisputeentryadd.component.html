@@ -44,7 +44,7 @@
                                             <label for="formrow-inputZip">Disp Sl No </label>
                                             <span style="color: red">*</span>
                                             <input autoclose="false" class="form-control" 
-                                            numbersonly maxlength="15" 
+                                            numbersonly autocomplete="off" maxlength="15" 
                                                 formControlName="dispSlNo"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['dispSlNo'].invalid) }">
                                         </div>
@@ -135,14 +135,14 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">CN Pkgs</label>
-                                            <input numbersonly autoclose="false" class="form-control"
+                                            <input numbersonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="cnPkgs" >
                                         </div>
                                     </div>  
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">CN Weight</label>
-                                            <input threedecimalonly autoclose="false" class="form-control"
+                                            <input threedecimalonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="cnActWt" >
                                         </div>
                                     </div>  

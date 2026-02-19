@@ -81,14 +81,14 @@
                                         <div class="col-sm-2">
                                             <div class="mb-3">
                                                 <label>No Of Days : </label><span style="color: red">*</span>
-                                                <input decimalonly type="text" class="form-control" 
+                                                <input decimalonly autocomplete="off" type="text" class="form-control" 
                                                 formControlName="noOfDays"  [ngClass]="{ 'is-invalid': formSubmitted && (f['noOfDays'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
                                             <div class="mb-3">
                                                 <label>Gross Salary : </label><span style="color: red">*</span>
-                                                <input decimalonly type="text" class="form-control"  (change) ="getSalDays()"
+                                                <input decimalonly autocomplete="off" type="text" class="form-control"  (change) ="getSalDays()"
                                                 formControlName="grossSalary" [ngClass]="{ 'is-invalid': formSubmitted && (f['grossSalary'].invalid) }" >
                                             </div>
                                         </div>
@@ -97,35 +97,35 @@
                                         <div class="col-sm-2">
                                             <div class="mb-3">
                                                 <label>Lop Deduction  : </label><span style="color: red">*</span>
-                                                <input decimalonly type="text" class="form-control"  (change) ="getSalDays()"
+                                                <input decimalonly autocomplete="off" type="text" class="form-control"  (change) ="getSalDays()"
                                                 formControlName="lopDeduction"  [ngClass]="{ 'is-invalid': formSubmitted && (f['lopDeduction'].invalid) }" >
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
                                             <div class="mb-3">
                                                 <label>Pf Deduction: </label><span style="color: red">*</span>
-                                                <input decimalonly type="text" class="form-control"  (change) ="getSalDays()"
+                                                <input decimalonly autocomplete="off" type="text" class="form-control"  (change) ="getSalDays()"
                                                 formControlName="pfDeduction" [ngClass]="{ 'is-invalid': formSubmitted && (f['pfDeduction'].invalid) }" >
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
                                             <div class="mb-3">
                                                 <label>Esi Deduction: </label><span style="color: red">*</span>
-                                                <input decimalonly type="text" class="form-control"  (change) ="getSalDays()"
+                                                <input decimalonly autocomplete="off" type="text" class="form-control"  (change) ="getSalDays()"
                                                 formControlName="esiDeduction"   [ngClass]="{ 'is-invalid': formSubmitted && (f['esiDeduction'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
                                             <div class="mb-3">
                                                 <label>Oth Deduction : </label><span style="color: red">*</span>
-                                                <input decimalonly type="text" class="form-control"  (change) ="getSalDays()"
+                                                <input decimalonly autocomplete="off" type="text" class="form-control"  (change) ="getSalDays()"
                                                 formControlName="othDeduction" [ngClass]="{ 'is-invalid': formSubmitted && (f['othDeduction'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
                                             <div class="mb-3">
                                                 <label>Net Salary : </label><span style="color: red">*</span>
-                                                <input decimalonly type="text" class="form-control" 
+                                                <input decimalonly autocomplete="off" type="text" class="form-control" 
                                                 formControlName="netSalary"  >
                                             </div>
                                         </div>
@@ -148,7 +148,7 @@
                                         <div class="col-lg-2"> 
                                             <div class="mb-2">                                           
                                                 <label for="formrow-inputState">Cheque No</label>
-                                                <input numbersonly class="form-control"    
+                                                <input numbersonly autocomplete="off" class="form-control"    
                                                     formControlName="chequeNo" maxlength="6" 
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['chequeNo'].invalid) }">
                                             </div>  

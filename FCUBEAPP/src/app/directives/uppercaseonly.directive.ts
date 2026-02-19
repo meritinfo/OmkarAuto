@@ -5,8 +5,9 @@ import { Directive, HostListener,ElementRef, Renderer2 } from '@angular/core';
 })
 
 export class UppercaseonlyDirective {
-  @HostListener('input', ['$event']) onInput(event: KeyboardEvent) {
-    const input = event.target as HTMLInputElement;
+  @HostListener('input', ['$event']) onInput(event: Event) {
+    const kEvent = event as KeyboardEvent;
+    const input = kEvent.target as HTMLInputElement;
     input.value = input.value.toUpperCase().trimStart();  
   } 
 }

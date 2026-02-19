@@ -512,9 +512,9 @@ namespace FleetTrans.Repository
                         {
                             new SqlParameter("@FromDate",           request.FromDate),
                             new SqlParameter("@ToDate",             request.ToDate),
-                            new SqlParameter("@Branch",          request.FilterStr),
+                            new SqlParameter("@Branch",             request.FilterStr),
                             new SqlParameter("@VehicleMasterID",    request.FilterStr1),
-                            new SqlParameter("@TripAdjusted",      request.FilterStr2),
+                            new SqlParameter("@TripAdjusted",       request.FilterStr2),
                         };
 
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDieselStmtRptExcel", param);

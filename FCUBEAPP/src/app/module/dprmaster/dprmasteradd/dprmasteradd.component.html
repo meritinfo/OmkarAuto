@@ -166,14 +166,14 @@
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Actual Wt: </label>
-                                            <input threedecimalonly type="text" class="form-control" 
+                                            <input threedecimalonly autocomplete="off" type="text" class="form-control" 
                                             formControlName="actualWt" >
                                         </div>
                                     </div>
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Charged Wt: </label>
-                                            <input threedecimalonly type="text" class="form-control" 
+                                            <input threedecimalonly autocomplete="off" type="text" class="form-control" 
                                             formControlName="chargeWt" >
                                         </div>
                                     </div>                             
@@ -192,7 +192,7 @@
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Rate/Ton: </label>
-                                            <input decimalonly type="text" class="form-control" 
+                                            <input decimalonly autocomplete="off" type="text" class="form-control" 
                                             formControlName="rateRs" (change)="calcFrt()" >
                                         </div>
                                     </div>   
@@ -201,7 +201,7 @@
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Booking Frt: </label>
-                                            <input decimalonly type="text"
+                                            <input decimalonly autocomplete="off" type="text"
                                             class="form-control" (change)="calcRate()" 
                                             formControlName="freightRs" >
                                         </div>
@@ -218,7 +218,7 @@
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Hamali: </label>
-                                            <input decimalonly type="text" 
+                                            <input decimalonly autocomplete="off" type="text" 
                                             class="form-control" (change)="calcTotal()" 
                                             formControlName="hamaliAmt" >
                                         </div>
@@ -236,7 +236,7 @@
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>LD Detain: </label>
-                                            <input decimalonly type="text" 
+                                            <input decimalonly autocomplete="off" type="text" 
                                             class="form-control" (change)="calcTotal()" 
                                             formControlName="ldDetenAmt" >
                                         </div>
@@ -254,7 +254,7 @@
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Extra Chrgs: </label>
-                                            <input decimalonly type="text"
+                                            <input decimalonly autocomplete="off" type="text"
                                             class="form-control" (change)="calcTotal()" 
                                             formControlName="extraAmt" >
                                         </div>
@@ -272,7 +272,7 @@
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Other Chrgs: </label>
-                                            <input decimalonly type="text" 
+                                            <input decimalonly autocomplete="off" type="text" 
                                             class="form-control" (change)="calcTotal()" 
                                             formControlName="otherAmt" >
                                         </div>
@@ -290,7 +290,7 @@
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Tot Freight: </label>
-                                            <input decimalonly type="text" class="form-control" 
+                                            <input decimalonly autocomplete="off" type="text" class="form-control" 
                                             formControlName="totFreightAmt" 
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['totFreightAmt'].invalid) }">
                                         </div>

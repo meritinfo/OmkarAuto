@@ -115,7 +115,7 @@
                                         </div>
                                         <div class="col-lg-2">                                                                             
                                             <label for="formrow-inputState">Amount</label><span style="color:red">*</span>
-                                            <input decimalonly class="form-control"    
+                                            <input decimalonly autocomplete="off" class="form-control"    
                                                 formControlName="amount"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['amount'].invalid) }">
                                         </div>
@@ -123,7 +123,7 @@
                                     <div class="row">
                                         <div class="col-lg-3">                                            
                                             <label for="formrow-inputState">Cheque No</label>
-                                            <input numbersonly class="form-control"    
+                                            <input numbersonly autocomplete="off" class="form-control"    
                                                 formControlName="chequeNo" maxlength="6" 
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['chequeNo'].invalid) }">
                                         </div>                 

@@ -132,7 +132,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Year</label>
                                                 <span style="color: red">*</span>
-                                                <input numbersonly maxlength="4" autoclose="false"                                                   
+                                                <input numbersonly autocomplete="off" maxlength="4" autoclose="false"                                                   
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['makeYear'].invalid) }"
                                                     formControlName="makeYear" class="form-control">
                                             </div>
@@ -159,8 +159,8 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Tank Capacity</label>
                                                 <span style="color: red">*</span>
-                                                <input decimalonly type="text" id="formrow-inputCity" class="form-control"
-                                                    formControlName="tankCap"                                                   
+                                                <input decimalonly autocomplete="off" type="text" id="formrow-inputCity" class="form-control"
+                                                    formControlName="tankCap"                                                    
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['tankCap'].invalid) }">
                                             </div>
                                         </div>
@@ -168,7 +168,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Mileage</label>
                                                 <span style="color: red">*</span>
-                                                <input decimalonly type="text" id="formrow-inputCity" class="form-control"
+                                                <input decimalonly autocomplete="off" type="text" id="formrow-inputCity" class="form-control"
                                                     formControlName="mileageLt"                                                   
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['mileageLt'].invalid) }">
                                             </div>
@@ -177,7 +177,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">AdBlue Mileage</label>
                                                 <span style="color: red">*</span>
-                                                <input decimalonly type="text" id="formrow-inputCity" class="form-control"
+                                                <input decimalonly autocomplete="off" type="text" id="formrow-inputCity" class="form-control"
                                                     formControlName="adBlueMileageLt"                                                   
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['adBlueMileageLt'].invalid) }">
                                             </div>
@@ -187,14 +187,14 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Gross Weight</label>                                               
-                                                <input threedecimalonly type="text" id="formrow-inputCity" class="form-control"
+                                                <input threedecimalonly autocomplete="off" type="text" id="formrow-inputCity" class="form-control"
                                                     formControlName="grossWt" >
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">UnLaden Weight</label>                                        
-                                                <input threedecimalonly type="text" id="formrow-inputCity" class="form-control"
+                                                <input threedecimalonly autocomplete="off" type="text" id="formrow-inputCity" class="form-control"
                                                     formControlName="unLadenWT">
                                             </div>
                                         </div>
@@ -202,7 +202,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">No of Tyres</label>
                                                 <span style="color: red">*</span>
-                                                <input numbersonly maxlength="3" type="text" class="form-control"
+                                                <input numbersonly autocomplete="off" maxlength="3" type="text" class="form-control"
                                                     formControlName="noOfTyres"                                               
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['noOfTyres'].invalid) }">
                                             </div>
@@ -211,7 +211,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Vehicle Capacity</label>
                                                 <span style="color: red">*</span>
-                                                <input decimalonly maxlength="8" type="text" class="form-control"
+                                                <input decimalonly autocomplete="off" maxlength="8" type="text" class="form-control"
                                                     formControlName="vehicleCapacity"                                               
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleCapacity'].invalid) }">
                                             </div>
@@ -221,21 +221,21 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Vehicle Length</label>                                               
-                                                <input decimalonly type="text" id="formrow-inputCity" class="form-control"
+                                                <input decimalonly autocomplete="off" type="text" id="formrow-inputCity" class="form-control"
                                                     formControlName="vehLength" >
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Vehicle Height</label>                                              
-                                                <input decimalonly type="text" id="formrow-inputCity" class="form-control"
+                                                <input decimalonly autocomplete="off" type="text" id="formrow-inputCity" class="form-control"
                                                     formControlName="vehHeight" >
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Vehicle Breadth</label>                                            
-                                                <input decimalonly type="text" id="formrow-inputCity" class="form-control"
+                                                <input decimalonly autocomplete="off" type="text" id="formrow-inputCity" class="form-control"
                                                     formControlName="vehBreadth" >
                                             </div>
                                         </div>
@@ -414,7 +414,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Sold Value</label>
                                                 <span style="color: red">*</span>
-                                                <input decimalonly bsdatepicker="" autoclose="false"  
+                                                <input decimalonly autocomplete="off" bsdatepicker="" autoclose="false"  
                                                     formControlName="soldValue" class="form-control"                                                 
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['soldValue'].invalid) }">
                                             </div>
@@ -817,15 +817,15 @@
                                                                 formControlName="validTo">
                                                     </td>
                                                     <td class="col-lg-2">
-                                                        <input  maxlength="9" decimalonly class="form-control form-control-lg"
+                                                        <input  maxlength="9" decimalonly autocomplete="off" class="form-control form-control-lg"
                                                                 formControlName="vehicleAvgLoad">
                                                     </td>
                                                     <td class="col-lg-2">
-                                                        <input  maxlength="9" decimalonly class="form-control form-control-lg"
+                                                        <input  maxlength="9" decimalonly autocomplete="off" class="form-control form-control-lg"
                                                             formControlName="vehicleAvgEmpty">
                                                     </td>
                                                     <td class="col-lg-2">
-                                                        <input maxlength="9" decimalonly class="form-control form-control-lg" 
+                                                        <input maxlength="9" decimalonly autocomplete="off" class="form-control form-control-lg" 
                                                                     formControlName="adBlue">
                                                     </td>
                                                     <td class="col-lg-2">

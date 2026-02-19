@@ -69,14 +69,14 @@
                             <div class="col-lg-2"> 
                                 <div class="mb-3">                                    
                                     <label for="formrow-inputCity">Interest % </label><span style="color: red">*</span>    
-                                    <input decimalonly class="form-control" formControlName="intPct" maxlength="5" 
+                                    <input decimalonly autocomplete="off" class="form-control" formControlName="intPct" maxlength="5" 
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['intPct'].invalid) }">                                    
                                 </div>                         
                             </div>
                             <div class="col-lg-2"> 
                                 <div class="mb-3">                                    
                                     <label for="formrow-inputCity">Days After </label><span style="color: red">*</span>    
-                                    <input numbersonly class="form-control" formControlName="daysAfter" maxlength="5" 
+                                    <input numbersonly autocomplete="off" class="form-control" formControlName="daysAfter" maxlength="5" 
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['daysAfter'].invalid) }">                                    
                                 </div>                         
                             </div>

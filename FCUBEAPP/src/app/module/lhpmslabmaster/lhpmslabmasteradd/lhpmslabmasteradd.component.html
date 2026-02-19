@@ -59,7 +59,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Lhpm Amount</label>
                                                 <span style="color: red">*</span>
-                                                <input decimalonly type="text" class="form-control"  
+                                                <input decimalonly autocomplete="off" type="text" class="form-control"  
                                                 formControlName="lhpmAmt"    
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['lhpmAmt'].invalid) }">
                                             </div>
@@ -70,7 +70,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Hire From</label>
                                                 <span style="color: red">*</span>
-                                                <input decimalonly type="text" class="form-control" 
+                                                <input decimalonly autocomplete="off" type="text" class="form-control" 
                                                 formControlName="hireFrom"    
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['hireFrom'].invalid) }">
                                             </div>
@@ -81,7 +81,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Hire To</label>
                                                 <span style="color: red">*</span>
-                                                <input decimalonly type="text" class="form-control"
+                                                <input decimalonly autocomplete="off" type="text" class="form-control"
                                                 formControlName="hireTo"    
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['hireTo'].invalid) }">
                                             </div>

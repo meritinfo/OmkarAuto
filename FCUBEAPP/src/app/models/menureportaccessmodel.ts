@@ -1,5 +1,5 @@
 export class Menureportaccessrightsmodel {
-accountID: string = "";
+  accountID: string = "";
   accountName: string = "";
   approveYn: string = "";
   level: string = "";

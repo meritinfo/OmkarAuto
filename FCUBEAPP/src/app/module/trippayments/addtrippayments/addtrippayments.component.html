@@ -120,7 +120,7 @@
                                             <div class="col-lg-2">
                                                 <div class="mb-3">
                                                     <label for="basicpill-phoneno-input">Qty Ltrs</label>
-                                                    <input type="text" class="form-control" decimalonly formControlName="qtyLtrs" 
+                                                    <input type="text" class="form-control" decimalonly autocomplete="off" formControlName="qtyLtrs" 
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['qtyLtrs'].invalid) } "
                                                           (change)="calculateTotalAmount()">
                                                 </div>
@@ -128,7 +128,7 @@
                                             <div class="col-lg-2">
                                                 <div class="mb-3">
                                                     <label for="basicpill-phoneno-input">Rate Per Ltr</label>
-                                                    <input type="text" class="form-control" decimalonly formControlName="ratePerLtr"
+                                                    <input type="text" class="form-control" decimalonly autocomplete="off" formControlName="ratePerLtr"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['ratePerLtr'].invalid) }"
                                                           (change)="calculateTotalAmount()">
                                                 </div>

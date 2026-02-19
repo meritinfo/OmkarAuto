@@ -97,7 +97,7 @@
                                 <div class="col-lg-1">
                                     <div class="mb-3">
                                         <label for="formrow-inputZip">KMs :</label>
-                                        <input type="text" numbersonly maxlength="8" class="form-control" 
+                                        <input type="text" numbersonly autocomplete="off" maxlength="8" class="form-control" 
                                             formControlName="distanceKms">
                                     </div>
                                 </div>    
@@ -138,7 +138,7 @@
                                 <div class="col-lg-2">
                                     <div class="mb-3">
                                         <label for="formrow-inputState">Broker Mobile</label>
-                                        <input numbersonly autoclose="false" maxlength="10" 
+                                        <input numbersonly autocomplete="off" autoclose="false" maxlength="10" 
                                             formControlName="brokerMblNo" class="form-control">
                                     </div>
                                 </div> 
@@ -147,21 +147,21 @@
                                 <div class="col-lg-2">
                                     <div class="mb-3">
                                         <label for="formrow-inputZip">Total Hire</label>
-                                        <input type="text" decimalonly class="form-control" 
+                                        <input type="text" decimalonly autocomplete="off" class="form-control" 
                                             formControlName="totalHire" (change)="calculateTotalAmount()">
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="mb-3">
                                         <label for="formrow-inputZip">Total Advance</label>
-                                        <input type="text" decimalonly class="form-control" 
+                                        <input type="text" decimalonly autocomplete="off" class="form-control" 
                                             formControlName="totalAdvance" (change)="calculateTotalAmount()">
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="mb-3">
                                         <label for="formrow-inputZip">Balance</label>
-                                        <input type="text" decimalonly class="form-control" 
+                                        <input type="text" decimalonly autocomplete="off" class="form-control" 
                                             formControlName="balance">
                                     </div>
                                 </div>

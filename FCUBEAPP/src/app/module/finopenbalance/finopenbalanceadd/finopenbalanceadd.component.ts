@@ -285,21 +285,20 @@ dashboard: string ="";
   //Submit form details //
   submitOpeningBalanceForm(): void {
     if (this.formFinOpenBal.invalid) {
-  this.toasterService.warning("Please enter mandatory fields");
+      this.toasterService.warning("Please enter mandatory fields");
 
-  const controls = this.formFinOpenBal.controls;
-  for (const name in controls) {
-    if (controls[name].invalid) {
-      // Convert camelCase key to readable format
-      const readableName = name.replace(/([A-Z])/g, ' $1');
-      const titleCaseName = readableName.charAt(0).toUpperCase() + readableName.slice(1);
+      const controls = this.formFinOpenBal.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          // Convert camelCase key to readable format
+          const readableName = name.replace(/([A-Z])/g, ' $1');
+          const titleCaseName = readableName.charAt(0).toUpperCase() + readableName.slice(1);
 
-      this.toasterService.warning(titleCaseName + " field is invalid");
+          this.toasterService.warning(titleCaseName + " field is invalid");
+        }
+      }
+      return;
     }
-  }
-
-  return;
-}
               
     if (this.formFinOpenBal.controls['arrayList'].invalid) {
       this.toasterService.warning("Details fields are mandatory");
@@ -307,11 +306,7 @@ dashboard: string ="";
     }
 
     var selectedDataVal=this.formFinOpenBal.getRawValue();
-    // if (parseFloat(selectedDataVal.totalDebit)!=parseFloat(selectedDataVal.totalCredit)) {
-    //   this.toasterService.warning("Total Credit Amount and Total Debit Amount");
-    //   return;
-    // }
-
+    
     this.openbalancemodel.branchCode  = selectedDataVal.branchCode;
     this.openbalancemodel.yearID      = this.year;
 
@@ -319,8 +314,7 @@ dashboard: string ="";
     var crdr = "";
     var amt = "";
     for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
-      if (selectedDataVal.arrayList[i].accountID != "" &&
-      (parseFloat(selectedDataVal.arrayList[i].creditAmt) > 0 || parseFloat(selectedDataVal.arrayList[i].debitAmt) > 0) ) 
+      if (selectedDataVal.arrayList[i].accountID != "") 
       {
         if(parseFloat(selectedDataVal.arrayList[i].creditAmt) > 0){
           crdr = "C";
@@ -338,12 +332,12 @@ dashboard: string ="";
       }
     }
       
-    const found = this.openbalancemodel.openingBalDetailList.some(el => el.openingBalanceAmt === '0.00');
-      if (found) {
-        this.toasterService.warning("Amount cannot be Empty in details grid");
-        this.sharedService.loading=false;
-        return;
-      }
+    // const found = this.openbalancemodel.openingBalDetailList.some(el => el.openingBalanceAmt === '0.00');
+    // if (found) {
+    //   this.toasterService.warning("Amount cannot be Empty in details grid");
+    //   this.sharedService.loading=false;
+    //   return;
+    // }
 
     this.sharedService.loading=true;
     

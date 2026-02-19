@@ -35,7 +35,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">GcNote No</label>
                                                 <input type="text" id="formrow-inputCity" class="form-control"
-                                                numbersonly maxlength="15" 
+                                                numbersonly autocomplete="off" maxlength="15" 
                                                     formControlName="gcNoteNo">
                                             </div>
                                         </div>
@@ -92,7 +92,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">To Pin</label>
-                                                <input numbersonly autoclose="false" class="form-control"
+                                                <input numbersonly autocomplete="off" autoclose="false" class="form-control"
                                                     formControlName="toPin">
                                             </div>
                                         </div>
@@ -234,14 +234,14 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Current Pin</label>
                                                 <span style="color: red">*</span> 
-                                                <input type="text" numbersonly class="form-control" maxlength="6"
+                                                <input type="text" numbersonly autocomplete="off" class="form-control" maxlength="6"
                                                     formControlName="fromPin" (change)="caluculatekms()">
                                             </div>
                                         </div> 
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">KMS</label><span style="color: red">*</span> 
-                                                <input type="text" numbersonly class="form-control"  
+                                                <input type="text" numbersonly autocomplete="off" class="form-control"  
                                                     formControlName="kMS">
                                             </div>
                                         </div>

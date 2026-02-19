@@ -14,12 +14,12 @@ import { Reportmodel } from 'src/app/models/reportmodel';
 
 
 @Component({
-  selector: 'app-rechargerequestapproveadd',
-  templateUrl: './rechargerequestapproveadd.component.html',
-  styleUrls: ['./rechargerequestapproveadd.component.css']
+  selector: 'app-bpclcardrechargeapp',
+  templateUrl: './bpclcardrechargeapp.component.html',
+  styleUrls: ['./bpclcardrechargeapp.component.css']
 })
 
-export class RechargerequestapproveaddComponent {
+export class BpclcardrechargeappComponent {
   branchList     : Dropdownmodel[] = [];
   fleetCardList     : Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
@@ -57,7 +57,7 @@ export class RechargerequestapproveaddComponent {
   year   : string = '';
   loginDate: string = '';
   branch:string = '';
-  loggedInUserID      : string = '';
+  loggedInUserID : string = '';
   balanceAmt      : string = '';
   formRequestRecharge!: FormGroup;
   dashboard       : string ="";
@@ -69,6 +69,7 @@ export class RechargerequestapproveaddComponent {
 
   constructor(
     private route: Router, 
+    private requestmodel:Requestmodel,
     private formBuilder: FormBuilder, private reportmodel:Reportmodel,
     private rechargerequestService: RechargerequestService, 
     private commonService: CommonService,private toasterService: ToastrService ,
@@ -81,7 +82,7 @@ export class RechargerequestapproveaddComponent {
       var privilegeData = JSON.parse(menuData);
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
       var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-      .find((( aa: { menuName: string; }) => aa.menuName === "Fleet Card Recharge Approve"));      
+      .find((( aa: { menuName: string; }) => aa.menuName === "BPCL Card Recharge Approve"));      
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -141,6 +142,7 @@ export class RechargerequestapproveaddComponent {
       selectedAll    : new FormControl(''),
       arrayList      : this.formBuilder.array([this.createInitialArray()]),
     });
+    this.formRequestRecharge.controls['reqCard'].disable();   
     this.getBranchList();
     this.getFleetCardList();
     this.getVehicleNoList();
@@ -157,6 +159,21 @@ export class RechargerequestapproveaddComponent {
   getFleetCardList(): void {
     this.rechargerequestService.getFleetCardList().subscribe((res) => {
       this.fleetCardList = res;
+    });
+  }
+
+  selectEvent(item: any) {
+    this.requestmodel.strRequest = item.dataName;
+    this.rechargerequestService.getVehiBpclCardDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+      if (res.status) {
+        this.formRequestRecharge.patchValue({        
+          reqCard: this.fleetCardList.find(e => e.dataId == res.message),
+        });  
+        this.formRequestRecharge.controls["vehicleMasterId"].disable();
+      }
+      else {
+        this.toasterService.warning(res.message);
+      }
     });
   }
 

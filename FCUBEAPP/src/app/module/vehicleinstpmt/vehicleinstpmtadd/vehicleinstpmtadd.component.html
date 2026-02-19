@@ -94,7 +94,7 @@
                                                 <label for="formrow-inputZip">Priciple Amt</label>  
                                                 <span style="color: red">*</span>                                             
                                                 <input autoclose="false" class="form-control"   
-                                                formControlName="priAmt" decimalonly (change)="calTot()"    
+                                                formControlName="priAmt" decimalonly autocomplete="off" (change)="calTot()"    
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['priAmt'].invalid) }">
                                             </div>
                                         </div>                            
@@ -102,7 +102,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Interest Amt</label>
                                                 <input autoclose="false" class="form-control"   
-                                                formControlName="intAmt" decimalonly (change)="calTot()">
+                                                formControlName="intAmt" decimalonly autocomplete="off" (change)="calTot()">
                                                 
                                             </div>
                                         </div>

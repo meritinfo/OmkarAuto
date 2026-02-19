@@ -8,7 +8,10 @@ import { Responsemodel } from 'src/app/models/responsemodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Rechargerequestlist } from 'src/app/models/rechargerequestlist';
 import { Rechargerequestmodel } from 'src/app/models/rechargerequestmodel';
+import { Fleetcardreturntransfermodel } from 'src/app/models/fleetcardreturntransfermodel';
 import { Filtermodel } from '../models/filtermodel';
+import { fleetgodownmasterlistmodel } from '../models/fleetgodownmasterlistmodel';
+import { Fleetcardreturntransferlist } from '../models/fleetcardreturntransferlist';
 
 
 @Injectable({
@@ -34,6 +37,7 @@ export class RechargerequestService {
 
   rechargerequestlist = new Rechargerequestlist();
   selectRechargerequestmodel = new Rechargerequestmodel();
+  selectFleetcardreturntransfermodel = new Fleetcardreturntransfermodel();
 
   
   clearRechargeRequestDetails() {
@@ -77,5 +81,26 @@ export class RechargerequestService {
 
   getBpclBalanceAmount(req: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetBpclBalanceAmount', req, this.httpOptions);
+  }
+
+  getBpclCardBalAmount(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetBpclCardBalAmount', req, this.httpOptions);
+  }
+
+  //fleet card Return \
+  getFleetcardreturntransferDetails(fleetcardreturntransfermodel:Fleetcardreturntransfermodel) {
+    this.selectFleetcardreturntransfermodel = fleetcardreturntransfermodel;
+  }
+
+  getFleetCardReturnTransferList(filter: Filtermodel): Observable<Fleetcardreturntransferlist> {
+    return this.httpClient.post<Fleetcardreturntransferlist>(Constants.API_ENDPOINT + 'FleetTrans/GetFleetCardReturnTransferList', filter, this.httpOptions);
+  }
+
+   selectFleetcardreturntransferDetails() {
+    return this.selectFleetcardreturntransfermodel;
+  }
+
+    fleetCardReturnTransferSave(user: Fleetcardreturntransfermodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/FleetCardReturnTransferSave', user, this.httpOptions);
   }
 }

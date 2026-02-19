@@ -17,10 +17,10 @@ namespace FinTrans.Business
         Task<List<DropDownListModel>> GetLedgerList();
         Task<LedgerRptListModel> GetLedgerRptList(ReportRequestModel request);
         Task<ResponseModel> GetLedgerRptExcel(ReportRequestModel request);
-        Task<ResponseModel> GetMultipleLedgerRptExcel(ReportRequestModel request);
+        Task<ResponseModel> GetMultipleLedgerRptExcel(RepReqModel request);
         Task<ResponseModel> GetAnnexureRptExcel(ReportRequestModel request);
         Task<ResponseModel> GetLedgerRptPdf(ReportRequestModel request);
-        Task<ResponseModel> GetMultipleLedgerRptPdf(ReportRequestModel request);
+        Task<ResponseModel> GetMultipleLedgerRptPdf(RepReqModel request);
         Task<ResponseModel> GetAnnexureRptPdf(ReportRequestModel request);
         Task<ResponseModel> BrokerLedgerPrint(ReportRequestModel request);
 

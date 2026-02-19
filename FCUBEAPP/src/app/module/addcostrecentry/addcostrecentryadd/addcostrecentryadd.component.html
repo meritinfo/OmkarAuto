@@ -180,7 +180,7 @@
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Total Amount</label>
                                             <span style="color: red"> * </span>
-                                            <input decimalonly autoclose="false" class="form-control"
+                                            <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                 formControlName="totalAmount" 
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['totalAmount'].invalid) }">
                                         </div>
@@ -235,7 +235,7 @@
                                                                 </select>
                                                             </td>                                         
                                                             <td>
-                                                                <input autoclose="false" numbersonly class="form-control" 
+                                                                <input autoclose="false" numbersonly autocomplete="off" class="form-control" 
                                                                     (change)="getDocDtls(i)" maxlength="15" 
                                                                     formControlName="docNo">
                                                                 <input autoclose="false" class="form-control" type="hidden"
@@ -250,7 +250,7 @@
                                                                 </select>    
                                                             </td>                                            
                                                             <td>
-                                                                <input decimalonly autoclose="false" class="form-control" 
+                                                                <input decimalonly autocomplete="off" autoclose="false" class="form-control" 
                                                                     formControlName="costAmt" (change)="calcTot()">
                                                                 <input type="hidden" autoclose="false" class="form-control" 
                                                                     formControlName="freightRs">
@@ -258,11 +258,11 @@
                                                                     formControlName="chargewt">
                                                             </td>                                           
                                                             <td>
-                                                                <input decimalonly autoclose="false" class="form-control" 
+                                                                <input decimalonly autocomplete="off" autoclose="false" class="form-control" 
                                                                     formControlName="othAmt" (change)="calcTot()">
                                                             </td>                                          
                                                             <td>
-                                                                <input decimalonly autoclose="false" class="form-control" 
+                                                                <input decimalonly autocomplete="off" autoclose="false" class="form-control" 
                                                                     formControlName="totAmt">
                                                             </td>                                        
                                                             <td>
@@ -290,21 +290,21 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Cost Total</label>  
-                                            <input decimalonly autoclose="false" class="form-control" 
+                                            <input decimalonly autocomplete="off" autoclose="false" class="form-control" 
                                             formControlName="costTot">
                                         </div>
                                     </div>                                       
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Other Total</label>  
-                                            <input decimalonly autoclose="false" class="form-control" 
+                                            <input decimalonly autocomplete="off" autoclose="false" class="form-control" 
                                             formControlName="othTot">
                                         </div>
                                     </div>                                       
                                     <!-- <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Gross Total</label>  
-                                            <input decimalonly autoclose="false" class="form-control" 
+                                            <input decimalonly autocomplete="off" autoclose="false" class="form-control" 
                                             formControlName="grossTot">
                                         </div>
                                     </div>       -->
@@ -313,21 +313,21 @@
                                     <!-- <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">TDS Rate</label>  
-                                            <input decimalonly autoclose="false" (change)="onTdsChange($event)" class="form-control" 
+                                            <input decimalonly autocomplete="off" autoclose="false" (change)="onTdsChange($event)" class="form-control" 
                                             formControlName="tdsRate">
                                         </div>
                                     </div>                                       
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">TDS Amount</label>  
-                                            <input decimalonly autoclose="false" class="form-control" 
+                                            <input decimalonly autocomplete="off" autoclose="false" class="form-control" 
                                             formControlName="tdsAmt">
                                         </div>
                                     </div>                                        -->
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Net Total</label>  
-                                            <input decimalonly autoclose="false" class="form-control" 
+                                            <input decimalonly autocomplete="off" autoclose="false" class="form-control" 
                                             formControlName="netTot">
                                         </div>
                                     </div>    

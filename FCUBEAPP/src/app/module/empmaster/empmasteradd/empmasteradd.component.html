@@ -47,7 +47,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label> </label>
-                                                <input numbersonly type="text" class="form-control" 
+                                                <input numbersonly autocomplete="off" type="text" class="form-control" 
                                                     formControlName="empNo" (change)="empnochange($event)"                          
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['empNo'].invalid) }">
                                             </div>
@@ -123,7 +123,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label>Age</label><span style="color: red">*</span>
-                                                <input numbersonly type="text" class="form-control" formControlName="age"
+                                                <input numbersonly autocomplete="off" type="text" class="form-control" formControlName="age"
                                                       maxlength="2"    
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['age'].invalid) }">
                                             </div>
@@ -175,14 +175,14 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label>Phone</label>
-                                                <input numbersonly type="text" class="form-control" 
+                                                <input numbersonly autocomplete="off" type="text" class="form-control" 
                                                     formControlName="phone">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label>Mobile</label><span style="color: red">*</span>
-                                                <input numbersonly type="text" class="form-control" 
+                                                <input numbersonly autocomplete="off" type="text" class="form-control" 
                                                     formControlName="mobile" maxlength="10"   
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['mobile'].invalid) }">
                                             </div>
@@ -190,7 +190,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label>Mobile1</label>
-                                                <input numbersonly type="text" class="form-control" 
+                                                <input numbersonly autocomplete="off" type="text" class="form-control" 
                                                     formControlName="mobile1"  maxlength="10" >
                                             </div>
                                         </div>
@@ -425,7 +425,7 @@
                                             <div class="col-lg-4">
                                                 <div class="mb-3">
                                                     <label>Bank Account No</label><span style="color: red">*</span>
-                                                    <input numbersonly type="text" class="form-control" formControlName="bankAcNo"
+                                                    <input numbersonly autocomplete="off" type="text" class="form-control" formControlName="bankAcNo"
                                                         maxlength="20"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['bankAcNo'].invalid) }">
                                                 </div>
@@ -456,35 +456,35 @@
                                             <div class="col-lg-2">
                                                 <div class="mb-3">
                                                     <label>Basic</label>
-                                                    <input decimalonly type="text" class="form-control" formControlName="lastBasic"
+                                                    <input decimalonly autocomplete="off" type="text" class="form-control" formControlName="lastBasic"
                                                         maxlength="15" (change)="calcGross('B', $event)">
                                                 </div>
                                             </div>
                                             <div class="col-lg-2">
                                                 <div class="mb-3">
                                                     <label>HRA</label>
-                                                    <input decimalonly type="text" class="form-control" formControlName="lastHRA"
+                                                    <input decimalonly autocomplete="off" type="text" class="form-control" formControlName="lastHRA"
                                                         maxlength="15" (change)="calcGross('H', $event)">
                                                 </div>
                                             </div>
                                             <div class="col-lg-2">
                                                 <div class="mb-3">
                                                     <label>Others</label>
-                                                    <input decimalonly type="text" class="form-control" formControlName="lastOthers" 
+                                                    <input decimalonly autocomplete="off" type="text" class="form-control" formControlName="lastOthers" 
                                                         maxlength="15" (change)="calcGross('O', $event)">
                                                 </div>
                                             </div>
                                             <div class="col-lg-2">
                                                 <div class="mb-3">
                                                     <label>Perks</label>
-                                                    <input decimalonly type="text" class="form-control" formControlName="lastPerks" 
+                                                    <input decimalonly autocomplete="off" type="text" class="form-control" formControlName="lastPerks" 
                                                         maxlength="15" (change)="calcGross('P', $event)">
                                                 </div>
                                             </div>
                                             <div class="col-lg-2">
                                                 <div class="mb-3">
                                                     <label>Gross Salary</label>
-                                                    <input decimalonly type="text" class="form-control"
+                                                    <input decimalonly autocomplete="off" type="text" class="form-control"
                                                         formControlName="lastGrossSalary" maxlength="15">
                                                 </div>
                                             </div>
