@@ -274,7 +274,7 @@ dashboard: string ="";
     this.tyreregrouprecdService.getTyreregrouprecdMasterInnerGridList(this.requestmodel).subscribe((res) => {
       this.formTyreArray.clear();
       this.tyreregrouprecdmodel = res;
-      for (var i = 0; i < res.tyreRegroupRecdDtlList.length; i++) {
+      for (let i = 0; i < res.tyreRegroupRecdDtlList.length; i++) {
         this.showGrid = true;
         this.formTyreArray.push(this.createTyreArray());
         this.formTyreArray.controls[i].get("regroupIssueDtlId")?.setValue(res.tyreRegroupRecdDtlList[i].regroupIssueDtlId);
@@ -307,7 +307,7 @@ dashboard: string ="";
         this.formTyreArray.clear();
         this.tyreregrouprecdmodel = res;
         this.showGrid = true;
-        for (var i = 0; i < res.tyreRegroupRecdDtlList.length; i++) {
+        for (let i = 0; i < res.tyreRegroupRecdDtlList.length; i++) {
           this.formTyreArray.push(this.createTyreArray());
           this.formTyreArray.controls[i].get("regroupIssueDtlId")?.setValue(res.tyreRegroupRecdDtlList[i].regroupIssueDtlId);
           this.formTyreArray.controls[i].get("brandId")?.setValue(res.tyreRegroupRecdDtlList[i].brandId);
@@ -344,7 +344,7 @@ dashboard: string ="";
   onRegroupAmt(){ 
     var totalAmt = 0;   
     var selectedDataValue = this.formUser.getRawValue();
-    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
       if (selectedDataValue.arrayList[i].selected) {
         if(selectedDataValue.arrayList[i].regroupAmount!=''){
           totalAmt = totalAmt + parseFloat(selectedDataValue.arrayList[i].regroupAmount);
@@ -525,7 +525,7 @@ dashboard: string ="";
       return;
     }
       
-    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
       if (selectedDataValue.arrayList[i].selected) {
         this.tyreregrouprecdmodel.tyreRegroupRecdDtlList.push({
           'regroupRecdMasterID': "",

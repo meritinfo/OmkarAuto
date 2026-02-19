@@ -227,6 +227,7 @@ export class TrippaymentsbrpladdComponent {
         this.formTripPayment.controls['transType'].disable();
         this.formTripPayment.controls['pmtBranch'].disable();
         this.formTripPayment.controls['vehicleMasterID'].disable(); 
+        this.formTripPayment.controls['pmtType'].disable(); 
       }  
     }, 2000);
     this.sharedService.loading = false;

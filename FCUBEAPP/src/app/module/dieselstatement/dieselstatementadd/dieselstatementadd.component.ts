@@ -236,7 +236,7 @@ export class DieselstatementaddComponent implements OnInit {
       return; 
     }
 
-    for (var i = 0; i < this.DieselStatementmodel.dieselStatementListData.length; i++) {
+    for (let i = 0; i < this.DieselStatementmodel.dieselStatementListData.length; i++) {
       if(this.DieselStatementmodel.dieselStatementListData[i].hsdAdvType == "D"){
         var qtyLtrs = this.DieselStatementmodel.dieselStatementListData[i].qtyLtrs;      
         var amount = (parseFloat(rate) * parseFloat(qtyLtrs));
@@ -296,7 +296,7 @@ export class DieselstatementaddComponent implements OnInit {
           this.formDieselStatement.controls["vendorId"].disable();
         }
         this.formArray.clear();
-        for (var i = 0; i < res.dieselStatementListData.length; i++) {
+        for (let i = 0; i < res.dieselStatementListData.length; i++) {
           this.formArray.push(this.createInitialArray());
           this.formArray.controls[i].get("branch")?.setValue(res.dieselStatementListData[i].branch);
           this.formArray.controls[i].get("pmtDate")?.setValue(this.commonService.formatDate(res.dieselStatementListData[i].pmtDate));
@@ -325,13 +325,13 @@ export class DieselstatementaddComponent implements OnInit {
 
   selectAll(e: any) {
     if(e.target.checked){
-      for (var i = 0; i < this.DieselStatementmodel.dieselStatementListData.length; i++) {
+      for (let i = 0; i < this.DieselStatementmodel.dieselStatementListData.length; i++) {
         this.DieselStatementmodel.dieselStatementListData[i].selected = true;
         this.formArray.controls[i].get("selected")?.setValue('Y');
       }
     }
     else{
-      for (var i = 0; i < this.DieselStatementmodel.dieselStatementListData.length; i++) {
+      for (let i = 0; i < this.DieselStatementmodel.dieselStatementListData.length; i++) {
         this.DieselStatementmodel.dieselStatementListData[i].selected = false;
         this.formArray.controls[i].get("selected")?.setValue('');
       }
@@ -365,7 +365,7 @@ export class DieselstatementaddComponent implements OnInit {
     var selectedData = this. formDieselStatement.getRawValue(); 
 
     var diesellistarray=this.DieselStatementmodel.dieselStatementListData;
-    for (var i = 0; i < diesellistarray.length; i++) {
+    for (let i = 0; i < diesellistarray.length; i++) {
       if (diesellistarray[i].selected) {
         if (diesellistarray[i].hsdAdvType === "D") {
           grossDslAmount = grossDslAmount + parseFloat(diesellistarray[i].amountPaid);
@@ -437,7 +437,7 @@ export class DieselstatementaddComponent implements OnInit {
       this.DieselStatementmodel = res;
       this.formArray.clear();
       
-      for (var i = 0; i < res.dieselStatementListData.length; i++) {
+      for (let i = 0; i < res.dieselStatementListData.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("branch")?.setValue(res.dieselStatementListData[i].branch);
         this.formArray.controls[i].get("pmtDate")?.setValue(this.commonService.formatDate(res.dieselStatementListData[i].pmtDate));
@@ -498,7 +498,7 @@ export class DieselstatementaddComponent implements OnInit {
 
     var diesellistarray = this.DieselStatementmodel.dieselStatementListData;
     var IsItemSelected = false;
-    for (var i = 0; i < diesellistarray.length; i++) {
+    for (let i = 0; i < diesellistarray.length; i++) {
       if (diesellistarray[i].selected) {
         IsItemSelected = true;
       }
@@ -552,7 +552,7 @@ export class DieselstatementaddComponent implements OnInit {
 
     var arr= selectedDataVal.arrayList;
 
-    for (var i = 0; i < arr.length; i++) {
+    for (let i = 0; i < arr.length; i++) {
       this.DieselStatementmodel.dieselStatementListData[i].pmtDate = arr[i].pmtDate;
     } 
     

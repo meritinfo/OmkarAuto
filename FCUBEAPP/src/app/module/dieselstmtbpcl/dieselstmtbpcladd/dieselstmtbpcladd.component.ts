@@ -263,7 +263,7 @@ export class DieselstmtbpcladdComponent {
           this.formDieselStatement.controls["vehicleNo"].disable();
           this.formArray.clear();
         }
-        for (var i = 0; i < res.dieselStmtDtlsList.length; i++) {
+        for (let i = 0; i < res.dieselStmtDtlsList.length; i++) {
           this.formArray.push(this.createInitialArray());
           this.formArray.controls[i].get("transRefNo")?.setValue(res.dieselStmtDtlsList[i].transRefNo);
           this.formArray.controls[i].get("transDateTime")?.setValue(this.commonService.formatDate(res.dieselStmtDtlsList[i].transDateTime));
@@ -294,7 +294,7 @@ export class DieselstmtbpcladdComponent {
         });
       }
       
-      for (var i = 0; i < res.dieselStmtDtlsList.length; i++) {
+      for (let i = 0; i < res.dieselStmtDtlsList.length; i++) {
         this.formArray.push(this.createInitialArray());   
         this.formArray.controls[i].get("transRefNo")?.setValue(res.dieselStmtDtlsList[i].transRefNo);
         this.formArray.controls[i].get("transDateTime")?.setValue(this.commonService.formatDate(res.dieselStmtDtlsList[i].transDateTime));
@@ -318,7 +318,7 @@ export class DieselstmtbpcladdComponent {
 
     var selectedData = this.formDieselStatement.getRawValue(); 
 
-    for (var i = 0; i < selectedData.arrayList.length; i++) {
+    for (let i = 0; i < selectedData.arrayList.length; i++) {
       if (selectedData.arrayList[i].dslQty != "") {
         totalDslLtrs = totalDslLtrs + parseFloat(selectedData.arrayList[i].dslQty);
       }
@@ -394,7 +394,7 @@ export class DieselstmtbpcladdComponent {
 
     var arr=selectedDataVal.arrayList;
 
-    for (var i = 0; i < arr.length; i++) {
+    for (let i = 0; i < arr.length; i++) {
       if(arr[i].transRefNo!='' && arr[i].transDateTime!=''){
         this.dieselStatementmodel.dieselStmtDtlsList.push({
           'masterID':"",

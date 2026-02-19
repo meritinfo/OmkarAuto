@@ -459,7 +459,7 @@ export class MraddComponent {
     this.requestmodel.strRequest = this.selectedMrDetails.mrMasterId;
     this.mrService.getMrInnerGridList(this.requestmodel).subscribe((res) => {
       this.formArray.clear();
-      for (var i = 0; i < res.mrDtlsList.length; i++) {
+      for (let i = 0; i < res.mrDtlsList.length; i++) {
         this.formArray.push(this.createInitialArray()); 
 
         this.formArray.controls[i].get("billLrMasterId")?.setValue(res.mrDtlsList[i].billLrMasterId);
@@ -496,7 +496,7 @@ export class MraddComponent {
       }
 
       this.formMrArray.clear();
-      for (var i = 0; i < res.mrOnAcList.length; i++) {
+      for (let i = 0; i < res.mrOnAcList.length; i++) {
         this.formMrArray.push(this.createInitialMrArray()); 
 
         this.formMrArray.controls[i].get("adjMrMasterID")?.setValue(res.mrOnAcList[i].adjMrMasterID);
@@ -767,7 +767,7 @@ export class MraddComponent {
     var others1Recd = 0;
     
 
-    for (var i = 0; i < selectedDataVal.arrayList.length; i++) { 
+    for (let i = 0; i < selectedDataVal.arrayList.length; i++) { 
       dedTot = 0 ; 
      
       if(selectedDataVal.arrayList[i].recdAmt!=""){
@@ -1015,7 +1015,7 @@ export class MraddComponent {
       else{
         this.mrService.getOnAcMrSearchList(this.selectedParty).subscribe((res) => {
           this.formMrArray.clear();
-          for (var i = 0; i < res.mrOnAcList.length; i++) {
+          for (let i = 0; i < res.mrOnAcList.length; i++) {
             this.formMrArray.push(this.createInitialMrArray()); 
     
             this.formMrArray.controls[i].get("adjMrMasterID")?.setValue(res.mrOnAcList[i].adjMrMasterID);
@@ -1041,7 +1041,7 @@ export class MraddComponent {
     var totadjAmt = 0;
     var selectedDataVal = this.formUser.getRawValue();
 
-    for (var i = 0; i < selectedDataVal.mrarrayList.length; i++) { 
+    for (let i = 0; i < selectedDataVal.mrarrayList.length; i++) { 
       if(selectedDataVal.mrarrayList[i].adjAmt!=""){
         var adjAmt = parseFloat(selectedDataVal.mrarrayList[i].adjAmt);
         if(adjAmt > parseFloat(selectedDataVal.mrarrayList[i].onAcAmt)){
@@ -1070,7 +1070,7 @@ export class MraddComponent {
   getBillLrDtls(index: number){
     var selectedDataVal = this.formUser.getRawValue();
     var billLrNo = selectedDataVal.arrayList[index].billLrNo;
-    for (var i = 0; i < selectedDataVal.arrayList.length - 1; i++) { 
+    for (let i = 0; i < selectedDataVal.arrayList.length - 1; i++) { 
       if(selectedDataVal.arrayList[i].billLrNo==billLrNo){
         this.toasterService.warning("Bill / Lr Already Exists in Grid ");      
         return;
@@ -1300,7 +1300,7 @@ export class MraddComponent {
     this.mrmodel.mrAdjList = [];
     var billnolist = "";
 
-    for (var i = 0; i < selectedDataVal.arrayList.length; i++) {       
+    for (let i = 0; i < selectedDataVal.arrayList.length; i++) {       
       var totDed = selectedDataVal.arrayList[i].totDed!= ""? parseFloat(selectedDataVal.arrayList[i].totDed) :0;
       var recdAmt = selectedDataVal.arrayList[i].recdAmt!= ""? parseFloat(selectedDataVal.arrayList[i].recdAmt) :0;
       var tdsDed = selectedDataVal.arrayList[i].tdsDed!= ""? parseFloat(selectedDataVal.arrayList[i].tdsDed) :0;
@@ -1349,7 +1349,7 @@ export class MraddComponent {
       }
     }
 
-    for (var i = 0; i < selectedDataVal.mrarrayList.length; i++) { 
+    for (let i = 0; i < selectedDataVal.mrarrayList.length; i++) { 
       if (selectedDataVal.mrarrayList[i].selected) {
         if (selectedDataVal.mrarrayList[i].adjAmt != "" && parseFloat(selectedDataVal.mrarrayList[i].adjAmt) > 0) {
             //ignore

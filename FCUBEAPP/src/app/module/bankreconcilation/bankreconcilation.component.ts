@@ -171,7 +171,7 @@ export class BankreconcilationComponent {
         this.formArray.removeAt(0);
       }
       this.bankreclist = res;
-      for (var i = 0; i < res.bankreconcilationList.length; i++) {
+      for (let i = 0; i < res.bankreconcilationList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("ftdID")?.setValue(res.bankreconcilationList[i].ftdID);
         this.formArray.controls[i].get("ftmDate")?.setValue(this.commonService.formatDate(res.bankreconcilationList[i].ftmDate));
@@ -268,7 +268,7 @@ export class BankreconcilationComponent {
     this.bankreclist.bankreconcilationList = [];
 
     if (this.formArray.value != undefined) {
-      for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+      for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
         if (selectedDataValue.arrayList[i].clearDate != "" && selectedDataValue.arrayList[i].ftdID != "") {
           this.bankreclist.bankreconcilationList.push({
             'ftdID': selectedDataValue.arrayList[i].ftdID,

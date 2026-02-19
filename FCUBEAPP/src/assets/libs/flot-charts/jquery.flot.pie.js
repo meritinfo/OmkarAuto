@@ -170,7 +170,7 @@ More detail and specific examples can be found in the included HTML file.
 
 			// Fix up the raw data from Flot, ensuring the data is numeric
 
-			for (var i = 0; i < data.length; ++i) {
+			for (let i = 0; i < data.length; ++i) {
 
 				var value = data[i].data;
 
@@ -203,14 +203,14 @@ More detail and specific examples can be found in the included HTML file.
 
 			// Sum up all the slices, so we can calculate percentages for each
 
-			for (var i = 0; i < data.length; ++i) {
+			for (let i = 0; i < data.length; ++i) {
 				total += data[i].data[0][1];
 			}
 
 			// Count the number of slices with percentages below the combine
 			// threshold; if it turns out to be just one, we won't combine.
 
-			for (var i = 0; i < data.length; ++i) {
+			for (let i = 0; i < data.length; ++i) {
 				var value = data[i].data[0][1];
 				if (value / total <= options.series.pie.combine.threshold) {
 					combined += value;
@@ -221,7 +221,7 @@ More detail and specific examples can be found in the included HTML file.
 				}
 			}
 
-			for (var i = 0; i < data.length; ++i) {
+			for (let i = 0; i < data.length; ++i) {
 				var value = data[i].data[0][1];
 				if (numCombined < 2 || value / total > options.series.pie.combine.threshold) {
 					newdata.push(
@@ -364,7 +364,7 @@ More detail and specific examples can be found in the included HTML file.
 
 				//radius -= edge;
 
-				for (var i = 1; i <= edge; i++) {
+				for (let i = 1; i <= edge; i++) {
 					ctx.beginPath();
 					ctx.arc(0, 0, radius, 0, Math.PI * 2, false);
 					ctx.fill();
@@ -390,7 +390,7 @@ More detail and specific examples can be found in the included HTML file.
 
 				ctx.save();
 				var currentAngle = startAngle;
-				for (var i = 0; i < slices.length; ++i) {
+				for (let i = 0; i < slices.length; ++i) {
 					slices[i].startAngle = currentAngle;
 					drawSlice(slices[i].angle, slices[i].color, true);
 				}
@@ -402,7 +402,7 @@ More detail and specific examples can be found in the included HTML file.
 					ctx.save();
 					ctx.lineWidth = options.series.pie.stroke.width;
 					currentAngle = startAngle;
-					for (var i = 0; i < slices.length; ++i) {
+					for (let i = 0; i < slices.length; ++i) {
 						drawSlice(slices[i].angle, options.series.pie.stroke.color, false);
 					}
 					ctx.restore();
@@ -457,7 +457,7 @@ More detail and specific examples can be found in the included HTML file.
 					var currentAngle = startAngle;
 					var radius = options.series.pie.label.radius > 1 ? options.series.pie.label.radius : maxRadius * options.series.pie.label.radius;
 
-					for (var i = 0; i < slices.length; ++i) {
+					for (let i = 0; i < slices.length; ++i) {
 						if (slices[i].percent >= options.series.pie.label.threshold * 100) {
 							if (!drawLabel(slices[i], currentAngle, i)) {
 								return false;
@@ -578,7 +578,7 @@ More detail and specific examples can be found in the included HTML file.
 				radius = options.series.pie.radius > 1 ? options.series.pie.radius : maxRadius * options.series.pie.radius,
 				x, y;
 
-			for (var i = 0; i < slices.length; ++i) {
+			for (let i = 0; i < slices.length; ++i) {
 
 				var s = slices[i];
 
@@ -662,7 +662,7 @@ More detail and specific examples can be found in the included HTML file.
 
 				// clear auto-highlights
 
-				for (var i = 0; i < highlights.length; ++i) {
+				for (let i = 0; i < highlights.length; ++i) {
 					var h = highlights[i];
 					if (h.auto == eventname && !(item && h.series == item.series)) {
 						unhighlight(h.series);
@@ -687,7 +687,7 @@ More detail and specific examples can be found in the included HTML file.
 			//	s = series[s];
 			//}
 
-			var i = indexOfHighlight(s);
+			let i = indexOfHighlight(s);
 
 			if (i == -1) {
 				highlights.push({ series: s, auto: auto });
@@ -707,7 +707,7 @@ More detail and specific examples can be found in the included HTML file.
 			//	s = series[s];
 			//}
 
-			var i = indexOfHighlight(s);
+			let i = indexOfHighlight(s);
 
 			if (i != -1) {
 				highlights.splice(i, 1);
@@ -716,7 +716,7 @@ More detail and specific examples can be found in the included HTML file.
 		}
 
 		function indexOfHighlight(s) {
-			for (var i = 0; i < highlights.length; ++i) {
+			for (let i = 0; i < highlights.length; ++i) {
 				var h = highlights[i];
 				if (h.series == s)
 					return i;
@@ -734,7 +734,7 @@ More detail and specific examples can be found in the included HTML file.
 			octx.translate(centerLeft, centerTop);
 			octx.scale(1, options.series.pie.tilt);
 
-			for (var i = 0; i < highlights.length; ++i) {
+			for (let i = 0; i < highlights.length; ++i) {
 				drawHighlight(highlights[i].series);
 			}
 

@@ -174,7 +174,7 @@ export class BranchcustomermstaddComponent {
     this.branchCustomerTargetService.getBranchCustomertargetInnerGridList(this.requestmodel).subscribe((res) => {
       this.formRatesArray.clear();
       this.branchcustomertargetmodel = res;
-      for (var i = 0; i < res.branchCustomerTargetDtlList.length; i++) {
+      for (let i = 0; i < res.branchCustomerTargetDtlList.length; i++) {
         this.formRatesArray.push(this.createInitialArray());
         this.formRatesArray.controls[i].get("dtlId")?.setValue(res.branchCustomerTargetDtlList[i].dtlId);
         this.formRatesArray.controls[i].get("id")?.setValue(res.branchCustomerTargetDtlList[i].id);  
@@ -253,7 +253,7 @@ export class BranchcustomermstaddComponent {
       return;
     }
 
-    for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataVal.arrayList.length; i++) {
       if(selectedDataVal.arrayList[i].accountId!='' || selectedDataVal.arrayList[i].targetAmt !=''){
         this.branchcustomertargetmodel.branchCustomerTargetDtlList.push({
           'dtlId': '',

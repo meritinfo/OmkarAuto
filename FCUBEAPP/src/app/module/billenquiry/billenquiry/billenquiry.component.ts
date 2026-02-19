@@ -417,7 +417,7 @@ getBillEnqInnerGridList(): void {
    
     
 
-    for (var i = 0; i < res.billsEnqListData.length; i++) {
+    for (let i = 0; i < res.billsEnqListData.length; i++) {
       this.formBillArray.push(this.createInitialBillArray());
       this.formBillArray.controls[i].get("bookingPlace")?.setValue(res.billsEnqListData[i].bookingPlace);
       this.formBillArray.controls[i].get("bookingDate")?.setValue(this.commonService.formatDate(res.billsEnqListData[i].bookingDate));
@@ -448,7 +448,7 @@ getBillEnqInnerGridList(): void {
       // this.formMrArray.controls[i].get("totDed")?.disable();
       
     }       
-    for (var i = 0; i < res.billSubmitList.length; i++) {
+    for (let i = 0; i < res.billSubmitList.length; i++) {
       this.formSubmitArray.push(this.createInitialSubmitArray());
       this.formSubmitArray.controls[i].get("submitStn")?.setValue(res.billSubmitList[i].submitStn);
       this.formSubmitArray.controls[i].get("submitNo")?.setValue(res.billSubmitList[i].submitNo);
@@ -472,7 +472,7 @@ getBillEnqInnerGridList(): void {
     
       
     }         
-    for (var i = 0; i < res.mrList.length; i++) {
+    for (let i = 0; i < res.mrList.length; i++) {
       this.formMrArray.push(this.createInitialMrArray());
       this.formMrArray.controls[i].get("mrStation")?.setValue(res.mrList[i].mrStation);
       this.formMrArray.controls[i].get("mrNo")?.setValue(res.mrList[i].mrNo);

@@ -344,7 +344,7 @@ export class EmppaygenerationlistComponent {
       } 
       return;
     }
-    for (var i = 0; i < this.allEmpsalaryMaster.payGenMstList.length; i++) {
+    for (let i = 0; i < this.allEmpsalaryMaster.payGenMstList.length; i++) {
       this.allEmpsalaryMaster.payGenMstList[i].loggedInUser = this.loggedInUserID;
       this.allEmpsalaryMaster.payGenMstList[i].monthYear =this.commonService.formatDate(this.allEmpsalaryMaster.payGenMstList[i].monthYear);
     }

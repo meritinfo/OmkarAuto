@@ -63,7 +63,7 @@ API.txt for details.
 			hours12 = hours;
 		}
 
-		for (var i = 0; i < fmt.length; ++i) {
+		for (let i = 0; i < fmt.length; ++i) {
 
 			var c = fmt.charAt(i);
 
@@ -223,7 +223,7 @@ API.txt for details.
 							}
 						}
 
-						for (var i = 0; i < spec.length - 1; ++i) {
+						for (let i = 0; i < spec.length - 1; ++i) {
 							if (axis.delta < (spec[i][0] * timeUnitSize[spec[i][1]]
 											  + spec[i + 1][0] * timeUnitSize[spec[i + 1][1]]) / 2
 								&& spec[i][0] * timeUnitSize[spec[i][1]] >= minSize) {

@@ -165,13 +165,13 @@ export class DirectpmtdownloadComponent {
 
   selectAll(e: any) {
     if(e.target.checked){
-      for (var i = 0; i < this.alldirectpmtlist.pmtList.length; i++) {
+      for (let i = 0; i < this.alldirectpmtlist.pmtList.length; i++) {
         this.alldirectpmtlist.pmtList[i].selected = true;
         this.alldirectpmtlist.pmtList[i].loggedInUser = this.loggedInUserID;
       }
     }
     else{
-      for (var i = 0; i < this.alldirectpmtlist.pmtList.length; i++) {
+      for (let i = 0; i < this.alldirectpmtlist.pmtList.length; i++) {
         this.alldirectpmtlist.pmtList[i].selected = false;
         this.alldirectpmtlist.pmtList[i].loggedInUser = this.loggedInUserID;
       }
@@ -203,7 +203,7 @@ export class DirectpmtdownloadComponent {
     
     this.directpmtlist.pmtList = [];
 
-    for (var i = 0; i < this.alldirectpmtlist.pmtList.length; i++) {
+    for (let i = 0; i < this.alldirectpmtlist.pmtList.length; i++) {
       if(this.alldirectpmtlist.pmtList[i].selected){
         this.directpmtlist.pmtList.push(this.alldirectpmtlist.pmtList[i])
         // this.directpmtlist.pmtList.push({

@@ -186,7 +186,7 @@ Editableform is linked with one of input types, e.g. 'text', 'select' etc.
                 //convert newline to <br> for more pretty error display
                 if(msg) {
                     lines = (''+msg).split('\n');
-                    for (var i = 0; i < lines.length; i++) {
+                    for (let i = 0; i < lines.length; i++) {
                         lines[i] = $('<div>').text(lines[i]).html();
                     }
                     msg = lines.join('<br>');
@@ -708,7 +708,7 @@ Editableform is linked with one of input types, e.g. 'text', 'select' etc.
                 return newObj;
             }
 
-            for (var i = 0; i < keys.length; i++) {
+            for (let i = 0; i < keys.length; i++) {
                 key = keys[i];
                 if (obj.hasOwnProperty(key)) {
                     newObj[key] = obj[key];
@@ -2772,7 +2772,7 @@ List - abstract class for inputs that have source option loaded from js array or
                     }
                 };
             
-                for(var i = 0; i < data.length; i++) {
+                for(let i = 0; i < data.length; i++) {
                     item = data[i]; 
                     if(typeof item === 'object') {
                         count = 0; //count of keys inside item
@@ -3056,7 +3056,7 @@ $(function(){
             var html = '', lines;
             if(value) {
                 lines = value.split("\n");
-                for (var i = 0; i < lines.length; i++) {
+                for (let i = 0; i < lines.length; i++) {
                     lines[i] = $('<div>').text(lines[i]).html();
                 }
                 html = lines.join('<br>');
@@ -3071,7 +3071,7 @@ $(function(){
 
             var regex = new RegExp(String.fromCharCode(10), 'g');
             var lines = html.split(/<br\s*\/?>/i);
-            for (var i = 0; i < lines.length; i++) {
+            for (let i = 0; i < lines.length; i++) {
                 var text = $('<div>').html(lines[i]).text();
 
                 // Remove newline characters (\n) to avoid them being converted by value2html() method
@@ -3879,7 +3879,7 @@ $(function(){
         */
         convertSource: function(source) {
             if($.isArray(source) && source.length && source[0].value !== undefined) {
-                for(var i = 0; i<source.length; i++) {
+                for(let i = 0; i<source.length; i++) {
                     if(source[i].value !== undefined) {
                         source[i].id = source[i].value;
                         delete source[i].value;
@@ -5478,7 +5478,7 @@ Editableform based on Twitter Bootstrap 3
 									.end()
 								.find('td');
 			year -= 1;
-			for (var i = -1; i < 11; i++) {
+			for (let i = -1; i < 11; i++) {
 				html += '<span class="year'+(i == -1 ? ' old' : i == 10 ? ' new' : '')+(currentYear == year ? ' active' : '')+(year < startYear || year > endYear ? ' disabled' : '')+'">'+year+'</span>';
 				year += 1;
 			}

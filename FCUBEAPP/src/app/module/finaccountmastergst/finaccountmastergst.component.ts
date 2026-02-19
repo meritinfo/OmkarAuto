@@ -102,7 +102,7 @@ export class FinaccountmastergstComponent {
   checkDuplicate(e:any,j:number){
     var selectedDataValue = this.formAccountMaster.getRawValue();
     var loc = e.target.value;
-    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
       if(i!=j && selectedDataValue.arrayList[i].location==loc){
         this.toasterService.warning("Location Already Exists in Grid");
         this.formArray.controls[j].get("location")?.setValue("");
@@ -118,7 +118,7 @@ export class FinaccountmastergstComponent {
       this.finaccountmodel = res;
       if(res.finAccountsGstDetail.length>0){
         this.formArray.clear();
-        for (var i = 0; i < res.finAccountsGstDetail.length; i++) {
+        for (let i = 0; i < res.finAccountsGstDetail.length; i++) {
           this.formArray.push(this.createInitialArray());
           this.formArray.controls[i].get("location")?.setValue(res.finAccountsGstDetail[i].location);
           this.formArray.controls[i].get("gstNo")?.setValue(res.finAccountsGstDetail[i].gstNo);
@@ -266,7 +266,7 @@ export class FinaccountmastergstComponent {
     this.finaccountmodel.accountId = selectedDataValue.accountId? selectedDataValue.accountId.dataId : '';
     this.finaccountmodel.finAccountsGstDetail = [];
 
-    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
       if(selectedDataValue.arrayList[i].location!='' && selectedDataValue.arrayList[i].gstNo !=''){
         this.finaccountmodel.finAccountsGstDetail.push({
           'accountId': selectedDataValue.accountId? selectedDataValue.accountId.dataId : '',

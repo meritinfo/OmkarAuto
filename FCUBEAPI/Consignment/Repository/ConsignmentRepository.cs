@@ -5,6 +5,8 @@ using System.Data.SqlClient;
 using Shared.Models;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using System;
 
 namespace Consignment.Repository
 {
@@ -166,7 +168,7 @@ namespace Consignment.Repository
             }
             catch (Exception ex)
             {
-               
+
             }
             return cnList;
         }
@@ -229,10 +231,10 @@ namespace Consignment.Repository
             }
             catch (Exception ex)
             {
-                
+
             }
             return consignment;
-        }        
+        }
         public async Task<ResponseModel> ConsignmentDelete(RequestModel req)
         {
             ResponseModel responseModel = new();
@@ -296,7 +298,7 @@ namespace Consignment.Repository
                             new SqlParameter("@GcNoteNo",            cn.GcNoteNo                  ),
                             new SqlParameter("@BookingDate",         cn.BookingDate               ),
                             new SqlParameter("@BookingStatus",       cn.BookingStatus             ),
-                            new SqlParameter("@Rcm_Fcm",             cn.Rcm_Fcm             ),                          
+                            new SqlParameter("@Rcm_Fcm",             cn.Rcm_Fcm             ),
                             new SqlParameter("@EwayBillEntryType",   cn.EwayBillEntryType         ),
                             new SqlParameter("@EwayBillNo",          cn.EwayBillNo                ),
                             new SqlParameter("@EwayBillDate",        cn.EwayBillDate              ),
@@ -408,7 +410,7 @@ namespace Consignment.Repository
                         for (int i = 0; i < cn.InvList.Count; i++)
                         {
                             cn.InvList[i].ConsignmentID = MasterID.ToString();
-                           
+
                             responseModel = await InvDtlSave(transaction, cn.InvList[i]);
                             if (!responseModel.Status)
                             {
@@ -586,7 +588,7 @@ namespace Consignment.Repository
             }
             return response;
         }
-        
+
         public async Task<ResponseModel> GetLrNoLLP(RequestModel req)
         {
             ResponseModel response = new();
@@ -705,7 +707,7 @@ namespace Consignment.Repository
                         lrmodel.Deduction1 = Convert.ToString(dataSet.Tables[0].Rows[0]["Detiontion"]);
                         lrmodel.Deduction2 = Convert.ToString(dataSet.Tables[0].Rows[0]["Others1"]);
                         lrmodel.Deduction3 = Convert.ToString(dataSet.Tables[0].Rows[0]["Others2"]);
-                        lrmodel.ExtrasRecd1 = Convert.ToString(dataSet.Tables[0].Rows[0]["TotExt"]);  
+                        lrmodel.ExtrasRecd1 = Convert.ToString(dataSet.Tables[0].Rows[0]["TotExt"]);
                         lrmodel.ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[0]["ModifiedBy"]);
                         lrmodel.YearId = Convert.ToString(dataSet.Tables[0].Rows[0]["YearId"]);
                     }
@@ -732,7 +734,7 @@ namespace Consignment.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@ConsignmentID",      ConsignmentModel.ConsignmentID ),                            
+                            new SqlParameter("@ConsignmentID",      ConsignmentModel.ConsignmentID ),
                             new SqlParameter("@ProductId",          ConsignmentModel.ProductId ),
                             new SqlParameter("@ShipmentNo",         ConsignmentModel.ShipmentNo              ),
                             new SqlParameter("@ShipmentDt",         ConsignmentModel.ShipmentDt              ),
@@ -740,9 +742,9 @@ namespace Consignment.Repository
                             new SqlParameter("@PoDt",               ConsignmentModel.PoDt              ),
                             new SqlParameter("@PrivateMark",        ConsignmentModel.PrivateMark              ),
                             new SqlParameter("@ActualWt",           ConsignmentModel.ActualWt              ),
-                            new SqlParameter("@Chargewt",           ConsignmentModel.Chargewt             ),                            
+                            new SqlParameter("@Chargewt",           ConsignmentModel.Chargewt             ),
                             new SqlParameter("@VehicleNo",          ConsignmentModel.VehicleNo),
-                            new SqlParameter("@VehicleTypeId",      ConsignmentModel.VehicleTypeId),                            
+                            new SqlParameter("@VehicleTypeId",      ConsignmentModel.VehicleTypeId),
                             new SqlParameter("@BillingStatus",      ConsignmentModel.BillingStatus ),
                             new SqlParameter("@BillingParty",       ConsignmentModel.BillingParty),
                             new SqlParameter("@RateType",           ConsignmentModel.RateType ),
@@ -801,7 +803,7 @@ namespace Consignment.Repository
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                    }                   
+                    }
                     if (responseModel.Status)
                     {
                         for (int i = 0; i < ConsignmentModel.GstList.Count; i++)
@@ -842,7 +844,7 @@ namespace Consignment.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@BillingStation",    request.strRequest  ),
-                            new SqlParameter("@YearId",             request.strRequest1 ), 
+                            new SqlParameter("@YearId",             request.strRequest1 ),
                         };
 
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillNo", param);
@@ -868,9 +870,9 @@ namespace Consignment.Repository
                 if (dbconnection != null)
                 {
                     SqlParameter[] param =
-                        { 
+                        {
                             new SqlParameter("@BillingStation",    request.strRequest  ),
-                            new SqlParameter("@YearId",            request.strRequest1 ), 
+                            new SqlParameter("@YearId",            request.strRequest1 ),
                         };
 
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillSubmitNo", param);
@@ -1013,7 +1015,7 @@ namespace Consignment.Repository
                 responseModel.Status = false;
             }
             return responseModel;
-        }        
+        }
         public async Task<ResponseModel> ChkMandatoryRequired(RequestModel request)
         {
             ResponseModel responseModel = new();
@@ -1101,7 +1103,7 @@ namespace Consignment.Repository
             }
             catch (Exception ex)
             {
-               
+
             }
             return contentList;
         }
@@ -1130,7 +1132,7 @@ namespace Consignment.Repository
             }
             catch (Exception ex)
             {
-                
+
             }
             return rateList;
         }
@@ -1477,7 +1479,7 @@ namespace Consignment.Repository
                         lrmodel.ChallanPhoto2     = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanPhoto2"]);
                         lrmodel.TruckDriverImage  = Convert.ToString(dataSet.Tables[0].Rows[0]["TruckDriverImage"]);
                         lrmodel.PodAttach1        = Convert.ToString(dataSet.Tables[0].Rows[0]["PodAttach1"]);
-                        lrmodel.PodAttach2        = Convert.ToString(dataSet.Tables[0].Rows[0]["PodAttach2"]);                        
+                        lrmodel.PodAttach2        = Convert.ToString(dataSet.Tables[0].Rows[0]["PodAttach2"]);
                     }
                 }
             }
@@ -1487,17 +1489,17 @@ namespace Consignment.Repository
             }
             return lrmodel;
         }
-        
+
         public async Task<ConsignmentModel> GetCnEnqInnerGridList(RequestModel request)
         {
             ConsignmentModel consignment = new()
             {
                 InvList  = new List<ConsignmentInvModel>(),
-                ChlnList = new List<ConsignmentChlnModel>(), 
-                LhpmList = new List<ConsignmentLhpmModel>(),  
+                ChlnList = new List<ConsignmentChlnModel>(),
+                LhpmList = new List<ConsignmentLhpmModel>(),
                 BillList = new List<ConsignmentBillModel>(),
                 DprList = new List<ConsignmentDprModel>(),
-              
+
                 DelAckList = new List<ConsignmentDelvAckModel>(),
                 MrList = new List<ConsignmentMrModel>(),
                 BillSubmitList = new List<ConsignmentBillSubmitModel>(),
@@ -1513,7 +1515,7 @@ namespace Consignment.Repository
 
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCnEnqInnerGridList", param);
 
-                    if (dataSet != null )
+                    if (dataSet != null)
                     {
                         for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
                         {
@@ -1592,7 +1594,7 @@ namespace Consignment.Repository
                                 CgstAmt = Convert.ToString(dataSet.Tables[3].Rows[i]["CgstAmt"]),
                                 IgstAmt = Convert.ToString(dataSet.Tables[3].Rows[i]["IgstAmt"]),
                                 Gtotal = Convert.ToString(dataSet.Tables[3].Rows[i]["Gtotal"]),
-                            }); 
+                            });
                         }
                         for (int i = 0; i < dataSet.Tables[4].Rows.Count; i++)
                         {
@@ -1606,7 +1608,7 @@ namespace Consignment.Repository
                                 TotFreightAmt = Convert.ToString(dataSet.Tables[4].Rows[i]["TotFreightAmt"]),
                             });
                         }
-                       
+
                         for (int i = 0; i < dataSet.Tables[5].Rows.Count; i++)
                         {
                             consignment.MrList.Add(new ConsignmentMrModel
@@ -1621,7 +1623,7 @@ namespace Consignment.Repository
                                 OtherDed = Convert.ToString(dataSet.Tables[5].Rows[i]["OtherDed"]),
                                 ExcessRecd = Convert.ToString(dataSet.Tables[5].Rows[i]["ExcessRecd"]),
                                 DedRecovery = Convert.ToString(dataSet.Tables[5].Rows[i]["DedRecovery"]),
-                              
+
                             });
                         }
                         for (int i = 0; i < dataSet.Tables[6].Rows.Count; i++)
@@ -1861,7 +1863,39 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-        
 
-    }
+
+        public async Task<ResponseModel> ConsignmentLocalFrtUpdate(ConsignmentUpdateModel ConsignmentModel)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@ConsignmentID", ConsignmentModel.ConsignmentID),
+                            new SqlParameter("@ExtrasRecd2", ConsignmentModel.ExtrasRecd2),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_ConsignmentLocalFrtUpdate", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = false;
+            }
+            return responseModel;
+        }
+
+    }   
 }

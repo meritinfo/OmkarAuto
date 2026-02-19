@@ -250,7 +250,7 @@ export class FasttagaddComponent {
       this.fasttagmodel = res;
       this.formArray.clear();
       
-      for (var i = 0; i < res.fastTagDtlList.length; i++) {
+      for (let i = 0; i < res.fastTagDtlList.length; i++) {
         this.formArray.push(this.createInitialArray());   
         this.formArray.controls[i].get("transRefNo")?.setValue(res.fastTagDtlList[i].transRefNo);
         this.formArray.controls[i].get("vehicleNo")?.setValue(this.vehicleList.find(e => e.dataName == res.fastTagDtlList[i].vehicleNo));
@@ -293,7 +293,7 @@ export class FasttagaddComponent {
       var selectedDataVal = this.formFastTag.getRawValue();
       var j=0;
       this.formArray.clear();
-      for (var i = 0; i < this.data.length; i++) { 
+      for (let i = 0; i < this.data.length; i++) { 
         if (this.data[i+1][0]!="")  
         {  
           if (this.data[i+1][1].toUpperCase() =="Debit")  
@@ -355,7 +355,7 @@ export class FasttagaddComponent {
     var totalFtAmt= 0;
     var selectedData = this.formFastTag.getRawValue(); 
 
-    for (var i = 0; i < selectedData.arrayList.length; i++) {
+    for (let i = 0; i < selectedData.arrayList.length; i++) {
       if (selectedData.arrayList[i].ftAmount != "") {
         totalFtAmt = totalFtAmt + parseFloat(selectedData.arrayList[i].ftAmount);
       }        
@@ -464,7 +464,7 @@ export class FasttagaddComponent {
 
     var arr=selectedDataVal.arrayList;
 
-    for (var i = 0; i < arr.length; i++) {
+    for (let i = 0; i < arr.length; i++) {
       if(arr[i].vehicleNo?arr[i].vehicleNo.dataId:""!='' && arr[i].vehicleNo[i].ftAmount!=''){
         this.fasttagmodel.fastTagDtlList.push({
           'ftMasterID':"",

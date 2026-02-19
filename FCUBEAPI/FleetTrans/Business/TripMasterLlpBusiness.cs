@@ -33,6 +33,10 @@ namespace FleetTrans.Business
         {
             return await tripMasterRepository.GetTripMasterInnerGridLlpList(request);
         }
+        public async Task<TripMasterModel> GetTripMasterInnerGridRefreshLlpList(RequestModel request)
+        {
+            return await tripMasterRepository.GetTripMasterInnerGridRefreshLlpList(request);
+        }        
         public async Task<List<DropDownListModel>> GetDriverList()
         {
             return await tripMasterRepository.GetDriverList();

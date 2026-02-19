@@ -198,7 +198,7 @@ dashboard: string ="";
     this.dprService.getDprInnerGridList(this.requestmodel).subscribe((res) => {
       this.dprmodel = res;
       this.formArray.clear();
-      for (var i = 0; i < res.dprDtls.length; i++) {
+      for (let i = 0; i < res.dprDtls.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("fromPlace")?.setValue(this.locationList.find(e => e.dataId == res.dprDtls[i].fromPlace));
         this.formArray.controls[i].get("toPlace")?.setValue(this.locationList.find(e => e.dataId == res.dprDtls[i].toPlace));
@@ -518,7 +518,7 @@ dashboard: string ="";
         return;
       }
   
-      for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
+      for (let i = 0; i < selectedDataVal.arrayList.length; i++) {
         if(selectedDataVal.arrayList[i].fromPlace || selectedDataVal.arrayList[i].toPlace)
         {
           var fmplc = "";

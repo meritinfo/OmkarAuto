@@ -300,7 +300,7 @@ export class GeneratetempgceditComponent {
     this.generatetempgcService.getTempgcInnerGridList(this.requestmodel).subscribe((res) => {
       this.tempgcmodel = res;
       this.formArray.clear();
-      for (var i = 0; i < res.invList.length; i++) {
+      for (let i = 0; i < res.invList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("invNo")?.setValue(res.invList[i].invNo);
         this.formArray.controls[i].get("invDate")?.setValue(this.commonService.formatDate(res.invList[i].invDate));
@@ -311,7 +311,7 @@ export class GeneratetempgceditComponent {
       }      
       this.formArray.push(this.createInitialArray());
       this.formSealArray.clear();
-      for (var i = 0; i < res.sealList.length; i++) {
+      for (let i = 0; i < res.sealList.length; i++) {
         this.formSealArray.push(this.createSealArray());
         this.formSealArray.controls[i].get("sealNo")?.setValue(res.sealList[i].sealNo);
         this.formSealArray.controls[i].get("sealNo")?.disable();
@@ -699,7 +699,7 @@ export class GeneratetempgceditComponent {
       return;
     }
 
-    for (var i = 0; i < selectedDataVal.arrayList.length; i++) {   
+    for (let i = 0; i < selectedDataVal.arrayList.length; i++) {   
       if(selectedDataVal.arrayList[i].invNo!='' && selectedDataVal.arrayList[i].invDate!='' && 
           selectedDataVal.arrayList[i].InvValue!=''){
         this.tempgcmodel.invList.push({
@@ -711,7 +711,7 @@ export class GeneratetempgceditComponent {
       }
     }       
 
-    for (var i = 0; i < selectedDataVal.arraySealList.length; i++) {   
+    for (let i = 0; i < selectedDataVal.arraySealList.length; i++) {   
       if(selectedDataVal.arraySealList[i].sealNo!='' ){
         this.tempgcmodel.sealList.push({
           'tempGcId': '',

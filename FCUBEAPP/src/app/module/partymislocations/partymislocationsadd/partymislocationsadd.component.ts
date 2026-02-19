@@ -212,7 +212,7 @@ export class PartymislocationsaddComponent {
     this.partyMisLocationsService.getPartyMisLocationInnerGridList(this.requestmodel).subscribe((res) => {
       this.formRatesArray.clear();
       this.partymislocationmodels = res;
-      for (var i = 0; i < res.partyMisLocationDetailList.length; i++) {
+      for (let i = 0; i < res.partyMisLocationDetailList.length; i++) {
         this.formRatesArray.push(this.createMisArray());     
         this.formRatesArray.controls[i].get("locationId")?.setValue(this.locationList.find(e => e.dataId == res.partyMisLocationDetailList[i].locationId));
       }     
@@ -222,7 +222,7 @@ export class PartymislocationsaddComponent {
   selectToLocationEvent(item: any,index:number) {
     var ToPlace = item.dataId;
     var selectedDataValue=this.formUser.getRawValue();
-    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
       if(ToPlace == selectedDataValue.arrayList[i].locationId.dataId)
       {
         this.toastrService.warning("Location already exits in grid");
@@ -288,7 +288,7 @@ if (this.formUser.invalid) {
     
     this.partymislocationmodels.partyMisLocationDetailList = [];
           
-    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
       if (selectedDataValue.arrayList[i].locationId.dataId) {
         this.partymislocationmodels.partyMisLocationDetailList.push({
           'partyId': selectedDataValue.partyId.dataId,

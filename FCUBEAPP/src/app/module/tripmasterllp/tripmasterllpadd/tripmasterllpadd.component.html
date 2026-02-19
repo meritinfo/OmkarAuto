@@ -165,6 +165,14 @@
                     </div>
                 </div>
                 <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row text-right">
+                        <div class="col-lg-12">
+                            <div class="tex">
+                                <button (click)="refreshFrieght()" *ngIf="(editMode && editStatus)"
+                                    class="btn btn-primary w-md">Refresh Freight</button>  
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card">

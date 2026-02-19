@@ -339,7 +339,7 @@ getMrEnqInnerGridList(): void {
    
     
 
-    for (var i = 0; i < res.mrDtlsList.length; i++) {
+    for (let i = 0; i < res.mrDtlsList.length; i++) {
       this.formMrArray.push(this.createInitialMrArray());
       this.formMrArray.controls[i].get("billLrMasterId")?.setValue(res.mrDtlsList[i].billLrMasterId);
       this.formMrArray.controls[i].get("billLrYear")?.setValue(res.mrDtlsList[i].billLrYear);
@@ -373,7 +373,7 @@ getMrEnqInnerGridList(): void {
       this.formMrArray.controls[i].get("totDed")?.disable();
       
     }       
-    for (var i = 0; i < res.mrOnAcList.length; i++) {
+    for (let i = 0; i < res.mrOnAcList.length; i++) {
       this.formOnAcArray.push(this.createInitialOnAcArray());
       this.formOnAcArray.controls[i].get("adjMrStn")?.setValue(res.mrOnAcList[i].adjMrStn);
       this.formOnAcArray.controls[i].get("adjMrNo")?.setValue(res.mrOnAcList[i].adjMrNo);
@@ -386,7 +386,7 @@ getMrEnqInnerGridList(): void {
     
       
     }         
-    for (var i = 0; i < res.mrAdjList.length; i++) {
+    for (let i = 0; i < res.mrAdjList.length; i++) {
       this.formAdjArray.push(this.createInitialAdjArray());
       this.formAdjArray.controls[i].get("mrStation")?.setValue(res.mrAdjList[i].mrStation);
       this.formAdjArray.controls[i].get("mrNo")?.setValue(res.mrAdjList[i].mrNo);

@@ -288,7 +288,7 @@ export class LorryhirepmtllpaddComponent {
     this.lorryhirepmtService.getLorryhireInnerGridList(this.requestmodel).subscribe((res) => {
       this.lorryhiremaster = res;
       this.formArray.clear();
-      for (var i = 0; i < res.lhpmDetails.length; i++) {        
+      for (let i = 0; i < res.lhpmDetails.length; i++) {        
         this.formArray.push(this.createInitialArray()); 
 
         this.formArray.controls[i].get("chYear")?.setValue(res.lhpmDetails[i].chYear);
@@ -812,7 +812,7 @@ export class LorryhirepmtllpaddComponent {
     totother = 0, totother2 = 0, totother3 = 0, 
     totlhpm = 0, totrec = 0, totothded = 0, totothded2 = 0, tottds = 0
 
-    for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataVal.arrayList.length; i++) {
       var netTot = 0;
       if(selectedDataVal.arrayList[i].hireAmt!=''){
         netTot = netTot + parseFloat(selectedDataVal.arrayList[i].hireAmt);
@@ -960,7 +960,7 @@ export class LorryhirepmtllpaddComponent {
 
     this.lorryhiremastermodel.lhpmDetails = [];
    
-    for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataVal.arrayList.length; i++) {
       if(selectedDataVal.arrayList[i].challanId!=''){
         if(selectedDataVal.arrayList[i].abType == "O"){
           var totExtra = 0;

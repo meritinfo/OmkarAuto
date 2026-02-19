@@ -38,5 +38,6 @@ namespace Consignment.Business
         Task<ResponseModel> CheckLrExits(RequestModel request);
         Task<ResponseModel> GetFcmRcmConfig();
         Task<List<DropDownListModel>> GetTransTypeList();
+        Task<ResponseModel> ConsignmentLocalFrtUpdate(ConsignmentUpdateModel ConsignmentModel);
     }
 }

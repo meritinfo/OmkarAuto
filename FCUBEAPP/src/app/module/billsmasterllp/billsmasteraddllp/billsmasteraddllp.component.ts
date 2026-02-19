@@ -638,7 +638,7 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
     var gstType = "", gstBy="";
    
     if(e.target.checked){
-      for (var i = 0; i < billdtls.length; i++) {
+      for (let i = 0; i < billdtls.length; i++) {
         this.billsmastersearchlistmodel.billsMasterSearchList[i].selected = true;    
         if(parseFloat(billdtls[i].freightRs)>0){
           gstType= billdtls[0]?billdtls[0].gstType:"";
@@ -647,7 +647,7 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
       }
     }
     else{
-      for (var i = 0; i < billdtls.length; i++) {
+      for (let i = 0; i < billdtls.length; i++) {
         this.billsmastersearchlistmodel.billsMasterSearchList[i].selected = false;
       }
     }
@@ -695,7 +695,7 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
 
     var billlist = this.billsmastersearchlistmodel.billsMasterSearchList
 
-    for (var i = 0; i < billlist.length; i++) {
+    for (let i = 0; i < billlist.length; i++) {
       if (billlist[i].selected) {
         totalFreight      = totalFreight     + (billlist[i].freightRs == ""? 0 : parseFloat(billlist[i].freightRs) );
         totalStatistical  = totalStatistical + (billlist[i].statisticalRs == ""? 0 : parseFloat(billlist[i].statisticalRs) );
@@ -947,7 +947,7 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
     var billList = this.billsmastersearchlistmodel.billsMasterSearchList;
     var gstType = "NA"
     var gstBy = "N";    
-    for (var i = 0; i < billList.length; i++) {
+    for (let i = 0; i < billList.length; i++) {
       if(billList[i].selected){
         gstType = billList[i].gstType!="NA"?billList[i].gstType:gstType;
         gstBy = billList[i].gstBy!="N"?billList[i].gstBy:gstBy;

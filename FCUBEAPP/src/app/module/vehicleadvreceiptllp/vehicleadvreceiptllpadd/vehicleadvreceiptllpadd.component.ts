@@ -323,7 +323,7 @@ dashboard: string ="";
       this.formAdvanceArray.clear();
       this.vehicleadvbalreceiptModel = res;
      if (res.vehicleAdvBalReceiptDtlList.length!=0){
-      for (var i = 0; i < res.vehicleAdvBalReceiptDtlList.length; i++) {
+      for (let i = 0; i < res.vehicleAdvBalReceiptDtlList.length; i++) {
         this.formAdvanceArray.push(this.createAdvanceArray());
      
         this.formAdvanceArray.controls[i].get("loadId")?.setValue(res.vehicleAdvBalReceiptDtlList[i].loadId); 
@@ -370,7 +370,7 @@ dashboard: string ="";
     this.vehiclerepmaintMasterService.getVehicleadvbalreceiptInnerGridList(this.requestmodel).subscribe((res) => {
       this.formAdvanceArray.clear();
       this.vehicleadvbalreceiptModel = res;
-      for (var i = 0; i < res.vehicleAdvBalReceiptDtlList.length; i++) {
+      for (let i = 0; i < res.vehicleAdvBalReceiptDtlList.length; i++) {
         this.formAdvanceArray.push(this.createAdvanceArray());
         this.formAdvanceArray.controls[i].get("loadId")?.setValue(res.vehicleAdvBalReceiptDtlList[i].loadId); 
         this.formAdvanceArray.controls[i].get("loadBranch")?.setValue(res.vehicleAdvBalReceiptDtlList[i].loadBranch); 
@@ -430,7 +430,7 @@ dashboard: string ="";
       return;
     }
     else{
-      for (var i = 0; i < this.formAdvanceArray.controls.length; i++) { 
+      for (let i = 0; i < this.formAdvanceArray.controls.length; i++) { 
         if (selectedDate.arrayList[i].received!="") {
           received = parseFloat(selectedDate.arrayList[i].received) ;
           totalreceived = totalreceived + received;
@@ -539,7 +539,7 @@ dashboard: string ="";
     
     this.vehicleadvbalreceiptModel.vehicleAdvBalReceiptDtlList = [];
         
-    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
       
       if ((parseFloat(selectedDataValue.arrayList[i].received) 
             + parseFloat(selectedDataValue.arrayList[i].deduction)

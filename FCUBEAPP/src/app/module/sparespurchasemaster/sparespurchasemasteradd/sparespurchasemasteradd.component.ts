@@ -413,7 +413,7 @@ export class SparespurchasemasteraddComponent {
     this.sparesPurchaseMasterService.getSparesPurchaseMasterInnerGridList(this.requestmodel).subscribe((res) => {
       this.formTyreArray.clear();
       this.sparespurchasemastermodel = res;
-      for (var i = 0; i < res.sparesPurchaseDtlList.length; i++) {
+      for (let i = 0; i < res.sparesPurchaseDtlList.length; i++) {
         this.formTyreArray.push(this.createSparesArray());
         this.formTyreArray.controls[i].get("spTransDtlId")?.setValue(res.sparesPurchaseDtlList[i].spTransDtlId);
         this.formTyreArray.controls[i].get("spTransId")?.setValue(res.sparesPurchaseDtlList[i].spTransId);  
@@ -524,7 +524,7 @@ export class SparespurchasemasteraddComponent {
     this.formUser.patchValue({
       gstInputTaken:"Y"
     });
-    for (var i = 0; i < this.formTyreArray.controls.length; i++) { 
+    for (let i = 0; i < this.formTyreArray.controls.length; i++) { 
       this.formTyreArray.controls[i].get("sgstPct")?.setValue("0");
       this.formTyreArray.controls[i].get("cgstPct")?.setValue("0");
       this.formTyreArray.controls[i].get("igstPct")?.setValue("0");
@@ -590,7 +590,7 @@ export class SparespurchasemasteraddComponent {
     
     var selectedDate = this.formUser.getRawValue();
 
-    for (var i = 0; i < selectedDate.arrayList.length; i++) {
+    for (let i = 0; i < selectedDate.arrayList.length; i++) {
       this.formTyreArray.controls[i].get("sgstAmt")?.setValue("");
       this.formTyreArray.controls[i].get("cgstAmt")?.setValue("");
       this.formTyreArray.controls[i].get("igstAmt")?.setValue("");
@@ -743,7 +743,7 @@ export class SparespurchasemasteraddComponent {
       return;
     }
       
-    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
       if (selectedDataValue.arrayList[i].spareLubId.dataId){
         //ignore
       } 
