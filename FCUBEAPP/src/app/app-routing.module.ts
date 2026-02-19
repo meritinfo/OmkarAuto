@@ -378,6 +378,7 @@ import { BpclcardrechargereqaddComponent } from './module/bpclcardrechargereq/bp
 import { BpclcardrechargeappComponent } from './module/bpclcardrechargeapp/bpclcardrechargeapp.component';
 import { BpclcardreturnlistComponent } from './module/bpclcardreturn/bpclcardreturnlist/bpclcardreturnlist.component';
 import { BpclcardreturnaddComponent } from './module/bpclcardreturn/bpclcardreturnadd/bpclcardreturnadd.component';
+import { ConsignmentlocalfrtupdateComponent } from './module/consignmentllp/consignmentlocalfrtupdate/consignmentlocalfrtupdate.component';
 
 
 const routes: Routes = [
@@ -891,6 +892,7 @@ const routes: Routes = [
   { path: 'bpclcardamtreturn', component: BpclcardreturnlistComponent }, 
   { path: 'bpclcardamtreturnadd', component: BpclcardreturnaddComponent }, 
   { path: 'bpclcardamtreturnedit', component: BpclcardreturnaddComponent }, 
+  { path: 'updatelocalfrt', component: ConsignmentlocalfrtupdateComponent }, 
 ];
 
 

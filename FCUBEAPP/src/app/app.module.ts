@@ -577,6 +577,7 @@ import { BpclcardrechargereqaddComponent } from './module/bpclcardrechargereq/bp
 import { BpclcardrechargeappComponent } from './module/bpclcardrechargeapp/bpclcardrechargeapp.component';
 import { BpclcardreturnlistComponent } from './module/bpclcardreturn/bpclcardreturnlist/bpclcardreturnlist.component';
 import { BpclcardreturnaddComponent } from './module/bpclcardreturn/bpclcardreturnadd/bpclcardreturnadd.component';
+import { ConsignmentlocalfrtupdateComponent } from './module/consignmentllp/consignmentlocalfrtupdate/consignmentlocalfrtupdate.component';
 
 
 
@@ -768,7 +769,7 @@ import { BpclcardreturnaddComponent } from './module/bpclcardreturn/bpclcardretu
     MonthlyperformancerptComponent,
     LegderdetaillistComponent, CashbookdetailComponent, BankbookdetailComponent, TrailballistComponent, 
     BpclcardrechargereqlistComponent, BpclcardrechargereqaddComponent, BpclcardrechargeappComponent, 
-    BpclcardreturnlistComponent, BpclcardreturnaddComponent
+    BpclcardreturnlistComponent, BpclcardreturnaddComponent, ConsignmentlocalfrtupdateComponent
   
    
     

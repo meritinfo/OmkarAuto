@@ -62,6 +62,7 @@ export class Consignmentupdatemodel {
     ulDetentionDays: string = "";
     yearId : string = "";
     loggedInUser :  string = "";
+    extrasRecd2 :  string = "";
     gstList: Consignmentgstmodel[] = [];
  
 }

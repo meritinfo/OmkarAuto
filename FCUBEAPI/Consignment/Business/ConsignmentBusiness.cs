@@ -147,5 +147,9 @@ namespace Consignment.Business
         {
             return await consignmentRepository.GetTransTypeList();
         }
+        public async Task<ResponseModel> ConsignmentLocalFrtUpdate(ConsignmentUpdateModel ConsignmentModel)
+        {
+            return await consignmentRepository.ConsignmentLocalFrtUpdate(ConsignmentModel);
+        }
     }
 }

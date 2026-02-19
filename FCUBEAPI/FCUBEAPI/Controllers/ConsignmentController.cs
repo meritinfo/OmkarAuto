@@ -4062,8 +4062,28 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("ConsignmentLocalFrtUpdate")]
+        public async Task<IActionResult> ConsignmentLocalFrtUpdate(ConsignmentUpdateModel ConsignmentModel)
+        {
+            if (ConsignmentModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await consignmentBusiness.ConsignmentLocalFrtUpdate(ConsignmentModel);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 
+       
 
-}
+
+    }
 

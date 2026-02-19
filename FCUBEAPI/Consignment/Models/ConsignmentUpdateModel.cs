@@ -66,6 +66,7 @@ namespace Consignment.Models
         public string? WhatsappPOD2 { get; set; }
         public string? YearId { get; set; }
         public string? LoggedInUser { get; set; }
+        public string? ExtrasRecd2 { get; set; }
         public List<ConsignmentGstModel> GstList { get; set; }
 
 
