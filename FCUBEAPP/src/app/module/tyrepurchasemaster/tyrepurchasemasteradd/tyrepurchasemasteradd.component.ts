@@ -408,7 +408,7 @@ dashboard: string ="";
     this.tyrePurchaseMasterService.getTyrePurchaseMasterInnerGridList(this.requestmodel).subscribe((res) => {
       this.formTyreArray.clear();
       this.tyrepurchasemodel = res;
-      for (var i = 0; i < res.tyrePurchaseDtlList.length; i++) {
+      for (let i = 0; i < res.tyrePurchaseDtlList.length; i++) {
         this.formTyreArray.push(this.createTyreArray());
         this.formTyreArray.controls[i].get("brandID")?.setValue(res.tyrePurchaseDtlList[i].brandID);
         this.formTyreArray.controls[i].get("tyreNo")?.setValue(res.tyrePurchaseDtlList[i].tyreNo);  
@@ -453,7 +453,7 @@ dashboard: string ="";
   changeGstType(e: any) {
     console.log(e.target.value);
     var gsttype = e.target.value;   
-    for (var i = 0; i < this.formTyreArray.controls.length; i++) { 
+    for (let i = 0; i < this.formTyreArray.controls.length; i++) { 
       this.formTyreArray.controls[i].get("sgstPct")?.setValue("0");
       this.formTyreArray.controls[i].get("cgstPct")?.setValue("0");
       this.formTyreArray.controls[i].get("igstPct")?.setValue("0");
@@ -508,7 +508,7 @@ dashboard: string ="";
     
     var selectedDate = this.formUser.getRawValue();
 
-    for (var i = 0; i < this.formTyreArray.controls.length; i++) {
+    for (let i = 0; i < this.formTyreArray.controls.length; i++) {
       this.formTyreArray.controls[i].get("sgstAmt")?.setValue("");
       this.formTyreArray.controls[i].get("cgstAmt")?.setValue("");
       this.formTyreArray.controls[i].get("igstAmt")?.setValue("");
@@ -595,7 +595,7 @@ dashboard: string ="";
     var tyreno= e.target.value;    
     var selectedDate = this.formUser.getRawValue();
 
-    for (var i = 0; i < this.formTyreArray.controls.length; i++) {
+    for (let i = 0; i < this.formTyreArray.controls.length; i++) {
       if(j!=i && tyreno == selectedDate.arrayList[i].tyreNo ){
         this.toastrService.warning("Tyre No already exists in grid");           
         this.formTyreArray.controls[j].get("tyreNo")?.setValue("");
@@ -724,7 +724,7 @@ dashboard: string ="";
     this.tyrepurchasemastermodel.tyrePurchaseDtlList = [];
 
        
-    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
       if (selectedDataValue.arrayList[i].netTyreAmount == "" || parseFloat(selectedDataValue.arrayList[i].netTyreAmount)==0 ) {
         if(selectedDataValue.purchaseType == 'N' ||  selectedDataValue.purchaseType == 'R')
         this.toastrService.warning("Please enter the amount.");

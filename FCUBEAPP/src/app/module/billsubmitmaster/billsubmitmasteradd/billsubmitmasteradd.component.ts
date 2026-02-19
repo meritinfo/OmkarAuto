@@ -260,7 +260,7 @@ export class BillsubmitmasteraddComponent {
       .subscribe((res: Billsubmitmastermodel) => {
       this.billsubmitmastermodel = res;      
       this.formTyreArray.clear();
-      for (var i = 0; i < res.billSubmitMasterDtlList.length; i++) {
+      for (let i = 0; i < res.billSubmitMasterDtlList.length; i++) {
         this.formTyreArray.push(this.createSubmitArray());
         this.formTyreArray.controls[i].get("billsMasterId")?.setValue(res.billSubmitMasterDtlList[i].billsMasterId);
         this.formTyreArray.controls[i].get("billAmt")?.setValue(res.billSubmitMasterDtlList[i].billAmt);
@@ -304,7 +304,7 @@ export class BillsubmitmasteraddComponent {
     var l = selectedDataValue.arrayList.length;
     this.billSubmitMasterService.getBillsSubmitSearchList(this.reportmodel).subscribe((res: Billsubmitmastermodel) => {
       this.appendMode = false;
-       for (var i = 0; i < res.billSubmitMasterDtlList.length; i++) {
+       for (let i = 0; i < res.billSubmitMasterDtlList.length; i++) {
         this.formTyreArray.push(this.createSubmitArray());
         this.formTyreArray.controls[l+i].get("billsMasterId")?.setValue(res.billSubmitMasterDtlList[i].billsMasterId);
         this.formTyreArray.controls[l+i].get("billAmt")?.setValue(res.billSubmitMasterDtlList[i].billAmt);
@@ -323,7 +323,7 @@ export class BillsubmitmasteraddComponent {
     this.billSubmitMasterService.getBillSubmitMasterInnerGridList(this.requestmodel).subscribe((res) => {
       this.formTyreArray.clear();
       this.vehicleRepmaintMaster = res;
-      for (var i = 0; i < res.billSubmitMasterDtlList.length; i++) {
+      for (let i = 0; i < res.billSubmitMasterDtlList.length; i++) {
         this.formTyreArray.push(this.createSubmitArray());
         this.formTyreArray.controls[i].get("billsMasterId")?.setValue(res.billSubmitMasterDtlList[i].billsMasterId);  
         this.formTyreArray.controls[i].get("billAmt")?.setValue(res.billSubmitMasterDtlList[i].billAmt);   
@@ -354,7 +354,7 @@ export class BillsubmitmasteraddComponent {
     var totalSubmitAmt = 0; 
     var selectedData = this.formUser.getRawValue();
     var billlist = selectedData.arrayList;
-    for (var i = 0; i < billlist.length; i++) {
+    for (let i = 0; i < billlist.length; i++) {
       if (billlist[i].selected) {
         totalSubmitAmt = totalSubmitAmt + (billlist[i].billAmt == ""? 0 : parseFloat(billlist[i].billAmt) );
       }
@@ -441,7 +441,7 @@ export class BillsubmitmasteraddComponent {
       return;    
     }
         
-    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
       if(selectedDataValue.arrayList[i].selected)
       {
         this.billsubmitmastermodel.billSubmitMasterDtlList.push({  

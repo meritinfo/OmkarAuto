@@ -215,7 +215,7 @@ export class AddbankreceiptentryComponent {
       this.formBankRecEntry.patchValue({
         accountid2: res.detailList[0].accountID,
       }); 
-      for (var i = 1; i < res.detailList.length; i++) {
+      for (let i = 1; i < res.detailList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i-1].get("amount")?.setValue(res.detailList[i].amount);
         this.formArray.controls[i-1].get("accountID")?.setValue(this.gridAccountList.find(e => e.dataId == res.detailList[i].accountID));
@@ -301,8 +301,8 @@ export class AddbankreceiptentryComponent {
   updateAmount() {
     var selectedDataValue = this.formBankRecEntry.getRawValue();
     var totalAmount = 0;
-    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
-        totalAmount = totalAmount + (selectedDataValue.arrayList[i].amount == "" ? 0 : parseFloat(selectedDataValue.arrayList[i].amount));
+    for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
+      totalAmount = totalAmount + (selectedDataValue.arrayList[i].amount == "" ? 0 : parseFloat(selectedDataValue.arrayList[i].amount));
     }
     this.formBankRecEntry.patchValue({
       docAmount: totalAmount.toFixed(2),
@@ -564,7 +564,7 @@ export class AddbankreceiptentryComponent {
     })
     
     if (this.formArray.value != undefined) {
-      for (var i = 0; i < this.formArray.value.length; i++) {
+      for (let i = 0; i < this.formArray.value.length; i++) {
         if (this.formArray.value[i].accountID.dataId!="" ){
           if ((this.formArray.value[i].amount=="") ){
             this.toasterService.warning("Amount cannot be Empty in details grid");

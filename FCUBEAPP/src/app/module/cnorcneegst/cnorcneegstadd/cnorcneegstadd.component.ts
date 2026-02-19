@@ -231,7 +231,7 @@ selectEvent(item: any) {
     this.cnorcneegstmodel = res;
     if(res.cnorCneeGstDetail.length>0){
       this.formArray.clear();
-      for (var i = 0; i < res.cnorCneeGstDetail.length; i++) {
+      for (let i = 0; i < res.cnorCneeGstDetail.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("location")?.setValue(res.cnorCneeGstDetail[i].location);
         this.formArray.controls[i].get("gstNo")?.setValue(res.cnorCneeGstDetail[i].gstNo);
@@ -296,7 +296,7 @@ submitCnorCneeGstForm(): void {
   this.cnorcneegstmodel.cnorCneeID = selectedDataValue.cnorCneeID.dataId
   this.cnorcneegstmodel.cnorCneeGstDetail = [];
 
-    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
       if(selectedDataValue.arrayList[i].location!='' && selectedDataValue.arrayList[i].gstNo !=''){
         this.cnorcneegstmodel.cnorCneeGstDetail.push({
           'cnorCneeDetID':'',

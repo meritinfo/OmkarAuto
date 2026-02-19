@@ -14,6 +14,7 @@ namespace FleetTrans.Repository
         Task<TripMasterList> GetTripMasterList(ReportRequestModel request);
         Task<TripMasterModel> GetTripMasterInnerSearchLlpList(ReportRequestModel request);
         Task<TripMasterModel> GetTripMasterInnerGridLlpList(RequestModel request);
+        Task<TripMasterModel> GetTripMasterInnerGridRefreshLlpList(RequestModel request);        
         Task<ResponseModel> TripMasterLlpDelete(RequestModel requestModel);
         Task<List<DropDownListModel>> GetDriverList();
         Task<List<DropDownListModel>> GetExpList();

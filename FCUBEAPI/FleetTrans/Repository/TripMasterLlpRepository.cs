@@ -625,6 +625,55 @@ namespace FleetTrans.Repository
             }
             return tripSheetInnerGridList;
         }
+        public async Task<TripMasterModel> GetTripMasterInnerGridRefreshLlpList(RequestModel request)
+        {
+            TripMasterModel tripSheetInnerGridList = new()
+            {
+                RouteList = new List<RouteDetails>(),
+            };
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@TripId",   request.strRequest),
+                        };
+
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTripMasterInnerGridRefreshLlpList", param);
+
+                    //Route Details
+                    if (resultData != null && resultData.Tables[1].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[1].Rows.Count; i++)
+                        {
+                            tripSheetInnerGridList.RouteList.Add(new RouteDetails
+                            {
+                                LoadId = Convert.ToString(resultData.Tables[1].Rows[i]["LoadId"]),
+                                LoadBranch = Convert.ToString(resultData.Tables[1].Rows[i]["LoadBranch"]),
+                                LoadDate = Convert.ToString(resultData.Tables[1].Rows[i]["LoadDate"]),
+                                LoadType = Convert.ToString(resultData.Tables[1].Rows[i]["LoadType"]),
+                                LoadFor = Convert.ToString(resultData.Tables[1].Rows[i]["LoadFor"]),
+                                LoadMemoNo = Convert.ToString(resultData.Tables[1].Rows[i]["LoadMemoNo"]),
+                                LoadingFrom = Convert.ToString(resultData.Tables[1].Rows[i]["LoadingFrom"]),
+                                ConsignorName = Convert.ToString(resultData.Tables[1].Rows[i]["ConsignorName"]),
+                                LoadingTo = Convert.ToString(resultData.Tables[1].Rows[i]["LoadingTo"]),
+                                ConsigneeName = Convert.ToString(resultData.Tables[1].Rows[i]["ConsigneeName"]),
+                                LoadWt = Convert.ToString(resultData.Tables[1].Rows[i]["LoadWt"]),
+                                UnloadWt = Convert.ToString(resultData.Tables[1].Rows[i]["UnloadWt"]),
+                                HireAmt = Convert.ToString(resultData.Tables[1].Rows[i]["HireAmt"]),
+                                Remarks = Convert.ToString(resultData.Tables[1].Rows[i]["Remarks"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return tripSheetInnerGridList;
+        }                
         public async Task<ResponseModel> TripMasterLlpDelete(RequestModel requestModel)
         {
             ResponseModel responseModel = new();

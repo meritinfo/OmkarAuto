@@ -242,7 +242,7 @@ export class BpclcardrechargeappComponent {
         this.formArray.clear();
         this.rechargerequestlist = res;
         this.showGrid = true;
-        for (var i = 0; i < res.rechargeRequestLst.length; i++) {
+        for (let i = 0; i < res.rechargeRequestLst.length; i++) {
           this.formArray.push(this.createInitialArray());
           this.formArray.controls[i].get("reqId")?.setValue(res.rechargeRequestLst[i].reqId);
           this.formArray.controls[i].get("reqDate")?.setValue(res.rechargeRequestLst[i].reqDate);
@@ -266,7 +266,7 @@ export class BpclcardrechargeappComponent {
 
   selectAll(e: any) {
     if(e.target.checked){
-      for (var i = 0; i < this.rechargerequestlist.rechargeRequestLst.length; i++) {
+      for (let i = 0; i < this.rechargerequestlist.rechargeRequestLst.length; i++) {
        this.rechargerequestlist.rechargeRequestLst[i].selected = true;
         this.formArray.controls[i].get("selected")?.setValue('Y');
         this.formArray.controls[i].get("approvedAmt")?.enable();   
@@ -275,7 +275,7 @@ export class BpclcardrechargeappComponent {
       }
     }
     else{
-      for (var i = 0; i < this.rechargerequestlist.rechargeRequestLst.length; i++) {
+      for (let i = 0; i < this.rechargerequestlist.rechargeRequestLst.length; i++) {
       this.rechargerequestlist.rechargeRequestLst[i].selected = false;
         this.formArray.controls[i].get("selected")?.setValue('');
         this.formArray.controls[i].get("approvedAmt")?.disable();   
@@ -318,7 +318,7 @@ export class BpclcardrechargeappComponent {
     var arr= selectedDataVal.arrayList;
     
     var IsItemSelected = false;
-    for (var i = 0; i < arr.length; i++) {
+    for (let i = 0; i < arr.length; i++) {
       if (arr[i].selected) {
         if(arr[i].approvedYN=="")
         {

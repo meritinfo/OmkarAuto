@@ -539,7 +539,7 @@ dashboard: string ="";
     this.billsMasterService.getBillsMasterInnerGridList(this.requestmodel).subscribe((res) => {
       this.billsmastersearchlistmodel= res;
       this.formArray.clear();
-      for(var i = 0; i < res.billsMasterSearchList.length; i++) {
+      for(let i = 0; i < res.billsMasterSearchList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("gcNoteNo")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].gcNoteNo);
         this.formArray.controls[i].get("consignmentid")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].consignmentID);
@@ -570,7 +570,7 @@ dashboard: string ="";
     this.requestmodel.strRequest = this.selectedBillsmasterDetails.billsMasterId;
     this.billsMasterService.getBillsVehInnerGridList(this.requestmodel).subscribe((res) => {
      // this.formVehArray.clear();
-      for(var i = 0; i < res.ownvehdata.length; i++) {
+      for(let i = 0; i < res.ownvehdata.length; i++) {
         this.formVehArray.push(this.createInitialVehArray());
         this.formVehArray.controls[i].get("vehicleMasterId")?.setValue( this.vehicleList.find(e => e.dataId == res.ownvehdata[i].vehicleMasterId))
         this.formVehArray.controls[i].get("freightAmt")?.setValue(res.ownvehdata[i].freightAmt);
@@ -708,7 +708,7 @@ dashboard: string ="";
 
     var billlist = selectedDataVal.arrayList;
 
-    for (var i = 0; i < billlist.length; i++) {
+    for (let i = 0; i < billlist.length; i++) {
           gtotal  = (billlist[i].freightRs == ""? 0 : parseFloat(billlist[i].freightRs) ) 
                             + (billlist[i].extras == ""? 0 : parseFloat(billlist[i].extras)) 
                             + (billlist[i].others == ""? 0 : parseFloat(billlist[i].others)) 
@@ -890,7 +890,7 @@ dashboard: string ="";
     var ToPlace = item.dataId;
     var selectedDataValue=this.formBillsMaster.getRawValue();
 
-    for (var i = 0; i < selectedDataValue.arrayListVeh.length; i++) {
+    for (let i = 0; i < selectedDataValue.arrayListVeh.length; i++) {
       if(i!=index && ToPlace == selectedDataValue.arrayListVeh[i].vehicleMasterId.dataId)
       {
         this.toasterService.warning("To vehicle already exits in grid");
@@ -923,7 +923,7 @@ dashboard: string ="";
     var vehlist = selectedDataValue.arrayListVeh;
     var frtamt = 0;
 
-    for (var i = 0; i < vehlist.length; i++) {  
+    for (let i = 0; i < vehlist.length; i++) {  
       if(vehlist[i].vehicleMasterId!="") {
         this.billsmastermodel.ownvehdata.push({
           'billDetailVehId': '',
@@ -1054,7 +1054,7 @@ dashboard: string ="";
     var billlist = selectedDataValue.arrayList;
      var vehlist = selectedDataValue.arrayListVeh;
 
-    for (var i = 0; i < billlist.length; i++) {  
+    for (let i = 0; i < billlist.length; i++) {  
       if(billlist[i].consignmentid!="") {
         this.billsmastermodel.billsMasterListData.push({
           'billDetailId': '',
@@ -1099,7 +1099,7 @@ dashboard: string ="";
     }
     var frtamt = 0;
 
-    for (var i = 0; i < vehlist.length; i++) {  
+    for (let i = 0; i < vehlist.length; i++) {  
       if(vehlist[i].vehicleMasterId!="") {
         this.billsmastermodel.ownvehdata.push({
           'billDetailVehId': '',

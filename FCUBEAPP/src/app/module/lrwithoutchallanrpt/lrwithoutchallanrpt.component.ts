@@ -24,7 +24,7 @@ export class LrwithoutchallanrptComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string =""; 
+  dashboard: string =""; 
 
   locationList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];
@@ -315,8 +315,8 @@ dashboard: string ="";
     this.filter.toDate      = selectedDataVal.toDate;
     this.filter.filterStr   = selectedDataVal.branch;
     this.filter.filterStr1  = selectedDataVal.party?selectedDataVal.party.dataId:"";
-      this.filter.filterStr2  = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
-      this.filter.filterStr3  = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
+    this.filter.filterStr2  = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
+    this.filter.filterStr3  = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
     this.sharedService.loading=true;
     this.lrwithoutchallanrptlist();
     this.sharedService.loading=false;

@@ -433,7 +433,7 @@ export class ConsignmentllpaddComponent {
         this.formUser.controls["gstType"].disable();
         this.formUser.controls["gstBy"].disable();
       }
-      for (var i = 0; i < res.invList.length; i++) {
+      for (let i = 0; i < res.invList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("ewayBillNo")?.setValue(res.invList[i].ewayBillNo);
         this.formArray.controls[i].get("ewayBillDate")?.setValue(this.commonService.formatDate(res.invList[i].ewayBillDate));
@@ -448,7 +448,7 @@ export class ConsignmentllpaddComponent {
         this.formArray.controls[i].get("invDate")?.disable();
         this.formArray.controls[i].get("invValue")?.disable();     
       }        
-      for (var i = 0; i < res.gstList.length; i++) {    
+      for (let i = 0; i < res.gstList.length; i++) {    
         this.formGstArray.push(this.createGstArray());
         this.formGstArray.controls[i].get("freightId")?.setValue(res.gstList[i].freightId);
         this.formGstArray.controls[i].get("rateType")?.setValue(res.gstList[i].rateType);
@@ -731,7 +731,7 @@ export class ConsignmentllpaddComponent {
     
     
     var selectedData = this.formUser.getRawValue();
-    for (var i = 0; i < selectedData.arrayGstList.length; i++) {
+    for (let i = 0; i < selectedData.arrayGstList.length; i++) {
       this.formGstArray.controls[i].get("sgstPct")?.setValue("0");
       this.formGstArray.controls[i].get("cgstPct")?.setValue("0");
       this.formGstArray.controls[i].get("igstPct")?.setValue("0");
@@ -767,7 +767,7 @@ export class ConsignmentllpaddComponent {
     var selectedData = this.formUser.getRawValue();
     var freightId = selectedData.arrayGstList[j].freightId;
 
-    for (var i = 0; i < selectedData.arrayGstList.length; i++) {  
+    for (let i = 0; i < selectedData.arrayGstList.length; i++) {  
       if(i!=j && freightId == selectedData.arrayGstList[i].freightId){
         this.formGstArray.controls[j].get("freightId")?.setValue("");
         this.toastrService.warning("Frieght Desc already exists in grid");
@@ -863,7 +863,7 @@ export class ConsignmentllpaddComponent {
       othersRs : 0,
     }); 
 
-    for (var i = 0; i < selectedData.arrayGstList.length; i++) {  
+    for (let i = 0; i < selectedData.arrayGstList.length; i++) {  
       if(selectedData.arrayGstList[i].amount==""){
         this.toastrService.warning("Amount in the grid should not be blank");
         return;
@@ -1439,7 +1439,7 @@ export class ConsignmentllpaddComponent {
     this.lrmodel.invList = [];
     this.lrmodel.gstList = [];
 
-    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
       if (selectedDataValue.arrayList[i].invNo != "" ) {
         this.lrmodel.invList.push({
           'consignmentID': '',
@@ -1458,7 +1458,7 @@ export class ConsignmentllpaddComponent {
     var cgst = 0;
     var gstarr = selectedDataValue.arrayGstList
 
-    for (var i = 0; i < gstarr.length; i++) {
+    for (let i = 0; i < gstarr.length; i++) {
       if ((gstarr[i].freightId?gstarr[i].freightId:"") != "" && (gstarr[i].amount?gstarr[i].amount:"") != "") {
         if(gstarr[i].sgstAmt!=""){
           sgst = parseFloat(gstarr[i].sgstAmt);

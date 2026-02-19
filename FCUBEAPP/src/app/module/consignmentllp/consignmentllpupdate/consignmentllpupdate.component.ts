@@ -491,7 +491,7 @@ export class ConsignmentllpupdateComponent {
     this.lrentryService.getLrInnerGridList(this.requestmodel).subscribe((res) => {
       if((res.gstList?res.gstList.length:0)>0){
         this.formGstArray.clear();
-        for (var i = 0; i < res.gstList.length; i++) {
+        for (let i = 0; i < res.gstList.length; i++) {
           this.formGstArray.push(this.createGstArray());
           this.formGstArray.controls[i].get("freightId")?.setValue(res.gstList[i].freightId);
           this.formGstArray.controls[i].get("rateType")?.setValue(res.gstList[i].rateType);
@@ -555,7 +555,7 @@ export class ConsignmentllpupdateComponent {
     console.log(e.target.value);
     var gsttype = e.target.value; 
     var selectedData = this.formUser.getRawValue();
-    for (var i = 0; i < selectedData.arrayGstList.length; i++) {
+    for (let i = 0; i < selectedData.arrayGstList.length; i++) {
         this.formGstArray.controls[i].get("sgstPct")?.setValue("0");
         this.formGstArray.controls[i].get("cgstPct")?.setValue("0");
         this.formGstArray.controls[i].get("igstPct")?.setValue("0");
@@ -601,7 +601,7 @@ export class ConsignmentllpupdateComponent {
     var selectedData = this.formUser.getRawValue();
     var freightId = selectedData.arrayGstList[j].freightId;
 
-    for (var i = 0; i < selectedData.arrayGstList.length; i++) {  
+    for (let i = 0; i < selectedData.arrayGstList.length; i++) {  
       if(i!=j && freightId == selectedData.arrayGstList[i].freightId){
         this.formGstArray.controls[j].get("freightId")?.setValue("");
         this.toastrService.warning("Frieght Desc already exists in grid");
@@ -686,7 +686,7 @@ export class ConsignmentllpupdateComponent {
       othersRs : 0,
     }); 
 
-    for (var i = 0; i < selectedData.arrayGstList.length; i++) {  
+    for (let i = 0; i < selectedData.arrayGstList.length; i++) {  
       if(selectedData.arrayGstList[i].amount==""){
         this.toastrService.warning("Amount in the grid should not be blank");
         return;
@@ -922,7 +922,7 @@ export class ConsignmentllpupdateComponent {
     var cgst = 0;
     var gstarr = selectedDataValue.arrayGstList
 
-    for (var i = 0; i < gstarr.length; i++) {
+    for (let i = 0; i < gstarr.length; i++) {
       if ((gstarr[i].freightId?gstarr[i].freightId:"") != "" && (gstarr[i].amount?gstarr[i].amount:"") != "") {
         if(gstarr[i].sgstAmt!=""){
           sgst = parseFloat(gstarr[i].sgstAmt);

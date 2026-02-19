@@ -473,7 +473,7 @@ export class TripmasterllpaddComponent {
       this.formDieselArray.clear();
       this.formCmpExpTypeArray.clear();
 
-      for (var i = 0; i < res.driverList.length; i++) {
+      for (let i = 0; i < res.driverList.length; i++) {
         this.formDriverArray.push(this.createDriverArray());
         this.formDriverArray.controls[i].get("pmtId")?.setValue(res.driverList[i].pmtId);
         this.formDriverArray.controls[i].get("pmtBranch")?.setValue(res.driverList[i].pmtBranch);
@@ -490,7 +490,7 @@ export class TripmasterllpaddComponent {
         this.formDriverArray.controls[i].get("amountPaid")?.disable();
         this.formDriverArray.controls[i].get("remarks")?.disable();
       }
-      for (var i = 0; i < res.routeList.length; i++) {
+      for (let i = 0; i < res.routeList.length; i++) {
         this.formRouteArray.push(this.createRouteArray());
         this.formRouteArray.controls[i].get("loadId")?.setValue(res.routeList[i].loadId);
         this.formRouteArray.controls[i].get("loadBranch")?.setValue(res.routeList[i].loadBranch);
@@ -522,7 +522,7 @@ export class TripmasterllpaddComponent {
         this.formRouteArray.controls[i].get("hireAmt")?.disable();
         this.formRouteArray.controls[i].get("remarks")?.disable();
       }
-      for (var i = 0; i < res.dieselList.length; i++) {
+      for (let i = 0; i < res.dieselList.length; i++) {
         this.formDieselArray.push(this.createDieselArray());
         this.formDieselArray.controls[i].get("detailID")?.setValue(res.dieselList[i].detailID);
         this.formDieselArray.controls[i].get("transDate")?.setValue(this.commonService.formatDate(res.dieselList[i].transDate));
@@ -541,7 +541,7 @@ export class TripmasterllpaddComponent {
         this.formDieselArray.controls[i].get("remarks")?.disable();
       }      
       
-      for (var i = 0; i < res.cmpExpList.length; i++) {
+      for (let i = 0; i < res.cmpExpList.length; i++) {
         this.formCmpExpTypeArray.push(this.createTripCmpExpArray());
         this.formCmpExpTypeArray.controls[i].get("enrouteExpId")?.setValue(res.cmpExpList[i].enrouteExpId);
         this.formCmpExpTypeArray.controls[i].get("expId")?.setValue(res.cmpExpList[i].expId);
@@ -565,17 +565,60 @@ export class TripmasterllpaddComponent {
     }); 
   }
 
+  refreshFrieght(){
+    this.requestmodel.strRequest= this.selectedTripSheetDetails.tripId;
+    var tripTotalFreight = 0;    
+
+    this.tripSheetService.getTripMasterInnerGridRefreshList(this.requestmodel).subscribe((res: Tripmastermodel) => {     
+      for (let i = 0; i < res.routeList.length; i++) {
+        this.formRouteArray.push(this.createRouteArray());
+        this.formRouteArray.controls[i].get("loadId")?.setValue(res.routeList[i].loadId);
+        this.formRouteArray.controls[i].get("loadBranch")?.setValue(res.routeList[i].loadBranch);
+        this.formRouteArray.controls[i].get("loadDate")?.setValue(this.commonService.formatDate(res.routeList[i].loadDate));
+        this.formRouteArray.controls[i].get("loadType")?.setValue(res.routeList[i].loadType);
+        this.formRouteArray.controls[i].get("loadFor")?.setValue(res.routeList[i].loadFor);
+        this.formRouteArray.controls[i].get("loadMemoNo")?.setValue(res.routeList[i].loadMemoNo);
+        this.formRouteArray.controls[i].get("loadingFrom")?.setValue(res.routeList[i].loadingFrom);
+        this.formRouteArray.controls[i].get("consignorName")?.setValue(res.routeList[i].consignorName);
+        this.formRouteArray.controls[i].get("loadingTo")?.setValue(res.routeList[i].loadingTo);
+        this.formRouteArray.controls[i].get("consigneeName")?.setValue(res.routeList[i].consigneeName);
+        this.formRouteArray.controls[i].get("loadWt")?.setValue(res.routeList[i].loadWt);
+        this.formRouteArray.controls[i].get("unloadWt")?.setValue(res.routeList[i].unloadWt);
+        this.formRouteArray.controls[i].get("hireAmt")?.setValue(res.routeList[i].hireAmt);
+        this.formRouteArray.controls[i].get("remarks")?.setValue(res.routeList[i].remarks);
+
+        tripTotalFreight = tripTotalFreight + parseFloat(res.routeList[i].hireAmt);
+
+        this.formRouteArray.controls[i].get("loadBranch")?.disable();
+        this.formRouteArray.controls[i].get("loadDate")?.disable();
+        this.formRouteArray.controls[i].get("loadType")?.disable();
+        this.formRouteArray.controls[i].get("loadFor")?.disable();
+        this.formRouteArray.controls[i].get("loadMemoNo")?.disable();
+        this.formRouteArray.controls[i].get("loadingFrom")?.disable();
+        this.formRouteArray.controls[i].get("consignorName")?.disable();
+        this.formRouteArray.controls[i].get("loadingTo")?.disable();
+        this.formRouteArray.controls[i].get("consigneeName")?.disable();
+        this.formRouteArray.controls[i].get("loadWt")?.disable();
+        this.formRouteArray.controls[i].get("hireAmt")?.disable();
+        this.formRouteArray.controls[i].get("remarks")?.disable();
+      }
+      
+      this.formTripsheet.patchValue({
+        tripTotalFreight: tripTotalFreight.toFixed(2),
+      });
+    }); 
+  }
+
   getTripSheetInnerGridList(): void {
     this.requestmodel.strRequest= this.selectedTripSheetDetails.tripId;
 
     this.tripSheetService.getTripMasterInnerGridList(this.requestmodel).subscribe((res: Tripmastermodel) => {
-      this.tripsheetmodel = res;
       this.formDriverArray.clear();
       this.formRouteArray.clear();
       this.formDieselArray.clear();
       this.formCmpExpTypeArray.clear();
       
-      for (var i = 0; i < res.driverList.length; i++) {
+      for (let i = 0; i < res.driverList.length; i++) {
         this.formDriverArray.push(this.createDriverArray());
         this.formDriverArray.controls[i].get("pmtId")?.setValue(res.driverList[i].pmtId);
         this.formDriverArray.controls[i].get("pmtBranch")?.setValue(res.driverList[i].pmtBranch);
@@ -591,7 +634,7 @@ export class TripmasterllpaddComponent {
         this.formDriverArray.controls[i].get("amountPaid")?.disable();
         this.formDriverArray.controls[i].get("remarks")?.disable();
       }
-      for (var i = 0; i < res.routeList.length; i++) {
+      for (let i = 0; i < res.routeList.length; i++) {
         this.formRouteArray.push(this.createRouteArray());
         this.formRouteArray.controls[i].get("loadId")?.setValue(res.routeList[i].loadId);
         this.formRouteArray.controls[i].get("loadBranch")?.setValue(res.routeList[i].loadBranch);
@@ -621,7 +664,7 @@ export class TripmasterllpaddComponent {
         this.formRouteArray.controls[i].get("hireAmt")?.disable();
         this.formRouteArray.controls[i].get("remarks")?.disable();
       }
-      for (var i = 0; i < res.dieselList.length; i++) {
+      for (let i = 0; i < res.dieselList.length; i++) {
         this.formDieselArray.push(this.createDieselArray());
         this.formDieselArray.controls[i].get("detailID")?.setValue(res.dieselList[i].detailID);
         this.formDieselArray.controls[i].get("transDate")?.setValue(this.commonService.formatDate(res.dieselList[i].transDate));
@@ -637,7 +680,7 @@ export class TripmasterllpaddComponent {
         this.formDieselArray.controls[i].get("remarks")?.disable();
       }
 
-      for (var i = 0; i < res.fasttagList.length; i++) {
+      for (let i = 0; i < res.fasttagList.length; i++) {
         this.formFasttagArray.push(this.createFasttagArray());
         this.formFasttagArray.controls[i].get("detailID")?.setValue(res.fasttagList[i].detailID);
         this.formFasttagArray.controls[i].get("transDate")?.setValue(this.commonService.formatDate(res.fasttagList[i].transDate));
@@ -649,7 +692,7 @@ export class TripmasterllpaddComponent {
         this.formFasttagArray.controls[i].get("remarks")?.disable();
       }
       
-      for (var i = 0; i < res.drExpList.length; i++) {
+      for (let i = 0; i < res.drExpList.length; i++) {
         this.formDrExpTypeArray.push(this.createTripDrExpArray());
         this.formDrExpTypeArray.controls[i].get("expId")?.setValue(res.drExpList[i].expId);
         this.formDrExpTypeArray.controls[i].get("expParticulars")?.setValue(res.drExpList[i].expParticulars);
@@ -660,7 +703,7 @@ export class TripmasterllpaddComponent {
         this.formDrExpTypeArray.controls[i].get("expAmt")?.disable();
       }
       
-      for (var i = 0; i < res.cmpExpList.length; i++) {
+      for (let i = 0; i < res.cmpExpList.length; i++) {
         this.formCmpExpTypeArray.push(this.createTripCmpExpArray());
         this.formCmpExpTypeArray.controls[i].get("expId")?.setValue(res.cmpExpList[i].expId);
         this.formCmpExpTypeArray.controls[i].get("expParticulars")?.setValue(res.cmpExpList[i].expParticulars);
@@ -769,7 +812,7 @@ export class TripmasterllpaddComponent {
   onExpAmt(){    
     var expensesByDriver = 0;
     var selectedDataValue = this.formTripsheet.getRawValue();
-    for (var i = 0; i < selectedDataValue.drExpList.length; i++) {
+    for (let i = 0; i < selectedDataValue.drExpList.length; i++) {
       if(selectedDataValue.drExpList[i].expId!=''){
         expensesByDriver = expensesByDriver + parseFloat(selectedDataValue.drExpList[i].expAmt);
       }
@@ -819,7 +862,7 @@ export class TripmasterllpaddComponent {
   onFastAmt(){    
     var fastagAmount = 0;
     var selectedDataValue = this.formTripsheet.getRawValue();
-    for (var i = 0; i < selectedDataValue.fasttagList.length; i++) {
+    for (let i = 0; i < selectedDataValue.fasttagList.length; i++) {
       if(selectedDataValue.fasttagList[i].ftAmount!=''){
         fastagAmount = fastagAmount + parseFloat(selectedDataValue.fasttagList[i].ftAmount);
       }
@@ -923,7 +966,7 @@ export class TripmasterllpaddComponent {
     this.tripsheetmodel.drExpList = [];
     this.tripsheetmodel.cmpExpList = [];
 
-    for (var i = 0; i < selectedDataValue.driverList.length; i++) {
+    for (let i = 0; i < selectedDataValue.driverList.length; i++) {
       if(selectedDataValue.driverList[i].pmtId!=''){
         this.tripsheetmodel.driverList.push({
           'pmtId': selectedDataValue.driverList[i].pmtId,
@@ -937,7 +980,7 @@ export class TripmasterllpaddComponent {
       }
     }
     
-    for (var i = 0; i < selectedDataValue.routeList.length; i++) {
+    for (let i = 0; i < selectedDataValue.routeList.length; i++) {
       if(selectedDataValue.routeList[i].loadId!=''){
         var loadingfrom= this.locationList.find(e => e.dataName == selectedDataValue.routeList[i].loadingFrom) 
         var loadingto= this.locationList.find(e => e.dataName == selectedDataValue.routeList[i].loadingTo) 
@@ -964,7 +1007,7 @@ export class TripmasterllpaddComponent {
       }
     }
 
-    for (var i = 0; i < selectedDataValue.dieselList.length; i++) {
+    for (let i = 0; i < selectedDataValue.dieselList.length; i++) {
       if(selectedDataValue.dieselList[i].detailID!=''){
         this.tripsheetmodel.dieselList.push({
           'detailID': selectedDataValue.dieselList[i].detailID,
@@ -977,7 +1020,7 @@ export class TripmasterllpaddComponent {
       }
     }
     
-    for (var i = 0; i < selectedDataValue.fasttagList.length; i++) {
+    for (let i = 0; i < selectedDataValue.fasttagList.length; i++) {
       if(selectedDataValue.fasttagList[i].ftAmount!=''){
       this.tripsheetmodel.fasttagList.push({
         'detailID': selectedDataValue.fasttagList[i].detailID,
@@ -988,7 +1031,7 @@ export class TripmasterllpaddComponent {
       }
     }
     
-    for (var i = 0; i < selectedDataValue.drExpList.length; i++) {
+    for (let i = 0; i < selectedDataValue.drExpList.length; i++) {
       if(selectedDataValue.drExpList[i].expId!=''){
         this.tripsheetmodel.drExpList.push({
           'expId': selectedDataValue.drExpList[i].expId,

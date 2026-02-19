@@ -275,7 +275,7 @@ export class VendorpmtaddComponent {
           this.formUser.controls["vendorId"].disable();
         }
         this.formArray.clear();
-        for (var i = 0; i < res.vendorPmtDetailList.length; i++) {
+        for (let i = 0; i < res.vendorPmtDetailList.length; i++) {
           this.formArray.push(this.createInitialArray());
           this.formArray.controls[i].get("pmtForm")?.setValue(res.vendorPmtDetailList[i].pmtForm);
           this.formArray.controls[i].get("vendorBillMasterId")?.setValue(res.vendorPmtDetailList[i].vendorBillMasterId);
@@ -313,7 +313,7 @@ export class VendorpmtaddComponent {
     this.vendorpmtService.getVendorPmtInnerGridList(this.requestmodel).subscribe((res) => {
       this.formArray.clear();
       
-      for (var i = 0; i < res.vendorPmtDetailList.length; i++) {
+      for (let i = 0; i < res.vendorPmtDetailList.length; i++) {
         this.formArray.push(this.createInitialArray());
           this.formArray.controls[i].get("selected")?.setValue('Y');
           this.formArray.controls[i].get("pmtForm")?.setValue(res.vendorPmtDetailList[i].pmtForm);
@@ -344,7 +344,7 @@ export class VendorpmtaddComponent {
 
   selectAll(e: any) {
     if(e.target.checked){
-      for (var i = 0; i < this.vendorpmtmodel.vendorPmtDetailList.length; i++) {
+      for (let i = 0; i < this.vendorpmtmodel.vendorPmtDetailList.length; i++) {
         this.formArray.controls[i].get("selected")?.setValue('Y');
         this.formArray.controls[i].get("amtPaid")?.enable();
         this.formArray.controls[i].get("amtDed")?.enable();
@@ -354,7 +354,7 @@ export class VendorpmtaddComponent {
       }
     }
     else{
-      for (var i = 0; i < this.vendorpmtmodel.vendorPmtDetailList.length; i++) {
+      for (let i = 0; i < this.vendorpmtmodel.vendorPmtDetailList.length; i++) {
         this.formArray.controls[i].get("selected")?.setValue('');
         this.formArray.controls[i].get("amtPaid")?.disable();
         this.formArray.controls[i].get("amtDed")?.disable();
@@ -405,7 +405,7 @@ export class VendorpmtaddComponent {
       return;
     }
 
-    for (var i = 0; i < selectedData.arrayList.length; i++) {
+    for (let i = 0; i < selectedData.arrayList.length; i++) {
       if (selectedData.arrayList[i].selected) {        
         totalAmtPaid = totalAmtPaid + parseFloat(selectedData.arrayList[i].amtPaid);
         totalAmtDed = totalAmtDed + parseFloat(selectedData.arrayList[i].amtDed);
@@ -538,7 +538,7 @@ export class VendorpmtaddComponent {
 
     var arr = selectedDataVal.arrayList;
 
-    for (var i = 0; i < arr.length; i++) {
+    for (let i = 0; i < arr.length; i++) {
       if(arr[i].selected){
         if((parseFloat(arr[i].amtPaid) + parseFloat(arr[i].amtDed) + parseFloat(arr[i].amtTDS)) > 0){
           this.vendorpmtmodel.vendorPmtDetailList.push({

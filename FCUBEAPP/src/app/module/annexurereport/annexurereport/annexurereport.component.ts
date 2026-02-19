@@ -175,7 +175,7 @@ export class AnnexurereportComponent {  loggedInUserID: string = '';
     // And reassign the 'data' which is binded to 'data' property.
   }
   initializeMenuItems(items: Menureportaccessrightsmodel[]): Menureportaccessrightsmodel[] {   
-    for (var i = 0; i < items.length; i++) {
+    for (let i = 0; i < items.length; i++) {
       var item = items[i];
       item.isExpanded = true;
       item.checked = false;
@@ -198,7 +198,7 @@ export class AnnexurereportComponent {  loggedInUserID: string = '';
   
   checkChildren(item: Menureportaccessrightsmodel, checked: boolean): void {
     if (item.children && item.children.length > 0) {
-      for (var i = 0; i < item.children.length; i++) {
+      for (let i = 0; i < item.children.length; i++) {
         var child = item.children[i];
         child.checked = checked;
         this.checkChildren(child, checked);
@@ -207,7 +207,7 @@ export class AnnexurereportComponent {  loggedInUserID: string = '';
   }
   
   updateParentCheckStatus(items: Menureportaccessrightsmodel[], changedItem: Menureportaccessrightsmodel): void {
-    for (var i = 0; i < items.length; i++) {
+    for (let i = 0; i < items.length; i++) {
       var item = items[i];
       if (item.children && item.children.indexOf(changedItem) !== -1) {
         var allChecked = true;

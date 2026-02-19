@@ -227,7 +227,7 @@ export class DprvehiplacededitComponent {
     this.dprService.getDprInnerGridList(this.requestmodel).subscribe((res) => {
       this.dprmodel = res;
       this.formArray.clear();
-      for (var i = 0; i < res.dprDtls.length; i++) {
+      for (let i = 0; i < res.dprDtls.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("dprDtlId")?.setValue(res.dprDtls[i].dprDtlId);
         this.formArray.controls[i].get("fromPlace")?.setValue(this.locationList.find(x=>x.dataName== res.dprDtls[i].fromStn));
@@ -341,7 +341,7 @@ export class DprvehiplacededitComponent {
         var lrno = parseInt(res.message);
         var selectedDataVal = this.formUser.getRawValue();
 
-        for (var i = 0; i < selectedDataVal.arrayList.length; i++) { 
+        for (let i = 0; i < selectedDataVal.arrayList.length; i++) { 
           this.formArray.controls[i].get("gcNoteNo")?.setValue(lrno.toString());
           lrno = lrno + 1;
         }
@@ -351,7 +351,7 @@ export class DprvehiplacededitComponent {
   
   addItem(ind: number): void {   
     var selectedDataVal = this.formUser.getRawValue();
-    for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataVal.arrayList.length; i++) {
       this.formArray.controls[i].get("fromPlace")?.disable();
       this.formArray.controls[i].get("toPlace")?.disable();
       this.formArray.controls[i].get("gcNoteNo")?.disable();
@@ -711,7 +711,7 @@ export class DprvehiplacededitComponent {
       return;
     }
     var maincnt = 0;      
-    for (var i = 0; i < selectedDataVal.arrayList.length; i++) {   
+    for (let i = 0; i < selectedDataVal.arrayList.length; i++) {   
       if(selectedDataVal.arrayList[i].mainGcYN=='Y'){
         maincnt = maincnt +1
       }   
@@ -726,7 +726,7 @@ export class DprvehiplacededitComponent {
 
     var chkDuplicate = true;
 
-    for (var i = 0; i < selectedDataVal.arrayList.length; i++) {   
+    for (let i = 0; i < selectedDataVal.arrayList.length; i++) {   
       if(!selectedDataVal.arrayList[i].gcNoteNo){
         this.toasterService.warning("GcNote No Should Not be Empty");
         return;

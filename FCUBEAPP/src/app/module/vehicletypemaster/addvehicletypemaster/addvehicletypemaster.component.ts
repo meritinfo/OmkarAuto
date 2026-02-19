@@ -128,7 +128,7 @@ selectToLocationEvent(item: any,index:number) {
   //  event.target
   // var ToPlace =  this.formRatesArray.value[index].vehTypeAlias;
     var selectedDataValue=this.formUser.getRawValue();
-    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
       if(ToPlace == selectedDataValue.arrayList[i].vehTypeAlias)
       {
         this.toasterService.warning("Data already exits in grid");
@@ -153,7 +153,7 @@ getVehicleTypeGroupList(): void {
         this.vehicleTypesService.getVehicleTypeInnerGridList(this.requestmodel).subscribe((res) => {
           this.formRatesArray.clear();
           this.vehicletypemastermodel = res;
-          for (var i = 0; i < res.vehicletypeDetailList.length; i++) {
+          for (let i = 0; i < res.vehicletypeDetailList.length; i++) {
             this.formRatesArray.push(this.createRatesArray());
             this.formRatesArray.controls[i].get("vehTypeId")?.setValue(res.vehicletypeDetailList[i].vehTypeId );
             this.formRatesArray.controls[i].get("vehTypeAlias")?.setValue(res.vehicletypeDetailList[i].vehTypeAlias); 
@@ -289,7 +289,7 @@ if (this.formUser.invalid) {
         //   return;
         // }
           
-        for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+        for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
            if (selectedDataValue.arrayList[i].vehTypeAlias == ""  ) {
              this.toasterService.warning("Please Enter  Detail");
              return;

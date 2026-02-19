@@ -420,7 +420,7 @@ dashboard: string ="";
     this.billsMasterService.getBillsMasterInnerGridList(this.requestmodel).subscribe((res) => {
       this.billsmastersearchlistmodel= res;
       this.formArray.clear();
-      for(var i = 0; i < res.billsMasterSearchList.length; i++) {
+      for(let i = 0; i < res.billsMasterSearchList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("gcNoteNo")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].gcNoteNo);
         this.formArray.controls[i].get("consignmentid")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].consignmentID);
@@ -573,7 +573,7 @@ dashboard: string ="";
 
     var billlist = selectedDataVal.arrayList;
 
-    for (var i = 0; i < billlist.length; i++) {
+    for (let i = 0; i < billlist.length; i++) {
     //  if (billlist[i].selected) {
       gtotal  = (billlist[i].freightRs == ""? 0 : parseFloat(billlist[i].freightRs) ) 
       + (billlist[i].extras == ""? 0 : parseFloat(billlist[i].extras)) 
@@ -737,7 +737,7 @@ dashboard: string ="";
     var billlist = selectedDataValue.arrayList;
 
 
-    for (var i = 0; i < billlist.length; i++) {  
+    for (let i = 0; i < billlist.length; i++) {  
       if(billlist[i].consignmentid!="") {
         this.billsmastermodel.billsMasterListData.push({
           'billDetailId': '',

@@ -431,7 +431,7 @@ if (this.formUser.invalid) {
     this.transportMasterModel.transportVehTypesList = [];
 
     if (this.formLocationArray.value != undefined) {
-      for (var i = 0; i < this.formLocationArray.value.length; i++) {
+      for (let i = 0; i < this.formLocationArray.value.length; i++) {
         if(this.formLocationArray.value[i].locId!=''){
           this.transportMasterModel.transportLocationList.push({
             'dtlid': this.formLocationArray.value[i].dtlid,
@@ -442,7 +442,7 @@ if (this.formUser.invalid) {
       }
     }
     if (this.formStateArray.value != undefined) {
-      for (var i = 0; i < this.formStateArray.value.length; i++) {
+      for (let i = 0; i < this.formStateArray.value.length; i++) {
         if(this.formStateArray.value[i].stateCode!=''){
           this.transportMasterModel.transportStatesList.push({
             'dtlid': this.formStateArray.value[i].dtlid,
@@ -453,7 +453,7 @@ if (this.formUser.invalid) {
       }
     }
     if (this.formVehArray.value != undefined) {
-      for (var i = 0; i < this.formVehArray.value.length; i++) {      
+      for (let i = 0; i < this.formVehArray.value.length; i++) {      
         if(this.formVehArray.value[i].vehTypeId!=''){
           this.transportMasterModel.transportVehTypesList.push({
             'dtlid': this.formVehArray.value[i].dtlid,

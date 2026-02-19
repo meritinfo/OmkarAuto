@@ -99,7 +99,7 @@ ngOnInit(): void {
     this.partygroupmasterService.getPartyGroupDetailInnergrid(this.requestmodel).subscribe((res) => {
       this. partygroupmastersmodel = res;
       this.formArray.clear();
-      for (var i = 0; i < res.partyGroupDetailModellist.length; i++) {
+      for (let i = 0; i < res.partyGroupDetailModellist.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("partyId")?.setValue(this.partyList.find(e => e.dataId == res.partyGroupDetailModellist[i].partyId));
       }
@@ -200,7 +200,7 @@ ngOnInit(): void {
     
     this.partygroupmastermodel.partyGroupDetailModellist = [];
 
-    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
       var party = this.partyList.find(e => e.dataId == selectedDataValue.arrayList[i].partyId.dataId) 
       if (typeof party !== 'undefined' && party !== null && party.dataId!="" && party.dataId!="0") {
           //ignore

@@ -200,7 +200,7 @@ dashboard: string ="";
     this.tyreregroupissueService.getTyreregroupissueMasterInnerGridList(this.requestmodel).subscribe((res) => {
       this.formTyreArray.clear();
       this.tyreregroupissue = res;
-      for (var i = 0; i < res.tyreRegroupIssueDtlList.length; i++) {
+      for (let i = 0; i < res.tyreRegroupIssueDtlList.length; i++) {
         this.formTyreArray.push(this.createTyreArray());
         this.formTyreArray.controls[i].get("brandId")?.setValue(res.tyreRegroupIssueDtlList[i].brandId);
         this.formTyreArray.controls[i].get("tyreId")?.setValue(this.tyreList.find(e=> e.dataId == res.tyreRegroupIssueDtlList [i].tyreId));
@@ -297,7 +297,7 @@ dashboard: string ="";
     this.tyreregroupissue.loggedInUser = this.loggedInUserID;
     this.tyreregroupissue.tyreRegroupIssueDtlList = [];
     
-    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
       if (this.formTyreArray.value[i].brandId == "" || this.formTyreArray.value[i].tyreId=="" ) {
         this.toastrService.warning("Please Enter Details Properly");
         return;

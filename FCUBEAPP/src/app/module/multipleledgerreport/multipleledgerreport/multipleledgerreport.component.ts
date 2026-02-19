@@ -171,7 +171,7 @@ export class MultipleledgerreportComponent {
   }
 
   initializeMenuItems(items: Menureportaccessrightsmodel[]): Menureportaccessrightsmodel[] {
-    for (var i = 0; i < items.length; i++) {
+    for (let i = 0; i < items.length; i++) {
       var item = items[i];
       item.isExpanded = true;
       item.checked = false;
@@ -199,7 +199,7 @@ toggleCheck(item: Menureportaccessrightsmodel): void {
 
 checkChildren(item: Menureportaccessrightsmodel, checked: boolean): void {
   if (item.children && item.children.length > 0) {
-    for (var i = 0; i < item.children.length; i++) {
+    for (let i = 0; i < item.children.length; i++) {
       var child = item.children[i];
       child.checked = checked;
       this.checkChildren(child, checked);
@@ -208,7 +208,7 @@ checkChildren(item: Menureportaccessrightsmodel, checked: boolean): void {
 }
 
 updateParentCheckStatus(items: Menureportaccessrightsmodel[]): void {
-  for (var i = 0; i < items.length; i++) {
+  for (let i = 0; i < items.length; i++) {
     var item = items[i];
     if (item.children && item.children.length > 0) {
       // First update children
@@ -246,7 +246,7 @@ updateIds(items: Menureportaccessrightsmodel[]): void {
     }
   };
 
-  for (var i = 0; i < items.length; i++) {
+  for (let i = 0; i < items.length; i++) {
     traverse(items[i]);
   }
 }

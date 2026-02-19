@@ -144,7 +144,7 @@ export class ExpensebudgetsaddComponent {
     this.expenseBudgetService.getExpensebudgetInnerGridList(this.requestmodel).subscribe((res) => {
       this.formTyreArray.clear();
       this.expensebudgetsmodel = res;
-      for (var i = 0; i < res.expenseList.length; i++) {
+      for (let i = 0; i < res.expenseList.length; i++) {
         this.formTyreArray.push(this.createTyreArray());
         this.formTyreArray.controls[i].get("accountId")?.setValue(res.expenseList[i].accountId);  
         this.formTyreArray.controls[i].get("budgetRs")?.setValue(res.expenseList[i].budgetRs);   
@@ -180,7 +180,7 @@ export class ExpensebudgetsaddComponent {
     this.expenseBudgetService.getExpensebudgetInnerGridList(this.requestmodel).subscribe((res) => {
       this.formTyreArray.clear();
       this.expensebudgetsmodel = res;
-      for (var i = 0; i < res.expenseList.length; i++) {
+      for (let i = 0; i < res.expenseList.length; i++) {
         this.formTyreArray.push(this.createTyreArray());
         this.formTyreArray.controls[i].get("accountId")?.setValue(res.expenseList[i].accountId);  
         this.formTyreArray.controls[i].get("budgetRs")?.setValue(res.expenseList[i].budgetRs);   
@@ -229,7 +229,7 @@ export class ExpensebudgetsaddComponent {
     var selectedDataValue = this.formUser.getRawValue();
     this.expensebudgetsmodel.expenseList = [];
 
-    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
       if (selectedDataValue.arrayList[i].accountId == ""  ) {
         this.toastrService.warning("Please Enter Account");
         return;

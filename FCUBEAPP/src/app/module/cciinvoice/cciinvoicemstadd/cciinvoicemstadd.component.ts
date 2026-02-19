@@ -266,7 +266,7 @@ export class CciinvoicemstaddComponent {
     this.cciInvoiceMstService.getCciInvoiceMasterInnerGridList(this.requestmodel).subscribe((res) => {
       this.formTyreArray.clear();
       this.ccinvmstmodel = res;
-      for (var i = 0; i < res.ccinvmstDtlList.length; i++) {
+      for (let i = 0; i < res.ccinvmstDtlList.length; i++) {
         this.formTyreArray.push(this.createVehicleArray()); 
         
         this.formTyreArray.controls[i].get("containerNo")?.setValue(res.ccinvmstDtlList[i].containerNo); 
@@ -553,7 +553,7 @@ export class CciinvoicemstaddComponent {
       return;
     }
       
-    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+    for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
       if (selectedDataValue.arrayList[i].containerNo == "" && this.lrShow  ) {
         this.toastrService.warning("Please Enter Container Details Properly");
         return;

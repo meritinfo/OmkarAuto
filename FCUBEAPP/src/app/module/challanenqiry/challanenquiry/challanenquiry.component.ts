@@ -350,7 +350,7 @@ getChallanEnqInnerGridList(): void {
    
     
 
-    for (var i = 0; i < res.cnList.length; i++) {
+    for (let i = 0; i < res.cnList.length; i++) {
       this.formChlnArray.push(this.createCnInitialArray());
       this.formChlnArray.controls[i].get("bookingPlace")?.setValue(res.cnList[i].bookingPlace);
      // this.formChlnArray.controls[i].get("bookedAt")?.setValue(this.commonService.formatDate(res.chlnList[i].bookedAt));
@@ -379,7 +379,7 @@ getChallanEnqInnerGridList(): void {
       
     }         
     
-    for (var i = 0; i < res.lhpmList.length; i++) {
+    for (let i = 0; i < res.lhpmList.length; i++) {
       this.formLhpmArray.push(this.createLhpmInitialArray());
       this.formLhpmArray.controls[i].get("pmtStation")?.setValue(res.lhpmList[i].pmtStation);
       this.formLhpmArray.controls[i].get("pmtNo")?.setValue(res.lhpmList[i].pmtNo);

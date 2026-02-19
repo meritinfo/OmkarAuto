@@ -570,7 +570,7 @@ export class GstpurchaseaddComponent {
     this.gstpurchaseService.getGstPurchageInnerGridList(this.requestmodel).subscribe((res) => {
       this.gstpurchasemodel = res;
       this.formArray.clear();
-      for (var i = 0; i < res.gstPurchaseDetailsList.length; i++) {
+      for (let i = 0; i < res.gstPurchaseDetailsList.length; i++) {
         this.formArray.push(this.createInitialArray()); 
         if(gsttype=='NA'){    
           this.formArray.controls[i].get("sgstPct")?.disable();      
@@ -662,7 +662,7 @@ export class GstpurchaseaddComponent {
     var itemAmt = 0,sgstPct = 0,sgstAmt = 0,cgstPct = 0,cgstAmt = 0,igstPct = 0,igstAmt = 0,totAmount = 0;
     var totalItemAmt = 0,totalSgstAmt = 0,totalCgstAmt = 0,totalIgstAmt = 0,totalAmount = 0;
 
-    for (var i = 0; i < selArray.length; i++) {
+    for (let i = 0; i < selArray.length; i++) {
       if(selArray[i].itemAmt!=''){
         itemAmt = parseFloat(selArray[i].itemAmt);        
         sgstPct = selArray[i].sgstPct==''?0:parseFloat(selArray[i].sgstPct);
@@ -893,7 +893,7 @@ export class GstpurchaseaddComponent {
 
     this.gstpurchasemodel.gstPurchaseDetailsList = [];
 
-    for (var i = 0; i < selectedDataVal.arrayList.length; i++) { 
+    for (let i = 0; i < selectedDataVal.arrayList.length; i++) { 
       if (selectedDataVal.arrayList[i].debitAc.dataId != "" && parseFloat(selectedDataVal.arrayList[i].totAmount) > 0) {
         var actid = this.debitAcList.find(e => e.dataName == selectedDataVal.arrayList[i].debitAc.dataName) 
         if (typeof actid !== 'undefined' && actid !== null && 

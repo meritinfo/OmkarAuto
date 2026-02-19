@@ -284,7 +284,7 @@ dashboard: string ="";
     this.vehiclefltmasterService.getVehiclefltMstInnerGridList(this.requestmodel).subscribe((res) => {
       this.vehicalfltmstmodel = res;
       this.formArray.clear();
-      for (var i = 0; i < res.vehiclefltDetailList.length; i++) {
+      for (let i = 0; i < res.vehiclefltDetailList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("validFrom")?.setValue(this.commonService.formatDate(res.vehiclefltDetailList[i].validFrom));
         this.formArray.controls[i].get("validTo")?.setValue(this.commonService.formatDate(res.vehiclefltDetailList[i].validTo));

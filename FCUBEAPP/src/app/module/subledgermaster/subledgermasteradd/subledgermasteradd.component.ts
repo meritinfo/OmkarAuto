@@ -202,7 +202,7 @@ export class SubledgermasteraddComponent {
     this.subledgerService.getSubledgerMasterInnerGridList(this.requestmodel).subscribe((res) => {
       this.formSubArray.clear();
       this.subledgermodel = res;
-      for (var i = 0; i < res.subLedgerMasterDtlList.length; i++) {
+      for (let i = 0; i < res.subLedgerMasterDtlList.length; i++) {
         this.formSubArray.push(this.createSubArray());
         this.formSubArray.controls[i].get("subLedgerId")?.setValue(res.subLedgerMasterDtlList[i].subLedgerId);
         this.formSubArray.controls[i].get("ledgerAc")?.setValue(res.subLedgerMasterDtlList[i].ledgerAc);  
@@ -241,7 +241,7 @@ export class SubledgermasteraddComponent {
     
     if(selectedDataValue.createOrPredefined=="C"){
       var arr = selectedDataValue.arrayList;
-      for (var i = 0; i < arr.length; i++) {
+      for (let i = 0; i < arr.length; i++) {
         if ((arr[i].subLedgerDesc?arr[i].subLedgerDesc:"") == "" && 
               (arr[i].ledgerAc?arr[i].ledgerAc:"")=="") {
           this.toastrService.warning("Please Enter Details Properly");

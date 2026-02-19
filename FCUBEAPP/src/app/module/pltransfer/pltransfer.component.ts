@@ -152,7 +152,7 @@ export class PltransferComponent {
       var tfrTotalCrAmt=0;
       var tfrPLAmt=0;
       if (res.plTransferDetails && res.plTransferDetails.length > 0) {
-        for (var i = 0; i < res.plTransferDetails.length; i++) {
+        for (let i = 0; i < res.plTransferDetails.length; i++) {
           this.formArray.push(this.createInitialArray());
           this.formArray.controls[i].get("accountId")?.setValue(res.plTransferDetails[i].accountId);
           this.formArray.controls[i].get("accountName")?.setValue(res.plTransferDetails[i].accountName);
@@ -200,7 +200,7 @@ export class PltransferComponent {
     this.pltransfermodel.loggedInUser      = this.loggedInUserID;
     this.pltransfermodel.plTransferDetails = [];
     var arr = selectedDataVal.arrayList;
-    for (var i = 0; i < arr.length; i++) {
+    for (let i = 0; i < arr.length; i++) {
       if (arr[i].accountId == "" || arr[i].accountName == "" ) {
         this.toasterService.warning("Inner Grid details should not be empty.");
         return;
