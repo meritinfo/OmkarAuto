@@ -1116,13 +1116,13 @@ export class MraddComponent {
         
         this.formArray.controls[index].get("remarks")?.setValue("");
         
-        this.formArray.controls[i].get("billLrYear")?.disable();
-        this.formArray.controls[i].get("billLrStn")?.disable();
-        this.formArray.controls[i].get("billLrNo")?.disable();
-        this.formArray.controls[i].get("billLrDate")?.disable();  
+        this.formArray.controls[index].get("billLrYear")?.disable();
+        this.formArray.controls[index].get("billLrStn")?.disable();
+        this.formArray.controls[index].get("billLrNo")?.disable();
+        this.formArray.controls[index].get("billLrDate")?.disable();  
         //this.formArray.controls[i].get("partyCode")?.disable();  
-        this.formArray.controls[i].get("dueAmt")?.disable();
-        this.formArray.controls[i].get("totDed")?.disable();
+        this.formArray.controls[index].get("dueAmt")?.disable();
+        this.formArray.controls[index].get("totDed")?.disable();
       }
       else{
         this.formArray.controls[index].get("billLrNo")?.setValue("");     

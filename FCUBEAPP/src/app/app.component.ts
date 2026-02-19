@@ -143,14 +143,16 @@ export class AppComponent implements OnInit {
 
   //Shortcut key for destination list -> Ctrl + S
   @HostListener('window:keydown.control.s', ['$event'])
-  tripFont(event: KeyboardEvent) {
-    event.preventDefault();
+  tripFont(event: Event) {
+    const kEvent = event as KeyboardEvent;
+    kEvent.preventDefault();
     this.route.navigate(['/destinationlist']);
   }
   //Shortcut key for doc allot list -> Ctrl + M
   @HostListener('window:keydown.control.m', ['$event'])
-  conFont(event: KeyboardEvent) {
-    event.preventDefault(); 
+  conFont(event:  Event) {
+    const kEvent = event as KeyboardEvent;
+    kEvent.preventDefault();
     if(this.company =="LLP") {
       this.route.navigate(['/docallotllp']);
     }
@@ -160,20 +162,23 @@ export class AppComponent implements OnInit {
   }
   //Shortcut key for Transport list -> Ctrl + R
   @HostListener('window:keydown.control.r', ['$event'])
-  mrFont(event: KeyboardEvent) {
-    event.preventDefault();
+  mrFont(event:  Event) {
+    const kEvent = event as KeyboardEvent;
+    kEvent.preventDefault();
     this.route.navigate(['/mrentrylist']);
   }
   //Shortcut key for Transport list -> Ctrl + T
   @HostListener('window:keydown.control.t', ['$event'])
-  trippayFont(event: KeyboardEvent) {
-    event.preventDefault();
+  trippayFont(event: Event) {
+    const kEvent = event as KeyboardEvent;
+    kEvent.preventDefault();
     this.route.navigate(['/transportmstlist']);
   }
   //Shortcut key for Consignment list -> Ctrl + L
   @HostListener('window:keydown.control.l', ['$event'])
-  othertripFont(event: KeyboardEvent) {
-    event.preventDefault();
+  othertripFont(event:  Event) {
+    const kEvent = event as KeyboardEvent;
+    kEvent.preventDefault();
     if(this.company =="LLP") {
       this.route.navigate(['/consignmentllp']);
     }
@@ -183,8 +188,9 @@ export class AppComponent implements OnInit {
   }
    //Shortcut key for Consignment list -> Ctrl + I
   @HostListener('window:keydown.control.i', ['$event'])
-  ccinvFont(event: KeyboardEvent) {
-    event.preventDefault();
+  ccinvFont(event:  Event) {
+    const kEvent = event as KeyboardEvent;
+    kEvent.preventDefault();
     if(this.company =="LLP") {
       this.route.navigate(['/ccinvoicelist']);
     }
@@ -192,8 +198,9 @@ export class AppComponent implements OnInit {
   
   //Shortcut key for Consignment list -> Ctrl + u
   @HostListener('window:keydown.control.u', ['$event'])  
-  updatecnbillFont(event: KeyboardEvent) {
-    event.preventDefault();
+  updatecnbillFont(event: Event) {
+    const kEvent = event as KeyboardEvent;
+    kEvent.preventDefault();
     if(this.company =="LLP") {
       this.route.navigate(['/updatellpcnforbill']);
     }
@@ -203,8 +210,9 @@ export class AppComponent implements OnInit {
   }
   //Shortcut key for Challan list -> Ctrl + G 
   @HostListener('window:keydown.control.g', ['$event'])
-  dieselFont(event: KeyboardEvent) {
-    event.preventDefault();
+  dieselFont(event:  Event) {
+    const kEvent = event as KeyboardEvent;
+    kEvent.preventDefault();
     if(this.company =="LLP") {
       this.route.navigate(['/challan_llplist']);
     }
@@ -214,8 +222,9 @@ export class AppComponent implements OnInit {
   }
   //Shortcut key for Lorry Hire Payments list -> Ctrl + H
   @HostListener('window:keydown.control.h', ['$event'])
-  happayFont(event: KeyboardEvent) {
-    event.preventDefault();
+  happayFont(event:  Event) {
+    const kEvent = event as KeyboardEvent;
+    kEvent.preventDefault();
     if(this.company =="LLP") {
       this.route.navigate(['/lhpmtlistllp']); 
     }
@@ -225,14 +234,16 @@ export class AppComponent implements OnInit {
   }
   //Shortcut key for Delivery Ack list -> Ctrl + D
   @HostListener('window:keydown.control.d', ['$event'])
-  dlvryFont(event: KeyboardEvent) {
-    event.preventDefault();
+  dlvryFont(event:  Event) {
+    const kEvent = event as KeyboardEvent;
+    kEvent.preventDefault();
     this.route.navigate(['/delacklist']);
   }
   //Shortcut key for Bill list -> Ctrl + B
   @HostListener('window:keydown.control.b', ['$event'])
-  billFont(event: KeyboardEvent) {
-    event.preventDefault();
+  billFont(event:  Event) {
+    const kEvent = event as KeyboardEvent;
+    kEvent.preventDefault();
     if(this.company =="LLP") {
       this.route.navigate(['/billmainlistLLP']);
     }
@@ -242,20 +253,23 @@ export class AppComponent implements OnInit {
   }
   //Shortcut key for Consignment Enquiry -> Ctrl + E
   @HostListener('window:keydown.control.e', ['$event'])
-  cnenqFont(event: KeyboardEvent) {
-    event.preventDefault();
+  cnenqFont(event:  Event) {
+    const kEvent = event as KeyboardEvent;
+    kEvent.preventDefault();
     this.route.navigate(['/cnenquiry']);
   }
   //Shortcut key for Consignment Enquiry -> Ctrl + A
   @HostListener('window:keydown.control.a', ['$event'])
-  accountFont(event: KeyboardEvent) {
-    event.preventDefault();
+  accountFont(event:  Event) {
+    const kEvent = event as KeyboardEvent;
+    kEvent.preventDefault();
     this.route.navigate(['/finaccountsmasterlist']);
   }
   //Shortcut key for Change Branch -> Ctrl + 6
   @HostListener('window:keydown.control.6', ['$event'])
-  chngBrFont(event: KeyboardEvent) {
-    event.preventDefault();
+  chngBrFont(event:  Event) {
+    const kEvent = event as KeyboardEvent;
+    kEvent.preventDefault();
     this.route.navigate(['/changebranch']);
   }
 

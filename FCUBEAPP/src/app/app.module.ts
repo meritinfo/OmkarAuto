@@ -770,8 +770,8 @@ import { ConsignmentlocalfrtupdateComponent } from './module/consignmentllp/cons
     MonthlyperformancerptComponent,
     LegderdetaillistComponent, CashbookdetailComponent, BankbookdetailComponent, TrailballistComponent, 
     BpclcardrechargereqlistComponent, BpclcardrechargereqaddComponent, BpclcardrechargeappComponent, 
-    BpclcardreturnlistComponent, BpclcardreturnaddComponent, LrrealisationstatusrptComponent
-  
+    BpclcardreturnlistComponent, BpclcardreturnaddComponent, LrrealisationstatusrptComponent,
+    ConsignmentlocalfrtupdateComponent
    
     
   ],
