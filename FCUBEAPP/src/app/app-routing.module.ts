@@ -381,6 +381,7 @@ import { BpclcardreturnaddComponent } from './module/bpclcardreturn/bpclcardretu
 import { ConsignmentlocalfrtupdateComponent } from './module/consignmentllp/consignmentlocalfrtupdate/consignmentlocalfrtupdate.component';
 
 
+
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
