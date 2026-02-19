@@ -763,7 +763,7 @@ import { TrailballistComponent } from './module/trailballist/trailballist.compon
     TrippaymentsbrpladdComponent, TrippaymentsbrpllistComponent,
     CustomerprofitlossrptComponent, CostpervehiclerptComponent, BrsreportComponent,
     MonthlyperformancerptComponent,
-    LegderdetaillistComponent, CashbookdetailComponent, BankbookdetailComponent, TrailballistComponent
+    LegderdetaillistComponent, CashbookdetailComponent, BankbookdetailComponent, TrailballistComponent,
   
    
     

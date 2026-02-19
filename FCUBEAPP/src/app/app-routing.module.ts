@@ -378,6 +378,7 @@ import { BankbookdetailComponent } from './module/bankbookdetail/bankbookdetail.
 import { TrailballistComponent } from './module/trailballist/trailballist.component';
 
 
+
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },

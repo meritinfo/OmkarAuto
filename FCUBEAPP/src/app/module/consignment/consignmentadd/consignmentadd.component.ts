@@ -805,10 +805,10 @@ export class ConsignmentaddComponent implements OnInit {
   fillgrid(){    
     var selectedDataValue = this.formUser.getRawValue();
     this.formArray.controls[0].get("ewayBillNo")?.setValue(selectedDataValue.ewayBillNo);
-    this.formArray.controls[0].get("ewayBillDate")?.setValue(this.commonService.formatDate(selectedDataValue.ewayBillDate));
-    this.formArray.controls[0].get("ewayBillExpDate")?.setValue(this.commonService.formatDate(selectedDataValue.ewayBillExpDate));
+    this.formArray.controls[0].get("ewayBillDate")?.setValue(selectedDataValue.ewayBillDate);
+    this.formArray.controls[0].get("ewayBillExpDate")?.setValue(selectedDataValue.ewayBillExpDate);
     this.formArray.controls[0].get("invNo")?.setValue(selectedDataValue.invoiceNo);
-    this.formArray.controls[0].get("invDate")?.setValue(this.commonService.formatDate(selectedDataValue.invoiceDate));
+    this.formArray.controls[0].get("invDate")?.setValue(selectedDataValue.invoiceDate);
     this.formArray.controls[0].get("invValue")?.setValue(selectedDataValue.invoiceValue);
   }
 
