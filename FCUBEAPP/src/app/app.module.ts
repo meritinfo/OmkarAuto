@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { Fleetgroupmastermodel  } from 'src/app/models/fleetgroupmastermodel';
+import { Creditnoteentrymodel } from 'src/app/models/creditnoteentrymodel';
 import { AppRoutingModule } from './app-routing.module';
 import { Unbilledprovisionmstmodel } from './models/unbillprovisionmst';
 import { Menureportaccessrightsmodel } from './models/menureportaccessmodel';
@@ -484,6 +485,7 @@ import { DeliverydisputeentryaddComponent } from './module/deliverydisputeentry/
 import { DeliverydisputeentrylistComponent } from './module/deliverydisputeentry/deliverydisputeentrylist/deliverydisputeentrylist.component';
 import { VehicleengagementrptComponent } from './module/vehicleengagementrpt/vehicleengagementrpt.component';
 import { BillprintllpComponent } from './module/billprintllp/billprintllp.component';
+
 import { AdminmastergroupaddComponent } from './module/admingroupmaster/adminmastergroupadd/adminmastergroupadd.component';
 import { AdminmastergrouplistComponent } from './module/admingroupmaster/adminmastergrouplist/adminmastergrouplist.component';
 import { BranchcustomermstaddComponent } from './module/branchcustomertarget/branchcustomermstadd/branchcustomermstadd.component';
@@ -579,6 +581,9 @@ import { BpclcardreturnlistComponent } from './module/bpclcardreturn/bpclcardret
 import { BpclcardreturnaddComponent } from './module/bpclcardreturn/bpclcardreturnadd/bpclcardreturnadd.component';
 import { LrrealisationstatusrptComponent } from './module/lrrealisationstatusrpt/lrrealisationstatusrpt.component';
 import { ConsignmentlocalfrtupdateComponent } from './module/consignmentllp/consignmentlocalfrtupdate/consignmentlocalfrtupdate.component';
+
+import { CreditnoteentrylistComponent } from './module/creditnoteentry/creditnoteentrylist/creditnoteentrylist.component';
+import { CreditnoteentryaddComponent } from './module/creditnoteentry/creditnoteentryadd/creditnoteentryadd.component';
 
 
 
@@ -771,7 +776,10 @@ import { ConsignmentlocalfrtupdateComponent } from './module/consignmentllp/cons
     LegderdetaillistComponent, CashbookdetailComponent, BankbookdetailComponent, TrailballistComponent, 
     BpclcardrechargereqlistComponent, BpclcardrechargereqaddComponent, BpclcardrechargeappComponent, 
     BpclcardreturnlistComponent, BpclcardreturnaddComponent, LrrealisationstatusrptComponent,
-    ConsignmentlocalfrtupdateComponent
+    ConsignmentlocalfrtupdateComponent,
+   
+    CreditnoteentrylistComponent,
+    CreditnoteentryaddComponent
    
     
   ],
@@ -848,7 +856,7 @@ import { ConsignmentlocalfrtupdateComponent } from './module/consignmentllp/cons
     BillsmastermodelllP,Billsmasterlistmodel,BillsDetailModelllP,
     Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,
     Directpmtlistmodel, Directpmtmodel,VehicleadvbalreceiptModelLLP,Tripoutstandingrptbrplmodel,
-    Unbilledprovisionmstmodel,Menureportaccessrightsmodel,Driversalaryentrymodel,
+    Unbilledprovisionmstmodel,Menureportaccessrightsmodel,Driversalaryentrymodel,Creditnoteentrymodel,
     Vendorpmtmodel,Fleetgroupmastermodel,Vehiclemfrmastermodel,Vehiclefincompmastermodel,Vehicleflttypemstmodel,
     Rechargerequestmodel,Rechargerequestlist,Pltransfermodel,Fleetgodownmastermodel,Godownstockmodel,Ledgerdetaillistmodel,Fleetcardreturntransfermodel,
     Fleetcardmasterlistmodel
