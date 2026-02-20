@@ -907,8 +907,16 @@ export class LorryhirepmtaddComponent {
       return;
     }
     
-    this.sharedService.loading=true;
     var selectedDataVal=this.formUser.getRawValue();
+    let pmtDate = new Date(selectedDataVal.pmtDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+
+    if (maxdt<pmtDate || pmtDate<mindt) {
+      this.toasterService.warning("Pmt Date should be with in Fin Year");
+      return;
+    }
+    this.sharedService.loading=true;
     this.lorryhiremastermodel.masterId = this.selectedLorryhiremaster.masterId ;
     this.lorryhiremastermodel.pmtStation= selectedDataVal.pmtStation;
     this.lorryhiremastermodel.pmtNo= selectedDataVal.pmtNo;

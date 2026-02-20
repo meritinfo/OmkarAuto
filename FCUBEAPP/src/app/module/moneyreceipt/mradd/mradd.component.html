@@ -283,10 +283,10 @@
                                         <th style="width: 120px;"><label for="formrow-inputZip">Amt Recd</label></th>
                                         <th style="width: 120px;"><label for="formrow-inputZip">Frt / NR</label></th>
                                         <th style="width: 100px;"><label for="formrow-inputZip">TDS</label></th>
+                                        <th style="width: 100px;"><label for="formrow-inputZip">Cash Disc</label></th>
                                         <th style="width: 100px;"><label for="formrow-inputZip">Claims</label></th>
                                         <th style="width: 100px;"><label for="formrow-inputZip">Bank Chrg</label></th>
                                         <th style="width: 100px;"><label for="formrow-inputZip">Other Ded</label></th>
-                                        <th style="width: 100px;"><label for="formrow-inputZip">Cash Disc</label></th>
                                         <th style="width: 100px;"><label for="formrow-inputZip">Other Ded2</label></th>
                                         <th style="width: 100px;"><label for="formrow-inputZip">Other Ded3</label></th>
                                         <!-- <th><label for="formrow-inputZip">Recoverable</label></th> -->
@@ -352,7 +352,11 @@
                                             <td style="width: 100px;">
                                                 <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                     formControlName="tdsDed" (change)="amtcheck(i,'tdsDed')">
-                                            </td>   
+                                            </td>  
+                                            <td style="width: 100px;">
+                                                <input decimalonly autocomplete="off" autoclose="false" class="form-control"
+                                                    formControlName="othersDed1" (change)="amtcheck(i,'othersDed1')">
+                                            </td>    
                                             <td style="width: 100px;">
                                                 <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                     formControlName="claimsDed" (change)="amtcheck(i,'claimsDed')">
@@ -365,10 +369,6 @@
                                                 <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                     formControlName="othersDed" (change)="amtcheck(i,'othersDed')">
                                             </td> 
-                                            <td style="width: 100px;">
-                                                <input decimalonly autocomplete="off" autoclose="false" class="form-control"
-                                                    formControlName="othersDed1" (change)="amtcheck(i,'othersDed1')">
-                                            </td>   
                                             <td style="width: 100px;">
                                                 <input decimalonly autocomplete="off" autoclose="false" class="form-control"
                                                     formControlName="othersDed2" (change)="amtcheck(i,'othersDed2')">
