@@ -847,7 +847,8 @@ dashboard: string ="";
     
   addItem(index: number): void {
     var selectedDataVal= this.formBillsMaster.getRawValue();  
-    if (selectedDataVal.arrayList[index].VehicleMasterId!= "" && selectedDataVal.arrayList[index].freightAmt!= "") 
+     
+    if (selectedDataVal.arrayList[index].VehicleMasterId.dataId && selectedDataVal.arrayList[index].freightAmt!= "") 
     {  
       this.formVehArray.push(this.createInitialVehArray()); 
     }

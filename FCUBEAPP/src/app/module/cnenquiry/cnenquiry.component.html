@@ -745,20 +745,20 @@
                                             <table class="table table-bordered dt-responsive no-border-table full-tyre-width">
                                             <tr>
                                                 <th><label for="formrow-inputCity">Challan No</label></th>       
-                                                <th><label for="formrow-inputCity">Challan Date</label> </th>     
+                                                <th><label for="formrow-inputCity">Challan Date</label> </th>  
+                                                <th><label for="formrow-inputCity">Own Truck YN</label></th>      
+                                                <th><label for="formrow-inputCity">Truck No</label></th>         
+                                                <th><label for="formrow-inputCity">Tpt Name</label></th>      
+                                                <th><label for="formrow-inputCity">Total Hire</label></th>     
+                                                <th><label for="formrow-inputCity">Total Advance</label></th>    
+                                                <th><label for="formrow-inputCity">Balance</label></th>                
                                                 <th><label for="formrow-inputCity">Exp Arrival Date</label></th>      
                                                 <th><label for="formrow-inputCity">Main Challan No</label></th>       
                                                 <th><label for="formrow-inputCity">From Stn</label></th>       
-                                                <th><label for="formrow-inputCity">To Stn</label></th>      
-                                                <th><label for="formrow-inputCity">Own Truck YN</label></th>      
-                                                <th><label for="formrow-inputCity">Truck No</label></th>           
-                                                <th><label for="formrow-inputCity">Container No</label></th>      
-                                                <th><label for="formrow-inputCity">Tpt Name</label></th>      
+                                                <th><label for="formrow-inputCity">To Stn</label></th>          
+                                                <th><label for="formrow-inputCity">Container No</label></th>  
                                                 <th><label for="formrow-inputCity">Tot Pkgs</label></th>       
-                                                <th><label for="formrow-inputCity">Tot Chrg Wt</label></th>      
-                                                <th><label for="formrow-inputCity">Total Hire</label></th>     
-                                                <th><label for="formrow-inputCity">Total Advance</label></th>    
-                                                <th><label for="formrow-inputCity">Balance</label></th>      
+                                                <th><label for="formrow-inputCity">Tot Chrg Wt</label></th> 
                                             </tr>
                                             <tr formArrayName="arrayChlnList"
                                                 *ngFor="let arrayData of formChlnArray.controls; let i = index">
@@ -772,6 +772,30 @@
                                                         <input type="text" class="form-control" 
                                                         formControlName="challanDate">
                                                     </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="ownTruckYN">
+                                                    </td> 
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="truckNo">
+                                                    </td> 
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="tptName">
+                                                    </td> 
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="totalHire">
+                                                    </td> 
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="totalAdvance">
+                                                    </td> 
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="balance">
+                                                    </td> 
                                                     <td>
                                                         <input type="text" class="form-control" 
                                                         formControlName="expArrivalDate">
@@ -790,19 +814,7 @@
                                                     </td> 
                                                     <td>
                                                         <input type="text" class="form-control" 
-                                                        formControlName="ownTruckYN">
-                                                    </td> 
-                                                    <td>
-                                                        <input type="text" class="form-control" 
-                                                        formControlName="truckNo">
-                                                    </td> 
-                                                    <td>
-                                                        <input type="text" class="form-control" 
                                                         formControlName="containerNo">
-                                                    </td> 
-                                                    <td>
-                                                        <input type="text" class="form-control" 
-                                                        formControlName="tptName">
                                                     </td> 
                                                     <td>
                                                         <input type="text" class="form-control" 
@@ -811,18 +823,6 @@
                                                     <td>
                                                         <input type="text" class="form-control" 
                                                         formControlName="totChrgWt">
-                                                    </td> 
-                                                    <td>
-                                                        <input type="text" class="form-control" 
-                                                        formControlName="totalHire">
-                                                    </td> 
-                                                    <td>
-                                                        <input type="text" class="form-control" 
-                                                        formControlName="totalAdvance">
-                                                    </td> 
-                                                    <td>
-                                                        <input type="text" class="form-control" 
-                                                        formControlName="balance">
                                                     </td> 
                                                 </div>
                                             </tr>

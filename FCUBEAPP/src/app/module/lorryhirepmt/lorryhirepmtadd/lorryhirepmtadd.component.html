@@ -43,7 +43,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Payment Date</label>
                                                 <span style="color: red">*</span>
-                                                <input autoclose="false" type="date" 
+                                                <input autoclose="false" type="date" min="{{minDate}}" max="{{maxDate}}"
                                                     class="form-control" formControlName="pmtDate"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtDate'].invalid) }">
                                             </div>
