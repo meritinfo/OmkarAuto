@@ -1,0 +1,369 @@
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+           <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Credit Note Entry</h4>
+                    </div>
+                </div>
+            </div>
+           <!-- end page title -->
+            <form (keydown.enter)="$event.preventDefault()"[formGroup]="formUser">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="mb-4">
+                                            <label for="formrow-inputZip" > CN Branch  </label>
+                                            <span style="color: red"> * </span>
+                                            <select class="form-control form-select ng-pristine ng-touched"autoclose="false" 
+                                                formControlName="cnBranch" 
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['cnBranch'].invalid) }">
+                                                <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">CN Date </label>
+                                            <span style="color: red">*</span>
+                                            <input bsdatepicker="" type="date" autoclose="false" class="form-control"
+                                                formControlName="cnDate" min="{{minDate}}" max="{{maxDate}}"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['cnDate'].invalid) }">
+                                        </div>
+                                    </div>  
+                                   
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Cn Sl No</label>
+                                            <span style="color: red">*</span>
+                                            <input autoclose="false" class="form-control" 
+                                            numbersonly autocomplete="off" maxlength="15" 
+                                                formControlName="cnSlNo"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['cnSlNo'].invalid) }">
+                                        </div>
+                                    </div> 
+                                
+                                           <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Cn Against</label><span style="color: red"> * </span>
+                                            <select id="formrow-inputState" class="form-control form-select ng-pristine ng-touched"
+                                                        formControlName="cnAgainst"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['cnAgainst'].invalid) }"
+                                                      >
+                                                      <option value=""> Select</option>
+                                                        <option value="BL"> Bill</option>
+                                                        <option value="GN"> General </option>
+                                                     
+                                                    </select>
+                                        </div>
+                                    </div> 
+                                                                                                                                                                        
+                                   
+                                </div> 
+                                <div class="row">   
+                                   <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip"> Bill Sl No  </label>
+                                            <span style="color: red">*</span>
+                                            <input autoclose="false" class="form-control" 
+                                            numbersonly autocomplete="off" maxlength="15" 
+                                                formControlName="billSlNo"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['billSlNo'].invalid) }">
+                                        </div>
+                                    </div> 
+            
+                                     
+                              
+                                           <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Billing Station</label>
+                                           <select class="form-control form-select ng-pristine ng-touched"formControlName="billingStation" 
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['billingStation'].invalid) }">
+                                                    <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+                                                        {{branch.dataName}}
+                                                    </option>
+                                                </select>
+                                        </div>
+                                    </div>  
+                                
+                                 <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputState">Bill Year</label>
+                                            <select class="form-control form-select ng-pristine ng-touched"
+                                                                formControlName="billYear">
+                                                                    <option *ngFor="let yr of yearList" value={{yr.dataId}}>
+                                                                        {{yr.dataName}}
+                                                                    </option>
+                                                                </select>
+                                        </div>
+                                    </div>
+                                                <div class="col-lg-2">
+                                <div class="mt-3">
+                                    <button class="btn btn-primary" *ngIf="(!editMode && createStatus)"
+                                        (click)="getDetails()"><span>Get Details</span></button>
+                                </div>
+                            </div>   
+                           
+                                    
+                                </div>
+                                <div class="row">  
+                                            <div class="col-lg-4">
+                                <div class="mb-3">
+                                    <label for="formrow-inputCity">Billing Party</label><span style="color: red"> * </span>
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="partyList" 
+                                            formControlName="partyId"
+                                            [searchKeyword]="keywordLocation" 
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['partyId'].invalid) }">
+                                        </ng-autocomplete>
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div> 
+                               
+                             
+                                
+                                 
+                                   <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Bill Date </label>
+                                            <span style="color: red">*</span>
+                                            <input bsdatepicker="" type="date" autoclose="false" class="form-control"
+                                                formControlName="billDate" min="{{minDate}}" max="{{maxDate}}"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['billDate'].invalid) }">
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Bill Type </label>
+                                            <input uppercaseonly autocomplete="off" autoclose="false" class="form-control"
+                                                formControlName="billType" >
+                                        </div>
+                                    </div>  
+                                </div>
+                                <div class="row">  
+                                     <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Bill GstBy </label><span style="color: red"> * </span>
+                                            <select id="formrow-inputState" class="form-control form-select ng-pristine ng-touched"
+                                                        formControlName="billGstBy"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['billGstBy'].invalid) }"
+                                                      >
+                                                      <option value=""> Select</option>
+                                                        <option value="NA"> NA</option>
+                                                        <option value="RCM"> RCM  </option>
+                                                        <option value="RCM"> FCM </option>
+                                                         <option value="Exemption"> Exemption  </option>
+                                                     
+                                                    </select>
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Bill GstType</label>
+                                            <select id="formrow-inputState" class="form-control form-select ng-pristine ng-touched"
+                                                        formControlName="billGstType"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['billGstType'].invalid) }"
+                                                      >
+                                                      <option value=""> Select</option>
+                                                        <option value="NA">NA</option>
+                                                        <option value="Igst"> Igst  </option>
+                                                        <option value="Igst"> Igst </option>
+                                                        
+                                                     
+                                                    </select>
+                                        </div>
+                                    </div>  
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Bill Gst Pct</label><span style="color: red"> * </span>
+                                                <input autoclose="false" type="text" class="form-control" 
+                                                    formControlName="billGstPct"  
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['billGstPct'].invalid) }">
+                                            </div>
+                                        </div>
+
+                                         <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Bill TaxableAmt </label><span style="color: red"> * </span>
+                                                <input autoclose="false" type="text" class="form-control" 
+                                                    formControlName="billTaxableAmt"  
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['billTaxableAmt'].invalid) }">
+                                            </div>
+                                        </div>
+                                        </div>  
+                                <div class="row"> 
+                                             <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Bill SgstAmt </label><span style="color: red"> * </span>
+                                                <input autoclose="false" type="text" class="form-control" 
+                                                    formControlName="billSgstAmt"  
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['billSgstAmt'].invalid) }">
+                                            </div>
+                                        </div>
+                                            <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Bill CgstAmt </label><span style="color: red"> * </span>
+                                                <input autoclose="false" type="text" class="form-control" 
+                                                    formControlName="billCgstAmt"  
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['billCgstAmt'].invalid) }">
+                                            </div>
+                                        </div>
+                                         <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Bill IgstAmt  </label><span style="color: red"> * </span>
+                                                <input autoclose="false" type="text" class="form-control" 
+                                                    formControlName="billIgstAmt"  
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['billIgstAmt'].invalid) }">
+                                            </div>
+                                        </div>
+                                           <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Total BillAmount</label><span style="color: red"> * </span>
+                                                <input autoclose="false" type="text" class="form-control" 
+                                                    formControlName="totalBillAmount"  
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['totalBillAmount'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Total BillAmount</label><span style="color: red"> * </span>
+                                                <input autoclose="false" type="text" class="form-control" 
+                                                    formControlName="totalBillAmount"  
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['totalBillAmount'].invalid) }">
+                                            </div>
+                                        </div>
+                                </div>  
+                                <div class="row"> 
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Full Part ReBill </label>
+                                            <select id="formrow-inputState" class="form-control form-select ng-pristine ng-touched"
+                                                        formControlName="fullPartReBill"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['fullPartReBill'].invalid) }"
+                                                      >
+                                                      <option value=""> Select</option>
+                                                        <option value="F"> Full Claim </option>
+                                                        <option value="P"> Partial Claim </option>
+                                                        <option value="R"> Re-Bill </option>
+                                                         <option value="G"> General  </option>
+                                                        
+                                                     
+                                                    </select>
+                                        </div>
+                                    </div>  
+                                         <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Cn Credit Amt </label><span style="color: red"> * </span>
+                                                <input autoclose="false" type="text" class="form-control" 
+                                                    formControlName="cnCreditAmt"  
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['cnCreditAmt'].invalid) }">
+                                            </div>
+                                        </div>
+                                           <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Cn Sgst Amt  </label><span style="color: red"> * </span>
+                                                <input autoclose="false" type="text" class="form-control" 
+                                                    formControlName="cnSgstAmt"  
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['cnSgstAmt'].invalid) }">
+                                            </div>
+                                        </div>
+                                           <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Cn Cgst Amt </label><span style="color: red"> * </span>
+                                                <input autoclose="false" type="text" class="form-control" 
+                                                    formControlName="cnCgstAmt"  
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['cnCgstAmt'].invalid) }">
+                                            </div>
+                                        </div>
+                                                 <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Cn Igst Amt</label><span style="color: red"> * </span>
+                                                <input autoclose="false" type="text" class="form-control" 
+                                                    formControlName="cnIgstAmt"  
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['cnIgstAmt'].invalid) }">
+                                            </div>
+                                        </div>
+                                                 <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Total Credit Amt </label><span style="color: red"> * </span>
+                                                <input autoclose="false" type="text" class="form-control" 
+                                                    formControlName="totalCreditAmt"  
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['totalCreditAmt'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-5">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Credit Note Remarks</label>  
+                                            <input uppercaseonly autoclose="false" class="form-control" 
+                                            formControlName="creditNoteRemarks">
+                                        </div>
+                                    </div>   
+                                       <div class="col-sm-4">
+                                            <div class="mb-3">
+                                                 <label for="formrow-inputZip">Debit Ac</label>  
+                                                <select id="scope" formControlName="debitAc"
+                                                class="form-control form-select ng-pristine ng-touched"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['debitAc'].invalid) }">
+                                                    <option *ngFor="let dbt of debitAcList" value={{dbt.dataId}}>
+                                                    {{dbt.dataName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                     </div>  
+                               
+                                </div>
+                                                                                          
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">                    
+                    <!-- <div class="col-lg-5">
+                        <div class="mb-3">
+                            <label style="color: blue"> 
+                                <h6><b>Created By:</b>  {{ this.createdBy }} </h6> 
+                            </label>                                                 
+                        </div>
+                    </div>                   
+                    <div class="col-lg-5">
+                        <div class="mb-3">
+                            <label style="color: blue"> 
+                                <h6><b>Modified By:</b> {{ this.modifiedBy}} </h6> 
+                            </label>                                                 
+                        </div>
+                    </div> -->
+                    <!-- end col -->
+                </div> 
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                            <button class="btn btn-primary w-md" 
+                            *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
+                                (click)="submitCreditNoteForm()">Save</button>&nbsp;
+                            <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                (click)="deleteCreditForm()">Delete</button>&nbsp;
+                            <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+     <!-- container-fluid -->
+    </div>
+  <!-- End Page-content -->
+ </div>
+

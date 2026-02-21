@@ -46,6 +46,7 @@ namespace FCUBEAPI.Controllers
 
         readonly IBrokerAdvancePmtBusiness brokerAdvancePmtBusiness;
         readonly IDirectPmtBusiness directPmtBusiness;
+        readonly ICreditNoteEntryBusiness creditNoteEntryBusiness;
         readonly IChallanSuppliLLPBusiness challanSuppliLLPBusiness;
         public ConsignmentController(IOptions<DBModel> _dbconnection,
             IConsignmentBusiness _consignmentBusiness,
@@ -72,9 +73,8 @@ namespace FCUBEAPI.Controllers
             IBrokerAdvancePmtBusiness _brokerAdvancePmtBusiness,
             IUnBillProvisionMstBusiness _unBillProvisionMstBusiness,
             ILorryHireLLPBusiness _lorryHireLLPBusiness,
-             IChallanSuppliLLPBusiness _challanSuppliLLPBusiness,
-
-
+            IChallanSuppliLLPBusiness _challanSuppliLLPBusiness,
+            ICreditNoteEntryBusiness _creditNoteEntryBusiness,
             IDirectPmtBusiness _directPmtBusiness)
         {
             dbconnection = _dbconnection;
@@ -103,6 +103,7 @@ namespace FCUBEAPI.Controllers
             unBillProvisionMstBusiness = _unBillProvisionMstBusiness;
             lorryHireLLPBusiness = _lorryHireLLPBusiness;
             challanSuppliLLPBusiness = _challanSuppliLLPBusiness;
+            creditNoteEntryBusiness = _creditNoteEntryBusiness;
         }
         
 
@@ -4072,6 +4073,78 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await consignmentBusiness.ConsignmentLocalFrtUpdate(ConsignmentModel);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetCreditNoteList")]
+        public async Task<IActionResult> GetCreditNoteList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await creditNoteEntryBusiness.GetCreditNoteList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CreditNoteEntrySave")]
+        public async Task<IActionResult> CreditNoteEntrySave(CreditNoteEntryModel creditNoteEntryModel)
+        {
+            if (creditNoteEntryModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await creditNoteEntryBusiness.CreditNoteEntrySave(creditNoteEntryModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CreditNoteDelete")]
+        public async Task<IActionResult> CreditNoteDelete(RequestModel requestModel)
+        { 
+            if (requestModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await creditNoteEntryBusiness.CreditNoteDelete(requestModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetCreditBillDetails")]
+        public async Task<IActionResult> GetCreditBillDetails(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await creditNoteEntryBusiness.GetCreditBillDetails(req);
+
                 return Ok(result);
             }
             catch (Exception ex)
