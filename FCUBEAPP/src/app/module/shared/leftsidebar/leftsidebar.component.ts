@@ -1,6 +1,9 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Menulistmodel } from 'src/app/models/loggedinusermodel';
 import { SharedService } from 'src/app/services/shared.service';
+import { interval } from 'rxjs';
+import { Loginmodel } from 'src/app/models/loginmodel';
+import { LoggedinUsermodel } from 'src/app/models/loggedinusermodel';
 declare const $: any;
 
 @Component({
@@ -9,14 +12,14 @@ declare const $: any;
   styleUrls: ['./leftsidebar.component.css']
 })
 export class LeftsidebarComponent implements OnInit, AfterViewInit {
-  selectedUserID: string = '';
+  selectedUserID: string = '';  
   mainMenuList: Menulistmodel[] = [];
-  constructor(private sharedService: SharedService) {
+  constructor(private sharedService: SharedService,private loginModel: Loginmodel) {   
   }
-
-  ngOnInit(): void {    
-    this.sharedService.loggedInStatus = true;
-    var userData = sessionStorage.getItem('uid')?.toString();
+  
+  ngOnInit(): void { 
+    this.sharedService.loggedInStatus = true;  
+    var userData = sessionStorage.getItem('uid')?.toString();  
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.selectedUserID = userData;
       if (this.sharedService.loggedInStatus) {
@@ -36,4 +39,6 @@ export class LeftsidebarComponent implements OnInit, AfterViewInit {
       sessionStorage.setItem("menulist", JSON.stringify(this.mainMenuList));
     });
   }
+
+
 }

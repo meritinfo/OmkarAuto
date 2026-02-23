@@ -63,7 +63,6 @@ export class LorryhirepmtllpaddComponent {
   seriesDocOpp: string ="";
 
   responseDetails = new Responsemodel();
-  challanpopupviewdetail = new Lhpmchallanviewmodel();
   challanInputDtls= new Reportmodel();
   constructor(private lorryhiremastermodel: Lorryhiremastermodel, private sharedService: SharedService,
     private requestmodel: Requestmodel, private route: Router, private formBuilder: FormBuilder,
@@ -89,16 +88,16 @@ export class LorryhirepmtllpaddComponent {
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
 
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -167,7 +166,6 @@ export class LorryhirepmtllpaddComponent {
     this.getBranchList();
     this.getBenList();
     this.getYearList();
-    this.getPaymentCreditAcList("M");
     this.chkMandatoryRequired();
     this.getBrokerListNew();
     this.selectedLorryhiremaster = this.lorryhirepmtService.getLorryhiremasterDetails(); 
@@ -205,6 +203,9 @@ export class LorryhirepmtllpaddComponent {
       if(this.selectedLorryhiremaster.onAcBranch!=''){        
         this.formArray.controls[0].get("challanBranch")?.setValue(this.selectedLorryhiremaster.onAcBranch);
       }
+    }
+    else{      
+      this.getPaymentCreditAcList("M");
     }
 
     setTimeout(() => {
@@ -375,9 +376,10 @@ export class LorryhirepmtllpaddComponent {
     });
   }
 
-    openPopup(index: number) {
-   var selectedDataVal = this.formUser.getRawValue();  
-       if(selectedDataVal.arrayList[index].chYear===""||selectedDataVal.arrayList[index].challanBranch===""||selectedDataVal.arrayList[index].challanNo===""){
+  openPopup(index: number) {
+    var selectedDataVal = this.formUser.getRawValue();  
+    var arr = selectedDataVal.arrayList[index];
+    if(arr.chYear===""||arr.challanBranch===""||arr.challanNo===""){
       if(selectedDataVal.onAcBranch==""){
         this.toasterService.warning("Please Select Year , Branch and Enter Challan No to View Detail");
        // this.formArray.controls[i].get("challanNo")?.setValue("");
@@ -392,23 +394,17 @@ export class LorryhirepmtllpaddComponent {
     this.challanInputDtls.filterStr2 =selectedDataVal.arrayList[index].challanBranch;
     this.challanInputDtls.filterStr3 = selectedDataVal.arrayList[index].challanNo;
     this.lorryhirepmtService.getLorryHireChallanDetailViewLLP(this.challanInputDtls).subscribe((res) => {
-    this.challanpopupviewdetail = res;
-    this.thire = selectedDataVal.arrayList[index].hireAmt;
-    this.chlno = selectedDataVal.arrayList[index].challanNo;
- 
-   this.trkno= this.challanpopupviewdetail.truckNo;
-   this.thire= this.challanpopupviewdetail.totalHire;
-   this.totalAdv= this.challanpopupviewdetail.totalAdvance;
-   this.totBal= this.challanpopupviewdetail.totalBalance;
-   this.advPaid= this.challanpopupviewdetail.advPaid;
-  this.advDed= this.challanpopupviewdetail.advDed;
-
-   this.balpd= this.challanpopupviewdetail.balPaid;
-   this.balded= this.challanpopupviewdetail.balDed;
-
-
-     });
-
+      this.thire = selectedDataVal.arrayList[index].hireAmt;
+      this.chlno = selectedDataVal.arrayList[index].challanNo;  
+      this.trkno= res.truckNo;
+      this.thire= res.totalHire;
+      this.totalAdv= res.totalAdvance;
+      this.totBal= res.totalBalance;
+      this.advPaid= res.advPaid;
+      this.advDed= res.advDed;
+      this.balpd= res.balPaid;
+      this.balded= res.balDed;
+    });
   }
 
   closePopup() {
@@ -426,7 +422,8 @@ export class LorryhirepmtllpaddComponent {
   }    
 
   getPaymentCreditAcList(e: any){
-    this.requestmodel.strRequest= e.toString()=="T"?"B":e.toString();
+    var pmttype = e.toString()=="T"?"B":e.toString();
+    this.requestmodel.strRequest = pmttype;
     this.docrenewalEntryService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
       this.creditacList = res;
     });

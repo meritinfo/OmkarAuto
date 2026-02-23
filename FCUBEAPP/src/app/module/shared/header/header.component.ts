@@ -83,10 +83,7 @@ export class HeaderComponent {
     else {
       this.route.navigate(['/']);
     }
-
-
     this.getScheduleDetails();
-
 
     // timer(0, 1200000) call the function immediately and every 1200 seconds 
     this.timerSubscription = timer(0, 1200000).pipe(
@@ -147,7 +144,7 @@ export class HeaderComponent {
     });
      
   }
-
+  
   // don't forget to unsubscribe when the Observable is not necessary anymore 
   ngOnDestroy(): void {
     this.timerSubscription.unsubscribe();
