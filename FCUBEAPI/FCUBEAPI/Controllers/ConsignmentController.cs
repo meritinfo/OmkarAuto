@@ -4152,11 +4152,30 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetCreditSlNo")]
+        public async Task<IActionResult> GetCreditSlNo(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await creditNoteEntryBusiness.GetCreditSlNo(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
     }
 
-       
 
 
-    }
+
+}
 

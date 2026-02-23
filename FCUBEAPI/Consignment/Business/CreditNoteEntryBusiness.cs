@@ -33,6 +33,10 @@ namespace Consignment.Business
         {
             return await creditNoteEntryRepository.CreditNoteDelete(requestModel);
         }
+        public async Task<ResponseModel> GetCreditSlNo(RequestModel requestModel)
+        {
+            return await creditNoteEntryRepository.GetCreditSlNo(requestModel);
+        }
 
     }
 }

@@ -15,7 +15,7 @@
                 <div class="col-sm-12 col-md-12">
                     <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
-                            <!-- <div class="col-md-3">
+                             <div class="col-md-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">From Date</label>
                                     <input type="date" class="form-control" formControlName="fromDate" 
@@ -28,8 +28,8 @@
                                     <input type="date" class="form-control" formControlName="toDate" 
                                     min="{{minDate}}" max="{{maxDate}}">
                                 </div>
-                            </div>
-                            <div class="col-md-2">
+                            </div> 
+                            <!-- <div class="col-md-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">Vehicle No</label>
                                     <input class="form-control" formControlName="vehicleNo" >
@@ -40,13 +40,13 @@
                                     <label for="formrow-inputZip">Challan No: </label> 
                                     <input class="form-control" formControlName="challanNo" >
                                 </div>
-                            </div>   
+                            </div>  --> 
                             <div class="col-lg-2">
                                 <div class="mt-3">
                                     <button class="btn btn-primary"   
                                     (click)="search()"><span>Search</span></button>
                                 </div>
-                            </div> -->
+                            </div> 
                         </div>
                     </form>
                 </div>
@@ -76,7 +76,7 @@
                                     <button type="button" class="btn btn-edit" 
                                         (click)="getCreditDetails(cn)"></button>                               
                                 </td>
-                                <td>{{ cn.cnBranch }}</td>
+                                <td>{{ cn.brname }}</td>
                                 <td>{{ cn.cnDate }}</td>                        
                                 <td>{{ cn.cnSlNo }}</td>
                                 

@@ -329,9 +329,20 @@ export class DriversalaryentryaddComponent {
       return;
     }
     var selectedDataValue = this.formSalary.getRawValue();
-    const d3 = this.minDate?Date.parse(this.minDate):0;
-    const d2 = this.maxDate?Date.parse(this.maxDate):0;
-    const d4 = selectedDataValue.transDate?Date.parse(selectedDataValue.transDate):0;
+    // const d3 = this.minDate?Date.parse(this.minDate):0;
+    // const d2 = this.maxDate?Date.parse(this.maxDate):0;
+    // const d4 = selectedDataValue.transDate?Date.parse(selectedDataValue.transDate):0;
+    // if (d3>d4 || d2<d4 ) {
+    //   this.formSalary.patchValue({
+    //     transDate: ''
+    //   });
+    //   this.toasterService.warning("Invalid Salary Date");
+    //   return
+    // }
+
+     const d3 = new Date(this.minDate);
+    const d2 = new Date(this.maxDate);
+    const d4 = new Date(selectedDataValue.transDate);
     if (d3>d4 || d2<d4 ) {
       this.formSalary.patchValue({
         transDate: ''

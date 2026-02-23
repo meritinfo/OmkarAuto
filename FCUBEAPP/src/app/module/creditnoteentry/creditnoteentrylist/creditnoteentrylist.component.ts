@@ -176,7 +176,7 @@ ngOnInit(): void {
           },
           {
             title: 'Cn Branch',
-            data: 'cnBranch ',
+            data: 'brname',
           },
           {
             title: 'Cn Date',

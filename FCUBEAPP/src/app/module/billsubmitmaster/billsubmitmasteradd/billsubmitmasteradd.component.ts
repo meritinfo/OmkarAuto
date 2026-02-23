@@ -404,15 +404,24 @@ export class BillsubmitmasteraddComponent {
     var selectedDataValue = this.formUser.getRawValue();
 
 
-    const d3 = this.minDate?Date.parse(this.minDate):0;
-    const d2 = this.maxDate?Date.parse(this.maxDate):0;
-    const d4 = selectedDataValue.submitDt?Date.parse(selectedDataValue.submitDt):0;
-    if (d3>d4 || d2<d4 ) {
-      this.formUser.patchValue({
-        mrDate: ''
-      });
-      this.toastrService.warning("Invalid submit date");
-      return
+    // const d3 = this.minDate?Date.parse(this.minDate):0;
+    // const d2 = this.maxDate?Date.parse(this.maxDate):0;
+    // const d4 = selectedDataValue.submitDt?Date.parse(selectedDataValue.submitDt):0;
+    // if (d3>d4 || d2<d4 ) {
+    //   this.formUser.patchValue({
+    //     mrDate: ''
+    //   });
+    //   this.toastrService.warning("Invalid submit date");
+    //   return
+    // }
+
+     let submitDt = new Date(selectedDataValue.submitDt);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+
+    if (maxdt<submitDt || submitDt<mindt) {
+      this.toastrService.warning("Invoice Date should be with in Fin Year");
+      return;
     }
     
     this.billsubmitmastermodel.submitMstId = this.selectedBillSubmitMasterDetail.submitMstId ;

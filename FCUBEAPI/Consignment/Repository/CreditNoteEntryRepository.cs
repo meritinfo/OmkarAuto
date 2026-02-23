@@ -101,6 +101,7 @@ namespace Consignment.Repository
                             new SqlParameter("@BillSlNo", request.FilterStr),
                             new SqlParameter("@BillingStation", request.FilterStr1),
                             new SqlParameter("@BillYear", request.FilterStr2),
+                             new SqlParameter("@BillSeries", request.FilterStr3),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCreditBillDetails", param);
 
@@ -118,7 +119,8 @@ namespace Consignment.Repository
                         creditNote.BillCgstAmt = Convert.ToString(dataSet.Tables[0].Rows[0]["BillCgstAmt"]);
                         creditNote.BillIgstAmt = Convert.ToString(dataSet.Tables[0].Rows[0]["BillIgstAmt"]);
                         creditNote.TotalBillAmount = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalBillAmount"]);
-                        creditNote.SacCode = Convert.ToString(dataSet.Tables[0].Rows[0]["SacCode"]);
+                        creditNote.PartyId = Convert.ToString(dataSet.Tables[0].Rows[0]["PartyId"]);
+
 
 
                     }
@@ -128,6 +130,34 @@ namespace Consignment.Repository
             {
             }
             return creditNote;
+        }
+        public async Task<ResponseModel> GetCreditSlNo(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@Branch", requestModel.strRequest),
+                            new SqlParameter("@Year", requestModel.strRequest1),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCreditSlNo", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseModel;
         }
         public async Task<CreditNoteList> GetCreditNoteList(ReportRequestModel request)
         {
@@ -143,7 +173,9 @@ namespace Consignment.Repository
                             new SqlParameter("@PageSize", request.PageSize),
                             new SqlParameter("@SortColumn", request.SortColumn),
                             new SqlParameter("@SortOrder", request.SortOrder),
-                            new SqlParameter("@Search", request.Search)
+                            new SqlParameter("@Search", request.Search),
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_CreditNoteList", param);
 
@@ -183,9 +215,10 @@ namespace Consignment.Repository
                                 CnIgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["CnIgstAmt"]),
                                 TotalCreditAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalCreditAmt"]),
                                 CreditNoteRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["CreditNoteRemarks"]),
-                                FinDocid = Convert.ToString(dataSet.Tables[0].Rows[i]["FinDocid"]),
+                               // FinDocid = Convert.ToString(dataSet.Tables[0].Rows[i]["FinDocid"]),
                                 DebitAc = Convert.ToString(dataSet.Tables[0].Rows[i]["DebitAc"]),
                                 YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
+                                brname = Convert.ToString(dataSet.Tables[0].Rows[i]["brname"]),
                             });
                         }
 

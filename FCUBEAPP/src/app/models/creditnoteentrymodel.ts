@@ -31,5 +31,6 @@ creditNoteRemarks: string = "";
 
 debitAc: string = "";
 yearId: string = "";
+brname : string = "";
 loggedInUser:       string = "";
 }

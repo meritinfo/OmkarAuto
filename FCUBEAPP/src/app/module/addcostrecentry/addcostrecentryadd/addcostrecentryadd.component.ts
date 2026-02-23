@@ -730,16 +730,26 @@ export class AddcostrecentryaddComponent {
     this.formSubmitted = true;
     var selectedDataValue = this.formUser.getRawValue();
     
-    const d3 = this.minDate?Date.parse(this.minDate):0;
-    const d2 = this.maxDate?Date.parse(this.maxDate):0;
-    const d4 = selectedDataValue.transDate?Date.parse(selectedDataValue.transDate):0;
-    if (d3>d4 || d2<d4 ) {
-      this.formUser.patchValue({
-        transDate: ''
-      });
+    // const d3 = this.minDate?Date.parse(this.minDate):0;
+    // const d2 = this.maxDate?Date.parse(this.maxDate):0;
+    // const d4 = selectedDataValue.transDate?Date.parse(selectedDataValue.transDate):0;
+    // if (d3>d4 || d2<d4 ) {
+    //   this.formUser.patchValue({
+    //     transDate: ''
+    //   });
+    //   this.toasterService.warning("Trans Date should be with in Fin Year");
+    //   return;
+    // }
+
+     let transDate = new Date(selectedDataValue.transDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+
+    if (maxdt<transDate || transDate<mindt) {
       this.toasterService.warning("Trans Date should be with in Fin Year");
       return;
     }
+
     if(parseFloat(selectedDataValue.netTot)>0)
     {
       //ignore

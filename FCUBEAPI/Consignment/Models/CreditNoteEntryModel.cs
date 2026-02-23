@@ -40,6 +40,7 @@ namespace Consignment.Models
         public string? FinDocid { get; set; }
         public string? DebitAc { get; set; }
         public string? YearId { get; set; }
+        public string? brname { get; set; }
         public string? LoggedInUser { get; set; }
     }
 }

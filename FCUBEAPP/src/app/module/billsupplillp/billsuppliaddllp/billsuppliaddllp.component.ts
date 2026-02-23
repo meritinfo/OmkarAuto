@@ -991,16 +991,26 @@ dashboard: string ="";
       return;
     }
     
-    const d3 = this.minDate?Date.parse(this.minDate):0;
-    const d2 = this.maxDate?Date.parse(this.maxDate):0;
-    const d4 = selectedDataValue.billDate?Date.parse(selectedDataValue.billDate):0;
-    if (d3>d4 || d2<d4 ) {
-      this.formBillsMaster.patchValue({
-        billDate: ''
-      });
-      this.toasterService.warning("Invalid bill date");
-      return
+    // const d3 = this.minDate?Date.parse(this.minDate):0;
+    // const d2 = this.maxDate?Date.parse(this.maxDate):0;
+    // const d4 = selectedDataValue.billDate?Date.parse(selectedDataValue.billDate):0;
+    // if (d3>d4 || d2<d4 ) {
+    //   this.formBillsMaster.patchValue({
+    //     billDate: ''
+    //   });
+    //   this.toasterService.warning("Invalid bill date");
+    //   return
+    // }
+     let billDate = new Date(selectedDataValue.billDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+
+    if (maxdt<billDate || billDate<mindt) {
+      this.toasterService.warning("bill Date should be with in Fin Year");
+      return;
     }
+
+
 
     this.formSubmitted = true;
     this.billsmastermodel.billsMasterId = this.selectedBillsmasterDetails.billsMasterId;

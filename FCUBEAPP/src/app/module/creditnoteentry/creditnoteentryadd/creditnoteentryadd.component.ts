@@ -36,11 +36,13 @@ export class CreditnoteentryaddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+  showDetail =false;
   dashboard: string = "";
   createdBy: string = "";
   modifiedBy: string = "";
   branchList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];
+  seriesList: Dropdownmodel[] = [];
   yearList: Dropdownmodel[] = [];
   debitAcList: Dropdownmodel[] = [];
 
@@ -89,6 +91,10 @@ export class CreditnoteentryaddComponent {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
+    var yearIDData = sessionStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
+    }
     else {
       this.route.navigate(['/']);
     }
@@ -96,7 +102,7 @@ export class CreditnoteentryaddComponent {
     if (typeof branchData !== 'undefined' && branchData !== null && branchData !== '') {
       this.branch = branchData;
     }
-
+    this.getSlNo();
     this.getBranchList();
     this.getdebitAc();
     this.getBillingPartyList();
@@ -147,13 +153,15 @@ export class CreditnoteentryaddComponent {
     this.formUser.controls["billDate"].disable();
     this.formUser.controls["billType"].disable();
     this.formUser.controls["billGstBy"].disable();
+    this.formUser.controls["billGstType"].disable();
     this.formUser.controls["billGstPct"].disable();
     this.formUser.controls["billTaxableAmt"].disable();
     this.formUser.controls["billSgstAmt"].disable();
     this.formUser.controls["billCgstAmt"].disable();
     this.formUser.controls["billIgstAmt"].disable();
     this.formUser.controls["totalBillAmount"].disable();
-    this.formUser.controls["billType"].disable();
+    this.formUser.controls["partyId"].disable();
+   // this.formUser.controls["sacCode"].disable();
 
     setTimeout(() => {
       if (this.selectedCreditDetails.cnId != '') {
@@ -162,6 +170,7 @@ export class CreditnoteentryaddComponent {
         this.formUser.patchValue({
            billDate: this.commonService.formatDate(this.selectedCreditDetails.billDate) ,
            cnDate:this.commonService.formatDate(this.selectedCreditDetails.billDate) ,
+           
           // challanFromStn: this.locationList.find(e => e.dataId == this.selectedChallanDetails.challanFromStn),
           // challanToStn: this.locationList.find(e => e.dataId == this.selectedChallanDetails.challanToStn), 
            partyId : this.partyList.find(e => e.dataId == this.selectedCreditDetails.partyId),           
@@ -186,9 +195,14 @@ export class CreditnoteentryaddComponent {
 
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
-      this.branchList = res;
+      this.branchList = res;     
+      this.formUser.patchValue({
+        billingStation: this.branch
+      });
+     this.getSeriesList(this.branch);
     });
   }
+  
   getdebitAc(): void {
     this.docRenewalMasterService.getdebitAc().subscribe((res) => {
       this.debitAcList = res;
@@ -197,6 +211,13 @@ export class CreditnoteentryaddComponent {
   getBillingPartyList(): void {
     this.commonService.getBillingPartyList().subscribe((res) => {
       this.partyList = res;
+    });
+  }
+  getSeriesList(br: string): void {
+    this.requestmodel.strRequest = "B";
+    this.requestmodel.strRequest1 = br;
+    this.commonService.getSeriesllpList(this.requestmodel).subscribe((res) => {
+      this.seriesList = res;
     });
   }
   onChangeSearch(search: string) {
@@ -239,42 +260,91 @@ export class CreditnoteentryaddComponent {
   }
   getDetails() {
     var selectedData = this.formUser.getRawValue();
-
     this.reportmodel.filterStr = selectedData.billSlNo;
     this.reportmodel.filterStr1 = selectedData.billingStation;
     this.reportmodel.filterStr2 = selectedData.billYear;
-    // if(selectedData.lrNo==""){
-    //   this.toastrService.warning("Please Enter LR No ");
-    //   return;
-    // }
+    this.reportmodel.filterStr3 = selectedData.billSeries;
+    if(selectedData.billSlNo==""){
+      this.toastrService.warning("Please Enter Bill  No ");
+      return;
+    }
     this.creditNoteService.getCreditBillDetails(this.reportmodel).subscribe((res: Creditnoteentrymodel) => {
       this.creditmodel = res;
-      // if (this.responseDetails.status) {
-      //   //ignore
-      // }
-      // else{
+      if (this.creditmodel.billsMasterId) {
+          this.formUser.controls["billSlNo"].disable();
+          this.formUser.controls["billingStation"].disable();
+            this.formUser.controls["billYear"].disable();
+             this.formUser.controls["billSeries"].disable();
+
+      
+      }
+       else{
       //  this.toastrService.warning(this.responseDetails.message);
+        this.formUser.controls["billSlNo"].enable();
+          this.formUser.controls["billingStation"].enable();
+            this.formUser.controls["billYear"].enable();
+             this.formUser.controls["billSeries"].enable();
+       }
+        setTimeout(() => {
       this.formUser.patchValue({
-        billDate: this.creditmodel.billDate,
+       // billDate: this.creditmodel.billDate,
+        billDate: this.commonService.formatDate(this.creditmodel.billDate) ,
         billType: this.creditmodel.billType,
         billsMasterId: this.creditmodel.billsMasterId,
         billGstType: this.creditmodel.billGstType,
+         billGstBy: this.creditmodel.billGstBy,
         billGstPct: this.creditmodel.billGstPct,
         billTaxableAmt: this.creditmodel.billTaxableAmt,
         billSgstAmt: this.creditmodel.billSgstAmt,
         billCgstAmt: this.creditmodel.billCgstAmt,
         billIgstAmt: this.creditmodel.billIgstAmt,
         totalBillAmount: this.creditmodel.totalBillAmount,
+         cnSgstAmt: this.creditmodel.billSgstAmt,
+          cnCgstAmt: this.creditmodel.billCgstAmt,
+             cnIgstAmt: this.creditmodel.billIgstAmt,
+             cnCreditAmt: this.creditmodel.totalBillAmount,
+        partyId : this.partyList.find(e => e.dataId == this.creditmodel.partyId),  
         sacCode: this.creditmodel.sacCode,
       });
+        }, 2000);
       return;
 
     });
+    
   }
 
   exit(): void {
     this.route.navigate(['/creditnotelist']);
   }
+  showBillDetail(){
+     var selectedData = this.formUser.getRawValue();
+ if (selectedData.cnAgainst === "GN") {
+          this.showDetail = false;
+         //this.formUser.controls['totalAmount'].disable();     
+        }
+        else{
+          this.showDetail = true;
+          //this.formUser.controls['totalAmount'].enable();      
+        }     
+
+
+  }
+
+    getSlNo(): void {    
+      this.requestmodel.strRequest = this.branch;
+      this.requestmodel.strRequest1 = this.year; 
+      this.creditNoteService.getCreditSlNo(this.requestmodel).subscribe((res:Responsemodel) => {
+        this.responseDetails = res;
+        if(this.responseDetails.status){
+          this.formUser.patchValue({
+            cnSlNo: this.responseDetails.message
+          });
+        }
+      });
+    }  
+  
+
+  
 
   submitCreditNoteForm(): void {
     if (this.formUser.invalid) {

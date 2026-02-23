@@ -43,6 +43,9 @@ export class CreditNoteService {
   creditnoteDetailsSubmitted(user: Creditnoteentrymodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/CreditNoteEntrySave', user, this.httpformOptions);
   }
+  getCreditSlNo(request: Requestmodel ):  Observable<Responsemodel> {
+      return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetCreditSlNo', request, this.httpOptions);
+   }
   getCreditNoteList(filter: Reportmodel): Observable<Creditnoteentrylistmodel> {
     return this.httpClient.post<Creditnoteentrylistmodel>(Constants.API_ENDPOINT + 'Consignment/GetCreditNoteList', filter, this.httpOptions);
   }  

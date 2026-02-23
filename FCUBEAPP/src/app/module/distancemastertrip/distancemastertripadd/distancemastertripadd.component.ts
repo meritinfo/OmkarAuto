@@ -268,7 +268,13 @@ dashboard: string ="";
     }
 
     //Start date end date validation
-    if (Date.parse(this.distancemastertripmodel.validUpto) < Date.parse(this.distancemastertripmodel.validFrom)) {
+    // if (Date.parse(this.distancemastertripmodel.validUpto) < Date.parse(this.distancemastertripmodel.validFrom)) {
+    //   this.toasterService.warning("End date should be greter than start date");
+    //   return;
+    // }
+     let dt1 = new Date(this.distancemastertripmodel.validUpto);
+    let dt2 = new Date(this.distancemastertripmodel.validFrom);
+   if (dt1 < dt2) {
       this.toasterService.warning("End date should be greter than start date");
       return;
     }

@@ -11,6 +11,7 @@ namespace Consignment.Repository
     public interface ICreditNoteEntryRepository
     {
         Task<ResponseModel> CreditNoteEntrySave(CreditNoteEntryModel creditNoteEntryModel);
+        Task<ResponseModel> GetCreditSlNo(RequestModel requestModel);
         Task<CreditNoteEntryModel> GetCreditBillDetails(ReportRequestModel request);
         Task<CreditNoteList> GetCreditNoteList(ReportRequestModel request);
         Task<ResponseModel> CreditNoteDelete(RequestModel requestModel);

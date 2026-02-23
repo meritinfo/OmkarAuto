@@ -636,18 +636,28 @@ dashboard: string ="";
     
     var selectedDataValue = this.formUser.getRawValue();
 
-    const d3 = this.minDate?Date.parse(this.minDate):0;
-    const d2 = this.maxDate?Date.parse(this.maxDate):0;
-    const d4 = selectedDataValue.ackDate?Date.parse(selectedDataValue.ackDate):0;
-    const d5 = selectedDataValue.gcDate?Date.parse(selectedDataValue.gcDate):0;
+    // const d3 = this.minDate?Date.parse(this.minDate):0;
+    // const d2 = this.maxDate?Date.parse(this.maxDate):0;
+    // const d4 = selectedDataValue.ackDate?Date.parse(selectedDataValue.ackDate):0;
+    // const d5 = selectedDataValue.gcDate?Date.parse(selectedDataValue.gcDate):0;
     
-    if (d3>d4 || d2<d4 || d5>d4) {
-      this.formUser.patchValue({
-        ackDate: ''
-      });
+    // if (d3>d4 || d2<d4 || d5>d4) {
+    //   this.formUser.patchValue({
+    //     ackDate: ''
+    //   });
+    //   this.toasterService.warning("Invalid ack date");
+    //   return
+    // }
+     let ackDate = new Date(selectedDataValue.ackDate);
+       let gcDate = new Date(selectedDataValue.gcDate);
+    let maxdt = new Date(this.maxDate);
+    let mindt = new Date(this.minDate);
+
+    if ( mindt>ackDate || maxdt<ackDate || gcDate>ackDate) {
       this.toasterService.warning("Invalid ack date");
-      return
+      return;
     }
+
     
     this.sharedService.loading = true;
     this.formSubmitted = true;

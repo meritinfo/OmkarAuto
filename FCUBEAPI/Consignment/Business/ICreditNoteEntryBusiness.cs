@@ -14,5 +14,7 @@ namespace Consignment.Business
         Task<CreditNoteEntryModel> GetCreditBillDetails(ReportRequestModel request);
         Task<CreditNoteList> GetCreditNoteList(ReportRequestModel request);
         Task<ResponseModel> CreditNoteDelete(RequestModel requestModel);
+        Task<ResponseModel> GetCreditSlNo(RequestModel requestModel);
+
     }
 }
