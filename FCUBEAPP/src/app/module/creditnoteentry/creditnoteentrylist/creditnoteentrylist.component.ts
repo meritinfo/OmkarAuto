@@ -223,7 +223,7 @@ ngOnInit(): void {
   
     getCreditDetails(Challan: Creditnoteentrymodel): void {
       this.creditNoteService.setCreditNoteDetails(Challan);
-      this.route.navigate(['/creditnoteentry']);
+      this.route.navigate(['/creditnoteedit']);
     }  
   
     search(): void {

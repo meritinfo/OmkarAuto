@@ -169,7 +169,7 @@ export class CreditnoteentryaddComponent {
         this.formUser.patchValue(this.selectedCreditDetails);
         this.formUser.patchValue({
            billDate: this.commonService.formatDate(this.selectedCreditDetails.billDate) ,
-           cnDate:this.commonService.formatDate(this.selectedCreditDetails.billDate) ,
+           cnDate:this.commonService.formatDate(this.selectedCreditDetails.cnDate) ,
            
           // challanFromStn: this.locationList.find(e => e.dataId == this.selectedChallanDetails.challanFromStn),
           // challanToStn: this.locationList.find(e => e.dataId == this.selectedChallanDetails.challanToStn), 
@@ -181,6 +181,10 @@ export class CreditnoteentryaddComponent {
 
         //  this.createdBy = this.selectedChallanDetails.createdBy + " " + this.selectedChallanDetails.createdDate;
         //  this.modifiedBy = this.selectedChallanDetails.modifiedBy + " " + this.selectedChallanDetails.modifiedDate;     
+          if (this.selectedCreditDetails.cnAgainst=="BL"){
+              this.showDetail =true;
+          }
+      
 
         this.editMode = true;
         this.sharedService.loading = false;
@@ -318,16 +322,14 @@ export class CreditnoteentryaddComponent {
   }
   showBillDetail(){
      var selectedData = this.formUser.getRawValue();
- if (selectedData.cnAgainst === "GN") {
+     if (selectedData.cnAgainst === "GN") {
           this.showDetail = false;
          //this.formUser.controls['totalAmount'].disable();     
         }
         else{
           this.showDetail = true;
           //this.formUser.controls['totalAmount'].enable();      
-        }     
-
-
+        }  
   }
 
     getSlNo(): void {    
