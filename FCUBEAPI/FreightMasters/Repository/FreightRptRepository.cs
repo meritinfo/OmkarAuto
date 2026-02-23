@@ -2479,6 +2479,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@Destination",request.FilterStr3),
                             new SqlParameter("@VehicleNo",  request.Search),
                             new SqlParameter("@GcSeries",   request.SortColumn),
+                            new SqlParameter("@RptType",    request.SortOrder),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBookingRegisterRptExcel", param);
 

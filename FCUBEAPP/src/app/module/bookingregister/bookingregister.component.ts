@@ -287,7 +287,7 @@ export class BookingregisterComponent {
       };
     }
       
-    exportExcel(): void {      
+    exportExcel(rptType: string): void {      
       this.formSubmitted = true;
       if (this.formFilter.invalid) {
         this.toastrService.warning("Please Enter Mandatory Fields");   
@@ -299,7 +299,7 @@ export class BookingregisterComponent {
         }     
         return;
       }
-      var selectedDataVal=this.formFilter.getRawValue();
+      var selectedDataVal = this.formFilter.getRawValue();
 
       this.filter.fromDate    = selectedDataVal.fromDate;
       this.filter.toDate      = selectedDataVal.toDate;
@@ -307,8 +307,9 @@ export class BookingregisterComponent {
       this.filter.filterStr1  = selectedDataVal.party?selectedDataVal.party.dataId:"";
       this.filter.filterStr2  = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
       this.filter.filterStr3  = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
-      this.filter.search  = selectedDataVal.vehicleNo;
+      this.filter.search      = selectedDataVal.vehicleNo;
       this.filter.sortColumn  = selectedDataVal.gcSeries;
+      this.filter.sortOrder   = rptType;      
 
       this.bookingregisterService.getBookingregisterrptExcel(this.filter).subscribe(resp => {      
         if(resp.status){      

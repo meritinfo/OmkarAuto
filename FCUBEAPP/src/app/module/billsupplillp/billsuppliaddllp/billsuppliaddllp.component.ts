@@ -847,8 +847,8 @@ dashboard: string ="";
     
   addItem(index: number): void {
     var selectedDataVal= this.formBillsMaster.getRawValue();  
-     
-    if (selectedDataVal.arrayList[index].VehicleMasterId.dataId && selectedDataVal.arrayList[index].freightAmt!= "") 
+    var vehilist = selectedDataVal.arrayListVeh[index];
+    if (vehilist.vehicleMasterId.dataId && vehilist.freightAmt!= "") 
     {  
       this.formVehArray.push(this.createInitialVehArray()); 
     }
@@ -1063,7 +1063,7 @@ dashboard: string ="";
      this.billsmastermodel.ownvehdata = [];
 
     var billlist = selectedDataValue.arrayList;
-     var vehlist = selectedDataValue.arrayListVeh;
+    var vehlist = selectedDataValue.arrayListVeh;
 
     for (let i = 0; i < billlist.length; i++) {  
       if(billlist[i].consignmentid!="") {
