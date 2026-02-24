@@ -47,6 +47,7 @@ namespace FCUBEAPI.Controllers
         readonly IBrokerAdvancePmtBusiness brokerAdvancePmtBusiness;
         readonly IDirectPmtBusiness directPmtBusiness;
         readonly ICreditNoteEntryBusiness creditNoteEntryBusiness;
+        readonly IDebitNoteEntryBusiness debitNoteEntryBusiness;
         readonly IChallanSuppliLLPBusiness challanSuppliLLPBusiness;
         public ConsignmentController(IOptions<DBModel> _dbconnection,
             IConsignmentBusiness _consignmentBusiness,
@@ -75,6 +76,7 @@ namespace FCUBEAPI.Controllers
             ILorryHireLLPBusiness _lorryHireLLPBusiness,
             IChallanSuppliLLPBusiness _challanSuppliLLPBusiness,
             ICreditNoteEntryBusiness _creditNoteEntryBusiness,
+            IDebitNoteEntryBusiness _debitNoteEntryBusiness,
             IDirectPmtBusiness _directPmtBusiness)
         {
             dbconnection = _dbconnection;
@@ -104,6 +106,7 @@ namespace FCUBEAPI.Controllers
             lorryHireLLPBusiness = _lorryHireLLPBusiness;
             challanSuppliLLPBusiness = _challanSuppliLLPBusiness;
             creditNoteEntryBusiness = _creditNoteEntryBusiness;
+            debitNoteEntryBusiness = _debitNoteEntryBusiness;
         }
         
 
@@ -4162,6 +4165,78 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await creditNoteEntryBusiness.GetCreditSlNo(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetDebitNoteList")]
+        public async Task<IActionResult> GetDebitNoteList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await debitNoteEntryBusiness.GetDebitNoteList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("DebitNoteEntrySave")]
+        public async Task<IActionResult> DebitNoteEntrySave(DebitNoteEntryModel debitNoteEntryModel)
+        {
+            if (debitNoteEntryModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await debitNoteEntryBusiness.DebitNoteEntrySave(debitNoteEntryModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("DebitNoteDelete")]
+        public async Task<IActionResult> DebitNoteDelete(RequestModel requestModel)
+        {
+            if (requestModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await debitNoteEntryBusiness.DebitNoteDelete(requestModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetDebitSlNo")]
+        public async Task<IActionResult> GetDebitSlNo(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await debitNoteEntryBusiness.GetDebitSlNo(request);
 
                 return Ok(result);
             }
