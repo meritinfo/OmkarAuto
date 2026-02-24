@@ -501,9 +501,19 @@ export class AddtrippaymentsComponent {
     }
     var selectedDataValue = this.formTripPayment.getRawValue();
 
-    const d3 = this.minDate?Date.parse(this.minDate):0;
-    const d2 = this.maxDate?Date.parse(this.maxDate):0;
-    const d4 = selectedDataValue.pmtDate?Date.parse(selectedDataValue.pmtDate):0;
+  //   const d3 = this.minDate?Date.parse(this.minDate):0;
+  //   const d2 = this.maxDate?Date.parse(this.maxDate):0;
+  //   const d4 = selectedDataValue.pmtDate?Date.parse(selectedDataValue.pmtDate):0;
+  //  if (d3>d4 || d2<d4 ) {
+  //     this.formTripPayment.patchValue({
+  //       pmtDate: ''
+  //     });
+  //     this.toasterService.warning("Invalid pmtDate ");
+  //     return
+  //   }
+    let d3 = new Date(this.minDate);
+    let d2 = new Date(this.maxDate);
+    let d4 = new Date(selectedDataValue.pmtDate);
    if (d3>d4 || d2<d4 ) {
       this.formTripPayment.patchValue({
         pmtDate: ''
@@ -511,7 +521,6 @@ export class AddtrippaymentsComponent {
       this.toasterService.warning("Invalid pmtDate ");
       return
     }
-    
     if (this.transTp == "DA") {
       if(parseFloat(selectedDataValue.amountPaid)>0){
         //ignore

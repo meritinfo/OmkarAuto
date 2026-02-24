@@ -1135,9 +1135,9 @@ dashboard: string ="";
       this.toastrService.warning("Please Enter Valid  Vehicle No");          
       return;
     }
-    const d3 = this.minDate?Date.parse(this.minDate):0;
-    const d2 = this.maxDate?Date.parse(this.maxDate):0;
-    const d4 = selectedDataValue.stmtDate?Date.parse(selectedDataValue.stmtDate):0;
+    let d3 = new Date(this.minDate);
+    let d2 = new Date(this.maxDate);
+    let d4 = new Date(selectedDataValue.stmtDate);
     if (d3>d4 || d2<d4 ) {
       this.formTripsheet.patchValue({
         stmtDate: ''

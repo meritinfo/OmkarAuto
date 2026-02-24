@@ -442,9 +442,19 @@ dashboard: string ="";
       }
     }
 
-    const d3 = this.minDate?Date.parse(this.minDate):0;
-    const d2 = this.maxDate?Date.parse(this.maxDate):0;
-    const d4 = selectedDataValue.transDate?Date.parse(selectedDataValue.transDate):0;
+    // const d3 = this.minDate?Date.parse(this.minDate):0;
+    // const d2 = this.maxDate?Date.parse(this.maxDate):0;
+    // const d4 = selectedDataValue.transDate?Date.parse(selectedDataValue.transDate):0;
+    // if (d3>d4 || d2<d4 ) {
+    //   this.formUser.patchValue({
+    //     transDate: ''
+    //   });
+    //   this.toastrService.warning("Invalid Trans date");
+    //   return
+    // }
+        let d3 = new Date(this.minDate);
+    let d2 = new Date(this.maxDate);
+    let d4 = new Date(selectedDataValue.transDate);
     if (d3>d4 || d2<d4 ) {
       this.formUser.patchValue({
         transDate: ''
@@ -452,6 +462,7 @@ dashboard: string ="";
       this.toastrService.warning("Invalid Trans date");
       return
     }
+
 
     this.tyresalesmastermodel.masterID = this.selectedTyresalesDetail.masterID;
     this.tyresalesmastermodel.branchCode= selectedDataValue.branchCode.toString();

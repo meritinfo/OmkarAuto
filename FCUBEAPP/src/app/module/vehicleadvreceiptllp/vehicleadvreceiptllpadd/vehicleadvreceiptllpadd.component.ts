@@ -496,10 +496,22 @@ dashboard: string ="";
       return;
     }
   
+    // var selectedDataValue = this.formUser.getRawValue();
+    // const d3 = this.minDate?Date.parse(this.minDate):0;
+    // const d2 = this.maxDate?Date.parse(this.maxDate):0;
+    // const d4 = selectedDataValue.transDate?Date.parse(selectedDataValue.transDate):0;
+    // if (d3>d4 || d2<d4 ) {
+    //   this.formUser.patchValue({
+    //     transDate: ''
+    //   });
+    //   this.toastrService.warning("Invalid Trans date");
+    //   return
+    // }
+     
     var selectedDataValue = this.formUser.getRawValue();
-    const d3 = this.minDate?Date.parse(this.minDate):0;
-    const d2 = this.maxDate?Date.parse(this.maxDate):0;
-    const d4 = selectedDataValue.transDate?Date.parse(selectedDataValue.transDate):0;
+    const d3 =  new Date(this.minDate);
+    const d2 =  new Date(this.maxDate);
+    const d4 = new Date(selectedDataValue.transDate);
     if (d3>d4 || d2<d4 ) {
       this.formUser.patchValue({
         transDate: ''
@@ -507,6 +519,10 @@ dashboard: string ="";
       this.toastrService.warning("Invalid Trans date");
       return
     }
+
+
+
+
     // if (selectedDataValue.vehicleMasterId.dataId) {
     //   //ignore
     // }
