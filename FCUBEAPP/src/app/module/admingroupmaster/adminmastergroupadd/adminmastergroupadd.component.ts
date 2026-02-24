@@ -34,14 +34,12 @@ export class AdminmastergroupaddComponent {
       editStatus = false;
       deleteStatus = false;
       viewStatus = false; 
-dashboard: string ="";
+      dashboard: string ="";
       createmode = false;
       seriesDoc: string = "";
     
       responseDetails = new Responsemodel();
       branchList: Dropdownmodel[] = [];
-      creditacList: Dropdownmodel[] = [];
-      creditAcList: Dropdownmodel[] = [];
       vehicleList: Dropdownmodel[] = [];
       newList: Dropdownmodel[] = [];
       locationList: Dropdownmodel[] = [];

@@ -43,8 +43,8 @@ export class CreditNoteService {
   creditnoteDetailsSubmitted(user: Creditnoteentrymodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/CreditNoteEntrySave', user, this.httpformOptions);
   }
-  getCreditSlNo(request: Requestmodel ):  Observable<Responsemodel> {
-      return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetCreditSlNo', request, this.httpOptions);
+  getCreditNoteSlNo(request: Requestmodel ):  Observable<Responsemodel> {
+      return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetCreditNoteSlNo', request, this.httpOptions);
    }
   getCreditNoteList(filter: Reportmodel): Observable<Creditnoteentrylistmodel> {
     return this.httpClient.post<Creditnoteentrylistmodel>(Constants.API_ENDPOINT + 'Consignment/GetCreditNoteList', filter, this.httpOptions);
@@ -53,20 +53,8 @@ export class CreditNoteService {
   creditNoteDelete(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/CreditNoteDelete', req, this.httpOptions);
   }  
-  getChallanNo(req: Requestmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetChallanNo', req, this.httpOptions);
-  }
-
-
-  getCreditBillDetails(req: Reportmodel): Observable<Creditnoteentrymodel> {
-    return this.httpClient.post<Creditnoteentrymodel>(Constants.API_ENDPOINT + 'Consignment/GetCreditBillDetails', req, this.httpOptions);
-  }
-
-  getCDetails(filter: Requestmodel): Observable<Creditnoteentrymodel> {
-    return this.httpClient.post<Creditnoteentrymodel>(Constants.API_ENDPOINT + 'Consignment/GetChallanEnqDetails', filter, this.httpOptions);
-  }
-
-
-  
+  getCreditNoteBillDetails(req: Reportmodel): Observable<Creditnoteentrymodel> {
+    return this.httpClient.post<Creditnoteentrymodel>(Constants.API_ENDPOINT + 'Consignment/GetCreditNoteBillDetails', req, this.httpOptions);
+  } 
   
 }

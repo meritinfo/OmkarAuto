@@ -4134,8 +4134,8 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("GetCreditBillDetails")]
-        public async Task<IActionResult> GetCreditBillDetails(ReportRequestModel req)
+        [HttpPost("GetCreditNoteBillDetails")]
+        public async Task<IActionResult> GetCreditNoteBillDetails(ReportRequestModel req)
         {
             if (req == null)
             {
@@ -4143,7 +4143,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await creditNoteEntryBusiness.GetCreditBillDetails(req);
+                var result = await creditNoteEntryBusiness.GetCreditNoteBillDetails(req);
 
                 return Ok(result);
             }
@@ -4152,8 +4152,8 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("GetCreditSlNo")]
-        public async Task<IActionResult> GetCreditSlNo(RequestModel request)
+        [HttpPost("GetCreditNoteSlNo")]
+        public async Task<IActionResult> GetCreditNoteSlNo(RequestModel request)
         {
             if (request == null)
             {
@@ -4161,7 +4161,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await creditNoteEntryBusiness.GetCreditSlNo(request);
+                var result = await creditNoteEntryBusiness.GetCreditNoteSlNo(request);
 
                 return Ok(result);
             }
