@@ -1,8 +1,8 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { SharedService } from './services/shared.service';
-import { timer } from 'rxjs';
+import { timer, interval } from 'rxjs';
 import { Router } from '@angular/router';
-import { Loginmodel } from './models/loginmodel';
+import { Loginmodel } from 'src/app/models/loginmodel';
 import { LoggedinUsermodel } from './models/loggedinusermodel'; // Make sure this is used or remove if not needed
 import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 import { Keepalive } from '@ng-idle/keepalive';
@@ -14,6 +14,7 @@ import { Keepalive } from '@ng-idle/keepalive';
 })
 export class AppComponent implements OnInit {
   title = 'FCUBEAPP';
+  lastActivity = Date.now();
 
   showModalBox: boolean = false;
   user: string = '';
@@ -23,17 +24,10 @@ export class AppComponent implements OnInit {
   timedOut = false;
   lastPing?: Date;
 
-  // Assuming Loginmodel and LoggedinUsermodel are provided via DI if needed elsewhere,
-  // but for the idle logic, they don't seem directly relevant here.
   constructor(
     public sharedService: SharedService,
-    private route: Router,
-    private idle: Idle,
-    private keepalive: Keepalive
-  ) {
-    // idle.setIdle and idle.setTimeout are often set in the constructor
-    // or ngOnInit before calling idle.watch().
-    // You have them in ngOnInit which is fine.
+    private route: Router,private idle: Idle,
+    private keepalive: Keepalive,private loginModel: Loginmodel) {
 
     // Configure the idle service
     this.idle.setIdle(3600); // 1 hour (seconds)
@@ -59,43 +53,30 @@ export class AppComponent implements OnInit {
 
     this.idle.onIdleStart.subscribe(() => {
       this.idleState = 'You\'ve gone idle!';
-      // You might want to show a warning modal here, BEFORE timeout
-      // this.showModalBox = true; // Show the warning modal
     });
 
-    // Optional: onTimeoutWarning to show a countdown in your modal
     this.idle.onTimeoutWarning.subscribe((countdown) => {
       this.idleState = 'You will time out in ' + countdown + ' seconds!';
-      // This is where you'd typically show your modal and update a countdown
       this.showModalBox = true; // Show the warning modal
     });
 
-    // Configure keepalive (optional, for pinging server)
      this.keepalive.interval(15); // Ping server every 15 seconds
      this.keepalive.onPing.subscribe(() => this.lastPing = new Date());
   }
 
   ngOnInit(): void {
-    // Initialize user and company data from session storage
-    // You have duplicate logic for 'user' here, correct it.
     const uid = sessionStorage.getItem('uid');
     if (uid) {
       this.sharedService.loggedInStatus = true;
-    }
-    const userName = sessionStorage.getItem('user');
-    if (userName) {
-      this.user = userName;
+      this.user = uid;
     }
     const shortCode = sessionStorage.getItem('shortCode');
     if (shortCode) {
       this.company = shortCode;
-    }
-
-    // IMPORTANT: Start watching for idle AFTER the user is logged in
-    // and after all idle configurations are set up.
+    }   
     if (this.sharedService.loggedInStatus) {
       this.reset(); // Initial reset to start watching
-    } else {// If not logged in, ensure idle monitoring is stopped
+    } else {
       this.idle.stop();
     }
   }
@@ -104,16 +85,13 @@ export class AppComponent implements OnInit {
     this.idle.watch(); // Start watching for user activity
     this.idleState = 'Started.';
     this.timedOut = false;
-    // You might want to hide the modal here if it was shown for warning
     this.showModalBox = false;
   }
 
-  // Method to handle closing the modal (e.g., if user clicks 'Stay Logged In')
   stayLoggedIn() {
     this.reset(); // Reset the timer and hide the modal
   }
 
-  // Method to handle logging out from the modal
   logout() {
     this.showModalBox = false;
     this.sharedService.loggedInStatus = false;
@@ -122,24 +100,26 @@ export class AppComponent implements OnInit {
     this.idle.stop(); // Stop watching on logout
   }
 
+  getRefreshToken() {
+    this.loginModel.userName = this.user;
+    interval(1200000).subscribe(() => {
+      if ((Date.now() - this.lastActivity)< (20 * 60000)) {
+        this.sharedService.refreshToken(this.loginModel).subscribe((res: LoggedinUsermodel) => {
+          sessionStorage.setItem("token", res.token);
+          this.lastActivity = Date.now();
+        });
+      }
+    });
+  }
 
-
-  // Consider using HostListener for broader activity detection
-  // This helps ensure the timer resets on any interaction within the app's root component.
   @HostListener('document:mousemove', ['$event'])
+  @HostListener('document:scroll', ['$event'])
   @HostListener('document:keydown', ['$event'])
   @HostListener('document:click', ['$event'])
-  onActivity(event: MouseEvent | KeyboardEvent) {
-    // The DEFAULT_INTERRUPTSOURCES should handle this, but an explicit
-    // HostListener ensures that your component reacts, and you can add custom logic here.
-    // However, do NOT call this.reset() here directly if DEFAULT_INTERRUPTSOURCES
-    // is already configured. Calling it excessively can cause performance issues or
-    // unintended behavior. The idle service itself handles the resets when interrupts occur.
-    // If you explicitly want to call reset on every interaction, you would remove
-    // DEFAULT_INTERRUPTSOURCES and manually call reset here.
-    // For now, trust DEFAULT_INTERRUPTSOURCES. This HostListener is more for
-    // knowing when activity happens if you needed to debug or add other side effects.
-  }
+  onActivity(event: Event) {
+    this.getRefreshToken();
+    this.lastActivity = Date.now();
+  }
 
   //Shortcut key for destination list -> Ctrl + S
   @HostListener('window:keydown.control.s', ['$event'])

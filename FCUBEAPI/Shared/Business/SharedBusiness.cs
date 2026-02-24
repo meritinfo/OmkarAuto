@@ -51,7 +51,7 @@ namespace Shared.Business
                     _configuration["Jwt:Issuer"],
                     _configuration["Jwt:Audience"],
                     claims,
-                    expires: DateTime.UtcNow.AddMinutes(30),
+                    expires: DateTime.UtcNow.AddMinutes(60),
                     signingCredentials: signIn);
 
                 userModel.Token = new JwtSecurityTokenHandler().WriteToken(token);
@@ -80,7 +80,7 @@ namespace Shared.Business
                 _configuration["Jwt:Issuer"],
                 _configuration["Jwt:Audience"],
                 claims,
-                expires: DateTime.UtcNow.AddMinutes(30),
+                expires: DateTime.UtcNow.AddMinutes(60),
                 signingCredentials: signIn);
 
             string RefreshToken = new JwtSecurityTokenHandler().WriteToken(token);
