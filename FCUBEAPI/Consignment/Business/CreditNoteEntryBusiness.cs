@@ -21,9 +21,9 @@ namespace Consignment.Business
         {
             return await creditNoteEntryRepository.CreditNoteEntrySave(creditNoteEntryModel);
         }
-        public async Task<CreditNoteEntryModel> GetCreditBillDetails(ReportRequestModel request)
+        public async Task<CreditNoteEntryModel> GetCreditNoteBillDetails(ReportRequestModel request)
         {
-            return await creditNoteEntryRepository.GetCreditBillDetails(request);
+            return await creditNoteEntryRepository.GetCreditNoteBillDetails(request);
         }
         public async Task<CreditNoteList> GetCreditNoteList(ReportRequestModel request)
         {
@@ -33,9 +33,9 @@ namespace Consignment.Business
         {
             return await creditNoteEntryRepository.CreditNoteDelete(requestModel);
         }
-        public async Task<ResponseModel> GetCreditSlNo(RequestModel requestModel)
+        public async Task<ResponseModel> GetCreditNoteSlNo(RequestModel requestModel)
         {
-            return await creditNoteEntryRepository.GetCreditSlNo(requestModel);
+            return await creditNoteEntryRepository.GetCreditNoteSlNo(requestModel);
         }
 
     }

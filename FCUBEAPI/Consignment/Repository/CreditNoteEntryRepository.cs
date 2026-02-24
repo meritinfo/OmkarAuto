@@ -32,41 +32,41 @@ namespace Consignment.Repository
                 if (dbconnection != null)
                 {
                     SqlParameter[] param =
-                        {
+                    {
 
-                                new SqlParameter("@CnId", creditNoteEntryModel.CnId),
-                                new SqlParameter("@CnBranch", creditNoteEntryModel.CnBranch),
-                                new SqlParameter("@CnDate", creditNoteEntryModel.CnDate),
-                                new SqlParameter("@CnSlNo", creditNoteEntryModel.CnSlNo),
-                                new SqlParameter("@CnAgainst", creditNoteEntryModel.CnAgainst),
-                                new SqlParameter("@PartyId", creditNoteEntryModel.PartyId),
-                                new SqlParameter("@BillYear", creditNoteEntryModel.BillYear),
-                                new SqlParameter("@BillingStation", creditNoteEntryModel.BillingStation),
-                                new SqlParameter("@BillSeries", creditNoteEntryModel.BillSeries),
-                                new SqlParameter("@BillSlNo", creditNoteEntryModel.BillSlNo),
-                                new SqlParameter("@BillDate", creditNoteEntryModel.BillDate),
-                                new SqlParameter("@BillType", creditNoteEntryModel.BillType),
-                                new SqlParameter("@BillsMasterId", creditNoteEntryModel.BillsMasterId),
-                                new SqlParameter("@BillGstBy", creditNoteEntryModel.BillGstBy),
-                                new SqlParameter("@BillGstType", creditNoteEntryModel.BillGstType),
-                                new SqlParameter("@BillGstPct", creditNoteEntryModel.BillGstPct),
-                                new SqlParameter("@BillTaxableAmt", creditNoteEntryModel.BillTaxableAmt),
-                                new SqlParameter("@BillSgstAmt", creditNoteEntryModel.BillSgstAmt),
-                                new SqlParameter("@BillCgstAmt", creditNoteEntryModel.BillCgstAmt),
-                                new SqlParameter("@BillIgstAmt", creditNoteEntryModel.BillIgstAmt),
-                                new SqlParameter("@TotalBillAmount", creditNoteEntryModel.TotalBillAmount),
-                                new SqlParameter("@SacCode", creditNoteEntryModel.SacCode),
-                                new SqlParameter("@FullPartReBill", creditNoteEntryModel.FullPartReBill),
-                                new SqlParameter("@CnCreditAmt", creditNoteEntryModel.CnCreditAmt),
-                                new SqlParameter("@CnSgstAmt", creditNoteEntryModel.CnSgstAmt),
-                                new SqlParameter("@CnCgstAmt", creditNoteEntryModel.CnCgstAmt),
-                                new SqlParameter("@CnIgstAmt", creditNoteEntryModel.CnIgstAmt),
-                                new SqlParameter("@TotalCreditAmt", creditNoteEntryModel.TotalCreditAmt),
-                                new SqlParameter("@CreditNoteRemarks", creditNoteEntryModel.CreditNoteRemarks),
-                                new SqlParameter("@DebitAc", creditNoteEntryModel.DebitAc),
-                                new SqlParameter("@YearId", creditNoteEntryModel.YearId),
-                                new SqlParameter("@LoggedInUser", creditNoteEntryModel.LoggedInUser)
-                        };
+                        new SqlParameter("@CnId", creditNoteEntryModel.CnId),
+                        new SqlParameter("@CnBranch", creditNoteEntryModel.CnBranch),
+                        new SqlParameter("@CnDate", creditNoteEntryModel.CnDate),
+                        new SqlParameter("@CnSlNo", creditNoteEntryModel.CnSlNo),
+                        new SqlParameter("@CnAgainst", creditNoteEntryModel.CnAgainst),
+                        new SqlParameter("@PartyId", creditNoteEntryModel.PartyId),
+                        new SqlParameter("@BillYear", creditNoteEntryModel.BillYear),
+                        new SqlParameter("@BillingStation", creditNoteEntryModel.BillingStation),
+                        new SqlParameter("@BillSeries", creditNoteEntryModel.BillSeries),
+                        new SqlParameter("@BillSlNo", creditNoteEntryModel.BillSlNo),
+                        new SqlParameter("@BillDate", creditNoteEntryModel.BillDate),
+                        new SqlParameter("@BillType", creditNoteEntryModel.BillType),
+                        new SqlParameter("@BillsMasterId", creditNoteEntryModel.BillsMasterId),
+                        new SqlParameter("@BillGstBy", creditNoteEntryModel.BillGstBy),
+                        new SqlParameter("@BillGstType", creditNoteEntryModel.BillGstType),
+                        new SqlParameter("@BillGstPct", creditNoteEntryModel.BillGstPct),
+                        new SqlParameter("@BillTaxableAmt", creditNoteEntryModel.BillTaxableAmt),
+                        new SqlParameter("@BillSgstAmt", creditNoteEntryModel.BillSgstAmt),
+                        new SqlParameter("@BillCgstAmt", creditNoteEntryModel.BillCgstAmt),
+                        new SqlParameter("@BillIgstAmt", creditNoteEntryModel.BillIgstAmt),
+                        new SqlParameter("@TotalBillAmount", creditNoteEntryModel.TotalBillAmount),
+                        new SqlParameter("@SacCode", creditNoteEntryModel.SacCode),
+                        new SqlParameter("@FullPartReBill", creditNoteEntryModel.FullPartReBill),
+                        new SqlParameter("@CnCreditAmt", creditNoteEntryModel.CnCreditAmt),
+                        new SqlParameter("@CnSgstAmt", creditNoteEntryModel.CnSgstAmt),
+                        new SqlParameter("@CnCgstAmt", creditNoteEntryModel.CnCgstAmt),
+                        new SqlParameter("@CnIgstAmt", creditNoteEntryModel.CnIgstAmt),
+                        new SqlParameter("@TotalCreditAmt", creditNoteEntryModel.TotalCreditAmt),
+                        new SqlParameter("@CreditNoteRemarks", creditNoteEntryModel.CreditNoteRemarks),
+                        new SqlParameter("@DebitAc", creditNoteEntryModel.DebitAc),
+                        new SqlParameter("@YearId", creditNoteEntryModel.YearId),
+                        new SqlParameter("@LoggedInUser", creditNoteEntryModel.LoggedInUser)
+                    };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_CreditNoteSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
@@ -89,7 +89,7 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-        public async Task<CreditNoteEntryModel> GetCreditBillDetails(ReportRequestModel request)
+        public async Task<CreditNoteEntryModel> GetCreditNoteBillDetails(ReportRequestModel request)
         {
             CreditNoteEntryModel creditNote = new();
             try
@@ -98,16 +98,16 @@ namespace Consignment.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@BillSlNo", request.FilterStr),
-                            new SqlParameter("@BillingStation", request.FilterStr1),
                             new SqlParameter("@BillYear", request.FilterStr2),
-                             new SqlParameter("@BillSeries", request.FilterStr3),
+                            new SqlParameter("@BillingStation", request.FilterStr1),
+                            new SqlParameter("@BillSeries", request.FilterStr3),
+                            new SqlParameter("@BillSlNo", request.FilterStr),
+                            new SqlParameter("@PartyId", request.Search),
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCreditBillDetails", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCreditNoteBillDetails", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
-                    {
-                       
+                    {                       
                         creditNote.BillDate = Convert.ToString(dataSet.Tables[0].Rows[0]["BillDate"]);
                         creditNote.BillType = Convert.ToString(dataSet.Tables[0].Rows[0]["BillType"]);
                         creditNote.BillsMasterId = Convert.ToString(dataSet.Tables[0].Rows[0]["BillsMasterId"]);
@@ -119,10 +119,6 @@ namespace Consignment.Repository
                         creditNote.BillCgstAmt = Convert.ToString(dataSet.Tables[0].Rows[0]["BillCgstAmt"]);
                         creditNote.BillIgstAmt = Convert.ToString(dataSet.Tables[0].Rows[0]["BillIgstAmt"]);
                         creditNote.TotalBillAmount = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalBillAmount"]);
-                        creditNote.PartyId = Convert.ToString(dataSet.Tables[0].Rows[0]["PartyId"]);
-
-
-
                     }
                 }
             }
@@ -131,7 +127,7 @@ namespace Consignment.Repository
             }
             return creditNote;
         }
-        public async Task<ResponseModel> GetCreditSlNo(RequestModel requestModel)
+        public async Task<ResponseModel> GetCreditNoteSlNo(RequestModel requestModel)
         {
             ResponseModel responseModel = new();
             try
@@ -143,13 +139,12 @@ namespace Consignment.Repository
                             new SqlParameter("@Branch", requestModel.strRequest),
                             new SqlParameter("@Year", requestModel.strRequest1),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCreditSlNo", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCreditNoteSlNo", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-
                     }
                 }
             }
@@ -177,7 +172,7 @@ namespace Consignment.Repository
                             new SqlParameter("@FromDate",   request.FromDate),
                             new SqlParameter("@ToDate",     request.ToDate),
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_CreditNoteList", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCreditNoteList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {

@@ -10,10 +10,8 @@ import { DocRenewalMasterService } from 'src/app/services/docrenewalmaster.servi
 import { Creditnoteentrymodel } from 'src/app/models/creditnoteentrymodel';
 import { CreditNoteService } from 'src/app/services/creditnoteentry.service';
 import { Reportmodel } from 'src/app/models/reportmodel';
-
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
-import { ReturnStatement } from '@angular/compiler';
 
 @Component({
   selector: 'app-creditnoteentryadd',
@@ -51,7 +49,8 @@ export class CreditnoteentryaddComponent {
   keywordLocation = 'dataName';
 
   constructor(private route: Router, private formBuilder: FormBuilder,
-    private creditmodel: Creditnoteentrymodel, private creditNoteService: CreditNoteService, private docRenewalMasterService: DocRenewalMasterService,
+    private creditmodel: Creditnoteentrymodel, private creditNoteService: CreditNoteService, 
+    private docRenewalMasterService: DocRenewalMasterService,
     private commonService: CommonService, private sharedService: SharedService,
     private toastrService: ToastrService, private requestmodel: Requestmodel, private reportmodel: Reportmodel) {
     this.creditmodel = new Creditnoteentrymodel();
@@ -102,28 +101,24 @@ export class CreditnoteentryaddComponent {
     if (typeof branchData !== 'undefined' && branchData !== null && branchData !== '') {
       this.branch = branchData;
     }
-    this.getSlNo();
     this.getBranchList();
     this.getdebitAc();
     this.getBillingPartyList();
     this.getYearList();
 
-
     this.sharedService.loading = false;
-
     this.selectedCreditDetails = this.creditNoteService.getCreditNoteDetails();
 
     this.formUser = this.formBuilder.group({
-      //challanBranch: new FormControl(this.branch, [Validators.required]),
       cnBranch: new FormControl(this.branch, [Validators.required]),
       cnDate: new FormControl(this.loginDate, [Validators.required]),
       cnSlNo: new FormControl('', [Validators.required]),
-      cnAgainst: new FormControl(''),
-      partyId: new FormControl(''),
-      billYear: new FormControl('', [Validators.required]),
-      billingStation: new FormControl(''),
+      cnAgainst: new FormControl('',[Validators.required]),
+      partyId: new FormControl('',[Validators.required]),
+      billYear: new FormControl('',[Validators.required]),
+      billingStation: new FormControl('',[Validators.required]),
       billSeries: new FormControl(''),
-      billSlNo: new FormControl('', [Validators.required]),
+      billSlNo: new FormControl('',[Validators.required]),
       billDate: new FormControl(''),
       billType: new FormControl(''),
       billsMasterId: new FormControl(''),
@@ -136,18 +131,15 @@ export class CreditnoteentryaddComponent {
       billIgstAmt: new FormControl(''),
       totalBillAmount: new FormControl(''),
       sacCode: new FormControl(''),
-      fullPartReBill: new FormControl(''),
-      cnCreditAmt: new FormControl(''),
-      cnSgstAmt: new FormControl(''),
-      cnCgstAmt: new FormControl(''),
-      cnIgstAmt: new FormControl(''),
-      totalCreditAmt: new FormControl(''),
+      fullPartReBill: new FormControl('',[Validators.required]),
+      cnCreditAmt: new FormControl('0'),
+      cnSgstAmt: new FormControl('0'),
+      cnCgstAmt: new FormControl('0'),
+      cnIgstAmt: new FormControl('0'),
+      totalCreditAmt: new FormControl('0',[Validators.required]),
       creditNoteRemarks: new FormControl(''),
-      debitAc: new FormControl(''),
-      yearId: new FormControl('')
-
+      debitAc: new FormControl('',[Validators.required]),
     });
-
 
     this.formUser.controls["cnBranch"].disable();
     this.formUser.controls["billDate"].disable();
@@ -160,8 +152,8 @@ export class CreditnoteentryaddComponent {
     this.formUser.controls["billCgstAmt"].disable();
     this.formUser.controls["billIgstAmt"].disable();
     this.formUser.controls["totalBillAmount"].disable();
-    this.formUser.controls["partyId"].disable();
-   // this.formUser.controls["sacCode"].disable();
+    this.formUser.controls["totalCreditAmt"].disable();    
+    this.getSlNo();
 
     setTimeout(() => {
       if (this.selectedCreditDetails.cnId != '') {
@@ -170,20 +162,24 @@ export class CreditnoteentryaddComponent {
         this.formUser.patchValue({
            billDate: this.commonService.formatDate(this.selectedCreditDetails.billDate) ,
            cnDate:this.commonService.formatDate(this.selectedCreditDetails.cnDate) ,
-           
-          // challanFromStn: this.locationList.find(e => e.dataId == this.selectedChallanDetails.challanFromStn),
-          // challanToStn: this.locationList.find(e => e.dataId == this.selectedChallanDetails.challanToStn), 
-           partyId : this.partyList.find(e => e.dataId == this.selectedCreditDetails.partyId),           
+           partyId : this.partyList.find(e => e.dataId == this.selectedCreditDetails.partyId),          
+           debitAc: this.debitAcList.find(e => e.dataId == this.selectedCreditDetails.debitAc),
         })
+ 
+        if (this.selectedCreditDetails.cnAgainst=="BL"){
+            this.showDetail =true;
+        }     
 
-        // this.formUser.controls['challanNo'].disable();  
-        // this.formUser.controls["modifyRemarks"].enable();  
+        this.formUser.controls["billSlNo"].disable();
+        this.formUser.controls["billingStation"].disable();
+        this.formUser.controls["billYear"].disable();
+        this.formUser.controls["billSeries"].disable();  
+        this.formUser.controls["cnBranch"].disable();  
+        this.formUser.controls["cnDate"].disable();  
+        this.formUser.controls["cnSlNo"].disable();      
+        this.formUser.controls["cnAgainst"].disable(); 
+        this.formUser.controls["partyId"].disable();
 
-        //  this.createdBy = this.selectedChallanDetails.createdBy + " " + this.selectedChallanDetails.createdDate;
-        //  this.modifiedBy = this.selectedChallanDetails.modifiedBy + " " + this.selectedChallanDetails.modifiedDate;     
-          if (this.selectedCreditDetails.cnAgainst=="BL"){
-              this.showDetail =true;
-          }
         this.editMode = true;
         this.sharedService.loading = false;
       }
@@ -206,15 +202,18 @@ export class CreditnoteentryaddComponent {
   }
   
   getdebitAc(): void {
-    this.docRenewalMasterService.getdebitAc().subscribe((res) => {
+    this.requestmodel.strRequest = "";
+    this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
       this.debitAcList = res;
     });
   }
+
   getBillingPartyList(): void {
     this.commonService.getBillingPartyList().subscribe((res) => {
       this.partyList = res;
     });
   }
+
   getSeriesList(br: string): void {
     this.requestmodel.strRequest = "B";
     this.requestmodel.strRequest1 = br;
@@ -222,6 +221,7 @@ export class CreditnoteentryaddComponent {
       this.seriesList = res;
     });
   }
+
   onChangeSearch(search: string) {
     // do something with selected item
   }
@@ -233,6 +233,7 @@ export class CreditnoteentryaddComponent {
   startWithFilter = function (partyList: Dropdownmodel[], query: string): any[] {
     return partyList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
+
   getYearList(): void {
     this.commonService.getYearList().subscribe((res) => {
       this.yearList = res;
@@ -240,6 +241,112 @@ export class CreditnoteentryaddComponent {
   }
 
 
+  getDetails() {
+    var selectedData = this.formUser.getRawValue();
+    if(selectedData.billSlNo==""){
+      this.toastrService.warning("Please Enter Bill No ");
+      return;
+    }
+    if(selectedData.partyId.dataId){
+      //ignore
+    }
+    else{
+      this.toastrService.warning("Please Select Party ");
+      return;
+    }
+    this.reportmodel.filterStr  = selectedData.billSlNo;
+    this.reportmodel.filterStr1 = selectedData.billingStation;
+    this.reportmodel.filterStr2 = selectedData.billYear;
+    this.reportmodel.filterStr3 = selectedData.billSeries;
+    this.reportmodel.search     = selectedData.partyId.dataId;
+    
+    this.creditNoteService.getCreditNoteBillDetails(this.reportmodel).subscribe((res: Creditnoteentrymodel) => {
+      this.creditmodel = res;
+      if (this.creditmodel.billsMasterId) {
+        this.formUser.controls["billSlNo"].disable();
+        this.formUser.controls["billingStation"].disable();
+        this.formUser.controls["billYear"].disable();
+        this.formUser.controls["billSeries"].disable();      
+      
+        this.formUser.patchValue({
+          billDate: this.commonService.formatDate(this.creditmodel.billDate) ,
+          billType: this.creditmodel.billType,
+          billsMasterId: this.creditmodel.billsMasterId,
+          billGstType: this.creditmodel.billGstType,
+          billGstBy: this.creditmodel.billGstBy,
+          billGstPct: this.creditmodel.billGstPct,
+          billTaxableAmt: this.creditmodel.billTaxableAmt,
+          billSgstAmt: this.creditmodel.billSgstAmt,
+          billCgstAmt: this.creditmodel.billCgstAmt,
+          billIgstAmt: this.creditmodel.billIgstAmt,
+          totalBillAmount: this.creditmodel.totalBillAmount,
+          cnCreditAmt: this.creditmodel.billTaxableAmt,
+          cnSgstAmt: this.creditmodel.billSgstAmt,
+          cnCgstAmt: this.creditmodel.billCgstAmt,
+          cnIgstAmt: this.creditmodel.billIgstAmt,
+          totalCreditAmt: this.creditmodel.totalBillAmount,
+          sacCode: this.creditmodel.sacCode,
+        });
+      }
+      else{
+        this.toastrService.warning("Entered Bill does not exists/ No Outstanding");
+      }
+    });    
+  }
+
+  calTotal(){    
+    var selectedData = this.formUser.getRawValue();
+    var cnCreditAmt = selectedData.cnCreditAmt? parseFloat(selectedData.cnCreditAmt):0;
+    var cnSgstAmt = selectedData.cnSgstAmt? parseFloat(selectedData.cnSgstAmt):0;
+    var cnCgstAmt = selectedData.cnCgstAmt? parseFloat(selectedData.cnCgstAmt):0;
+    var cnIgstAmt = selectedData.cnIgstAmt? parseFloat(selectedData.cnIgstAmt):0;
+    var totalCreditAmt = cnCreditAmt + cnSgstAmt + cnCgstAmt + cnIgstAmt;
+
+    this.formUser.patchValue({
+      totalCreditAmt  : totalCreditAmt.toString()
+    });
+  }
+  
+  showBillDetail(){
+    var selectedData = this.formUser.getRawValue();
+    if (selectedData.cnAgainst === "GN") {
+      this.showDetail = false;  
+      this.formUser.controls['fullPartReBill'].disable();
+      this.formUser.controls['billYear'].clearValidators();      
+      this.formUser.controls['billingStation'].clearValidators();      
+      this.formUser.controls['billSlNo'].clearValidators();
+      this.formUser.patchValue({
+        fullPartReBill: "G"
+      });           
+    }
+    else{
+      this.showDetail = true;  
+      this.formUser.controls['fullPartReBill'].enable();
+      this.formUser.controls['billYear'].setValidators([Validators.required]);
+      this.formUser.controls['billingStation'].setValidators([Validators.required]);
+      this.formUser.controls['billSlNo'].setValidators([Validators.required]);
+       this.formUser.patchValue({
+        fullPartReBill: ""
+      }); 
+    }  
+    this.formUser.controls['billYear'].updateValueAndValidity();      
+    this.formUser.controls['billingStation'].updateValueAndValidity();      
+    this.formUser.controls['billSlNo'].updateValueAndValidity();      
+  }
+
+  getSlNo(): void {    
+    this.requestmodel.strRequest = this.branch;
+    this.requestmodel.strRequest1 = this.year; 
+    this.creditNoteService.getCreditNoteSlNo(this.requestmodel).subscribe((res:Responsemodel) => {
+      this.responseDetails = res;
+      if(this.responseDetails.status){
+        this.formUser.patchValue({
+          cnSlNo: this.responseDetails.message
+        });
+      }
+    });
+  }  
+   
   deleteCreditForm(): void {
     if (this.selectedCreditDetails.cnId != '') {
       this.sharedService.loading = true;
@@ -260,91 +367,9 @@ export class CreditnoteentryaddComponent {
       this.sharedService.loading = false;
     }
   }
-  getDetails() {
-    var selectedData = this.formUser.getRawValue();
-    this.reportmodel.filterStr = selectedData.billSlNo;
-    this.reportmodel.filterStr1 = selectedData.billingStation;
-    this.reportmodel.filterStr2 = selectedData.billYear;
-    this.reportmodel.filterStr3 = selectedData.billSeries;
-    if(selectedData.billSlNo==""){
-      this.toastrService.warning("Please Enter Bill  No ");
-      return;
-    }
-    this.creditNoteService.getCreditBillDetails(this.reportmodel).subscribe((res: Creditnoteentrymodel) => {
-      this.creditmodel = res;
-      if (this.creditmodel.billsMasterId) {
-          this.formUser.controls["billSlNo"].disable();
-          this.formUser.controls["billingStation"].disable();
-            this.formUser.controls["billYear"].disable();
-             this.formUser.controls["billSeries"].disable();
-
-      
-      }
-       else{
-      //  this.toastrService.warning(this.responseDetails.message);
-        this.formUser.controls["billSlNo"].enable();
-          this.formUser.controls["billingStation"].enable();
-            this.formUser.controls["billYear"].enable();
-             this.formUser.controls["billSeries"].enable();
-       }
-        setTimeout(() => {
-      this.formUser.patchValue({
-       // billDate: this.creditmodel.billDate,
-        billDate: this.commonService.formatDate(this.creditmodel.billDate) ,
-        billType: this.creditmodel.billType,
-        billsMasterId: this.creditmodel.billsMasterId,
-        billGstType: this.creditmodel.billGstType,
-         billGstBy: this.creditmodel.billGstBy,
-        billGstPct: this.creditmodel.billGstPct,
-        billTaxableAmt: this.creditmodel.billTaxableAmt,
-        billSgstAmt: this.creditmodel.billSgstAmt,
-        billCgstAmt: this.creditmodel.billCgstAmt,
-        billIgstAmt: this.creditmodel.billIgstAmt,
-        totalBillAmount: this.creditmodel.totalBillAmount,
-         cnSgstAmt: this.creditmodel.billSgstAmt,
-          cnCgstAmt: this.creditmodel.billCgstAmt,
-             cnIgstAmt: this.creditmodel.billIgstAmt,
-             cnCreditAmt: this.creditmodel.totalBillAmount,
-        partyId : this.partyList.find(e => e.dataId == this.creditmodel.partyId),  
-        sacCode: this.creditmodel.sacCode,
-      });
-        }, 2000);
-      return;
-
-    });
-    
-  }
-
   exit(): void {
     this.route.navigate(['/creditnotelist']);
   }
-  showBillDetail(){
-     var selectedData = this.formUser.getRawValue();
-     if (selectedData.cnAgainst === "GN") {
-          this.showDetail = false;
-         //this.formUser.controls['totalAmount'].disable();     
-        }
-        else{
-          this.showDetail = true;
-          //this.formUser.controls['totalAmount'].enable();      
-        }  
-  }
-
-    getSlNo(): void {    
-      this.requestmodel.strRequest = this.branch;
-      this.requestmodel.strRequest1 = this.year; 
-      this.creditNoteService.getCreditSlNo(this.requestmodel).subscribe((res:Responsemodel) => {
-        this.responseDetails = res;
-        if(this.responseDetails.status){
-          this.formUser.patchValue({
-            cnSlNo: this.responseDetails.message
-          });
-        }
-      });
-    }  
-  
-
-  
 
   submitCreditNoteForm(): void {
     if (this.formUser.invalid) {
@@ -357,15 +382,29 @@ export class CreditnoteentryaddComponent {
       }
       return;
     }
-
     var selectedDataValue = this.formUser.getRawValue();
-
+    var cramt = selectedDataValue.totalCreditAmt?selectedDataValue.totalCreditAmt.toString():"0";
+    if(cramt == "" || cramt == "0"){
+      this.toastrService.warning("Total Credit Amount Should not be zero");
+      return;
+    }
+    if(selectedDataValue.partyId.dataId){
+      //ignore
+    }
+    else{
+      this.toastrService.warning("Please Select Party ");
+      return;
+    }
+    if(selectedDataValue.debitAc.dataId){
+      //ignore
+    }
+    else{
+      this.toastrService.warning("Please Select Debit Ac ");
+      return;
+    }
     this.formSubmitted = true;
     this.sharedService.loading = true;
     this.creditmodel.cnId = this.selectedCreditDetails.cnId ? this.selectedCreditDetails.cnId : "";
-
-    // this.challanmodel.generalRemarks = selectedDataValue.generalRemarks?selectedDataValue.generalRemarks.toString().toUpperCase():"";
-    //  this.challanmodel.modifyRemarks = selectedDataValue.modifyRemarks?selectedDataValue.modifyRemarks.toString().toUpperCase():"";
     this.creditmodel.cnBranch = selectedDataValue.cnBranch;
     this.creditmodel.cnDate = selectedDataValue.cnDate;
     this.creditmodel.cnSlNo = selectedDataValue.cnSlNo;
@@ -394,7 +433,7 @@ export class CreditnoteentryaddComponent {
     this.creditmodel.cnIgstAmt = selectedDataValue.cnIgstAmt ? selectedDataValue.cnIgstAmt.toString() : "0";
     this.creditmodel.totalCreditAmt = selectedDataValue.totalCreditAmt ? selectedDataValue.totalCreditAmt.toString() : "0";
     this.creditmodel.creditNoteRemarks = selectedDataValue.creditNoteRemarks.toString().toUpperCase();
-    this.creditmodel.debitAc = selectedDataValue.debitAc;
+    this.creditmodel.debitAc = selectedDataValue.debitAc.dataId;
     this.creditmodel.yearId = this.year;
     this.creditmodel.loggedInUser = this.loggedInUserID;
     this.creditNoteService.creditnoteDetailsSubmitted(this.creditmodel).subscribe((res: Responsemodel) => {
@@ -411,8 +450,5 @@ export class CreditnoteentryaddComponent {
 
     this.sharedService.loading = false;
   }
-
-
-
 }
 

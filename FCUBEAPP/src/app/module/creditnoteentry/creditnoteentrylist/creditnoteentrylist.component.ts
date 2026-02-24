@@ -19,52 +19,50 @@ import { SharedService } from 'src/app/services/shared.service';
   styleUrls: ['./creditnoteentrylist.component.css']
 })
 export class CreditnoteentrylistComponent {
-      loggedInUserID: string = '';
-    dtOptions: DataTables.Settings = {};
-    allCredit: Creditnoteentrylistmodel = new Creditnoteentrylistmodel();
-    request: Requestmodel = new Requestmodel();
-    filter: Reportmodel = {
-      pageNumber: 1,
-      pageSize: 10,
-      sortColumn: 'brandname',
-      sortOrder: 'asc',
-      search: '',
-      fromDate: '',
-      toDate: '',
-      filterStr: '',
-      filterStr1: '',
-      filterStr2:'',
-      filterStr3:''
-    }
-  
-    formFilter!: FormGroup;
-    branchList: Dropdownmodel[] = [];
-    vehicleList: Dropdownmodel[] = [];
-    keywordLocation = 'dataName';
-    loginDate: string = '';
-    branch: string = '';
-    fromDate: string = '';
-    maxDate: string = '';
-    minDate: string = '';
-    editMode = false;
-    createmode  = true;
-    createStatus = false;
-    editStatus = false;
-    deleteStatus = false;
-    viewStatus = false; 
-    dashboard: string ="";
-      
-    year:string = ''; 
-    @ViewChild(DataTableDirective)
-    dtElement!: DataTableDirective;
-  
-    constructor(private formBuilder: FormBuilder,private toastrService : ToastrService,
-      private creditNoteService: CreditNoteService, private route: Router,
-                                        private sharedService : SharedService,
-      private commonService: CommonService,) {
+  loggedInUserID: string = '';
+  dtOptions: DataTables.Settings = {};
+  allCredit: Creditnoteentrylistmodel = new Creditnoteentrylistmodel();
+  request: Requestmodel = new Requestmodel();
+  filter: Reportmodel = {
+    pageNumber: 1,
+    pageSize: 10,
+    sortColumn: 'brandname',
+    sortOrder: 'asc',
+    search: '',
+    fromDate: '',
+    toDate: '',
+    filterStr: '',
+    filterStr1: '',
+    filterStr2:'',
+    filterStr3:''
+  }
 
-}
-ngOnInit(): void {   
+  formFilter!: FormGroup;
+  keywordLocation = 'dataName';
+  loginDate: string = '';
+  branch: string = '';
+  fromDate: string = '';
+  maxDate: string = '';
+  minDate: string = '';
+  editMode = false;
+  createmode  = true;
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false; 
+  dashboard: string ="";
+    
+  year:string = ''; 
+  @ViewChild(DataTableDirective)
+  dtElement!: DataTableDirective;
+
+  constructor(private formBuilder: FormBuilder,private toastrService : ToastrService,
+    private creditNoteService: CreditNoteService, private route: Router,
+                                      private sharedService : SharedService,
+    private commonService: CommonService,) {
+
+  }
+  ngOnInit(): void {   
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
@@ -75,7 +73,7 @@ ngOnInit(): void {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
         this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
-         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
@@ -86,9 +84,8 @@ ngOnInit(): void {
       this.route.navigate([this.dashboard]);
     }
     
-    
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -123,22 +120,19 @@ ngOnInit(): void {
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.fromDate,),
       toDate: new FormControl(this.loginDate,),
-      vehicleNo: new FormControl("",),
-      challanNo: new FormControl("",),
     });
     
-    this.getBranchList();
-    this.getVehicleNoList();
 
     var selectedDataVal = this.formFilter.getRawValue();
     this.filter.fromDate = selectedDataVal.fromDate;
     this.filter.toDate = selectedDataVal.toDate; 
-    this.filter.filterStr = selectedDataVal.vehicleNo;
-    this.filter.filterStr1 = selectedDataVal.challanNo;
+    this.filter.filterStr = "";
+    this.filter.filterStr1 = "";
     this.filter.filterStr2 = this.branch;    
     this.filter.filterStr3 = this.year;    
     this.getCreditList();
   }
+
   getCreditList(){
       this.dtOptions = {
         pagingType: 'full_numbers',
@@ -185,38 +179,16 @@ ngOnInit(): void {
           {
             title: 'Cn Sl No ',
             data: 'cnSlNo ',
+          },  
+          {
+            title: 'Total Credit Amt ',
+            data: 'totalCreditAmt ',
           },       
           
         ],
       };
     }
   
-    getBranchList(): void {
-      this.commonService.getBranchList().subscribe((res) => {
-        this.branchList = res;
-      });
-    }
-    
-    getVehicleNoList(): void {
-      this.commonService.getVehicleIdList().subscribe((res) => {
-        this.vehicleList = res;
-      });
-    }
-  
-    
-    onFocused(e: any) {
-      // do something
-    }
-    
-    onChangeSearch(search: string) {
-    }
-    
-     
-    
-    startWithFilter = function (dataList: Dropdownmodel[], query: string): any[] {
-      return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
-    };
-    
     creditNoteAdd(): void {
       this.route.navigate(['/creditnoteadd']);
     }
@@ -238,8 +210,8 @@ ngOnInit(): void {
       }
       this.filter.fromDate = selectedDataVal.fromDate;
       this.filter.toDate = selectedDataVal.toDate;
-      this.filter.filterStr = selectedDataVal.vehicleNo;
-      this.filter.filterStr1 = selectedDataVal.challanNo;
+      this.filter.filterStr = "";
+      this.filter.filterStr1 = "";
       this.filter.filterStr2 = this.branch;     
       this.filter.filterStr3 = this.year;    
       

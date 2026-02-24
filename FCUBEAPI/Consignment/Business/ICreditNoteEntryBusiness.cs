@@ -11,10 +11,10 @@ namespace Consignment.Business
     public interface ICreditNoteEntryBusiness
     {
         Task<ResponseModel> CreditNoteEntrySave(CreditNoteEntryModel creditNoteEntryModel);
-        Task<CreditNoteEntryModel> GetCreditBillDetails(ReportRequestModel request);
+        Task<CreditNoteEntryModel> GetCreditNoteBillDetails(ReportRequestModel request);
         Task<CreditNoteList> GetCreditNoteList(ReportRequestModel request);
         Task<ResponseModel> CreditNoteDelete(RequestModel requestModel);
-        Task<ResponseModel> GetCreditSlNo(RequestModel requestModel);
+        Task<ResponseModel> GetCreditNoteSlNo(RequestModel requestModel);
 
     }
 }
