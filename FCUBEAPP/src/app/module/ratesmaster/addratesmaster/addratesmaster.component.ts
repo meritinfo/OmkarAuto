@@ -409,7 +409,14 @@ dashboard: string ="";
     }
 
     //Start date end date validation
-    if (Date.parse(this.ratesmastermodel.validUpto) < Date.parse(this.ratesmastermodel.validFrom)) {
+    // if (Date.parse(this.ratesmastermodel.validUpto) < Date.parse(this.ratesmastermodel.validFrom)) {
+    //   this.toasterService.warning("End date should be greater than start date");
+    //   this.sharedService.loading=false;
+    //   return;
+    // }
+    let d1 = new Date(this.ratesmastermodel.validUpto);
+        let d2 = new Date(this.ratesmastermodel.validFrom);
+       if (d1 < d2) {
       this.toasterService.warning("End date should be greater than start date");
       this.sharedService.loading=false;
       return;

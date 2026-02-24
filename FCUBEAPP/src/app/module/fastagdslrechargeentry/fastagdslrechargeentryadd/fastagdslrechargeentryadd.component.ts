@@ -273,9 +273,19 @@ dashboard: string ="";
     }
     var selectedDataValue = this.formFasttagDsl.getRawValue();
 
-    const d3 = this.minDate?Date.parse(this.minDate):0;
-    const d2 = this.maxDate?Date.parse(this.maxDate):0;
-    const d4 = selectedDataValue.rechargeDate?Date.parse(selectedDataValue.rechargeDate):0;
+    // const d3 = this.minDate?Date.parse(this.minDate):0;
+    // const d2 = this.maxDate?Date.parse(this.maxDate):0;
+    // const d4 = selectedDataValue.rechargeDate?Date.parse(selectedDataValue.rechargeDate):0;
+    // if (d3>d4 || d2<d4 ) {
+    //   this.formFasttagDsl.patchValue({
+    //     rechargeDate: ''
+    //   });
+    //   this.toasterService.warning("Invalid rechargeDate");
+    //   return
+    // }
+      let d3 = new Date(this.minDate);
+    let d2 = new Date(this.maxDate);
+    let d4 = new Date(selectedDataValue.rechargeDate);
     if (d3>d4 || d2<d4 ) {
       this.formFasttagDsl.patchValue({
         rechargeDate: ''

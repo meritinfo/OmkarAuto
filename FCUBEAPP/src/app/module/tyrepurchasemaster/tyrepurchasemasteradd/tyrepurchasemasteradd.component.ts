@@ -652,9 +652,19 @@ dashboard: string ="";
 
     var selectedDataValue = this.formUser.getRawValue();
 
-    const d3 = this.minDate?Date.parse(this.minDate):0;
-    const d2 = this.maxDate?Date.parse(this.maxDate):0;
-    const d4 = selectedDataValue.purchaseDate?Date.parse(selectedDataValue.purchaseDate):0;
+    // const d3 = this.minDate?Date.parse(this.minDate):0;
+    // const d2 = this.maxDate?Date.parse(this.maxDate):0;
+    // const d4 = selectedDataValue.purchaseDate?Date.parse(selectedDataValue.purchaseDate):0;
+    // if (d3>d4 || d2<d4 ) {
+    //   this.formUser.patchValue({
+    //     purchaseDate: ''
+    //   });
+    //   this.toastrService.warning("Purchase date should be within the financial year");
+    //   return
+    // }
+        let d3 = new Date(this.minDate);
+    let d2 = new Date(this.maxDate);
+    let d4 = new Date(selectedDataValue.purchaseDate);
     if (d3>d4 || d2<d4 ) {
       this.formUser.patchValue({
         purchaseDate: ''

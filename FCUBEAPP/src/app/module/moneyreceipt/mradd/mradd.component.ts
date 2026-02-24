@@ -1212,9 +1212,20 @@ export class MraddComponent {
       return;
     }
     
-    const d3 = this.minDate?Date.parse(this.minDate):0;
-    const d2 = this.maxDate?Date.parse(this.maxDate):0;
-    const d4 = selectedDataVal.mrDate?Date.parse(selectedDataVal.mrDate):0;
+    // const d3 = this.minDate?Date.parse(this.minDate):0;
+    // const d2 = this.maxDate?Date.parse(this.maxDate):0;
+    // const d4 = selectedDataVal.mrDate?Date.parse(selectedDataVal.mrDate):0;
+    // if (d3>d4 || d2<d4 ) {
+    //   this.formUser.patchValue({
+    //     mrDate: ''
+    //   });
+    //   this.toasterService.warning("Invalid mr date");
+    //   return
+    // }
+
+        let d3 =  new Date(this.minDate);
+    let d2 = new Date(this.maxDate);
+    let d4 =  new Date(selectedDataVal.mrDate);
     if (d3>d4 || d2<d4 ) {
       this.formUser.patchValue({
         mrDate: ''

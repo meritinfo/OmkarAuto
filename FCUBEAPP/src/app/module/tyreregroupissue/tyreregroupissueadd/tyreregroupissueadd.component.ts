@@ -268,9 +268,19 @@ dashboard: string ="";
     }
 
     var selectedDataValue = this.formUser.getRawValue();
-    const d3 = this.minDate?Date.parse(this.minDate):0;
-    const d2 = this.maxDate?Date.parse(this.maxDate):0;
-    const d4 = selectedDataValue.regroupIssDate?Date.parse(selectedDataValue.regroupIssDate):0;
+    // const d3 = this.minDate?Date.parse(this.minDate):0;
+    // const d2 = this.maxDate?Date.parse(this.maxDate):0;
+    // const d4 = selectedDataValue.regroupIssDate?Date.parse(selectedDataValue.regroupIssDate):0;
+    // if (d3>d4 || d2<d4 ) {
+    //   this.formUser.patchValue({
+    //     regroupIssDate: ''
+    //   });
+    //   this.toastrService.warning("Please enter a valid regroup issue date.");
+    //   return
+    // }
+      const d3 = new Date(this.minDate);
+    const d2 = new Date(this.maxDate);
+    const d4 =new Date(selectedDataValue.regroupIssDate);
     if (d3>d4 || d2<d4 ) {
       this.formUser.patchValue({
         regroupIssDate: ''

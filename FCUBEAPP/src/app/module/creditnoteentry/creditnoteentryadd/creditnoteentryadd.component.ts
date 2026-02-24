@@ -184,8 +184,6 @@ export class CreditnoteentryaddComponent {
           if (this.selectedCreditDetails.cnAgainst=="BL"){
               this.showDetail =true;
           }
-      
-
         this.editMode = true;
         this.sharedService.loading = false;
       }

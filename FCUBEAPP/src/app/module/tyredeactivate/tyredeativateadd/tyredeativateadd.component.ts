@@ -344,10 +344,22 @@ dashboard: string ="";
       return;
     }
 
-    var selectedDataValue = this.formUser.getRawValue();
-    const d3 = this.minDate?Date.parse(this.minDate):0;
-    const d2 = this.maxDate?Date.parse(this.maxDate):0;
-    const d4 = selectedDataValue.deActivateDate?Date.parse(selectedDataValue.deActivateDate):0;
+    // var selectedDataValue = this.formUser.getRawValue();
+    // const d3 = this.minDate?Date.parse(this.minDate):0;
+    // const d2 = this.maxDate?Date.parse(this.maxDate):0;
+    // const d4 = selectedDataValue.deActivateDate?Date.parse(selectedDataValue.deActivateDate):0;
+    // if (d3>d4 || d2<d4 ) {
+    //   this.formUser.patchValue({
+    //     deActivateDate: ''
+    //   });
+    //   this.toastrService.warning("Please enter a valid deactivation date.");
+    //   return
+    // }
+    
+        var selectedDataValue = this.formUser.getRawValue();
+    let d3 = new Date(this.minDate);
+    let d2 = new Date(this.maxDate);
+    let d4 = new Date(selectedDataValue.deActivateDate);
     if (d3>d4 || d2<d4 ) {
       this.formUser.patchValue({
         deActivateDate: ''
