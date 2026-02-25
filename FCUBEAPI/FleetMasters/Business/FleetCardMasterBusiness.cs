@@ -20,7 +20,7 @@ namespace FleetMasters.Business
         {
             return await fleetCardMasterRepository.FleetCardMasterSave(fleetCardMasterModel);
         }
-        public async Task<FleetCardMasterList> GetFleetCardMasterList(PageRequest request)
+        public async Task<FleetCardMasterList> GetFleetCardMasterList(ReportRequestModel request)
         {
             return await fleetCardMasterRepository.GetFleetCardMasterList(request);
         }

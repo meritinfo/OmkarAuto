@@ -223,7 +223,7 @@ namespace FleetMasters.Repository
             }
             return cardAcList;
         }
-        public async Task<FleetCardMasterList> GetFleetCardMasterList(PageRequest request)
+        public async Task<FleetCardMasterList> GetFleetCardMasterList(ReportRequestModel request)
         {
             FleetCardMasterList fleetCardMasterList = new();
             List<FleetCardMasterModel> cardList = new();
@@ -234,10 +234,11 @@ namespace FleetMasters.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@PageNumber", request.PageNumber),
-                            new SqlParameter("@PageSize", request.PageSize),
+                            new SqlParameter("@PageSize"  , request.PageSize),
                             new SqlParameter("@SortColumn", request.SortColumn),
-                            new SqlParameter("@SortOrder", request.SortOrder),
-                            new SqlParameter("@Search", request.Search)
+                            new SqlParameter("@SortOrder" , request.SortOrder),
+                            new SqlParameter("@Search"    , request.FilterStr),
+                            new SqlParameter("@VehicleNo" , request.FilterStr1)
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getFleetCardMasterlist", param);
 

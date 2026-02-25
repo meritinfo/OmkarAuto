@@ -18,20 +18,20 @@ import { SharedService } from 'src/app/services/shared.service';
 })
 export class AddfleetcardmasterComponent {
   
-  loggedInUserID: string = '';
-  formUser!: FormGroup;
-  formSubmitted = false;
+  loggedInUserID  : string = '';
+  formUser!       : FormGroup;
+  formSubmitted   = false;
   responseDetails = new Responsemodel();
-  cardDetails = new Requestmodel();
-  ledgerAcList: Dropdownmodel[] = [];
-  vehicleList: Dropdownmodel[] = [];
-  editMode = false;
-  createmode  = true;
-  createStatus = false;
-  editStatus = false;
-  deleteStatus = false;
-  viewStatus = false; 
-  dashboard: string ="";
+  cardDetails     = new Requestmodel();
+  ledgerAcList    : Dropdownmodel[] = [];
+  vehicleList     : Dropdownmodel[] = [];
+  editMode        = false;
+  createmode      = true;
+  createStatus    = false;
+  editStatus      = false;
+  deleteStatus    = false;
+  viewStatus      = false; 
+  dashboard       : string ="";
   keywordLocation = 'dataName';
 
 
@@ -44,7 +44,6 @@ export class AddfleetcardmasterComponent {
     this.fleetcardMasterModel = new Fleetcardmastermodel();
   }
   ngOnInit(): void {
-  
     this.sharedService.loading = true;
     this.editMode = false;
     var menuData = sessionStorage.getItem('menulist')?.toString();
@@ -77,27 +76,23 @@ export class AddfleetcardmasterComponent {
 
     this.selectedFleetCardMasterDetails = this.fleetcardmasterService.getFleetCardMasterDetails();
     this.formUser = this.formBuilder.group({
-      cardType: new FormControl('',[Validators.required]),
-      cardCode: new FormControl('',[Validators.required]),
-      cardNo: new FormControl('',[Validators.required]),
-      cardPin: new FormControl('',[Validators.required]),
+      cardType    : new FormControl('',[Validators.required]),
+      cardCode    : new FormControl('',[Validators.required]),
+      cardNo      : new FormControl('',[Validators.required]),
+      cardPin     : new FormControl('',[Validators.required]),
       cardLedgerAc: new FormControl('',),
-      vehicleNo: new FormControl('',),
-      driverName: new FormControl('',),
-      driverLicNo: new FormControl('',),
-      mobileNo: new FormControl('',[Validators.required]),
-      isActive: new FormControl('',),
+      vehicleNo   : new FormControl('',),
+      driverName  : new FormControl('',),
+      driverLicNo : new FormControl('',),
+      mobileNo    : new FormControl('',[Validators.required]),
+      isActive    : new FormControl('',),
     });
   
     if (this.selectedFleetCardMasterDetails.cardId != '') {
       setTimeout(() => {
         this.formUser.patchValue(this.selectedFleetCardMasterDetails);
-        this.formUser.patchValue({
-          vehicleNo: this.vehicleList.find(e => e.dataName == this.selectedFleetCardMasterDetails.vehicleNo),  
-        })
       }, 1000);     
       this.editMode = true;
-      this.sharedService.loading = false;
     }
     this.sharedService.loading = false;
   }
@@ -180,15 +175,16 @@ export class AddfleetcardmasterComponent {
       }
     }
   }
+
   exit(): void {
     this.route.navigate(['/fleetcardmasterlist']);
   }
 
   //Submit user form details //
   submitFleetCardMasterForm(): void {
+    debugger
     if (this.formUser.invalid) {
       this.toastrService.warning("Please enter mandatory fields");
-
       const controls = this.formUser.controls;
       for (const name in controls) {
         if (controls[name].invalid) {
@@ -198,24 +194,29 @@ export class AddfleetcardmasterComponent {
           this.toastrService.warning(titleCaseName + " field is invalid");
         }
       }
-
+      return;
+    }
+    this.formSubmitted = true;
+    var selectedDataValue = this.formUser.getRawValue();
+    if(selectedDataValue.vehicleNo.dataId){
+      //ignore
+    }
+    else{      
+      this.toastrService.warning("Please select Vehicle");
       return;
     }
 
-            
-    this.formSubmitted = true;
-    this.fleetcardMasterModel.cardId = this.selectedFleetCardMasterDetails.cardId;
-    var selectedDataValue = this.formUser.getRawValue();
-    this.fleetcardMasterModel.cardType= selectedDataValue.cardType;
-    this.fleetcardMasterModel.cardCode = selectedDataValue.cardCode;
-    this.fleetcardMasterModel.cardNo = selectedDataValue.cardNo;
-    this.fleetcardMasterModel.cardPin = selectedDataValue.cardPin.toString().toUpperCase();
+    this.fleetcardMasterModel.cardId       = this.selectedFleetCardMasterDetails.cardId;
+    this.fleetcardMasterModel.cardType     = selectedDataValue.cardType;
+    this.fleetcardMasterModel.cardCode     = selectedDataValue.cardCode.toString().toUpperCase().trim();
+    this.fleetcardMasterModel.cardNo       = selectedDataValue.cardNo.toString().toUpperCase().trim();
+    this.fleetcardMasterModel.cardPin      = selectedDataValue.cardPin.toString().toUpperCase().trim();
     this.fleetcardMasterModel.cardLedgerAc = selectedDataValue.cardLedgerAc;
-    this.fleetcardMasterModel.vehicleNo = selectedDataValue.vehicleNo.toString().toUpperCase();
-    this.fleetcardMasterModel.driverName = selectedDataValue.driverName.toString().toUpperCase();;
-    this.fleetcardMasterModel.driverLicNo = selectedDataValue.driverLicNo.toString().toUpperCase();;
-    this.fleetcardMasterModel.mobileNo = selectedDataValue.mobileNo;
-    this.fleetcardMasterModel.isActive = selectedDataValue.isActive;
+    this.fleetcardMasterModel.vehicleNo    = selectedDataValue.vehicleNo?selectedDataValue.vehicleNo.dataName:"";
+    this.fleetcardMasterModel.driverName   = selectedDataValue.driverName.toString().toUpperCase().trim();
+    this.fleetcardMasterModel.driverLicNo  = selectedDataValue.driverLicNo.toString().toUpperCase().trim();
+    this.fleetcardMasterModel.mobileNo     = selectedDataValue.mobileNo.toString().trim();
+    this.fleetcardMasterModel.isActive     = selectedDataValue.isActive;
     this.fleetcardMasterModel.loggedInUser = this.loggedInUserID;
     this.fleetcardmasterService.fleetCardMasterDetailsSubmitted(this.fleetcardMasterModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

@@ -6,7 +6,7 @@ namespace FleetMasters.Business
     public interface IFleetCardMasterBusiness
     {
         Task<ResponseModel> FleetCardMasterSave(FleetCardMasterModel FleetCardMasterModel);
-        Task<FleetCardMasterList> GetFleetCardMasterList(PageRequest request);
+        Task<FleetCardMasterList> GetFleetCardMasterList(ReportRequestModel request);
         Task<List<DropDownListModel>> GetCardledgerAcList();
         Task<ResponseModel> FleetCardMasterDelete(RequestModel requestModel);
         Task<ResponseModel> CheckDuplicateCardNo(RequestModel request);

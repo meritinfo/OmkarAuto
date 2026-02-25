@@ -11,7 +11,7 @@ namespace FleetMasters.Repository
     public interface IFleetCardMasterRepository
     {
         Task<ResponseModel> FleetCardMasterSave(FleetCardMasterModel fleetCardMasterModel);
-        Task<FleetCardMasterList> GetFleetCardMasterList(PageRequest request);
+        Task<FleetCardMasterList> GetFleetCardMasterList(ReportRequestModel request);
         Task<List<DropDownListModel>> GetCardledgerAcList();
         Task<ResponseModel> FleetCardMasterDelete(RequestModel requestModel);
         Task<ResponseModel> CheckDuplicateCardNo(RequestModel request);
