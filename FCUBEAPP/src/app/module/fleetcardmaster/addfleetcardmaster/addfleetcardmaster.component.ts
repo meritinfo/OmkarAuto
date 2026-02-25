@@ -91,6 +91,9 @@ export class AddfleetcardmasterComponent {
     if (this.selectedFleetCardMasterDetails.cardId != '') {
       setTimeout(() => {
         this.formUser.patchValue(this.selectedFleetCardMasterDetails);
+        this.formUser.patchValue({        
+          vehicleNo: this.vehicleList.find(e => e.dataName == this.selectedFleetCardMasterDetails.vehicleNo),
+        }); 
       }, 1000);     
       this.editMode = true;
     }
@@ -141,6 +144,11 @@ export class AddfleetcardmasterComponent {
           cardCode: ''
         });
       }
+      else{
+        this.formUser.patchValue({
+          cardCode: this.formUser.value.cardCode.toString().trim().toUpperCase()
+        });
+      }
     });
   }
 
@@ -152,6 +160,11 @@ export class AddfleetcardmasterComponent {
         this.toastrService.warning(this.responseDetails.message);
         this.formUser.patchValue({
           cardNo: ''
+        });
+      }
+      else{
+        this.formUser.patchValue({
+          cardNo: this.formUser.value.cardNo.toString().trim().toUpperCase()
         });
       }
     });
