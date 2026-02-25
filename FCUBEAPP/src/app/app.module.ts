@@ -5,6 +5,7 @@ import { BrokeradvancepmtModel } from './models/brokeradvancepmtmodel';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { Debitnotemodel } from 'src/app/models/debitnotemodel';
 import { Fleetgroupmastermodel  } from 'src/app/models/fleetgroupmastermodel';
 import { Creditnoteentrymodel } from 'src/app/models/creditnoteentrymodel';
 import { AppRoutingModule } from './app-routing.module';
@@ -859,7 +860,7 @@ import { DebitnotelistComponent } from './module/debitnoteentry/debitnotelist/de
     Ccinvmstmodel,Admingroupmastermodel,Userlistmodel,
     BillsmastermodelllP,Billsmasterlistmodel,BillsDetailModelllP,
     Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,
-    Directpmtlistmodel, Directpmtmodel,VehicleadvbalreceiptModelLLP,Tripoutstandingrptbrplmodel,
+    Directpmtlistmodel, Directpmtmodel,VehicleadvbalreceiptModelLLP,Tripoutstandingrptbrplmodel,Debitnotemodel,
     Unbilledprovisionmstmodel,Menureportaccessrightsmodel,Driversalaryentrymodel,Creditnoteentrymodel,
     Vendorpmtmodel,Fleetgroupmastermodel,Vehiclemfrmastermodel,Vehiclefincompmastermodel,Vehicleflttypemstmodel,
     Rechargerequestmodel,Rechargerequestlist,Pltransfermodel,Fleetgodownmastermodel,Godownstockmodel,Ledgerdetaillistmodel,Fleetcardreturntransfermodel,
