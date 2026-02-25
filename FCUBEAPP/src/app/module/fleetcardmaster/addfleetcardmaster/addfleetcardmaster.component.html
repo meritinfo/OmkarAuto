@@ -74,8 +74,6 @@
                                     <div class="col-lg-3">
                                         <div class="mb-3">
                                             <label for="basicpill-phoneno-input">Vehicle No</label><span style="color:red">*</span>
-                                            <!-- <input type="text" class="form-control" uppercaseonly
-                                            formControlName="vehicleNo">                                             -->
                                              <div class="ng-autocomplete">
                                                 <ng-autocomplete [data]="vehicleList"
                                                     [searchKeyword]="keywordLocation"  
@@ -112,7 +110,6 @@
                                             <label for="basicpill-phoneno-input">Driver Lic No</label>
                                             <input type="text" class="form-control"
                                             formControlName="driverLicNo" uppercaseonly>
-                                            
                                         </div>
                                     </div>
                                 </div>
@@ -121,20 +118,18 @@
                                         <div class="mb-3">
                                             <label for="basicpill-phoneno-input">Mobile No</label><span style="color:red">*</span>
                                             <input type="text" class="form-control"
-                                            formControlName="mobileNo" maxlength="10"
-                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['mobileNo'].invalid) }">
-                                            
+                                            formControlName="mobileNo" maxlength="10" numbersonly
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['mobileNo'].invalid) }">                                            
                                         </div>
                                     </div>
                                     <div class="col-lg-3">
                                         <div class="mb-3">
                                             <label for="basicpill-phoneno-input">Is Active </label>
                                             <select id="formrow-inputState" class="form-control"
-                                            formControlName="isActive">
-                                            <option value="Y">Yes</option>
-                                            <option value="N">No</option>
-                                        
-                                        </select>
+                                                formControlName="isActive">
+                                                <option value="Y">Yes</option>
+                                                <option value="N">No</option>                                            
+                                            </select>
                                         </div>
                                     </div>
                                 </div>                 

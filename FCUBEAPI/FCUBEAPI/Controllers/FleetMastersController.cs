@@ -1144,7 +1144,7 @@ namespace FCUBEAPI.Controllers
         
 
         [HttpPost("GetFleetCardMasterList")]
-        public async Task<IActionResult> GetFleetCardMasterList(PageRequest request)
+        public async Task<IActionResult> GetFleetCardMasterList(ReportRequestModel request)
         {
             if (request == null)
             {

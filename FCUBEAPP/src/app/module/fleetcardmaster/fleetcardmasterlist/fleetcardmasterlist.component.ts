@@ -1,10 +1,14 @@
-import { Component } from '@angular/core';
+import { Component,ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Filtermodel } from 'src/app/models/filtermodel';
+import { Reportmodel } from 'src/app/models/reportmodel';
 import { Fleetcardmasterlistmodel  } from 'src/app/models/fleetcardmasterlistmodel';
 import { Usermodel } from 'src/app/models/usermodel';
 import { Fleetcardmastermodel } from 'src/app/models/fleetcardmastermodel';
 import { FleetCardMasterService } from 'src/app/services/fleetcardmaster.service';
+import { DataTableDirective } from 'angular-datatables';
+import { SharedService } from 'src/app/services/shared.service';
 
 
 @Component({
@@ -14,14 +18,22 @@ import { FleetCardMasterService } from 'src/app/services/fleetcardmaster.service
 })
 
 export class FleetcardmasterlistComponent {
-  dtOptions: DataTables.Settings = {};
+    dtOptions: DataTables.Settings = {};
+    @ViewChild(DataTableDirective)
+    dtElement!: DataTableDirective;
   allCardMaster: Fleetcardmasterlistmodel = new Fleetcardmasterlistmodel();
-  filter: Filtermodel = {
-    pageNumber: 1,
+  filter: Reportmodel = {
+   pageNumber: 1,
     pageSize: 10,
-    sortColumn: 'groupname',
+    sortColumn: 'fromPlace',
     sortOrder: 'asc',
-    search: ''
+    search: '',
+    fromDate: '',
+    toDate: '',
+    filterStr : "",
+    filterStr1 : "",
+    filterStr2 : "",
+    filterStr3 : "",
   }
 
   editMode = false;
@@ -31,9 +43,13 @@ export class FleetcardmasterlistComponent {
   deleteStatus = false;
   viewStatus = false; 
   dashboard: string ="";
-  constructor(private fleetcardmasterService: FleetCardMasterService, private route: Router) {
-  }
+  formFilter!: FormGroup;
+  constructor
+  (private fleetcardmasterService: FleetCardMasterService, private route: Router,
+    private formBuilder: FormBuilder, private sharedService: SharedService
+  ) {}
   ngOnInit(): void {
+    this.fleetcardmasterService.clearFleetCardMasterDetails();
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
@@ -47,8 +63,26 @@ export class FleetcardmasterlistComponent {
         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
-    this.fleetcardmasterService.clearFleetCardMasterDetails();
-    this.dtOptions = {
+    this.formFilter = this.formBuilder.group({
+      cardNo: new FormControl(''),
+      vehicleNo: new FormControl(''),
+    });
+    this.finCardDetails();
+  }
+//Open new destination add screen
+  addFleetCardMaster(): void {
+    this.route.navigate(['/addfleetcardmaster']);
+  }
+    
+  //Open user details screen
+  getFleetCardMasterDetails(Destination: Fleetcardmastermodel): void {
+    this.fleetcardmasterService.setFleetCardMasterDetails(Destination);
+    this.route.navigate(['/editfleetcardmaster']);
+  }
+
+  finCardDetails()
+    {
+      this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 50,
       serverSide: true,
@@ -63,7 +97,7 @@ export class FleetcardmasterlistComponent {
         this.filter.pageSize = dataTablesParameters.length;
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
-        this.filter.search = dataTablesParameters.search.value;
+        //his.filter.search ='';
         this.fleetcardmasterService.getFleetCardMasterList(this.filter)
           .subscribe(resp => {
           this.allCardMaster = resp;
@@ -87,21 +121,29 @@ export class FleetcardmasterlistComponent {
           title: 'Card Code',
           data: 'cardCode',
         },  
+         {
+          title: 'Card NO',
+          data: 'cardNo',
+        },  
+         {
+          title: 'Vehicle No',
+          data: 'vehicleNo',
+        },  
        
       ],
     };
   }
-//Open new destination add screen
-  addFleetCardMaster(): void {
-    this.route.navigate(['/addfleetcardmaster']);
+
+    search(): void {
+    this.filter.filterStr = this.formFilter.value.cardNo;
+    this.filter.filterStr1 = this.formFilter.value.vehicleNo;
+    this.sharedService.loading = true;
+    this.finCardDetails();       
+    this.sharedService.loading = false;
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload();
+    });
   }
-    
-  //Open user details screen
-  getFleetCardMasterDetails(Destination: Fleetcardmastermodel): void {
-    this.fleetcardmasterService.setFleetCardMasterDetails(Destination);
-    this.route.navigate(['/editfleetcardmaster']);
-  }
-  
 }
   
   
