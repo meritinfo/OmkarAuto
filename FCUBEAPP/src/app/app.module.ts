@@ -584,6 +584,8 @@ import { ConsignmentlocalfrtupdateComponent } from './module/consignmentllp/cons
 
 import { CreditnoteentrylistComponent } from './module/creditnoteentry/creditnoteentrylist/creditnoteentrylist.component';
 import { CreditnoteentryaddComponent } from './module/creditnoteentry/creditnoteentryadd/creditnoteentryadd.component';
+import { DebitnoteaddComponent } from './module/debitnoteentry/debitnoteadd/debitnoteadd.component';
+import { DebitnotelistComponent } from './module/debitnoteentry/debitnotelist/debitnotelist.component';
 
 
 
@@ -779,7 +781,9 @@ import { CreditnoteentryaddComponent } from './module/creditnoteentry/creditnote
     ConsignmentlocalfrtupdateComponent,
    
     CreditnoteentrylistComponent,
-    CreditnoteentryaddComponent
+    CreditnoteentryaddComponent,
+    DebitnoteaddComponent,
+    DebitnotelistComponent
    
     
   ],
