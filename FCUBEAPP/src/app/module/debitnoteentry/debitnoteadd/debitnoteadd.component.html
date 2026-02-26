@@ -94,7 +94,7 @@
                                         </div>
                                     <div class="col-lg-2">
                                         <div class="mb-3">
-                                            <label for="formrow-inputCity">Gst Pct  </label>
+                                            <label for="formrow-inputCity">Gst Pct  </label> <span style="color: red"> * </span>
                                             <input autoclose="false" type="text" class="form-control" 
                                                 formControlName="gstPct" decimalonly>
                                         </div>
@@ -104,7 +104,7 @@
                                             <label for="formrow-inputCity">Sgst Amt </label>
                                             <input autoclose="false" type="text" class="form-control" 
                                                 formControlName="sgstAmt" decimalonly (change)="calTotal()"
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['debitAmt'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['sgstAmt'].invalid) }">
                                         </div>
                                     </div>
                                       <div class="col-lg-2">
@@ -121,7 +121,7 @@
                                             <label for="formrow-inputCity">Igst Amt</label>
                                             <input autoclose="false" type="text" class="form-control" 
                                                 formControlName="igstAmt" decimalonly (change)="calTotal()"
-                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['cgstAmt'].invalid) }"> 
+                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['igstAmt'].invalid) }"> 
                                         </div>
                                     </div>
                                   

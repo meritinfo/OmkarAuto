@@ -64,7 +64,7 @@ ngOnInit(): void {
       var privilegeData = JSON.parse(menuData);
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
       var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-        .find(((aa: { menuName: string; }) => aa.menuName === "Credit Note Entry"));
+        .find(((aa: { menuName: string; }) => aa.menuName === "Debit Note Entry"));
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -170,9 +170,10 @@ ngOnInit(): void {
       this.formUser.controls['SgstAmt'].clearValidators; 
       this.formUser.controls['cgstAmt'].clearValidators; 
       this.formUser.controls['igstAmt'].setValidators([Validators.required]);
-      this.formUser.controls['cgstAmt'].updateValueAndValidity();    
+          this.formUser.controls['cgstAmt'].updateValueAndValidity();    
       this.formUser.controls['SgstAmt'].updateValueAndValidity();  
-      this.formUser.controls['igstAmt'].updateValueAndValidity(); 
+      this.formUser.controls['igstAmt'].updateValueAndValidity();   
+     
       this.formUser.patchValue({
         sgstAmt:"",
         cgstAmt:"",
@@ -187,27 +188,37 @@ ngOnInit(): void {
         this.formUser.controls['igstAmt'].clearValidators; 
    this.formUser.controls['sgstAmt'].setValidators([Validators.required]);
       this.formUser.controls['cgstAmt'].setValidators([Validators.required]);
-      this.formUser.controls['cgstAmt'].updateValueAndValidity();    
+          this.formUser.controls['cgstAmt'].updateValueAndValidity();    
       this.formUser.controls['SgstAmt'].updateValueAndValidity();  
-      this.formUser.controls['igstAmt'].updateValueAndValidity();  
-      this.formUser.patchValue({
-        sgstAmt:"0",
-        cgstAmt:"0",
-        igstAmt:"",
+      this.formUser.controls['igstAmt'].updateValueAndValidity();   
+   
+      // this.formUser.patchValue({
+      //   sgstAmt:"0",
+      //   cgstAmt:"0",
+      //   igstAmt:"",
      
-      });     
+      // });     
     }
     else{
       this.formUser.controls['sgstAmt'].disable();
       this.formUser.controls['cgstAmt'].disable();  
-      this.formUser.controls['igstAmt'].disable();   
+      this.formUser.controls['igstAmt'].disable(); 
+      this.formUser.controls['SgstAmt'].clearValidators; 
+      this.formUser.controls['cgstAmt'].clearValidators; 
+       this.formUser.controls['igstAmt'].clearValidators;  
+           this.formUser.controls['cgstAmt'].updateValueAndValidity();    
+      this.formUser.controls['SgstAmt'].updateValueAndValidity();  
+      this.formUser.controls['igstAmt'].updateValueAndValidity();    
       // this.formUser.patchValue({
       //   sgstAmt:"",
       //   cgstAmt:"",
       //   igstAmt:"",
        
       // });   
-    }    
+    } 
+        this.formUser.controls['cgstAmt'].updateValueAndValidity();    
+      this.formUser.controls['SgstAmt'].updateValueAndValidity();  
+      this.formUser.controls['igstAmt'].updateValueAndValidity();    
   }
   getSlNo(): void {    
       this.requestmodel.strRequest = this.branch;
@@ -310,32 +321,7 @@ ngOnInit(): void {
       this.route.navigate(['/debitnotelist']);
     }
 
-    pctChange(){
-    var debitAmt = 0;
-    var sgstAmt = 0;
-    var cgstAmt = 0;
-    var igstAmt = 0;
-    var totalGtotal = 0;
-    var selectedDataVal = this.formUser.getRawValue();
-    debitAmt = selectedDataVal.debitAmt == ""? 0 : parseFloat(selectedDataVal.debitAmt)
-    totalGtotal = debitAmt ;
     
-    if(selectedDataVal.gstPct!="" ) {
-      if(selectedDataVal.igst!=""){
-       igstAmt=selectedDataVal.igstAmt == ""? 0 : parseFloat(selectedDataVal.igstAmt)
-              totalGtotal = totalGtotal + igstAmt;
-      }
-      else{
-         cgstAmt=selectedDataVal.cgstAmt == ""? 0 : parseFloat(selectedDataVal.cgstAmt)
-          sgstAmt=selectedDataVal.sgstAmt == ""? 0 : parseFloat(selectedDataVal.sgstAmt)
-          totalGtotal = totalGtotal + sgstAmt+cgstAmt;
-      }
-      }
-      this.formUser.patchValue({
-      totalDebitAmt      : totalGtotal.toFixed(2),
-    });
-  }
-
   
     submitDebitNoteForm(): void {
       if (this.formUser.invalid) {
@@ -368,6 +354,13 @@ ngOnInit(): void {
         this.toastrService.warning("Please Select Debit Ac ");
         return;
       }
+       if(selectedDataValue.creditAc.dataId){
+        //ignore
+      }
+      else{
+        this.toastrService.warning("Please Select credit Ac ");
+        return;
+      }
       this.formSubmitted = true;
       this.sharedService.loading = true;
       this.debitmodel.dnId = this.selectedDebitDetails.dnId ? this.selectedDebitDetails.dnId : "";
@@ -387,10 +380,7 @@ ngOnInit(): void {
       this.debitmodel.sgstAmt = selectedDataValue.sgstAmt ? selectedDataValue.sgstAmt.toString() : "0";
       this.debitmodel.cgstAmt = selectedDataValue.cgstAmt ? selectedDataValue.cgstAmt.toString() : "0";
       this.debitmodel.igstAmt = selectedDataValue.igstAmt ? selectedDataValue.igstAmt.toString() : "0";
-      this.debitmodel.totalDebitAmt = selectedDataValue.totalDebitAmt ? selectedDataValue.totalDebitAmt.toString() : "0";
-     
-
-      this.debitmodel.yearid = this.year;
+      this.debitmodel.totalDebitAmt = selectedDataValue.totalDebitAmt ? selectedDataValue.totalDebitAmt.toString() : "0";      this.debitmodel.yearid = this.year;
       this.debitmodel.loggedInUser = this.loggedInUserID;
       this.debitNoteService.creditnoteDetailsSubmitted(this.debitmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
