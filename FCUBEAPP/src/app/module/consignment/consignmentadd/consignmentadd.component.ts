@@ -30,6 +30,7 @@ export class ConsignmentaddComponent implements OnInit {
   newDate: string = '';
   noPackages:string = '';
 
+  gstSearch = true;
   formSubmitted = false;
   editMode = false;
   createStatus = false;
@@ -48,7 +49,7 @@ export class ConsignmentaddComponent implements OnInit {
   classList: Dropdownmodel[] = [];
   businessByList: Dropdownmodel[] = [];
   cnorCneeList: Dropdownmodel[] = [];
-    cnorList: Dropdownmodel[] = [];
+  cnorList: Dropdownmodel[] = [];
 
   responseDetails = new Responsemodel();
   eWayBillDetails = new Ewaybillmodel();
@@ -194,16 +195,9 @@ export class ConsignmentaddComponent implements OnInit {
       cneeMobile : new FormControl('', [Validators.required]),
       cneeEmail : new FormControl('',),    
       shipmentNo : new FormControl('',),    
-      shipmentDt : new FormControl('',),    
-      // deliveryNo : new FormControl('',),    
-      // deliveryDt : new FormControl('',),    
+      shipmentDt : new FormControl('',),  
       poNo : new FormControl('',),    
-      poDt : new FormControl('',),    
-      // riskBy : new FormControl('',),    
-      // insCoName :new FormControl('',),    
-      // insPolicyNo : new FormControl('',),    
-      // insValidDt : new FormControl('',),    
-      // insuredValue : new FormControl('',),    
+      poDt : new FormControl('',),      
       classId : new FormControl('', [Validators.required]),
       productId : new FormControl('', [Validators.required]),
       productDesc : new FormControl('',),    
@@ -239,14 +233,7 @@ export class ConsignmentaddComponent implements OnInit {
       unLoadingDetnRs : new FormControl('',),    
       extrasRS : new FormControl('',),    
       othersRs : new FormControl('',),    
-      subTotalRs : new FormControl('',),    
-      // gstType : new FormControl('N',),    
-      // sgstPct : new FormControl('',),    
-      // sgstAmt : new FormControl('',),    
-      // cgstPct : new FormControl('',),    
-      // cgstAmt : new FormControl('',),     
-      // igstPct : new FormControl('',),   
-      // igstAmt : new FormControl('',),  
+      subTotalRs : new FormControl('',),   
       nonGstAmt1 : new FormControl('',),  
       nonGstAmt1Desc : new FormControl('',),  
       nonGstAmt2 : new FormControl('',),  
@@ -269,12 +256,6 @@ export class ConsignmentaddComponent implements OnInit {
     this.formUser.controls["vehicleOutTime"].disable();
     this.formUser.controls['subTotalRs'].disable(); 
     this.formUser.controls['gtotalRs'].disable(); 
-    // this.formUser.controls['sgstPct'].disable();
-    // this.formUser.controls['cgstPct'].disable();  
-    // this.formUser.controls['igstPct'].disable();  
-    // this.formUser.controls['sgstAmt'].disable();
-    // this.formUser.controls['cgstAmt'].disable();  
-    // this.formUser.controls['igstAmt'].disable();   
 
     setTimeout(() => {
       if (this.selectedLrDetails.consignmentID != '') {
@@ -365,10 +346,10 @@ export class ConsignmentaddComponent implements OnInit {
   }
 
   getCnorList(): void {
-  this.commonService.GetCnorList().subscribe((res) => {
-    this.cnorList = res;
-  });
-}
+    this.commonService.GetCnorList().subscribe((res) => {
+      this.cnorList = res;
+    });
+  }
 
   
   getLrInnerGridList(): void {
@@ -379,7 +360,7 @@ export class ConsignmentaddComponent implements OnInit {
       for (let i = 0; i < res.invList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("ewayBillNo")?.setValue(res.invList[i].ewayBillNo);
-             this.formArray.controls[i].get("ewayBillDate")?.setValue(this.commonService.formatDate(res.invList[i].ewayBillDate));
+        this.formArray.controls[i].get("ewayBillDate")?.setValue(this.commonService.formatDate(res.invList[i].ewayBillDate));
         this.formArray.controls[i].get("ewayBillExpDate")?.setValue(this.commonService.formatDate(res.invList[i].ewayBillExpDate));
         this.formArray.controls[i].get("invNo")?.setValue(res.invList[i].invoiceNo);
         this.formArray.controls[i].get("invDate")?.setValue(this.commonService.formatDate(res.invList[i].invoiceDate));
@@ -669,54 +650,7 @@ export class ConsignmentaddComponent implements OnInit {
     subTotalRs = freightRs + statisticalRs + fovRs + doorCollRs + handlingRs +
                     loadingDetnRs + enrouteRs + miscRs + doorDelRs + unLoadingRs +
                     unLoadingDetnRs + extrasRS + othersRs
-   
-    // var igst = 0;
-    // var sgst = 0;
-    // var cgst = 0;
-    // if(selectedData.igstPct!=0){
-    //   igst = parseFloat(selectedData.igstPct)
-    // }
-    // if(selectedData.sgstPct!=0){
-    //   sgst = parseFloat(selectedData.sgstPct)
-    // }
-    // if(selectedData.cgstPct!=0){
-    //   cgst = parseFloat(selectedData.cgstPct)
-    // }
-
-    // if (selectedData.gstType == "I") {   
-    //   selectedData.igstPct 
-    //   this.formUser.patchValue({
-    //     sgstPct:"",
-    //     cgstPct:"",
-    //     igstPct: igst,
-    //     sgstAmt:"",
-    //     cgstAmt:"",
-    //     igstAmt: Math.round((subTotalRs * igst)/100).toFixed(2),
-    //   });   
-    // }    
-    // else if (selectedData.gstType == "S")  {    
-    //   this.formUser.patchValue({
-    //     sgstPct: sgst,
-    //     cgstPct: cgst,
-    //     igstPct: "",
-    //     sgstAmt: Math.round((subTotalRs * sgst)/100).toFixed(2),
-    //     cgstAmt: Math.round((subTotalRs * cgst)/100).toFixed(2),
-    //     igstAmt: "",
-    //   });     
-    // }
-    // else{
-    //   this.formUser.patchValue({
-    //     sgstPct:"",
-    //     cgstPct:"",
-    //     igstPct:"",
-    //     sgstAmt:"",
-    //     cgstAmt:"",
-    //     igstAmt:"",
-    //   });   
-    // }    
-    // gtotalRs = subTotalRs + 
-    // Math.round((subTotalRs * igst)/100) + Math.round((subTotalRs * sgst)/100) + Math.round((subTotalRs * cgst)/100)
-    // + nonGstAmt1 + nonGstAmt2
+      
     gtotalRs = subTotalRs + nonGstAmt1 + nonGstAmt2
 
     this.formUser.patchValue({
@@ -804,6 +738,9 @@ export class ConsignmentaddComponent implements OnInit {
 
   fillgrid(){    
     var selectedDataValue = this.formUser.getRawValue();
+    if(selectedDataValue.arrayList.length==0){
+      this.formArray.push(this.createInitialArray());
+    }
     this.formArray.controls[0].get("ewayBillNo")?.setValue(selectedDataValue.ewayBillNo);
     this.formArray.controls[0].get("ewayBillDate")?.setValue(selectedDataValue.ewayBillDate);
     this.formArray.controls[0].get("ewayBillExpDate")?.setValue(selectedDataValue.ewayBillExpDate);
@@ -880,6 +817,29 @@ export class ConsignmentaddComponent implements OnInit {
  
 
   changeEWay(selectedValue: string) {
+    this.gstSearch = false;
+    
+    this.formUser.controls['ewayBillNo'].disable();
+    this.formUser.controls['ewayBillDate'].disable();
+    this.formUser.controls['ewayBillExpDate'].disable();
+    this.formUser.controls['cnorName'].disable();
+    this.formUser.controls['cnorAdd1'].disable();
+    this.formUser.controls['cnorAdd2'].disable();
+    this.formUser.controls['cnorAdd3'].disable();
+    this.formUser.controls['cnorPin'].disable();
+    this.formUser.controls['cnorGst'].disable();
+    this.formUser.controls['cneeName'].disable();
+    this.formUser.controls['cneeAdd1'].disable();
+    this.formUser.controls['cneeAdd2'].disable();
+    this.formUser.controls['cneeAdd3'].disable();
+    this.formUser.controls['cneePin'].disable();
+    this.formUser.controls['cneeGst'].disable();
+    this.formUser.controls['kms'].disable();
+    this.formUser.controls['ewayBillDate'].disable();
+    this.formUser.controls['ewayBillExpDate'].disable();
+    this.formUser.controls['invoiceNo'].disable();
+    this.formUser.controls['invoiceDate'].disable();
+    this.formUser.controls['invoiceValue'].disable();
     if (selectedValue === "E") {
       //Remove field validation
       this.formUser.controls['ewayBillNo'].clearValidators();
@@ -901,49 +861,7 @@ export class ConsignmentaddComponent implements OnInit {
       this.formUser.controls['invoiceValue'].setValidators([Validators.required]);
       this.formUser.controls['truckNo'].setValidators([Validators.required]);
       this.formUser.controls['productId'].setValidators([Validators.required]);
-      this.formUser.controls['rateType'].setValidators([Validators.required]); 
-
-      if (selectedValue === "A") {
-        //Disable field
-        this.formUser.controls['cnorName'].disable();
-        this.formUser.controls['cnorAdd1'].disable();
-        this.formUser.controls['cnorAdd2'].disable();
-        this.formUser.controls['cnorAdd3'].disable();
-        this.formUser.controls['cnorPin'].disable();
-        this.formUser.controls['cnorGst'].disable();
-        this.formUser.controls['cneeName'].disable();
-        this.formUser.controls['cneeAdd1'].disable();
-        this.formUser.controls['cneeAdd2'].disable();
-        this.formUser.controls['cneeAdd3'].disable();
-        this.formUser.controls['cneePin'].disable();
-        this.formUser.controls['cneeGst'].disable();
-        this.formUser.controls['kms'].disable();
-        this.formUser.controls['ewayBillDate'].disable();
-        this.formUser.controls['ewayBillExpDate'].disable();
-        this.formUser.controls['invoiceNo'].disable();
-        this.formUser.controls['invoiceDate'].disable();
-        this.formUser.controls['invoiceValue'].disable();
-      }
-      else{
-        this.formUser.controls['cnorName'].enable();
-        this.formUser.controls['cnorAdd1'].enable();
-        this.formUser.controls['cnorAdd2'].enable();
-        this.formUser.controls['cnorAdd3'].enable();
-        this.formUser.controls['cnorPin'].enable();
-        this.formUser.controls['cnorGst'].enable();
-        this.formUser.controls['cneeName'].enable();
-        this.formUser.controls['cneeAdd1'].enable();
-        this.formUser.controls['cneeAdd2'].enable();
-        this.formUser.controls['cneeAdd3'].enable();
-        this.formUser.controls['cneePin'].enable();
-        this.formUser.controls['cneeGst'].enable();
-        this.formUser.controls['kms'].enable();
-        this.formUser.controls['ewayBillDate'].enable();
-        this.formUser.controls['ewayBillExpDate'].enable();
-        this.formUser.controls['invoiceNo'].enable();
-        this.formUser.controls['invoiceDate'].enable();
-        this.formUser.controls['invoiceValue'].enable();  
-      }
+      this.formUser.controls['rateType'].setValidators([Validators.required]);       
     }
     this.formUser.controls['ewayBillNo'].updateValueAndValidity();
     this.formUser.controls['ewayBillDate'].updateValueAndValidity();
@@ -954,6 +872,34 @@ export class ConsignmentaddComponent implements OnInit {
     this.formUser.controls['truckNo'].updateValueAndValidity();
     this.formUser.controls['productId'].updateValueAndValidity();
     this.formUser.controls['rateType'].updateValueAndValidity();
+
+    if (selectedValue === "A") {
+      this.gstSearch = true;
+      this.formUser.controls['ewayBillNo'].enable();
+    }
+    else{
+      this.formUser.controls['cnorName'].enable();
+      this.formUser.controls['cnorAdd1'].enable();
+      this.formUser.controls['cnorAdd2'].enable();
+      this.formUser.controls['cnorAdd3'].enable();
+      this.formUser.controls['cnorPin'].enable();
+      this.formUser.controls['cnorGst'].enable();
+      this.formUser.controls['cneeName'].enable();
+      this.formUser.controls['cneeAdd1'].enable();
+      this.formUser.controls['cneeAdd2'].enable();
+      this.formUser.controls['cneeAdd3'].enable();
+      this.formUser.controls['cneePin'].enable();
+      this.formUser.controls['cneeGst'].enable();
+      this.formUser.controls['kms'].enable();
+      this.formUser.controls['invoiceNo'].enable();
+      this.formUser.controls['invoiceDate'].enable();
+      this.formUser.controls['invoiceValue'].enable();  
+    }
+    if(selectedValue === "M"){      
+      this.formUser.controls['ewayBillNo'].enable();
+      this.formUser.controls['ewayBillDate'].enable();
+      this.formUser.controls['ewayBillExpDate'].enable();
+    }
   }
 
   
@@ -987,17 +933,6 @@ export class ConsignmentaddComponent implements OnInit {
   }
 
   submitLrDetailsForm(): void {
-    // const controls = this.formUser.controls;
-    // for (const name in controls) {   
-    //   if(name=="fromPlace" || name=="toPlace" || name=="billingParty" || name=="businessBy"
-    //     || name=="cnorId"|| name=="cneeId" || name=="arrayList")  {
-    //         //ignore
-    //   }
-    //   else{        
-    //     var val = controls[name].value?controls[name].value.toString().trim():"";
-    //     this.formUser.controls[name].setValue(val);
-    //   }
-    // }
     if (this.formUser.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields ");
       const controls = this.formUser.controls;
@@ -1011,22 +946,12 @@ export class ConsignmentaddComponent implements OnInit {
     
     var selectedDataValue = this.formUser.getRawValue();
 
-    // const d3 = this.minDate?Date.parse(this.minDate):0;
-    // const d2 = this.maxDate?Date.parse(this.maxDate):0;
-    // const d4 = selectedDataValue.bookingDate?Date.parse(selectedDataValue.bookingDate):0;
-    // if (d3>d4 || d2<d4 ) {
-    //   this.formUser.patchValue({
-    //     bookingDate: ''
-    //   });
-    //   this.toastrService.warning("Invalid booking date");
-    //   return
-    // }
-     let bookingDate = new Date(selectedDataValue.bookingDate);
+    let bookingDate = new Date(selectedDataValue.bookingDate);
     let maxdt = new Date(this.loginDate);
     let mindt = new Date(this.minDate);
 
     if (maxdt<bookingDate || bookingDate<mindt) {
-      this.toastrService.warning("Invalid booking date");
+      this.toastrService.warning("Booking date must be with in the Fin Year");
       return;
     }
 
@@ -1054,6 +979,21 @@ export class ConsignmentaddComponent implements OnInit {
       this.toastrService.warning(" Billing Party is Invalid");
       return;
     }
+    if(selectedDataValue.invoiceNo!="" || selectedDataValue.invoiceDate!="" || selectedDataValue.invoiceValue!=""){
+      if(selectedDataValue.invoiceNo==""){
+        this.toastrService.warning(" Invoice No is Invalid");
+        return;
+      }
+      if(selectedDataValue.invoiceDate==""){
+        this.toastrService.warning(" Invoice Date is Invalid");
+        return;
+      }
+      if(selectedDataValue.invoiceValue==""){
+        this.toastrService.warning(" Invoice Value is Invalid");
+        return;
+      }
+    }
+    
     var indt = "", outdt ="";
     indt = selectedDataValue.vehicleInDt?selectedDataValue.vehicleInDt :"";  
     indt = indt + " " + (selectedDataValue.vehicleInTime?selectedDataValue.vehicleInTime:"");  

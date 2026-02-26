@@ -17,7 +17,7 @@
                                 <label for="formrow-inputZip">Branch</label><span style="color: red">*</span>  
                                 <select formControlName="branchCode"
                                 class="form-control form-select ng-pristine ng-touched"
-                                    (change)="getDocNumCode()"
+                                    (change)="getSeries()"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['branchCode'].invalid) }"> 
                                     <option *ngFor="let br of branchList" value={{br.dataId}}>
                                     {{br.dataName}}
@@ -29,7 +29,7 @@
                             <div class="mb-3">
                                 <label for="formrow-inputCity">Doc Type</label><span style="color: red">*</span>    
                                 <select id="formrow-inputState" class="form-control" 
-                                        formControlName="docType"  (change)="changeDocument()"
+                                        formControlName="docType"  (change)="getSeries()"
                                         class="form-control form-select ng-pristine ng-touched"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['docType'].invalid) }"> 
                                         <option value="CN">Consignment</option>
@@ -45,7 +45,6 @@
                                 <label for="formrow-inputState">Series Code:</label>
                                 <span style="color: red">*</span>
                                 <select formControlName="seriesCode"
-                                    (change)="checkDocumentRange()"
                                     class="form-control form-select ng-pristine ng-touched"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['seriesCode'].invalid) }">
                                     <option value=""> </option>
