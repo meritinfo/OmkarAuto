@@ -95,7 +95,7 @@ namespace Consignment.Repository
                             new SqlParameter("@FromDate",   request.FromDate),
                             new SqlParameter("@ToDate",     request.ToDate),
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_DebitNoteList", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDebitNoteList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -163,7 +163,7 @@ namespace Consignment.Repository
                             new SqlParameter("@Branch", requestModel.strRequest),
                             new SqlParameter("@Year", requestModel.strRequest1),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDebitSlNo", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDebitNoteSlNo", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

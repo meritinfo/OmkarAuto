@@ -381,7 +381,8 @@ import { BpclcardreturnaddComponent } from './module/bpclcardreturn/bpclcardretu
 import { ConsignmentlocalfrtupdateComponent } from './module/consignmentllp/consignmentlocalfrtupdate/consignmentlocalfrtupdate.component';
 import { CreditnoteentrylistComponent } from './module/creditnoteentry/creditnoteentrylist/creditnoteentrylist.component';
 import { CreditnoteentryaddComponent } from './module/creditnoteentry/creditnoteentryadd/creditnoteentryadd.component';
-
+import { DebitnoteaddComponent } from './module/debitnoteentry/debitnoteadd/debitnoteadd.component';
+import { DebitnotelistComponent } from './module/debitnoteentry/debitnotelist/debitnotelist.component';
 
 
 const routes: Routes = [
@@ -899,6 +900,9 @@ const routes: Routes = [
     { path: 'creditnotelist', component: CreditnoteentrylistComponent }, 
   { path: 'creditnoteadd', component: CreditnoteentryaddComponent }, 
   { path: 'creditnoteedit', component: CreditnoteentryaddComponent }, 
+      { path: 'debitnotelist', component: DebitnotelistComponent }, 
+    { path: 'debitnoteadd', component: DebitnoteaddComponent }, 
+  { path: 'debititnoteedit', component: DebitnoteaddComponent }, 
 ];
 
 
