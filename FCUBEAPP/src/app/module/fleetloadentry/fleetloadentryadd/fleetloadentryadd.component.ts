@@ -63,7 +63,7 @@ export class FleetloadentryaddComponent {
   }
 
   ngOnInit(): void {
-    debugger
+     
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);

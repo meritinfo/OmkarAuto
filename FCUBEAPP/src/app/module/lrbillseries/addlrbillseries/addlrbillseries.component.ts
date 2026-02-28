@@ -141,7 +141,7 @@ export class AddlrbillseriesComponent {
 
  
 //Submit user form details //
-  submitLRBIllSeriesForm(): void {
+  submitLrBillSeriesForm(): void {
     this.formSubmitted = true;
     if (this.formUser.invalid) {
       this.toasterService.warning("Please enter mandatory fields");

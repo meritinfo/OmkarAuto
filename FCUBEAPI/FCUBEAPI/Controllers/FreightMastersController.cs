@@ -795,7 +795,26 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
+
+        [HttpPost("CheckIncSeries")]
+        public async Task<IActionResult> CheckIncSeries(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await documentAllotmentBusiness.CheckIncSeries(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         //[HttpPost("ChallanMasterSave")]
         //public async Task<IActionResult> ChallanMasterSave(ChallanMasterModel challanMasterModel)

@@ -17,5 +17,6 @@ namespace FreightMasters.Repository
         
         Task<List<DropDownListModel>> GetRangeList(RequestModel req);
         Task<List<DropDownListModel>> GetSeriesllpList(RequestModel req);
+        Task<ResponseModel> CheckIncSeries(RequestModel req);
     }
 }

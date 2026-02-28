@@ -33,6 +33,7 @@ export class DocallotmentllpaddComponent {
   deleteStatus = false;
   viewStatus = false; 
   dashboard: string ="";
+  inclSeries = false;
   responseDetails = new Responsemodel();
 
   branchList: Dropdownmodel[] = [];
@@ -167,17 +168,18 @@ export class DocallotmentllpaddComponent {
   getSeries(){    
     var selectedDataVal = this.formUser.getRawValue();
     this.getSeriesList(selectedDataVal.branchCode,selectedDataVal.docType);
+    this.checkIncSeries(selectedDataVal.docType);
   }
 
-  getSeriesList(br: string,r: string): void {
-    if(r == "BL"){
+  getSeriesList(br: string,docType: string): void {
+    if(docType == "BL"){
     this.requestmodel.strRequest = "B";
     this.requestmodel.strRequest1 = br;
     this.commonService.getSeriesllpList(this.requestmodel).subscribe((res) => {
       this.seriesList = res;
     });
   }
-  else{
+  else if(docType == "CN"){
       this.requestmodel.strRequest = "L";
       this.requestmodel.strRequest1 = br;
       this.commonService.getSeriesllpList(this.requestmodel).subscribe((res) => {
@@ -186,8 +188,11 @@ export class DocallotmentllpaddComponent {
     }
   }
 
-  checkIncSeries(){
-    
+  checkIncSeries(docType: string){
+    this.requestmodel.strRequest = docType;
+    this.commonService.checkIncSeries(this.requestmodel).subscribe((res) => {
+      this.inclSeries = res.status;
+    });
   }
   
   checkDocumentRange() { 
@@ -196,13 +201,34 @@ export class DocallotmentllpaddComponent {
     if (this.selectedDocumentallotmentDetails.docAllotId == "")
     {      
       var docCount=0;
-      var rangeFrom = selectedDataVal.rangeFrom ? selectedDataVal.rangeFrom.toString():"";
-      var rangeTo = selectedDataVal.rangeTo ? selectedDataVal.rangeTo.toString():"";
+
+      selectedDataVal.rangeFrom = selectedDataVal.rangeFrom ? selectedDataVal.rangeFrom.toString():"";
+      selectedDataVal.rangeTo = selectedDataVal.rangeTo ? selectedDataVal.rangeTo.toString():"";
 
       if(selectedDataVal.rangeFrom!="" && selectedDataVal.rangeTo!=""){
-        rangeFrom = selectedDataVal.rangeFrom;
-        rangeTo = selectedDataVal.rangeTo;
-        docCount = parseInt(rangeTo) - parseInt(rangeFrom);
+        if(this.inclSeries){     
+          var doccode = selectedDataVal.docNumCode.toString();     
+          var rangeFrom = selectedDataVal.rangeFrom.substring(0,doccode.length);
+          var rangeTo = selectedDataVal.rangeTo.substring(0,doccode.length);
+
+          if(selectedDataVal.rangeFrom!="" && doccode != rangeFrom){
+            this.toasterService.warning("Range From sholud Start With Series Code");
+            this.formUser.patchValue({
+              rangeFrom: "",
+              docCount:""
+            });       
+            return;       
+          }  
+          if(selectedDataVal.rangeTo!="" && doccode != rangeTo){
+            this.toasterService.warning("Range To sholud Start With Series Code");
+            this.formUser.patchValue({
+              rangeTo:"",
+              docCount:""
+            });     
+            return;       
+          }  
+        }
+        docCount = parseInt(selectedDataVal.rangeTo) - parseInt(selectedDataVal.rangeFrom);
         if(docCount > 5000){
           this.toasterService.warning("Doc Count sholud not be more than 5000");   
           this.formUser.patchValue({

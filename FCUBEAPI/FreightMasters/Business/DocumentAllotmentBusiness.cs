@@ -49,5 +49,10 @@ namespace FreightMasters.Business
         {
             return await documentAllotmentRepository.GetSeriesllpList(req);
         }
+        public async Task<ResponseModel> CheckIncSeries(RequestModel req)
+        {
+            return await documentAllotmentRepository.CheckIncSeries(req);
+        }
+        
     }
 }
