@@ -195,7 +195,7 @@ export class AddfleetcardmasterComponent {
 
   //Submit user form details //
   submitFleetCardMasterForm(): void {
-    debugger
+     
     if (this.formUser.invalid) {
       this.toastrService.warning("Please enter mandatory fields");
       const controls = this.formUser.controls;

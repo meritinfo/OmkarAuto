@@ -323,7 +323,6 @@ namespace FreightMasters.Repository
             }
             return creditacList;
         }
-
         public async Task<List<DropDownListModel>> GetSeriesllpList(RequestModel req)
         {
             List<DropDownListModel> creditacList = new();
@@ -357,6 +356,36 @@ namespace FreightMasters.Repository
 
             }
             return creditacList;
+        }
+        public async Task<ResponseModel> CheckIncSeries(RequestModel req)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@DocType",    req.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_CheckIncSeries", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseModel;
         }
 
     }

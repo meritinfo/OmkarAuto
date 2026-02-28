@@ -125,13 +125,14 @@
                     <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                         <thead>
                             <tr>
-                                <th>bookingPlace </th>
                                 <th>bookingDate </th>
                                 <th>GcSeries </th>
                                 <th>fPlace </th>
                                 <th>tPlace </th>
                                 <th>truckNo </th>
                                 <th>Action</th>
+                                <th>Billed Y/N</th>
+                                <th>Grand Total</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -147,12 +148,13 @@
                                     (click)="download(cn)" >
                                         <i class="fas fa-download"></i></button>   
                                 </td>  
-                                <td>{{ cn.bookedAt }}</td>
                                 <td>{{ cn.bookingDate }}</td>                        
                                 <td>{{ cn.gcNoteNo }}</td>
                                 <td>{{ cn.fPlace }}</td>
                                 <td>{{ cn.tPlace }}</td>
                                 <td>{{ cn.truckNo }}</td>   
+                                <td>{{ cn.cnBilledYN }}</td>   
+                                <td>{{ cn.gtotalRs }}</td>   
                             </tr>
                         </tbody>
                         <tbody *ngIf="allConsignment.cnList?.length == 0">

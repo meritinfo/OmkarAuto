@@ -34,40 +34,38 @@ export class ConsignmentlistComponent implements OnInit  {
     filterStr2:'',
     filterStr3:''
   }
-  formFilter!: FormGroup;
-  branchList: Dropdownmodel[] = [];
-  partyList: Dropdownmodel[] = [];
-  locationList: Dropdownmodel[] = [];
+  formFilter!     : FormGroup;
+  branchList      : Dropdownmodel[] = [];
+  partyList       : Dropdownmodel[] = [];
+  locationList    : Dropdownmodel[] = [];
   keywordLocation = 'dataName';
-  loginDate: string = '';
-  branch: string = '';
-  fromDate: string = '';
-  maxDate: string = '';
-  minDate: string = '';
-  editMode = false;
-  createmode  = true;
-  createStatus = false;
-  editStatus = false;
-  deleteStatus = false;
-  viewStatus = false; 
-  dashboard: string ="";
-  year: string = ''; 
-
-  lrfromDate: string = '';
-  lrtoDate: string = '';
-  lrpayParty: string = '';
-  lrorigin: string = '';
-  lrdestination: string = '';
-  lrvehicleNo: string = '';
-  lrlrNo: string = '';
-
+  loginDate       : string = '';
+  branch          : string = '';
+  fromDate        : string = '';
+  maxDate         : string = '';
+  minDate         : string = '';
+  editMode        = false;
+  createmode      = true;
+  createStatus    = false;
+  editStatus      = false;
+  deleteStatus    = false;
+  viewStatus      = false; 
+  dashboard       : string ="";
+  year            : string    = ''; 
+  lrfromDate      : string = '';
+  lrtoDate        : string = '';
+  lrpayParty      : string = '';
+  lrorigin        : string = '';
+  lrdestination   : string = '';
+  lrvehicleNo     : string = '';
+  lrlrNo          : string = '';
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
 
   constructor(private formBuilder: FormBuilder,
-                                    private sharedService : SharedService,
-    private consignmentService: ConsignmentService, private route: Router,
-    private toastrService :ToastrService, private commonService: CommonService,) {
+    private sharedService : SharedService,private consignmentService: ConsignmentService,
+    private route: Router,private toastrService :ToastrService, 
+    private commonService: CommonService,) {
   }
 
   ngOnInit(): void {   
@@ -150,7 +148,6 @@ export class ConsignmentlistComponent implements OnInit  {
     if (typeof lrlrNo !== 'undefined' && lrlrNo !== null && lrlrNo !== '') {
       this.lrlrNo = lrlrNo;
     }
-    
     var lrorigin = sessionStorage.getItem('lrorigin')?.toString();
     if (typeof lrorigin !== 'undefined' && lrorigin !== null && lrorigin !== '') {
       this.lrorigin = lrorigin;
@@ -159,9 +156,7 @@ export class ConsignmentlistComponent implements OnInit  {
     if (typeof lrdestination !== 'undefined' && lrdestination !== null && lrdestination !== '') {
       this.lrdestination = lrdestination;
     }
-
     this.consignmentService.clearConsignmentDetails();
-
     this.getBranchList();
     this.getPartyList();
     this.getLocationList();
@@ -237,10 +232,7 @@ export class ConsignmentlistComponent implements OnInit  {
           title: 'Download',
           data: 'consignmentID',
         }, 
-        {
-          title: 'Booked At',
-          data: 'bookedAt',
-        },
+        
         {
           title: 'Booking Date',
           data: 'bookingDate',
@@ -260,6 +252,14 @@ export class ConsignmentlistComponent implements OnInit  {
         {
           title: 'Vehicle No',
           data: 'truckNo',
+        },  
+        {
+          title: 'Billed Y/N',
+          data: 'cnBilledYN',
+        },  
+        {
+          title: 'Grand Total',
+          data: 'gtotalRs',
         },  
       ],
     };
@@ -291,7 +291,6 @@ export class ConsignmentlistComponent implements OnInit  {
   }
   
    
-  
   startWithFilter = function (dataList: Dropdownmodel[], query: string): any[] {
     return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
@@ -359,12 +358,9 @@ export class ConsignmentlistComponent implements OnInit  {
     this.filter.sortColumn = selectedDataVal.lrNo;
     this.filter.sortOrder = this.branch,  
     this.filter.search = this.year;    
-
-     this.getConsignmentList();
-     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+    this.getConsignmentList();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload(); 
      });
   }
-  
-
 }

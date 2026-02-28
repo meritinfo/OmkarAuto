@@ -343,6 +343,9 @@ export class CommonService {
   getSeriesllpList(filter: Requestmodel): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FreightMasters/GetSeriesllpList', filter, this.httpOptions);
   }  
+  checkIncSeries(filter: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/CheckIncSeries', filter, this.httpOptions);
+  }  
   getFreightList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Consignment/GetFreightList', null, this.httpOptions);
   }

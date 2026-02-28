@@ -33,6 +33,7 @@ export class DocallotmentllpaddComponent {
   deleteStatus = false;
   viewStatus = false; 
   dashboard: string ="";
+  inclSeries = false;
   responseDetails = new Responsemodel();
 
   branchList: Dropdownmodel[] = [];
@@ -65,16 +66,15 @@ export class DocallotmentllpaddComponent {
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }    
     
-    
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();    
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();    
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -105,9 +105,7 @@ export class DocallotmentllpaddComponent {
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
-    
     this.getBranchList();
-  //  this.getSeriesListNew(this.branch,);
 
     this.selectedDocumentallotmentDetails = this.documentallotmentService.getDocumentallotmentDetails();
     this.formUser = this.formBuilder.group({
@@ -126,7 +124,6 @@ export class DocallotmentllpaddComponent {
 
     this.formUser.controls['docCount'].disable();   
     this.formUser.controls["docCloseDate"].disable();  
-    //this.formUser.controls['docNumCode'].disable(); 
     
     if(this.selectedDocumentallotmentDetails.docType=="CH"){
       this.formUser.controls['seriesCode'].clearValidators();
@@ -137,13 +134,13 @@ export class DocallotmentllpaddComponent {
     this.formUser.controls['seriesCode'].updateValueAndValidity();
 
     if (this.selectedDocumentallotmentDetails.docAllotId!= '') {
-    this.formUser.controls['seriesCode'].disable(); 
+      this.formUser.controls['seriesCode'].disable(); 
       this.formUser.patchValue(this.selectedDocumentallotmentDetails); 
       this.formUser.patchValue({
         allotDate:this.commonService.formatDate(this.selectedDocumentallotmentDetails.allotDate),   
         docCloseDate:this.commonService.formatDate(this.selectedDocumentallotmentDetails.docCloseDate),         
       });  
-      this.getSeriesListNew(this.selectedDocumentallotmentDetails.branchCode,this.selectedDocumentallotmentDetails.docType);
+      this.getSeriesList(this.selectedDocumentallotmentDetails.branchCode,this.selectedDocumentallotmentDetails.docType);
       if(this.selectedDocumentallotmentDetails.docStatus=="C"){
         this.formUser.controls["docCloseDate"].enable();
       }
@@ -153,7 +150,7 @@ export class DocallotmentllpaddComponent {
       this.editMode = true;
     }
     else{
-      this.getDocNumCode();
+      this.getSeriesList(this.branch,"CN");
     }
     
     this.sharedService.loading = false;
@@ -162,100 +159,76 @@ export class DocallotmentllpaddComponent {
   // convenience getter for easy access to contact form fields
   get f() { return this.formUser.controls; } 
 
-   //Get Branch List details //
-   getBranchList(): void {
+  getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;
     });
   }
 
-  getSeriesList(br: string): void {
-    this.requestmodel.strRequest = "L";
-    this.requestmodel.strRequest1 = br;
-    this.commonService.getSeriesllpList(this.requestmodel).subscribe((res) => {
-      this.seriesList = res;
-    });
+  getSeries(){    
+    var selectedDataVal = this.formUser.getRawValue();
+    this.getSeriesList(selectedDataVal.branchCode,selectedDataVal.docType);
+    this.checkIncSeries(selectedDataVal.docType);
   }
-  getSeriesListNew(br: string,r: string): void {
-    if(r == "BL"){
+
+  getSeriesList(br: string,docType: string): void {
+    if(docType == "BL"){
     this.requestmodel.strRequest = "B";
     this.requestmodel.strRequest1 = br;
     this.commonService.getSeriesllpList(this.requestmodel).subscribe((res) => {
       this.seriesList = res;
     });
   }
-   else{
+  else if(docType == "CN"){
       this.requestmodel.strRequest = "L";
       this.requestmodel.strRequest1 = br;
       this.commonService.getSeriesllpList(this.requestmodel).subscribe((res) => {
         this.seriesList = res;
       });
+    }
   }
+
+  checkIncSeries(docType: string){
+    this.requestmodel.strRequest = docType;
+    this.commonService.checkIncSeries(this.requestmodel).subscribe((res) => {
+      this.inclSeries = res.status;
+    });
   }
   
-  // chageDocument(){
-  //   this.formUser.patchValue({
-  //     seriesCode: "",
-  //     rangeFrom: "",
-  //     rangeTo:"",
-  //     docCount:""
-  //   }); 
-  //   var selectedDataVal = this.formUser.getRawValue();
-    
-  //   if(selectedDataVal.docType=="CH"){
-  //     this.formUser.controls['seriesCode'].clearValidators();
-  //     this.formUser.controls['seriesCode'].disable();
-        
-  //   }
-  //   else{
-  //     this.formUser.controls['seriesCode'].setValidators([Validators.required]); 
-  //     this.formUser.controls['seriesCode'].enable();
-  //   }
-  //   this.formUser.controls['seriesCode'].updateValueAndValidity(); 
-  // }
-
-  changeDocument(){
-    this.formUser.patchValue({
-      seriesCode: "",
-      rangeFrom: "",
-      rangeTo:"",
-      docCount:""
-    }); 
-    var selectedDataVal = this.formUser.getRawValue();
-    
-    if(selectedDataVal.docType=="CH"){
-      this.formUser.controls['seriesCode'].clearValidators();
-      this.formUser.controls['seriesCode'].disable();
-        
-    }
-   else if(selectedDataVal.docType=="BL"){
-    this.formUser.controls['seriesCode'].setValidators([Validators.required]); 
-    this.formUser.controls['seriesCode'].enable();
-      this.getSeriesListNew(selectedDataVal.branchCode,"BL")
-        
-    }
-    else {
-      this.formUser.controls['seriesCode'].setValidators([Validators.required]); 
-      this.formUser.controls['seriesCode'].enable();
-      this.getSeriesListNew(selectedDataVal.branchCode,"CN")
-    }
-    this.formUser.controls['seriesCode'].updateValueAndValidity(); 
-  }
-
-
   checkDocumentRange() { 
     var selectedDataVal = this.formUser.getRawValue();
     
     if (this.selectedDocumentallotmentDetails.docAllotId == "")
     {      
       var docCount=0;
-      var rangeFrom = selectedDataVal.rangeFrom ? selectedDataVal.rangeFrom.toString():"";
-      var rangeTo = selectedDataVal.rangeTo ? selectedDataVal.rangeTo.toString():"";
+
+      selectedDataVal.rangeFrom = selectedDataVal.rangeFrom ? selectedDataVal.rangeFrom.toString():"";
+      selectedDataVal.rangeTo = selectedDataVal.rangeTo ? selectedDataVal.rangeTo.toString():"";
 
       if(selectedDataVal.rangeFrom!="" && selectedDataVal.rangeTo!=""){
-        rangeFrom = selectedDataVal.rangeFrom;
-        rangeTo = selectedDataVal.rangeTo;
-        docCount = parseInt(rangeTo) - parseInt(rangeFrom);
+        if(this.inclSeries){     
+          var doccode = selectedDataVal.docNumCode.toString();     
+          var rangeFrom = selectedDataVal.rangeFrom.substring(0,doccode.length);
+          var rangeTo = selectedDataVal.rangeTo.substring(0,doccode.length);
+
+          if(selectedDataVal.rangeFrom!="" && doccode != rangeFrom){
+            this.toasterService.warning("Range From sholud Start With Series Code");
+            this.formUser.patchValue({
+              rangeFrom: "",
+              docCount:""
+            });       
+            return;       
+          }  
+          if(selectedDataVal.rangeTo!="" && doccode != rangeTo){
+            this.toasterService.warning("Range To sholud Start With Series Code");
+            this.formUser.patchValue({
+              rangeTo:"",
+              docCount:""
+            });     
+            return;       
+          }  
+        }
+        docCount = parseInt(selectedDataVal.rangeTo) - parseInt(selectedDataVal.rangeFrom);
         if(docCount > 5000){
           this.toasterService.warning("Doc Count sholud not be more than 5000");   
           this.formUser.patchValue({
@@ -289,22 +262,6 @@ export class DocallotmentllpaddComponent {
         }
       });
     }
-  }
-
-  getDocNumCode(): void {    
-    var selectedDataVal = this.formUser.getRawValue();
-    this.requestmodel.strRequest = selectedDataVal.branchCode;
-   // this.getSeriesList(selectedDataVal.branchCode);
-   this.getSeriesListNew(selectedDataVal.branchCode,selectedDataVal.branchCode);
-    
-    this.documentallotmentService.getDocumentNumcode(this.requestmodel).subscribe((res) => {
-      this.responseDetails = res;
-      if (this.responseDetails.status) {
-        this.formUser.patchValue({
-          docNumCode: this.responseDetails.message,
-        });  
-      }
-    });
   }
 
   onStatusChange(e:any){
@@ -346,22 +303,22 @@ export class DocallotmentllpaddComponent {
   
   //Submit user form details //
   submitDocumentallotmentForm(): void {  
-   if (this.formUser.invalid) {
-  this.toasterService.warning("Please enter mandatory fields");
+    if (this.formUser.invalid) {
+      this.toasterService.warning("Please enter mandatory fields");
 
-  const controls = this.formUser.controls;
-  for (const name in controls) {
-    if (controls[name].invalid) {
-      // Convert camelCase key to readable format
-      const readableName = name.replace(/([A-Z])/g, ' $1');
-      const titleCaseName = readableName.charAt(0).toUpperCase() + readableName.slice(1);
+      const controls = this.formUser.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          // Convert camelCase key to readable format
+          const readableName = name.replace(/([A-Z])/g, ' $1');
+          const titleCaseName = readableName.charAt(0).toUpperCase() + readableName.slice(1);
 
-      this.toasterService.warning(titleCaseName + " field is invalid");
+          this.toasterService.warning(titleCaseName + " field is invalid");
+        }
+      }
+
+      return;
     }
-  }
-
-  return;
-}
     var selectedDataVal = this.formUser.getRawValue();
     this.formSubmitted = true;
     this.documentallotmentmodel.docAllotId = this.selectedDocumentallotmentDetails.docAllotId ;
