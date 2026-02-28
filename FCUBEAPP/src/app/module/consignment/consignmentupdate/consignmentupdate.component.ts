@@ -120,9 +120,6 @@ export class ConsignmentupdateComponent {
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
     this.fromDate = this.minDate ;
-    
-  
-
     this.sharedService.loading = true;
     this.getBranchList();
     this.getRateList();
@@ -131,9 +128,7 @@ export class ConsignmentupdateComponent {
     this.getContentList();
     this.getVehTypes();
     this.formSubmitted = false;
-
     this.sharedService.loading = false;
-    
     this.formUser = this.formBuilder.group({
       bookingPlace  :new FormControl(this.branch, [Validators.required]),
       gcNoteNo  : new FormControl('', [Validators.required]),
@@ -185,13 +180,6 @@ export class ConsignmentupdateComponent {
       othersNarr: new FormControl('',),   
       subTotalRs : new FormControl('',),   
       productId : new FormControl('', ),
-      // gstType: new FormControl('',),   
-      // sgstPct: new FormControl('',),   
-      // sgstAmt: new FormControl('',),   
-      // cgstPct : new FormControl('',),   
-      // cgstAmt: new FormControl('',),   
-      // igstPct: new FormControl('',),   
-      // igstAmt: new FormControl('',),   
       nonGstAmt1 : new FormControl('',),   
       nonGstAmt1Desc: new FormControl('',),   
       nonGstAmt2: new FormControl('',),   
@@ -305,13 +293,6 @@ export class ConsignmentupdateComponent {
       extrasNarr:  "", 
       othersNarr:  "", 
       subTotalRs :  "", 
-      // gstType:  "", 
-      // sgstPct:  "", 
-      // sgstAmt:  "", 
-      // cgstPct :  "", 
-      // cgstAmt:  "", 
-      // igstPct:  "", 
-      // igstAmt:  "", 
       nonGstAmt1 :  "", 
       nonGstAmt1Desc:  "", 
       nonGstAmt2:  "", 
@@ -392,13 +373,6 @@ export class ConsignmentupdateComponent {
           othersNarr:  this.lrmodel.othersNarr, 
           subTotalRs :  this.lrmodel.subTotalRs, 
           productId: this.lrmodel.productId, 
-          // gstType:  this.lrmodel.gstType, 
-          // sgstPct:  this.lrmodel.sgstPct ,
-          // sgstAmt:  this.lrmodel.sgstAmt ,
-          // cgstPct:  this.lrmodel.cgstPct ,
-          // cgstAmt:  this.lrmodel.cgstAmt ,
-          // igstPct:  this.lrmodel.igstPct ,
-          // igstAmt:  this.lrmodel.igstAmt ,
           nonGstAmt1 :  this.lrmodel.nonGstAmt1 ,
           nonGstAmt1Desc:  this.lrmodel.nonGstAmt1Desc ,
           nonGstAmt2:  this.lrmodel.nonGstAmt2 ,
@@ -499,53 +473,7 @@ export class ConsignmentupdateComponent {
                     loadingDetnRs + enrouteRs + miscRs + doorDelRs + unLoadingRs +
                     unLoadingDetnRs + extrasRS + othersRs
    
-    // var igst = 0;
-    // var sgst = 0;
-    // var cgst = 0;
-    // if(selectedData.igstPct!=0){
-    //   igst = parseFloat(selectedData.igstPct)
-    // }
-    // if(selectedData.sgstPct!=0){
-    //   sgst = parseFloat(selectedData.sgstPct)
-    // }
-    // if(selectedData.cgstPct!=0){
-    //   cgst = parseFloat(selectedData.cgstPct)
-    // }
 
-    // if (selectedData.gstType == "IG") {   
-    //   selectedData.igstPct 
-    //   this.formUser.patchValue({
-    //     sgstPct:"",
-    //     cgstPct:"",
-    //     igstPct: igst,
-    //     sgstAmt:"",
-    //     cgstAmt:"",
-    //     igstAmt: Math.round((subTotalRs * igst)/100).toFixed(2),
-    //   });   
-    // }    
-    // else if (selectedData.gstType == "SC")  {    
-    //   this.formUser.patchValue({
-    //     sgstPct: sgst,
-    //     cgstPct: cgst,
-    //     igstPct: "",
-    //     sgstAmt: Math.round((subTotalRs * sgst)/100).toFixed(2),
-    //     cgstAmt: Math.round((subTotalRs * cgst)/100).toFixed(2),
-    //     igstAmt: "",
-    //   });     
-    // }
-    // else{
-    //   this.formUser.patchValue({
-    //     sgstPct:"",
-    //     cgstPct:"",
-    //     igstPct:"",
-    //     sgstAmt:"",
-    //     cgstAmt:"",
-    //     igstAmt:"",
-    //   });   
-    // }    
-    // gtotalRs = subTotalRs + 
-    // Math.round((subTotalRs * igst)/100) + Math.round((subTotalRs * sgst)/100) + Math.round((subTotalRs * cgst)/100)
-    // + nonGstAmt1 + nonGstAmt2
 
     gtotalRs = subTotalRs + nonGstAmt1 + nonGstAmt2
 
