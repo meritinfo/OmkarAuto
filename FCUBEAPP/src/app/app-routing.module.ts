@@ -383,6 +383,8 @@ import { CreditnoteentrylistComponent } from './module/creditnoteentry/creditnot
 import { CreditnoteentryaddComponent } from './module/creditnoteentry/creditnoteentryadd/creditnoteentryadd.component';
 import { DebitnoteaddComponent } from './module/debitnoteentry/debitnoteadd/debitnoteadd.component';
 import { DebitnotelistComponent } from './module/debitnoteentry/debitnotelist/debitnotelist.component';
+import { DocumentmasteraddComponent } from './module/documentmaster/documentmasteradd/documentmasteradd.component';
+import { DocumentmasterlistComponent } from './module/documentmaster/documentmasterlist/documentmasterlist.component';
 
 
 const routes: Routes = [
@@ -900,9 +902,11 @@ const routes: Routes = [
     { path: 'creditnotelist', component: CreditnoteentrylistComponent }, 
   { path: 'creditnoteadd', component: CreditnoteentryaddComponent }, 
   { path: 'creditnoteedit', component: CreditnoteentryaddComponent }, 
-      { path: 'debitnotelist', component: DebitnotelistComponent }, 
-    { path: 'debitnoteadd', component: DebitnoteaddComponent }, 
+  { path: 'debitnotelist', component: DebitnotelistComponent }, 
+  { path: 'debitnoteadd', component: DebitnoteaddComponent }, 
   { path: 'debititnoteedit', component: DebitnoteaddComponent }, 
+  { path: 'docsetting', component: DocumentmasterlistComponent }, 
+  { path: 'docmasteredit', component: DocumentmasteraddComponent }, 
 ];
 
 

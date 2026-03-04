@@ -335,6 +335,8 @@ namespace FCUBEAPI
             services.AddScoped<ICreditNoteEntryRepository, CreditNoteEntryRepository>();
             services.AddScoped<IDebitNoteEntryBusiness, DebitNoteEntryBusiness>();
             services.AddScoped<IDebitNoteEntryRepository, DebitNoteEntryRepository>();
+            services.AddScoped<IDocumentMasterBusiness, DocumentMasterBusiness>();
+            services.AddScoped<IDocumentMasterRepository, DocumentMasterRepository>();
 
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>

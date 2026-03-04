@@ -7,10 +7,7 @@ import { Reportmodel } from 'src/app/models/reportmodel';
 import { Constants } from '../common/constants';
 import { Debitnotelistmodel } from '../models/debitnotelistmodel';
 import { Debitnotemodel } from '../models/debitnotemodel';
-
 import { Panvalidapiresultmodel } from '../models/panvalidapiresultmodel';
-
-
 @Injectable({
   providedIn: 'root'
 })
