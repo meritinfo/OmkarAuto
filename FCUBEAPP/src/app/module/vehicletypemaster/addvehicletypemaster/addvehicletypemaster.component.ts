@@ -123,20 +123,21 @@ exit(): void {
   this.route.navigate(['/vehtypeslist']);
 }
 
-selectToLocationEvent(item: any,index:number) {
-   var ToPlace = item.value;
+selectToLocationEvent(event: any,i:number) {
+    var ToPlace = event.target.value;
   //  event.target
-  // var ToPlace =  this.formRatesArray.value[index].vehTypeAlias;
+  var ToPlace =  this.formRatesArray.value[i].vehTypeAlias.toString().toUpperCase();
     var selectedDataValue=this.formUser.getRawValue();
-    for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
-      if(ToPlace == selectedDataValue.arrayList[i].vehTypeAlias)
+
+    for (var j = 0; j< selectedDataValue.arrayList.length; j++) {
+      if(j!=i && ToPlace == selectedDataValue.arrayList[j].vehTypeAlias.toString().toUpperCase())
       {
-        this.toasterService.warning("Data already exits in grid");
-        this.formRatesArray.controls[index].get("vehTypeAlias")?.setValue("");
+        this.toasterService.warning("Data already exists in grid");
+        this.formRatesArray.controls[i].get("vehTypeAlias")?.setValue("");
         return;
       }
-    }
-    this.chkDuplicateAlias(index);
+    } 
+    this.chkDuplicateAlias(i);
 
   }  
 
@@ -157,8 +158,6 @@ getVehicleTypeGroupList(): void {
             this.formRatesArray.push(this.createRatesArray());
             this.formRatesArray.controls[i].get("vehTypeId")?.setValue(res.vehicletypeDetailList[i].vehTypeId );
             this.formRatesArray.controls[i].get("vehTypeAlias")?.setValue(res.vehicletypeDetailList[i].vehTypeAlias); 
-           
-         
           }     
         });
       }
@@ -175,8 +174,6 @@ getVehicleTypeGroupList(): void {
     
 chkVehTypeDuplicate(){
   var selectedData = this.formUser.getRawValue();
-  
-  
     this.requestmodel.strRequest = selectedData.vehicleTypeDesc;
   //  this.requestmodel.strRequest1 = selectedData.gcNoteNo;
     this.vehicleTypesService.checkDuplicateVehTypeDesc(this.requestmodel).subscribe((res: Responsemodel) => {

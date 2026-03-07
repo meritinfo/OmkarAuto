@@ -97,7 +97,7 @@ ngOnInit(): void {
    cnorCneeName: new FormControl('',[Validators.required, Validators.minLength(2)]),
    printName:new FormControl('',[Validators.required, Validators.minLength(2)]),
    cnorCneeFlag: new FormControl('',[Validators.required]), 
-   branchCode: new FormControl('',[Validators.required]), 
+   branchCode: new FormControl(this.branchname,[Validators.required]), 
    globalYN: new FormControl('',[Validators.required]), 
    address1: new FormControl('',[Validators.required, Validators.minLength(2)]),
    address2: new FormControl('',), 

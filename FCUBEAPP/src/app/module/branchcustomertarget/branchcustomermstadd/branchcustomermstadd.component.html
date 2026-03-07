@@ -71,11 +71,11 @@
                                         </tr>
                                         <tr formArrayName="arrayList"
                                             *ngFor="let arrayData of formRatesArray.controls; let i = index">
-                                            <div [formGroupName]="i" class="grid-table">
+                                            <div [formGroupName]="i" class="grid-table" >
                                                 <td class="col-lg-2">
                                                     <select class="form-control form-select ng-pristine ng-touched"
-                                                        formControlName="accountId">
-                                                        <option *ngFor="let branch of ledgerAcList"
+                                                        formControlName="accountId"   (change)="checkDublicateGrid($event,i)">
+                                                        <option *ngFor="let branch of ledgerAcList" 
                                                             value={{branch.dataId}}>
                                                             {{branch.dataName}}
                                                         </option>

@@ -58,6 +58,7 @@
                                                 <div class="ng-autocomplete">
                                                     <ng-autocomplete [data]="partyList"
                                                         [searchKeyword]="keywordLocation" 
+                                                          (selected)='selectNewEvent($event,i)'
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)'
                                                         [itemTemplate]="itemTemplate"

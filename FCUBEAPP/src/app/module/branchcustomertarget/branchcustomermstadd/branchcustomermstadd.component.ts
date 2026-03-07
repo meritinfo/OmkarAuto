@@ -169,6 +169,24 @@ export class BranchcustomermstaddComponent {
     });
   }
 
+  checkDublicateGrid(event: any,i:number) {
+    var ToPlace = event.target.value;
+  //  event.target
+  var ToPlace =  this.formRatesArray.value[i].accountId
+    var selectedDataValue=this.formRatesMaster.getRawValue();
+
+    for (var j = 0; j< selectedDataValue.arrayList.length; j++) {
+      if(j!=i && ToPlace == selectedDataValue.arrayList[j].accountId)
+      {
+        this.toasterService.warning("Data already exists in grid");
+        this.formRatesArray.controls[i].get("accountId")?.setValue("");
+        return;
+      }
+    } 
+ 
+
+  }
+
   getCustomerTargetInnerGridList(): void {
     this.requestmodel.strRequest = this.selectedbranchmastertargetnew.id; 
     this.branchCustomerTargetService.getBranchCustomertargetInnerGridList(this.requestmodel).subscribe((res) => {

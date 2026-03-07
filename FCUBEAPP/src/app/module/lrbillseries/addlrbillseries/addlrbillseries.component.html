@@ -16,10 +16,10 @@
                   <div class="card">
                      <div class="card-body">
                         <div class="row">
-                           <div class="col-sm-2">
+                            <div class="col-lg-3">
+                              <div class="mb-2">
                               <label for="scope" class="col-form-label">Branch</label>  <span style="color: red">*</span>  
-                           </div>
-                           <div class="col-sm-4">                                        
+                                     
                               <select class="form-control form-select ng-pristine ng-touched"autoclose="false" 
                                  formControlName="branchCode" 
                                  [ngClass]="{ 'is-invalid': formSubmitted && (f['branchCode'].invalid) }">
@@ -28,13 +28,15 @@
                                     {{branch.dataName}}
                                  </option>
                               </select>
-                           </div>                                     
+                           </div>  
+                               </div>                                    
                         </div>
                         <div class="row">
-                           <div class="col-sm-2">
+                          <div class="col-lg-3">
+                              <div class="mb-2">
                               <label for="scope" class="col-form-label">LR Bill Type</label>  <span style="color: red">*</span>  
-                           </div>
-                           <div class="col-sm-4">
+                   
+                            
                               <select id="formrow-inputState" 
                                  class="form-control form-select ng-pristine ng-touched"
                                  formControlName="lR_Bill_type"
@@ -44,23 +46,26 @@
                                     <option value="B">BILL</option>
                               </select>
                            </div> 
+                            </div> 
                         </div>                               
                         <div class="row">
-                           <div class="col-sm-2">
+                            <div class="col-lg-3">
+                              <div class="mb-2">
                               <label for="horizontal-firstname-input" class="col-form-label">Series Code
                               </label>  <span style="color: red">*</span>  
                            </div>
-                           <div class="col-sm-4">
+                        
                               <input type="text" uppercaseonly class="form-control" (change)="checkDuplicateDesc()"
                               formControlName="seriesCode" 
                               [ngClass]="{ 'is-invalid': formSubmitted && (f['seriesCode'].invalid) }">
                            </div>
                         </div>
                         <div class="row">
-                           <div class="col-sm-2">
+                               <div class="col-lg-3">
+                              <div class="mb-2">
                               <label for="scope" class="col-form-label">Is Active</label>  <span style="color: red">*</span>  
                            </div>
-                           <div class="col-sm-4">
+                   
                               <select id="formrow-inputState" 
                                  class="form-control form-select ng-pristine ng-touched"
                                   formControlName="isActive"

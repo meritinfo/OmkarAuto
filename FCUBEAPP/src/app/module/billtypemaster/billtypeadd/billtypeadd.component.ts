@@ -173,7 +173,7 @@ if (this.formBillTypeMaster.invalid) {
   this.billstypemodel.otherAc = selectedDataVal.otherAc;
   this.billstypemodel.otherAc2 = selectedDataVal.otherAc2;
   this.billstypemodel.otherAc3 = selectedDataVal.otherAc3;
-  this.billstypemodel.sacCode = selectedDataVal.sacCode;
+  this.billstypemodel.sacCode = selectedDataVal.sacCode.toString().toUpperCase();
   this.billstypemodel.loggedInUser   = this.loggedInUserID;
 
   this.billsTypeService.billsTypeDetailsSubmitted(this.billstypemodel).subscribe((res: Responsemodel) => {
