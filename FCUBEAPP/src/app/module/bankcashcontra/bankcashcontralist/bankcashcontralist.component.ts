@@ -231,7 +231,7 @@ export class BankcashcontralistComponent {
     this.filter.branch = this.branch === '0' ? '' : this.branch;
     this.filter.receiptOrPayment = "BC" ;
     this.filter.yearId = this.year;
-    this.filter.search = selectedDataVal.docSeriesNo;
+    this.filter.search = selectedDataVal.docSeriesNo.toString().toUpperCase();
     this.filter.refType = selectedDataVal.refType;
     
     this.sharedService.loading=true;

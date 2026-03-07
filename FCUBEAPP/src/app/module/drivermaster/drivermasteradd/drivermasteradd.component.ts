@@ -175,7 +175,7 @@ export class DrivermasteraddComponent {
       bankAccountStatus: new FormControl('S', ),
     });
 
-    this.formDriverMaster.controls['age'].disable(); 
+    //this.formDriverMaster.controls['age'].disable(); 
      
    // setTimeout(() => {
       if (this.selectedDriverMasterDetails.driverMasterID != '') {   
@@ -262,7 +262,7 @@ export class DrivermasteraddComponent {
   }
 
   onDOBChange(e: any) {
-    this.formDriverMaster.controls['age'].disable();
+   // this.formDriverMaster.controls['age'].disable();
     var dob = e.target.value;
     if (dob) {
       let todayDate = new Date();

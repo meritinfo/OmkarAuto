@@ -19,7 +19,7 @@
                                 <div class="row">
                                     <div class="col-lg-3">
                                         <div class="mb-3">
-                                            <label for="basicpill-phoneno-input">TransDate</label>
+                                            <label for="basicpill-phoneno-input">TransDate</label><span style="color: red">*</span>
                                             <input type="date" class="form-control"
                                               formControlName="transDate"
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['transDate'].invalid) }" >
@@ -27,7 +27,7 @@
                                     </div>
                                     <div class="col-lg-3">
                                         <div class="mb-3">
-                                        <label for="basicpill-phoneno-input">bank Ac</label>
+                                        <label for="basicpill-phoneno-input">bank Ac</label><span style="color: red">*</span>
                                         <select class="form-control form-select ng-pristine ng-touched"formControlName="bankAc"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['bankAc'].invalid) }">
                                                 <option *ngFor="let branch of ledgerAcList" value={{branch.dataId}}>
@@ -40,7 +40,7 @@
                                 <div class="row">
                                     <div class="col-lg-3">
                                         <div class="mb-3">
-                                            <label for="basicpill-phoneno-input">Cheque No</label>
+                                            <label for="basicpill-phoneno-input">Cheque No</label><span style="color: red">*</span>
                                             <input type="text" class="form-control"
                                               formControlName="chequeNo"
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['chequeNo'].invalid) }">
@@ -49,7 +49,7 @@
                                     </div>
                                     <div class="col-lg-3">
                                         <div class="mb-3">
-                                            <label for="basicpill-phoneno-input">ChequeDate</label>
+                                            <label for="basicpill-phoneno-input">ChequeDate</label><span style="color: red">*</span>
                                             <input type="date" class="form-control"
                                               formControlName="chequeDate"
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['chequeDate'].invalid) }">
@@ -59,7 +59,7 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="mb-6">
-                                            <label for="basicpill-phoneno-input">Narration</label>
+                                            <label for="basicpill-phoneno-input">Narration</label><span style="color: red">*</span>
                                             <input type="" class="form-control"
                                               formControlName="narration"
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['narration'].invalid) }">
@@ -70,7 +70,7 @@
                                 <div class="row">
                                     <div class="col-lg-3">
                                         <div class="mb-3">
-                                            <label for="basicpill-phoneno-input">Amount Rs</label>
+                                            <label for="basicpill-phoneno-input">Amount Rs</label><span style="color: red">*</span>
                                             <input type="text" class="form-control"
                                               formControlName="amountRs"
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['amountRs'].invalid) }">
@@ -79,7 +79,7 @@
                                     </div>
                                     <div class="col-lg-3">
                                         <div class="mb-3">
-                                            <label for="basicpill-phoneno-input">Bank Db/Cr</label>
+                                            <label for="basicpill-phoneno-input">Bank Db/Cr</label><span style="color: red">*</span>
                                             <select id="formrow-inputState" class="form-control"
                                                 formControlName="typesign"   [ngClass]="{ 'is-invalid': formSubmitted && (f['typesign'].invalid) }">
                                                 <option value="">Choose...</option>
@@ -92,7 +92,7 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="mb-6">
-                                            <label for="basicpill-phoneno-input">Db/Cr Ac</label>
+                                            <label for="basicpill-phoneno-input">Db/Cr Ac</label><span style="color: red">*</span>
                                             <select class="form-control form-select ng-pristine ng-touched"formControlName="otherAc"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['otherAc'].invalid) }">
                                                 <option *ngFor="let branch of debitAcList" value={{branch.dataId}}>
