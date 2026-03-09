@@ -305,9 +305,15 @@ dashboard: string ="";
   }
 
   getAckSlno(): void {
-    this.requestmodel.strRequest = this.branch;
-    this.requestmodel.strRequest1 = this.year;
-    this.deliveryackpodService.getAckSlNo(this.requestmodel).subscribe((res: Responsemodel) => {
+    this.requestmodel.strRequest = "DACK"
+    this.requestmodel.strRequest1 = this.branch;
+    this.requestmodel.strRequest2 = this.year;
+    this.requestmodel.strRequest3 = "";
+
+    this.commonService.getDocAutoGenNo(this.requestmodel).subscribe((res: Responsemodel) => {
+    // this.requestmodel.strRequest = this.branch;
+    // this.requestmodel.strRequest1 = this.year;
+    // this.deliveryackpodService.getAckSlNo(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
         this.formUser.patchValue({

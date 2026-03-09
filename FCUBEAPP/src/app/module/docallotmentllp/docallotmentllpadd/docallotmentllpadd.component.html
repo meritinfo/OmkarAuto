@@ -70,7 +70,7 @@
                             <div class="mb-3">
                                 <label for="formrow-inputZip">Range From</label>
                                 <span style="color: red">*</span>
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control" numbersonly
                                  formControlName="rangeFrom" maxlength="12"     
                                 (change)="checkDocumentRange()"
                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['rangeFrom'].invalid) }">
@@ -80,7 +80,7 @@
                             <div class="mb-3">
                                 <label for="formrow-inputZip">Range To</label>
                                 <span style="color: red">*</span>
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control" numbersonly
                                 formControlName="rangeTo" maxlength="12"    
                                 (change)="checkDocumentRange()"    
                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['rangeTo'].invalid) }">

@@ -56,6 +56,7 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
   formSubmitted = false;
   createdBy : string = "";
   modifiedBy: string = "";
+  inclSeries = false;
   selectedBillsmasterDetails = new BillsmastermodelllP();
   responseDetails = new Responsemodel();
   usertriprightsmodel = new Usertriprightsmodel();
@@ -128,7 +129,8 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
     this.getBillingPartyList();
     this.getLocationList();
     this.getBillTypeSacHsn();
-    this.getCnNoLength();
+    //this.getCnNoLength();
+    this.checkIncSeries("BL"); 
     
     this.selectedBillsmasterDetails = this.billsMasterService.getBillsMasterDetails();
 
@@ -212,25 +214,9 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
 
 
       if (this.selectedBillsmasterDetails.billsMasterId != '') {
-        this.formBillsMaster.patchValue(this.selectedBillsmasterDetails); 
-        
-        var str = this.selectedBillsmasterDetails.billSlNo;
-          
-        var x = "";
-        if(str.length<parseInt(this.seriesLength)){
-          if (this.seriesLength == "1") x = ("0" + str).slice(-1);
-          if (this.seriesLength == "2") x = ("00" + str).slice(-2);
-          if (this.seriesLength == "3") x = ("000" + str).slice(-3);
-          if (this.seriesLength == "4") x = ("0000" + str).slice(-4);
-          if (this.seriesLength == "5") x = ("00000" + str).slice(-5);
-          if (this.seriesLength == "6") x = ("000000" + str).slice(-6); 
-        }  
-        else{
-          x = str;
-        }             
+        this.formBillsMaster.patchValue(this.selectedBillsmasterDetails);         
 
         this.formBillsMaster.patchValue({
-          billSlNo:x,
           billDate:this.commonService.formatDate(this.selectedBillsmasterDetails.billDate), 
           dueDate:this.commonService.formatDate(this.selectedBillsmasterDetails.dueDate), 
           partyCode :this.partyList.find(e => e.dataId == this.selectedBillsmasterDetails.partyCode),
@@ -262,9 +248,6 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
         this.formBillsMaster.controls['billNo'].disable();
         this.formBillsMaster.controls['partyCode'].disable();
       } 
-      else{        
-       // this.billSeriesChange();
-      }  
     }, 2000);
     this.sharedService.loading = false;    
   }
@@ -335,6 +318,13 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
       }
     });
   }
+  
+  checkIncSeries(docType: string){
+    this.requestmodel.strRequest = docType;
+    this.commonService.checkIncSeries(this.requestmodel).subscribe((res) => {
+      this.inclSeries = res.status;
+    });
+  }
 
   chkBillDuplicateLLP(){
     var selectedData = this.formBillsMaster.getRawValue();
@@ -343,34 +333,51 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
       return;
     }
     else{
-      this.reportmodel.filterStr = selectedData.billingStation;
-      this.reportmodel.filterStr1 = selectedData.billSlNo;
-      this.reportmodel.filterStr2 = selectedData.billSeries;
-      this.reportmodel.filterStr3 = this.year;
-      this.billsMasterService.checkDuplicateBillLLP(this.reportmodel).subscribe((res: Responsemodel) => {
+      this.requestmodel.strRequest  = "BL";
+      this.requestmodel.strRequest1 = selectedData.billingStation;
+      this.requestmodel.strRequest2 = this.year;
+      this.requestmodel.strRequest3 = selectedData.billSeries;
+      this.requestmodel.strRequest4 = selectedData.billSlNo;
+      this.commonService.checkDuplicateDocNo(this.requestmodel).subscribe((res: Responsemodel) => {        
         this.responseDetails = res;
-        if (this.responseDetails.status) { 
-          var str = selectedData.billSlNo;
-          
-          var x = "";
-          if(str.length<parseInt(this.seriesLength)){
-            if (this.seriesLength == "1") x = ("0" + str).slice(-1);
-            if (this.seriesLength == "2") x = ("00" + str).slice(-2);
-            if (this.seriesLength == "3") x = ("000" + str).slice(-3);
-            if (this.seriesLength == "4") x = ("0000" + str).slice(-4);
-            if (this.seriesLength == "5") x = ("00000" + str).slice(-5);
-            if (this.seriesLength == "6") x = ("000000" + str).slice(-6); 
-          } 
-          else{
-            x = str;
-          }             
-         
-         
+        if (this.responseDetails.status) {
+          var billNo = selectedData.billSlNo;
+          if(!this.inclSeries){
+            billNo = selectedData.billSeries+selectedData.billSlNo;
+          }
           this.formBillsMaster.patchValue({
-            billSlNo:x,
-            billNo: selectedData.billSeries + x,
+            billSlNo: selectedData.billSlNo,
+            billNo: billNo,
           });
         }
+    //   this.reportmodel.filterStr = selectedData.billingStation;
+    //   this.reportmodel.filterStr1 = selectedData.billSlNo;
+    //   this.reportmodel.filterStr2 = selectedData.billSeries;
+    //   this.reportmodel.filterStr3 = this.year;
+    //   this.billsMasterService.checkDuplicateBillLLP(this.reportmodel).subscribe((res: Responsemodel) => {
+    //     this.responseDetails = res;
+    //     if (this.responseDetails.status) { 
+    //       var str = selectedData.billSlNo;
+          
+    //       var x = "";
+    //       if(str.length<parseInt(this.seriesLength)){
+    //         if (this.seriesLength == "1") x = ("0" + str).slice(-1);
+    //         if (this.seriesLength == "2") x = ("00" + str).slice(-2);
+    //         if (this.seriesLength == "3") x = ("000" + str).slice(-3);
+    //         if (this.seriesLength == "4") x = ("0000" + str).slice(-4);
+    //         if (this.seriesLength == "5") x = ("00000" + str).slice(-5);
+    //         if (this.seriesLength == "6") x = ("000000" + str).slice(-6); 
+    //       } 
+    //       else{
+    //         x = str;
+    //       }             
+         
+         
+    //       this.formBillsMaster.patchValue({
+    //         billSlNo:x,
+    //         billNo: selectedData.billSeries + x,
+    //       });
+    //     }
        else{
           this.toasterService.warning(this.responseDetails.message);
           this.formBillsMaster.patchValue({
@@ -385,9 +392,6 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
   
   onSeriesChangeLLP() {
     var selectedData = this.formBillsMaster.getRawValue();
-    this.requestmodel.strRequest = selectedData.billingStation;
-    this.requestmodel.strRequest1 = this.year;
-    this.requestmodel.strRequest2 = selectedData.billSeries;
 
     if(selectedData.seriesCode==""){
       this.toasterService.warning("Please select Series Code");
@@ -398,7 +402,17 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
       return;
     }
     else{
-      this.billsMasterService.getBillNoLLP(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.requestmodel.strRequest = "BL"
+      this.requestmodel.strRequest1 = selectedData.billingStation;
+      this.requestmodel.strRequest2 = this.year;
+      this.requestmodel.strRequest3 = selectedData.billSeries;
+
+      this.commonService.getDocAutoGenNo(this.requestmodel).subscribe((res: Responsemodel) => {
+        
+      // this.requestmodel.strRequest = selectedData.billingStation;
+      // this.requestmodel.strRequest1 = this.year;
+      // this.requestmodel.strRequest2 = selectedData.billSeries;
+      //this.billsMasterService.getBillNoLLP(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
           this.formBillsMaster.patchValue({
@@ -562,11 +576,18 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
 
   onBillNoChange(): void {    
     var selectedDataValue = this.formBillsMaster.getRawValue();
-    this.billsmastermodel.billingStation = selectedDataValue.billingStation;
-    this.billsmastermodel.billNo = selectedDataValue.billNo;
-    this.billsmastermodel.yearId = this.year;
+    
+    this.requestmodel.strRequest  = "BL";
+    this.requestmodel.strRequest1 = selectedDataValue.billingStation;
+    this.requestmodel.strRequest2 = this.year;
+    this.requestmodel.strRequest3 = "";
+    this.requestmodel.strRequest4 = selectedDataValue.billNo;
+    this.commonService.checkDuplicateDocNo(this.requestmodel).subscribe((res: Responsemodel) => {
+    // this.billsmastermodel.billingStation = selectedDataValue.billingStation;
+    // this.billsmastermodel.billNo = selectedDataValue.billNo;
+    // this.billsmastermodel.yearId = this.year;
 
-    this.billsMasterService.checkDuplicateBillsNo(this.billsmastermodel).subscribe((res: Responsemodel) => {
+    // this.billsMasterService.checkDuplicateBillsNo(this.billsmastermodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if(this.responseDetails.status){
         //ignore
@@ -598,18 +619,6 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
         dueDate: ""
       });
     }
-  }  
-  
-  billSeriesChange(): void {
-    var selectedData = this.formBillsMaster.getRawValue();
-    this.requestmodel.strRequest = selectedData.billingStation;
-    this.requestmodel.strRequest1 = this.year;
-    this.commonService.getBillSeries(this.requestmodel).subscribe((res: Responsemodel) => {
-      this.responseDetails = res;
-      this.formBillsMaster.patchValue({
-        billNo: res.message
-      });
-    });
   }  
   
   getFinDocDetails(finId: string){
@@ -862,13 +871,17 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
 
   saveBillsDetails(): void {
     if (this.formBillsMaster.invalid) {
-      this.toasterService.warning("Please Enter Mandatory Fields "); 
+      this.toasterService.warning("Please enter mandatory fields");
       const controls = this.formBillsMaster.controls;
       for (const name in controls) {
         if (controls[name].invalid) {
-          this.toasterService.warning(name + " Fields is Invalid");   
+          // Convert camelCase key to readable format
+          const readableName = name.replace(/([A-Z])/g, ' $1');
+          const titleCaseName = readableName.charAt(0).toUpperCase() + readableName.slice(1);
+
+          this.toasterService.warning(titleCaseName + " field is invalid");
         }
-      } 
+      }
       return;
     }
 

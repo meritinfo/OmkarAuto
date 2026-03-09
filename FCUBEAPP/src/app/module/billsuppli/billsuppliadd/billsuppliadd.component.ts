@@ -333,11 +333,18 @@ dashboard: string ="";
 
   onBillNoChange(): void {    
     var selectedDataValue = this.formBillsMaster.getRawValue();
-    this.billsmastermodel.billingStation = selectedDataValue.billingStation;
-    this.billsmastermodel.billNo = selectedDataValue.billNo;
-    this.billsmastermodel.yearId = this.year;
+    
+    this.requestmodel.strRequest  = "BL";
+    this.requestmodel.strRequest1 = selectedDataValue.billingStation;
+    this.requestmodel.strRequest2 = this.year;
+    this.requestmodel.strRequest3 = "";
+    this.requestmodel.strRequest4 = selectedDataValue.billNo;
+    this.commonService.checkDuplicateDocNo(this.requestmodel).subscribe((res: Responsemodel) => {
+    // this.billsmastermodel.billingStation = selectedDataValue.billingStation;
+    // this.billsmastermodel.billNo = selectedDataValue.billNo;
+    // this.billsmastermodel.yearId = this.year;
 
-    this.billsMasterService.checkDuplicateBillsNo(this.billsmastermodel).subscribe((res: Responsemodel) => {
+    // this.billsMasterService.checkDuplicateBillsNo(this.billsmastermodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if(this.responseDetails.status){
         //ignore
@@ -371,10 +378,16 @@ dashboard: string ="";
   }  
     
   billSeriesChange(): void {
-    var selectedData = this.formBillsMaster.getRawValue();
-    this.requestmodel.strRequest = selectedData.billingStation;
-    this.requestmodel.strRequest1 = this.year;
-    this.commonService.getBillSeries(this.requestmodel).subscribe((res: Responsemodel) => {
+    var selectedData = this.formBillsMaster.getRawValue();    
+    this.requestmodel.strRequest = "BL"
+    this.requestmodel.strRequest1 = selectedData.billingStation;
+    this.requestmodel.strRequest2 = this.year;
+    this.requestmodel.strRequest3 = "";
+
+    this.commonService.getDocAutoGenNo(this.requestmodel).subscribe((res: Responsemodel) => {
+    // this.requestmodel.strRequest = selectedData.billingStation;
+    // this.requestmodel.strRequest1 = this.year;
+    // this.commonService.getBillSeries(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       this.formBillsMaster.patchValue({
         billNo: res.message
@@ -656,17 +669,21 @@ dashboard: string ="";
 
   saveBillsDetails(): void {
     if (this.formBillsMaster.invalid) {
-      this.toasterService.warning("Please Enter Mandatory Fields "); 
+      this.toasterService.warning("Please enter mandatory fields");
       const controls = this.formBillsMaster.controls;
       for (const name in controls) {
         if (controls[name].invalid) {
-          this.toasterService.warning(name + " Fields is Invalid");   
+          // Convert camelCase key to readable format
+          const readableName = name.replace(/([A-Z])/g, ' $1');
+          const titleCaseName = readableName.charAt(0).toUpperCase() + readableName.slice(1);
+
+          this.toasterService.warning(titleCaseName + " field is invalid");
         }
-      } 
+      }
       return;
     }
-
-     var selectedDataValue = this.formBillsMaster.getRawValue();
+     
+    var selectedDataValue = this.formBillsMaster.getRawValue();
     // const d3 = this.minDate?Date.parse(this.minDate):0;
     // const d2 = this.maxDate?Date.parse(this.maxDate):0;
     // const d4 = selectedDataValue.billDate?Date.parse(selectedDataValue.billDate):0;

@@ -41,14 +41,10 @@
                                     <label for="formrow-inputZip">Party</label>                                             
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="partyList"
-                                            [searchKeyword]="keywordLocation"  
-                                       
-                                          
+                                            [searchKeyword]="keywordLocation" 
                                             [itemTemplate]="itemTemplate"
                                             [notFoundTemplate]="notFoundTemplate"
-                                           
-                                            formControlName="partyCode" 
-                                            >
+                                            formControlName="partyCode" >
                                         </ng-autocomplete>
 
                                         <ng-template #itemTemplate let-item>
@@ -64,7 +60,7 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="mt-3">
-                                    <button class="btn btn-primary"   (click)="search()">
+                                    <button class="btn btn-primary" (click)="search()">
                                         <span>Search</span></button>
                                 </div>
                             </div>
@@ -103,6 +99,7 @@
                             <th>tptName</th>                                            
                             <th>Action</th>
                             <th>Action</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody *ngIf="allSubmitMaster.submitList?.length != 0">
@@ -114,7 +111,13 @@
                             <td>
                                 <button type="button" 
                                     class="btn btn-primary btn-floating"  
-                                (click)="download(tm)" >
+                                (click)="download(tm,'PDF')" >
+                                    <i class="fas fa-download"></i></button>   
+                            </td>  
+                            <td>                                
+                                <button type="button" 
+                                    class="btn btn-primary btn-floating"  
+                                (click)="download(tm,'XL')" >
                                     <i class="fas fa-download"></i></button>   
                             </td>  
                             <td>{{ tm.sname}}</td>

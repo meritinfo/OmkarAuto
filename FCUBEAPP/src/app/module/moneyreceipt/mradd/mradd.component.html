@@ -29,6 +29,7 @@
                             <div class="mb-3">
                                 <label for="formrow-inputZip">MR No</label><span style="color: red">*</span> 
                                 <input uppercaseonly class="form-control" formControlName="mrNo" 
+                                (change)="chkDocDuplicate()"
                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['mrNo'].invalid) }">
                             </div>
                         </div>

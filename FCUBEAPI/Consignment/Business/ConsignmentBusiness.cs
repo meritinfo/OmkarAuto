@@ -151,5 +151,13 @@ namespace Consignment.Business
         {
             return await consignmentRepository.ConsignmentLocalFrtUpdate(ConsignmentModel);
         }
+        public async Task<ResponseModel> GetDocAutoGenNo(RequestModel req)
+        {
+            return await consignmentRepository.GetDocAutoGenNo(req);
+        }
+        public async Task<ResponseModel> CheckDuplicateDocNo(RequestModel req)
+        {
+            return await consignmentRepository.CheckDuplicateDocNo(req);
+        }
     }
 }

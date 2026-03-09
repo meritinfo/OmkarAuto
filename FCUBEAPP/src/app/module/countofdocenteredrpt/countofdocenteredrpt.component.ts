@@ -106,7 +106,7 @@ export class CountofdocenteredrptComponent {
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.minDate,[Validators.required]),
       toDate: new FormControl(this.loginDate,[Validators.required]),
-      docType: new FormControl('LR',),
+      docType: new FormControl('',),
       entryType: new FormControl('E',),
     });
     
@@ -139,7 +139,10 @@ export class CountofdocenteredrptComponent {
     this.filter.toDate      = selectedDataVal.toDate;
     this.filter.filterStr   = selectedDataVal.docType;
     this.filter.filterStr1  = selectedDataVal.entryType;
-    if (selectedDataVal.docType=="LR"){
+    if (selectedDataVal.docType==""){
+      this.filter.filterStr2  = "All Documents";
+    }
+    else if (selectedDataVal.docType=="LR"){
       this.filter.filterStr2  = "Consignment";
     }
     else if (selectedDataVal.docType=="CI"){

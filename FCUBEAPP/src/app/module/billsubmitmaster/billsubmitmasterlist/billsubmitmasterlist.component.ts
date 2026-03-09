@@ -46,7 +46,7 @@ export class BillsubmitmasterlistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   keywordLocation = 'dataName';
   partyList: Dropdownmodel[] = [];
   loginDate: string = '';
@@ -59,208 +59,220 @@ dashboard: string ="";
     private commonService: CommonService, private formBuilder: FormBuilder,
     private sharedService: SharedService,  private route: Router) {
 
-}
-ngOnInit(): void {
-  var menuData = sessionStorage.getItem('menulist')?.toString();
-  if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
-    var privilegeData = JSON.parse(menuData);
-    var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
-    var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-      .find(((aa: { menuName: string; }) => aa.menuName === "Bill Submit Entry"));
-    if (privilegeStatus) {
-      this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
-      this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
-      this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
-      this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+  }
+  ngOnInit(): void {
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+        .find(((aa: { menuName: string; }) => aa.menuName === "Bill Submit Entry"));
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
     }
-  }
-  var yearIDData = sessionStorage.getItem('yearID')?.toString();
-  if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
-    this.year = yearIDData;
-  } 
-  
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
-  if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
-    this.loggedInUserID = userData;
-  }
-  var branchData = sessionStorage.getItem('userBranch')?.toString();
+    var yearIDData = sessionStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
+    } 
+    
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.loggedInUserID = userData;
+    }
+    var branchData = sessionStorage.getItem('userBranch')?.toString();
     if (typeof branchData !== 'undefined' && branchData !== null && branchData !== '') {
       this.branch = branchData;
     }   
-  if (this.loggedInUserID) {
-    console.log(this.loggedInUserID);
-  }
-  else {
-    this.route.navigate(['/']);
-  }
-  var loginDate = sessionStorage.getItem('loginDate')?.toString();
-  if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
-    this.loginDate = loginDate;
-  }
+    if (this.loggedInUserID) {
+      console.log(this.loggedInUserID);
+    }
+    else {
+      this.route.navigate(['/']);
+    }
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
+    }
+      
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
-  this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
-  this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
-  
-  this.fromDate = this.minDate ;
-  
+    this.fromDate = this.minDate ;
+    
 
-  this.billSubmitMasterService.clearBillSubmitMasterDetails();
-  this.formFilter = this.formBuilder.group({
-    fromDate: new FormControl(this.fromDate),
-    toDate: new FormControl(this.loginDate),
-    partyCode: new FormControl('',),
-    submitNo: new FormControl('',),
-    printSign:new FormControl('N'),
-  });     
+    this.billSubmitMasterService.clearBillSubmitMasterDetails();
+    this.formFilter = this.formBuilder.group({
+      fromDate: new FormControl(this.fromDate),
+      toDate: new FormControl(this.loginDate),
+      partyCode: new FormControl('',),
+      submitNo: new FormControl('',),
+      printSign:new FormControl('N'),
+    });     
 
-  this.sharedService.loading=true;   
-  this.filter.fromDate = this.fromDate;
-  this.filter.toDate = this.loginDate;
- this.billSubmitList();
- this.getBillingPartyList();
-  this.sharedService.loading=false;
-}
+    this.sharedService.loading=true;   
+    this.filter.fromDate = this.fromDate;
+    this.filter.toDate = this.loginDate;
+    this.billSubmitList();
+    this.getBillingPartyList();
+    this.sharedService.loading=false;
+  }
 
-billSubmitList() {
-  this.dtOptions = {
-    pagingType: 'full_numbers',
-    pageLength: 50,
-    serverSide: true,
-    processing: true,
-    searching :false,   
-        language: {
-          zeroRecords: ''
-        }, 
-    ajax: (dataTablesParameters: any, callback) => {
-      // Filter setting
-      this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
-      this.filter.pageSize = dataTablesParameters.length;
-      this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
-      this.filter.sortOrder = dataTablesParameters.order[0].dir;
-    //  this.filter.search = dataTablesParameters.search.value;
-      callback({
-        recordsTotal: 0,
-        recordsFiltered: 0,
-        data: []
-      });
-      this.billSubmitMasterService.getBillSubmitMasterList(this.filter).subscribe(resp => {
-        this.allSubmitMaster = resp;
-          callback({
-            recordsTotal: resp.pageMetaData.totalCount,
-            recordsFiltered: resp.pageMetaData.totalCount,
-            data: []
-          });
+  billSubmitList() {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 50,
+      serverSide: true,
+      processing: true,
+      searching :false,   
+          language: {
+            zeroRecords: ''
+          }, 
+      ajax: (dataTablesParameters: any, callback) => {
+        // Filter setting
+        this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
+        this.filter.pageSize = dataTablesParameters.length;
+        this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
+        this.filter.sortOrder = dataTablesParameters.order[0].dir;
+      //  this.filter.search = dataTablesParameters.search.value;
+        callback({
+          recordsTotal: 0,
+          recordsFiltered: 0,
+          data: []
         });
-    },
-    columns: [   
-      {
-        title: 'Action',
-        data: 'submitMstId',
+        this.billSubmitMasterService.getBillSubmitMasterList(this.filter).subscribe(resp => {
+          this.allSubmitMaster = resp;
+            callback({
+              recordsTotal: resp.pageMetaData.totalCount,
+              recordsFiltered: resp.pageMetaData.totalCount,
+              data: []
+            });
+          });
       },
-      {
-        title: 'Print',
-        data: 'submitMstId',
-      },  
-      {
-        title: 'Submit Stn',
-        data: 'Sname',
-      },
-      {
-        title: 'Submit No',
-        data: 'submitNo',
-      },
-      {
-        title: 'Submit Date',
-        data: 'submitDt',
-      }, 
-      {
-        title: 'Submit Type',
-        data: 'submitType',
-      },
-      {
-        title: 'Courier Co',
-        data: 'courierCo',
-      }, 
-      {
-        title: 'Courier Docket No',
-        data: 'courierDocketNo',
-      }, 
-      {
-        title: 'Party',
-        data: 'party',
-      }, 
-      {
-        title: 'Submit Location',
-        data: 'lname',
-      }, 
-      {
-        title: 'Dept',
-        data: 'dname',
-      },  
-    ],
-  };
-}
+      columns: [   
+        {
+          title: 'Action',
+          data: 'submitMstId',
+        },
+        {
+          title: 'Print',
+          data: 'submitMstId',
+        },  
+        {
+          title: 'Excel',
+          data: 'submitMstId',
+        },  
+        {
+          title: 'Submit Stn',
+          data: 'Sname',
+        },
+        {
+          title: 'Submit No',
+          data: 'submitNo',
+        },
+        {
+          title: 'Submit Date',
+          data: 'submitDt',
+        }, 
+        {
+          title: 'Submit Type',
+          data: 'submitType',
+        },
+        {
+          title: 'Courier Co',
+          data: 'courierCo',
+        }, 
+        {
+          title: 'Courier Docket No',
+          data: 'courierDocketNo',
+        }, 
+        {
+          title: 'Party',
+          data: 'party',
+        }, 
+        {
+          title: 'Submit Location',
+          data: 'lname',
+        }, 
+        {
+          title: 'Dept',
+          data: 'dname',
+        },  
+      ],
+    };
+  }
 
-addBillSubmitMaster(): void {
-  this.route.navigate(['/billsubmitmasteradd']);
-} 
-getBillingPartyList(): void {
-  this.commonService.getBillingPartyList().subscribe((res) => {
-    this.partyList = res;
-  });
-}
+  addBillSubmitMaster(): void {
+    this.route.navigate(['/billsubmitmasteradd']);
+  } 
+  getBillingPartyList(): void {
+    this.commonService.getBillingPartyList().subscribe((res) => {
+      this.partyList = res;
+    });
+  }
 
 
-//Open user details screen
-getBillSubmitMasterDetails(tyre: Billsubmitmastermodel): void {
-  this.billSubmitMasterService.setBillSubmitMasterDetails(tyre);
-  this.route.navigate(['/billsubmitmasteredit']);
-}
+  //Open user details screen
+  getBillSubmitMasterDetails(tyre: Billsubmitmastermodel): void {
+    this.billSubmitMasterService.setBillSubmitMasterDetails(tyre);
+    this.route.navigate(['/billsubmitmasteredit']);
+  }
 
-download(billsub: Billsubmitmastermodel): void {
-  this.request.strRequest = billsub.submitMstId;
-  this.request.strRequest1 = this.formFilter.value.printSign;
+  download(billsub: Billsubmitmastermodel,format: string): void {
+    this.request.strRequest = billsub.submitMstId;
+    this.request.strRequest1 = this.formFilter.value.printSign;
+    this.request.strRequest2 = format;
 
-  this.billSubmitMasterService.getBillSubmitPrint(this.request).subscribe(resp => {
-    if(resp.status){    
-      let link = document.createElement("a");
-      link.download = "BillSubmit_" + new Date().getTime() + '.pdf';
-      link.href = "assets/reports/billsubmitprint/" + resp.message;
-      link.click();
-      window.open(link.href, "_blank");
-    }
-    else{        
-      this.toastrService.warning(resp.message);   
-    }
-  });
-}
+    this.billSubmitMasterService.getBillSubmitPrint(this.request).subscribe(resp => {
+      if(resp.status){   
+        let link = document.createElement("a");
+        if(format=="XL"){
+          link.download = "BillSubmit_" + new Date().getTime() + '.xls';
+          link.href = "assets/reports/billsubmitprint/" + resp.message;
+          link.click();
+        }
+        else{
+          link.download = "BillSubmit_" + new Date().getTime() + '.pdf';
+          link.href = "assets/reports/billsubmitprint/" + resp.message;
+          link.click();
+          window.open(link.href, "_blank");
+        } 
+      }
+      else{        
+        this.toastrService.warning(resp.message);   
+      }      
+    });
+  }
 
-search(): void {
-    var selectedDataVal = this.formFilter.getRawValue();
-    let frmdt = new Date(selectedDataVal.fromDate);
-    let todt = new Date(selectedDataVal.toDate);
-    let maxdt = new Date(this.loginDate);
-    let mindt = new Date(this.minDate);
+  search(): void {
+      var selectedDataVal = this.formFilter.getRawValue();
+      let frmdt = new Date(selectedDataVal.fromDate);
+      let todt = new Date(selectedDataVal.toDate);
+      let maxdt = new Date(this.loginDate);
+      let mindt = new Date(this.minDate);
 
-    if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
-      this.toastrService.warning("From Date and To Date should be with in Fin Year");
-      return;
-    }
+      if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+        this.toastrService.warning("From Date and To Date should be with in Fin Year");
+        return;
+      }
 
-  this.filter.fromDate = selectedDataVal.fromDate;
-  this.filter.toDate = selectedDataVal.toDate;
-  this.filter.filterStr1 = selectedDataVal.submitNo;
-  this.filter.filterStr2 = selectedDataVal.partyCode.dataId;
+    this.filter.fromDate = selectedDataVal.fromDate;
+    this.filter.toDate = selectedDataVal.toDate;
+    this.filter.filterStr1 = selectedDataVal.submitNo;
+    this.filter.filterStr2 = selectedDataVal.partyCode.dataId;
     this.filter.filterStr = this.branch;
-     this.filter.search = this.year;
-  this.sharedService.loading=true;
-  this.billSubmitList();
-  this.sharedService.loading=false;
-  this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-    dtInstance.ajax.reload();
-  });
-}
+    this.filter.search = this.year;
+    this.sharedService.loading=true;
+    this.billSubmitList();
+    this.sharedService.loading=false;
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload();
+    });
+  }
 }
 
 

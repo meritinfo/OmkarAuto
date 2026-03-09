@@ -101,7 +101,8 @@ namespace FreightMasters.Repository
                 string baseUrl = dbconnection.Value.apiPath + "api/BillSubmit/";
 
                 string UrlParam = "?SubmitMstId=" + request.strRequest+
-                                    "&PrintSign=" + request.strRequest1;
+                                    "&PrintSign=" + request.strRequest1 +
+                                    "&Format=" + request.strRequest2;
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(baseUrl);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

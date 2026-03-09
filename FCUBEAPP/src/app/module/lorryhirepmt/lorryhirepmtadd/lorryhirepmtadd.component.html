@@ -34,7 +34,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Payment No</label>
                                                 <span style="color: red">*</span>
-                                                <input autoclose="false" 
+                                                <input autoclose="false" (change)="chkDocDuplicate()"
                                                     class="form-control" formControlName="pmtNo"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtNo'].invalid) }">
                                             </div>

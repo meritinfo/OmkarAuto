@@ -39,5 +39,7 @@ namespace Consignment.Business
         Task<ResponseModel> GetFcmRcmConfig();
         Task<List<DropDownListModel>> GetTransTypeList();
         Task<ResponseModel> ConsignmentLocalFrtUpdate(ConsignmentUpdateModel ConsignmentModel);
+        Task<ResponseModel> GetDocAutoGenNo(RequestModel req);
+        Task<ResponseModel> CheckDuplicateDocNo(RequestModel req);
     }
 }

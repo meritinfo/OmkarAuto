@@ -457,16 +457,18 @@ export class ConsignmentaddComponent implements OnInit {
 
   onBranchChange() {
     var selectedData = this.formUser.getRawValue();
-    if (selectedData.bookingPlace==""){
-      this.requestmodel.strRequest = this.branch;
+    this.requestmodel.strRequest = "CN"
+    if (selectedData.bookingPlace == ""){
+      this.requestmodel.strRequest1 = this.branch;
     }
     else{
-      this.requestmodel.strRequest = selectedData.bookingPlace;
+      this.requestmodel.strRequest1 = selectedData.bookingPlace;
     }
-    this.requestmodel.strRequest1 =this.year;
-    this.requestmodel.strRequest2 ="";
+    this.requestmodel.strRequest2 = this.year;
+    this.requestmodel.strRequest3 = "";
 
-    this.lrentryService.getLrNo(this.requestmodel).subscribe((res: Responsemodel) => {
+    this.commonService.getDocAutoGenNo(this.requestmodel).subscribe((res: Responsemodel) => {
+    //this.lrentryService.getLrNo(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
         this.formUser.patchValue({
@@ -485,11 +487,17 @@ export class ConsignmentaddComponent implements OnInit {
       this.toastrService.warning("GC Note No should not be Blank");
       return;
     }
-    else{
-      this.requestmodel.strRequest = selectedData.bookingPlace;
-      this.requestmodel.strRequest1 = selectedData.gcNoteNo;
-      this.requestmodel.strRequest2 = "";
-      this.lrentryService.checkDuplicateLr(this.requestmodel).subscribe((res: Responsemodel) => {
+    else{      
+      this.requestmodel.strRequest  = "CN";
+      this.requestmodel.strRequest1 = selectedData.bookingPlace;
+      this.requestmodel.strRequest2 = this.year;
+      this.requestmodel.strRequest3 = "";
+      this.requestmodel.strRequest4 = selectedData.gcNoteNo;
+      this.commonService.checkDuplicateDocNo(this.requestmodel).subscribe((res: Responsemodel) => {
+      // this.requestmodel.strRequest = selectedData.bookingPlace;
+      // this.requestmodel.strRequest1 = selectedData.gcNoteNo;
+      // this.requestmodel.strRequest2 = "";
+      //this.lrentryService.checkDuplicateLr(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
           //ignore

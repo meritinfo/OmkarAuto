@@ -334,10 +334,16 @@ export class CreditnoteentryaddComponent {
     this.formUser.controls['billSlNo'].updateValueAndValidity();      
   }
 
-  getSlNo(): void {    
-    this.requestmodel.strRequest = this.branch;
-    this.requestmodel.strRequest1 = this.year; 
-    this.creditNoteService.getCreditNoteSlNo(this.requestmodel).subscribe((res:Responsemodel) => {
+  getSlNo(): void {   
+    this.requestmodel.strRequest = "CRN"
+    this.requestmodel.strRequest1 = this.branch;
+    this.requestmodel.strRequest2 = this.year;
+    this.requestmodel.strRequest3 = "";
+
+    this.commonService.getDocAutoGenNo(this.requestmodel).subscribe((res: Responsemodel) => {
+    // this.requestmodel.strRequest = this.branch;
+    // this.requestmodel.strRequest1 = this.year; 
+    // this.creditNoteService.getCreditNoteSlNo(this.requestmodel).subscribe((res:Responsemodel) => {
       this.responseDetails = res;
       if(this.responseDetails.status){
         this.formUser.patchValue({
@@ -347,6 +353,33 @@ export class CreditnoteentryaddComponent {
     });
   }  
    
+  chkDocDuplicate(){
+    var selectedData = this.formUser.getRawValue();
+    if (selectedData.cnSlNo==""){
+      this.toastrService.warning("Sl No should not be Blank");
+      return;
+    }
+    else{
+      this.requestmodel.strRequest = "CRN"
+      this.requestmodel.strRequest1 = this.branch;
+      this.requestmodel.strRequest2 = this.year;
+      this.requestmodel.strRequest3 = "";
+      this.requestmodel.strRequest4 = selectedData.cnSlNo;
+      this.commonService.checkDuplicateDocNo(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          //ignore
+        }
+        else{
+          this.toastrService.warning(this.responseDetails.message);
+          this.formUser.patchValue({
+            cnSlNo: "",
+          });
+        }
+      });
+    }  
+  }
+
   deleteCreditForm(): void {
     if (this.selectedCreditDetails.cnId != '') {
       this.sharedService.loading = true;
