@@ -26,7 +26,7 @@
                                     </div>
                                     <div class="col-sm-2">
                                         <div class="mb-3">
-                                            <label>Branch Code: </label>
+                                            <label>Branch Code: </label><span style="color: red">*</span> 
                                             <select class="form-control form-select ng-pristine ng-touched"formControlName="branchCode"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['branchCode'].invalid) }">
                                                 <option *ngFor="let branch of branchList" value={{branch.dataId}}>
