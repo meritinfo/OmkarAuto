@@ -125,6 +125,20 @@ ngOnInit(): void {
   onFocused(e: any) {
     // do something
   }
+   selectNewEvent(item: any,index:number) {
+    var ToPlace = item.dataId;
+    var selectedDataValue=this.formUser.getRawValue();
+
+    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+      if(ToPlace == selectedDataValue.arrayList[i].partyId.dataId)
+      {
+        this.toasterService.warning("To party already exits in grid");
+        this.formArray.controls[index].get("partyId")?.setValue("");
+        return;
+      }
+    } 
+  }
+
   
   startWithFilter = function (locationList: Dropdownmodel[], query: string): any[] {
     return locationList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));

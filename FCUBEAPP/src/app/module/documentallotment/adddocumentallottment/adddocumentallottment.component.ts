@@ -12,7 +12,6 @@ import { Reportmodel } from 'src/app/models/reportmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 
 
-
 @Component({
   selector: 'app-adddocumentallottment',
   templateUrl: './adddocumentallottment.component.html',
@@ -70,8 +69,6 @@ dashboard: string ="";
         if(!this.viewStatus){      
           this.route.navigate([this.dashboard]);
         }
-    
-    
       this.sharedService.loggedInStatus = true;
         var userData = sessionStorage.getItem('uid')?.toString();    
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
@@ -302,7 +299,6 @@ dashboard: string ="";
     this.documentallotmentmodel.autoGenYN = selectedDataVal.autoGenYN;
     this.documentallotmentmodel.loggedInUser = this.loggedInUserID;
     this.documentallotmentmodel.remarks = selectedDataVal.remarks.toString().toUpperCase();
-
     this.documentallotmentService.documentallotmentSubmitted(this.documentallotmentmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {

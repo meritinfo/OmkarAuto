@@ -34,6 +34,7 @@ export class PanwisetdsrateaddComponent {
   viewStatus = false; 
 dashboard: string ="";
   minDate:string = '';
+  minDt:string = '';
   mDate:string = '';
   maxDate: string = '';
 
@@ -170,6 +171,12 @@ checkDate(){
  this.mDate = selectedDataVal.validUpto;
   
   
+}
+
+dateChange(){
+   var selectedDataVal = this.formPanMaster.getRawValue();
+   this.minDt = selectedDataVal.validFrom;
+
 }
 checkPan(){
 

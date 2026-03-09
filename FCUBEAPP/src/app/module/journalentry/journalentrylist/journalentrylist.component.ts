@@ -228,7 +228,7 @@ export class JournalentrylistComponent {
     this.filter.toDate = selectedDataVal.toDate;
     this.filter.branch = this.branch === '0' ? '' : this.branch;
     this.filter.receiptOrPayment = "JV" ;
-    this.filter.search = selectedDataVal.docSeriesNo;
+    this.filter.search = selectedDataVal.docSeriesNo.toString().toUpperCase();
     this.filter.yearId = this.year;
     this.filter.refType = selectedDataVal.refType;
     this.sharedService.loading=true;

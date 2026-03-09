@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { Filtermodel } from 'src/app/models/filtermodel';
 import { Brandmasterlistmodel  } from 'src/app/models/brandmasterlistmodel';
 import { Usermodel } from 'src/app/models/usermodel';
+import { SharedService } from 'src/app/services/shared.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Brandmastermodel } from 'src/app/models/brandmastermodel';
 import { BrandMasterService } from 'src/app/services/brandmaster.service';
 
@@ -24,12 +26,12 @@ export class BrandmasterlistComponent {
   deleteStatus = false;
   viewStatus = false; 
 dashboard: string ="";
-
   year: string = '';
   loginDate: string = '';
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
+  formFilter!: FormGroup;
   filter: Filtermodel = {
     pageNumber: 1,
     pageSize: 10,
@@ -38,7 +40,7 @@ dashboard: string ="";
     search: ''
 
 }
-constructor(private brandmasterService: BrandMasterService, private route: Router) {
+constructor(private brandmasterService: BrandMasterService, private route: Router, private formBuilder: FormBuilder,  private sharedService: SharedService,) {
 }
 
 ngOnInit(): void {
@@ -65,6 +67,9 @@ ngOnInit(): void {
     this.loginDate = loginDate;
   }
   this.brandmasterService.clearBrandMasterDetails();
+   this.formFilter = this.formBuilder.group({
+        brandName: new FormControl(''),
+      }); 
   this.brandMasterList();
 }
 brandMasterList(){
@@ -83,7 +88,7 @@ brandMasterList(){
       this.filter.pageSize = dataTablesParameters.length;
       this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
       this.filter.sortOrder = dataTablesParameters.order[0].dir;
-      this.filter.search = dataTablesParameters.search.value;
+     // this.filter.search = dataTablesParameters.search.value;
       this.brandmasterService.getBrandMasterList(this.filter)
         .subscribe(resp => {
          this.allBrandMaster = resp;
@@ -121,6 +126,16 @@ brandMasterList(){
 addBrandmaster(): void {
 this.route.navigate(['/addbrandmaster']);
 }
+
+  search(): void {
+    this.filter.search = this.formFilter.value.brandName;
+    this.sharedService.loading = true;
+    this.brandMasterList();
+    this.sharedService.loading=false;   
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload();
+    });
+  }
 
 
 //Open user details screen

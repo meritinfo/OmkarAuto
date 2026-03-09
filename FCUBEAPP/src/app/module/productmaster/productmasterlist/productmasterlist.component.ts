@@ -4,6 +4,7 @@ import { Filtermodel } from 'src/app/models/filtermodel';
 import { Productmasterlistmodel  } from 'src/app/models/productmasterlistmodel';
 import { Usermodel } from 'src/app/models/usermodel';
 import { Productmastermodel } from 'src/app/models/productmastermodel';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ProductMasterService } from 'src/app/services/productmaster.service';
 import { DataTableDirective } from 'angular-datatables';
 
@@ -14,7 +15,10 @@ import { DataTableDirective } from 'angular-datatables';
 })
 
 export class ProductmasterlistComponent {
-  dtOptions: DataTables.Settings = {};
+ 
+   dtOptions: DataTables.Settings = {};
+   @ViewChild(DataTableDirective)
+   dtElement!: DataTableDirective;
   allProductMaster: Productmasterlistmodel = new Productmasterlistmodel();
   filter: Filtermodel = {
     pageNumber: 1,
@@ -33,8 +37,8 @@ dashboard: string ="";
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
-
-  constructor(private productmasterService: ProductMasterService, private route: Router) {
+  formFilter!: FormGroup;
+  constructor(private productmasterService: ProductMasterService, private route: Router,private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -52,6 +56,9 @@ dashboard: string ="";
         }
       }
     this.productmasterService.clearProductMasterDetails();
+     this.formFilter = this.formBuilder.group({
+          productName: new FormControl(''),
+        }); 
     this.productlist();
   }
     productlist(){
@@ -70,7 +77,7 @@ dashboard: string ="";
         this.filter.pageSize = dataTablesParameters.length;
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
-        this.filter.search = dataTablesParameters.search.value;
+      //  this.filter.search = dataTablesParameters.search.value;
         this.productmasterService.getProductMasterList(this.filter)
           .subscribe(resp => {
           this.allProductMaster = resp;
@@ -103,6 +110,16 @@ dashboard: string ="";
   //Open new destination add screen
   addProductmaster(): void {
     this.route.navigate(['/addproductmaster']);
+  }
+
+  search(): void {
+    this.filter.search = this.formFilter.value.productName;
+    //this.sharedService.loading = true;
+    this.productlist();
+   // this.sharedService.loading=false;   
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload();
+    });
   }
 
   //Open user details screen

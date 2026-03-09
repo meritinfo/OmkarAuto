@@ -54,6 +54,7 @@ namespace FCUBEAPI.Controllers
         readonly IAdminGroupMasterBusiness adminGroupMasterBusiness;
         readonly IBranchCustomerTargetBusiness branchCustomerTargetBusiness;
         readonly IPartyMisLocationBusiness partyMisLocationBusiness;
+        readonly IDocumentMasterBusiness documentMasterBusiness;
 
 
         public FreightMastersController(IOptions<DBModel> _dbconnection,
@@ -86,7 +87,8 @@ namespace FCUBEAPI.Controllers
              IBillsMasterLlpBusiness _billsMasterBusinessLLP,
              IAdminGroupMasterBusiness _adminGroupMasterBusiness,
              IBranchCustomerTargetBusiness _branchCustomerTargetBusiness,
-             IPartyMisLocationBusiness _partyMisLocationBusiness)
+             IPartyMisLocationBusiness _partyMisLocationBusiness,
+             IDocumentMasterBusiness _documentMasterBusiness)
         {
             dbconnection = _dbconnection;
             branchMastersBusiness = _branchMastersBusiness;
@@ -120,6 +122,7 @@ namespace FCUBEAPI.Controllers
             adminGroupMasterBusiness = _adminGroupMasterBusiness;
             branchCustomerTargetBusiness = _branchCustomerTargetBusiness;
             partyMisLocationBusiness = _partyMisLocationBusiness;
+            this.documentMasterBusiness = _documentMasterBusiness;
         }
 
         /// <summary>
@@ -4407,6 +4410,60 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await partyMisLocationBusiness.CheckDuplicateLocation(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("DocumentMasterSave")]
+        public async Task<IActionResult> DocumentMasterSave(DocumentMasterModel documentMasterModel)
+        {
+            if (documentMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await documentMasterBusiness.DocumentMasterSave(documentMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetDocumentMasterList")]
+        public async Task<IActionResult> GetDocumentMasterList(PageRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await documentMasterBusiness.GetDocumentMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("DocumentMasterDelete")]
+        public async Task<IActionResult> DocumentMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await documentMasterBusiness.DocumentMasterDelete(req);
 
                 return Ok(result);
             }

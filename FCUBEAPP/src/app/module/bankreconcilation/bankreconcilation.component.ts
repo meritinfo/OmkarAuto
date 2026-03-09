@@ -180,7 +180,7 @@ export class BankreconcilationComponent {
         this.formArray.controls[i].get("credit")?.setValue(res.bankreconcilationList[i].credit);
         this.formArray.controls[i].get("chequeNo")?.setValue(res.bankreconcilationList[i].chequeNo);
         this.formArray.controls[i].get("chequeDate")?.setValue(this.commonService.formatDate(res.bankreconcilationList[i].chequeDate));
-        this.formArray.controls[i].get("narration")?.setValue(res.bankreconcilationList[i].narration);
+        this.formArray.controls[i].get("narration")?.setValue(res.bankreconcilationList[i].narration.toString().toUpperCase());
         this.formArray.controls[i].get("subAccountName")?.setValue(res.bankreconcilationList[i].subAccountName);
         this.formArray.controls[i].get("clearDate")?.setValue(this.commonService.formatDate(res.bankreconcilationList[i].clearDate));
 

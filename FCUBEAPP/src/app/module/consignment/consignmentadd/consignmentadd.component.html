@@ -126,7 +126,7 @@
                                         <input type="text" maxlength="15" class="form-control" numbersonly
                                             formControlName="ewayBillNo" (change)="fillgrid()"
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['ewayBillNo'].invalid) }">
-                                        <button type="button" class="btn btn-primary" *ngIf="!editMode&&gstSearch"
+                                        <button type="button" class="btn btn-primary" *ngIf="!editMode && gstSearch"
                                             (click)="searchGSTDetails()">Search</button>
                                     </div>
                                 </div>

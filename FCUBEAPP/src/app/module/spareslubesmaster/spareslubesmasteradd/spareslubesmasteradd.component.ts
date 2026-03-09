@@ -166,9 +166,13 @@ export class SpareslubesmasteraddComponent {
       }
     }
 
-    if (arr[index].godownId !="" && arr[index].brandId != "" && arr[index].openingQty != "0") {
+    if (arr[index].godownId !="" && arr[index].brandId != "" && arr[index].openingQty > "0") {
       this.formArray.push(this.createInitialArray());
-    } else {
+    }
+    else if(arr[index].openingQty == "0") {
+      this.toasterService.warning("Please Enter qty");
+    }
+     else {
       this.toasterService.warning("Please select Godown, brand, qty");
     }
   }

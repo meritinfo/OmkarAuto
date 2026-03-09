@@ -587,6 +587,9 @@ import { CreditnoteentrylistComponent } from './module/creditnoteentry/creditnot
 import { CreditnoteentryaddComponent } from './module/creditnoteentry/creditnoteentryadd/creditnoteentryadd.component';
 import { DebitnoteaddComponent } from './module/debitnoteentry/debitnoteadd/debitnoteadd.component';
 import { DebitnotelistComponent } from './module/debitnoteentry/debitnotelist/debitnotelist.component';
+import { DocumentmasteraddComponent } from './module/documentmaster/documentmasteradd/documentmasteradd.component';
+import { DocumentmasterlistComponent } from './module/documentmaster/documentmasterlist/documentmasterlist.component';
+import { Documentmastermodel } from 'src/app/models/documentmastermodel';
 
 
 
@@ -784,7 +787,9 @@ import { DebitnotelistComponent } from './module/debitnoteentry/debitnotelist/de
     CreditnoteentrylistComponent,
     CreditnoteentryaddComponent,
     DebitnoteaddComponent,
-    DebitnotelistComponent
+    DebitnotelistComponent,
+    DocumentmasteraddComponent,
+    DocumentmasterlistComponent
    
     
   ],
@@ -859,7 +864,7 @@ import { DebitnotelistComponent } from './module/debitnoteentry/debitnotelist/de
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,
     Ccinvmstmodel,Admingroupmastermodel,Userlistmodel,
     BillsmastermodelllP,Billsmasterlistmodel,BillsDetailModelllP,
-    Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,
+    Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,Documentmastermodel,
     Directpmtlistmodel, Directpmtmodel,VehicleadvbalreceiptModelLLP,Tripoutstandingrptbrplmodel,Debitnotemodel,
     Unbilledprovisionmstmodel,Menureportaccessrightsmodel,Driversalaryentrymodel,Creditnoteentrymodel,
     Vendorpmtmodel,Fleetgroupmastermodel,Vehiclemfrmastermodel,Vehiclefincompmastermodel,Vehicleflttypemstmodel,

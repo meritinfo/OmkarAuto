@@ -137,7 +137,7 @@ dashboard: string ="";
   }
 
   search(): void {
-    this.filter.search = this.formFilter.value.centreName;
+    this.filter.search = this.formFilter.value.classDesc;
     this.sharedService.loading = true;
     this.classificationMasterList();
     this.sharedService.loading=false;   

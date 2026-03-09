@@ -720,7 +720,7 @@ export class SparespurchasemasteraddComponent {
    // this.sparespurchasemastermodel.vendorId= selectedDataValue.vendorId.dataId?selectedDataValue.vendorId.dataId:'';
    this.sparespurchasemastermodel.vendorId= selectedDataValue.vendorId?selectedDataValue.vendorId.dataId:'';
     this.sparespurchasemastermodel.vendorInvDt= selectedDataValue.vendorInvDt;
-    this.sparespurchasemastermodel.vendorInvNo= selectedDataValue.vendorInvNo;
+    this.sparespurchasemastermodel.vendorInvNo= selectedDataValue.vendorInvNo.toString().toUpperCase();
     this.sparespurchasemastermodel.vendorName= selectedDataValue.vendorName.toString()==""?selectedDataValue.vendorId.dataName:selectedDataValue.vendorName.toString().toUpperCase();
     this.sparespurchasemastermodel.vendorAddress= selectedDataValue.vendorAddress.toString().toUpperCase(),
     this.sparespurchasemastermodel.vendorState= selectedDataValue.vendorState;
@@ -782,7 +782,7 @@ export class SparespurchasemasteraddComponent {
           'igstPct': selectedDataValue.arrayList[i].igstPct,
           'igstAmt': selectedDataValue.arrayList[i].igstAmt,
           'netAmount': selectedDataValue.arrayList[i].netAmount,
-          'remarks': selectedDataValue.arrayList[i].remarks,        
+          'remarks': selectedDataValue.arrayList[i].remarks.toString().toUpperCase(),        
         }) 
       }   
     } 
