@@ -18,7 +18,7 @@
                             <div class="col-md-4">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">Branch Name</label>
-                                    <input type="text" class="form-control" formControlName="centreName">
+                                    <input type="text" class="form-control" formControlName="centreName" uppercaseonly>
                                 </div>
                             </div>
                             <div class="col-lg-2">
@@ -41,7 +41,6 @@
                         <tr>
                             <th>Code</th>
                             <th>CentreName</th>
-                            <th>ZoneCode</th>
                             <th>StateName</th>
                             <th>ManagerName</th>
                             <th>ManagerMobileNo</th>                         
@@ -56,7 +55,6 @@
                             </td>  
                             <td>{{ branch.code }}</td>
                             <td>{{ branch.centreName }}</td>
-                            <td>{{ branch.zoneCode }}</td>
                             <td>{{ branch.stateName }}</td>
                             <td>{{ branch.managerName }}</td>
                             <td>{{ branch.managerMobileNo }}</td>                         

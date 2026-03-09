@@ -18,7 +18,7 @@ export class BranchmasterlistComponent  {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
 
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
@@ -35,7 +35,7 @@ dashboard: string ="";
   formFilter!: FormGroup;
   constructor(private branchmasterService: BranchMasterService,
     private formBuilder: FormBuilder,private sharedService: SharedService,
-     private route: Router) {
+    private route: Router) {
   }
 
   ngOnInit(): void {
@@ -118,10 +118,7 @@ dashboard: string ="";
           title: 'Centre Name',
           data: 'centreName',
         },
-        {
-          title: 'Zone Code',
-          data: 'zoneCode',
-        },
+       
         {
           title: 'State Name',
           data: 'stateName',
