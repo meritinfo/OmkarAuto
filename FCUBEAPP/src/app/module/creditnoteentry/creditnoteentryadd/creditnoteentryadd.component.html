@@ -44,7 +44,7 @@
                                             <span style="color: red">*</span>
                                             <input autoclose="false" class="form-control" 
                                                 numbersonly autocomplete="off" maxlength="15" 
-                                                formControlName="cnSlNo"
+                                                formControlName="cnSlNo" (change)="chkDocDuplicate()"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['cnSlNo'].invalid) }">
                                         </div>
                                     </div> 

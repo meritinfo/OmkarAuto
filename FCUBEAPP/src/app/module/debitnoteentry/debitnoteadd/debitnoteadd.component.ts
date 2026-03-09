@@ -162,17 +162,15 @@ ngOnInit(): void {
   }
    onGstChange(){
     var selectedDataVal = this.formUser.getRawValue();
+    this.formUser.controls['sgstAmt'].disable();
+    this.formUser.controls['cgstAmt'].disable();  
+    this.formUser.controls['igstAmt'].disable(); 
 
-    if (selectedDataVal.gstType == "IG") {   
-      this.formUser.controls['sgstAmt'].disable();
-      this.formUser.controls['cgstAmt'].disable();  
+    if (selectedDataVal.gstType == "IG") {     
       this.formUser.controls['igstAmt'].enable(); 
       this.formUser.controls['SgstAmt'].clearValidators; 
       this.formUser.controls['cgstAmt'].clearValidators; 
       this.formUser.controls['igstAmt'].setValidators([Validators.required]);
-          this.formUser.controls['cgstAmt'].updateValueAndValidity();    
-      this.formUser.controls['SgstAmt'].updateValueAndValidity();  
-      this.formUser.controls['igstAmt'].updateValueAndValidity();   
      
       this.formUser.patchValue({
         sgstAmt:"",
@@ -181,16 +179,11 @@ ngOnInit(): void {
        
       });   
     }    
-    else if (selectedDataVal.gstType == "SC")  {      
-      this.formUser.controls['sgstAmt'].enable();
-      this.formUser.controls['cgstAmt'].enable();  
+    else if (selectedDataVal.gstType == "SC")  {  
       this.formUser.controls['igstAmt'].disable();  
-        this.formUser.controls['igstAmt'].clearValidators; 
-   this.formUser.controls['sgstAmt'].setValidators([Validators.required]);
+      this.formUser.controls['igstAmt'].clearValidators; 
+      this.formUser.controls['sgstAmt'].setValidators([Validators.required]);
       this.formUser.controls['cgstAmt'].setValidators([Validators.required]);
-          this.formUser.controls['cgstAmt'].updateValueAndValidity();    
-      this.formUser.controls['SgstAmt'].updateValueAndValidity();  
-      this.formUser.controls['igstAmt'].updateValueAndValidity();   
    
       // this.formUser.patchValue({
       //   sgstAmt:"0",
@@ -200,15 +193,9 @@ ngOnInit(): void {
       // });     
     }
     else{
-      this.formUser.controls['sgstAmt'].disable();
-      this.formUser.controls['cgstAmt'].disable();  
-      this.formUser.controls['igstAmt'].disable(); 
       this.formUser.controls['SgstAmt'].clearValidators; 
       this.formUser.controls['cgstAmt'].clearValidators; 
-       this.formUser.controls['igstAmt'].clearValidators;  
-           this.formUser.controls['cgstAmt'].updateValueAndValidity();    
-      this.formUser.controls['SgstAmt'].updateValueAndValidity();  
-      this.formUser.controls['igstAmt'].updateValueAndValidity();    
+      this.formUser.controls['igstAmt'].clearValidators;   
       // this.formUser.patchValue({
       //   sgstAmt:"",
       //   cgstAmt:"",
@@ -216,24 +203,56 @@ ngOnInit(): void {
        
       // });   
     } 
-        this.formUser.controls['cgstAmt'].updateValueAndValidity();    
-      this.formUser.controls['SgstAmt'].updateValueAndValidity();  
-      this.formUser.controls['igstAmt'].updateValueAndValidity();    
+    this.formUser.controls['cgstAmt'].updateValueAndValidity();    
+    this.formUser.controls['SgstAmt'].updateValueAndValidity();  
+    this.formUser.controls['igstAmt'].updateValueAndValidity();    
   }
+
   getSlNo(): void {    
-      this.requestmodel.strRequest = this.branch;
-      this.requestmodel.strRequest1 = this.year; 
-      this.debitNoteService.getDebitNoteSlNo(this.requestmodel).subscribe((res:Responsemodel) => {
+    this.requestmodel.strRequest = "DBN"
+    this.requestmodel.strRequest1 = this.branch;
+    this.requestmodel.strRequest2 = this.year;
+    this.requestmodel.strRequest3 = "";
+    this.commonService.getDocAutoGenNo(this.requestmodel).subscribe((res: Responsemodel) => {
+    // this.requestmodel.strRequest = this.branch;
+    // this.requestmodel.strRequest1 = this.year; 
+    // this.debitNoteService.getDebitNoteSlNo(this.requestmodel).subscribe((res:Responsemodel) => {
+      this.responseDetails = res;
+      if(this.responseDetails.status){
+        this.formUser.patchValue({
+          dnSlNo: this.responseDetails.message
+        });
+      }
+    });
+  }  
+     
+    
+  chkDocDuplicate(){
+    var selectedData = this.formUser.getRawValue();   
+    if (selectedData.dnSlNo==""){
+      this.toastrService.warning("Sl No should not be Blank");
+      return;
+    }
+    else{
+      this.requestmodel.strRequest = "DBN"
+      this.requestmodel.strRequest1 = this.branch;
+      this.requestmodel.strRequest2 = this.year;
+      this.requestmodel.strRequest3 = "";
+      this.requestmodel.strRequest4 = selectedData.dnSlNo;
+      this.commonService.checkDuplicateDocNo(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
-        if(this.responseDetails.status){
+        if (this.responseDetails.status) {
+          //ignore
+        }
+        else{
+          this.toastrService.warning(this.responseDetails.message);
           this.formUser.patchValue({
-            dnSlNo: this.responseDetails.message
+            dnSlNo: "",
           });
         }
       });
     }  
-     
-
+  }
   // convenience getter for easy access to contact form fields
   get f() { return this.formUser.controls; }
 

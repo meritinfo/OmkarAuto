@@ -427,10 +427,16 @@ export class LorryhirepmtaddComponent {
   }  
 
 
-  getPmtNo(): void {    
-    this.requestmodel.strRequest = this.branch;
-    this.requestmodel.strRequest1 = this.year; 
-    this.lorryhirepmtService.getLhpmPmtNo(this.requestmodel).subscribe((res:Responsemodel) => {
+  getPmtNo(): void {        
+    this.requestmodel.strRequest = "LHP"
+    this.requestmodel.strRequest1 = this.branch;
+    this.requestmodel.strRequest2 = this.year;
+    this.requestmodel.strRequest3 = "";
+
+    this.commonService.getDocAutoGenNo(this.requestmodel).subscribe((res: Responsemodel) => {
+    // this.requestmodel.strRequest = this.branch;
+    // this.requestmodel.strRequest1 = this.year; 
+    // this.lorryhirepmtService.getLhpmPmtNo(this.requestmodel).subscribe((res:Responsemodel) => {
       this.responseDetails = res;
       if(this.responseDetails.status){
         this.formUser.patchValue({
@@ -440,6 +446,32 @@ export class LorryhirepmtaddComponent {
     });
   }  
 
+  chkDocDuplicate(){
+    var selectedData = this.formUser.getRawValue();   
+    if (selectedData.pmtNo==""){
+      this.toasterService.warning("Pmt No should not be Blank");
+      return;
+    }
+    else{
+      this.requestmodel.strRequest = "LHP"
+      this.requestmodel.strRequest1 = this.branch;
+      this.requestmodel.strRequest2 = this.year;
+      this.requestmodel.strRequest3 = "";
+      this.requestmodel.strRequest4 = selectedData.pmtNo;
+      this.commonService.checkDuplicateDocNo(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          //ignore
+        }
+        else{
+          this.toasterService.warning(this.responseDetails.message);
+          this.formUser.patchValue({
+            pmtNo: "",
+          });
+        }
+      });
+    }  
+  }
   // convenience getter for easy access to contact form fields
   get f() { return this.formUser.controls; }
   get formArray() {

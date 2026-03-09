@@ -298,9 +298,6 @@ export class CommonService {
   getBillSubmitSeries(req: Requestmodel):  Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/GetBillSubmitSeries', req, this.httpOptions);
   }
-  checkDuplicateLr(req: Requestmodel): Observable<any> {
-    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/CheckDuplicateLr', req, this.httpOptions);
-  }
   checkDuplicateCardNo(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetMasters/CheckDuplicateCardNo', payload, this.httpOptions);
   }
@@ -342,6 +339,12 @@ export class CommonService {
   }  
   getSeriesllpList(filter: Requestmodel): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FreightMasters/GetSeriesllpList', filter, this.httpOptions);
+  }  
+  getDocAutoGenNo(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetDocAutoGenNo', req, this.httpOptions);
+  }
+  checkDuplicateDocNo(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/CheckDuplicateDocNo', req, this.httpOptions);
   }  
   checkIncSeries(filter: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/CheckIncSeries', filter, this.httpOptions);

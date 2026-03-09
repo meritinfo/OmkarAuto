@@ -67,6 +67,8 @@ namespace FreightMasters.Repository
                             new SqlParameter("@BillRemarks",        billsModel.BillRemarks),
                             new SqlParameter("@SuppParticulars",    billsModel.SuppParticulars),
                             new SqlParameter("@EnlcosedDocs",       billsModel.EnlcosedDocs),
+                            new SqlParameter("@BillSeries",         "" ),
+                            new SqlParameter("@BillSlNo",           ""),
                             new SqlParameter("@YearId",             billsModel.YearId),
                             new SqlParameter("@LoggedInUser",       billsModel.LoggedInUser)
                         };

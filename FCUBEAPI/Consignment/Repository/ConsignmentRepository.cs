@@ -1,12 +1,13 @@
 ﻿using Consignment.Models;
+using DocumentFormat.OpenXml.Drawing;
 using Microsoft.Extensions.Options;
-using SqlHelper.Models;
-using System.Data.SqlClient;
-using Shared.Models;
 using Newtonsoft.Json;
+using Shared.Models;
+using SqlHelper.Models;
+using System;
+using System.Data.SqlClient;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using System;
 
 namespace Consignment.Repository
 {
@@ -994,8 +995,8 @@ namespace Consignment.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@Branch",     request.strRequest),
-                            new SqlParameter("@YearId",   request.strRequest1),
+                            new SqlParameter("@Branch", request.strRequest),
+                            new SqlParameter("@YearId", request.strRequest1),
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_GenerateLrNo", param);
 
@@ -1863,8 +1864,6 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-
-
         public async Task<ResponseModel> ConsignmentLocalFrtUpdate(ConsignmentUpdateModel ConsignmentModel)
         {
             ResponseModel responseModel = new();
@@ -1897,5 +1896,74 @@ namespace Consignment.Repository
             return responseModel;
         }
 
-    }   
+        public async Task<ResponseModel> GetDocAutoGenNo(RequestModel req)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@DocType",    req.strRequest),
+                            new SqlParameter("@Branch",     req.strRequest1),
+                            new SqlParameter("@YearId",     req.strRequest2),
+                            new SqlParameter("@SeriesCode", req.strRequest3),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDocAutoGenNo", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        response.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        response.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+            }
+            return response;
+        }
+        public async Task<ResponseModel> CheckDuplicateDocNo(RequestModel req)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@DocType",    req.strRequest),
+                            new SqlParameter("@Branch",     req.strRequest1),
+                            new SqlParameter("@YearId",     req.strRequest2),
+                            new SqlParameter("@SeriesCode", req.strRequest3),
+                            new SqlParameter("@DocNo",      req.strRequest4),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_ChkDuplicateDocNo", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = false;
+            }
+            return responseModel;
+        }
+
+
+    }
 }

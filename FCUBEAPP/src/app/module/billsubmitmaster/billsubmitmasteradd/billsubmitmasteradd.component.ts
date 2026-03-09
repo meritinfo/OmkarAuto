@@ -181,10 +181,16 @@ export class BillsubmitmasteraddComponent {
   }
 
   billSubmitSeriesChange(): void {
-    var selectedData = this.formUser.getRawValue();
-    this.requestmodel.strRequest = selectedData.submitStn;
-    this.requestmodel.strRequest1 = this.year;
-    this.commonService.getBillSubmitSeries(this.requestmodel).subscribe((res: Responsemodel) => {
+    var selectedData = this.formUser.getRawValue();    
+
+    this.requestmodel.strRequest  = "BLS";
+    this.requestmodel.strRequest1 = selectedData.submitStn;
+    this.requestmodel.strRequest2 = this.year;
+    this.requestmodel.strRequest3 = "";
+    this.commonService.getDocAutoGenNo(this.requestmodel).subscribe((res: Responsemodel) => {
+    // this.requestmodel.strRequest = selectedData.submitStn;
+    // this.requestmodel.strRequest1 = this.year;
+    // this.commonService.getBillSubmitSeries(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       this.formUser.patchValue({
         submitNo: res.message

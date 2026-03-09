@@ -32,6 +32,7 @@ export class ConsignmentllpaddComponent {
   newDate: string = '';
   noPackages:string = '';
   seriesLength:string = '';
+  inclSeries = false;
 
   formSubmitted = false;
   editMode = false;
@@ -146,23 +147,22 @@ export class ConsignmentllpaddComponent {
     }
     
     this.sharedService.loading = true;
-    // this.getSeriesList();
-     this.getUserRights();
-     this.getBranchList();
-     this.getGstByList();
-     this.getRateList();
-     this.getContentList();
-     this.getLocationList();
-     this.getClassList();
-     this.getBusiByList();
-     this.getVehicleNoList();
-     this.getBillingPartyList();
-     this.getVehTypes();
-     this.getCnorCneeList();
-     this.getFreightList();
-     this.getCnNoLength();    
-     this.getSeriesList(this.branch);
-       this.getCnorList();
+    this.getUserRights();
+    this.getBranchList();
+    this.getGstByList();
+    this.getRateList();
+    this.getContentList();
+    this.getLocationList();
+    this.getClassList();
+    this.getBusiByList();
+    this.getVehicleNoList();
+    this.getBillingPartyList();
+    this.getVehTypes();
+    this.getCnorCneeList();
+    this.getFreightList();
+    this.getCnNoLength();    
+    this.getSeriesList(this.branch);
+    this.getCnorList();
 
     this.sharedService.loading = false;
 
@@ -262,6 +262,7 @@ export class ConsignmentllpaddComponent {
     });
 
     
+    this.checkIncSeries("CN"); 
     this.formUser.controls["bookingPlace"].disable();
     this.formUser.controls["gcNoteNo"].disable();
     this.formGstArray.controls[0].get("amount")?.disable();
@@ -584,11 +585,11 @@ export class ConsignmentllpaddComponent {
       this.freightList = res;
     });
   }
+
   getSeriesList(b:string): void {
     this.requestmodel.strRequest = "L";
     this.requestmodel.strRequest1 = b;
     this.commonService.getSeriesllpList(this.requestmodel).subscribe((res) => {
-      
       this.seriesList = res;
     });
   }
@@ -603,9 +604,6 @@ export class ConsignmentllpaddComponent {
 
   onSeriesChangeLLP() {
     var selectedData = this.formUser.getRawValue();
-    this.requestmodel.strRequest = selectedData.bookingPlace;
-    this.requestmodel.strRequest1 = this.year;
-    this.requestmodel.strRequest2 = selectedData.seriesCode;
 
     if(selectedData.seriesCode==""){
       this.toastrService.warning("Please select Series Code");
@@ -615,13 +613,23 @@ export class ConsignmentllpaddComponent {
       });
       return;
     }
-    else{
-      this.lrentryService.getLrNoLLP(this.requestmodel).subscribe((res: Responsemodel) => {
+    else{    
+       
+      this.requestmodel.strRequest = "CN"
+      this.requestmodel.strRequest1 = selectedData.bookingPlace;
+      this.requestmodel.strRequest2 = this.year;
+      this.requestmodel.strRequest3 = selectedData.seriesCode;
+      this.commonService.getDocAutoGenNo(this.requestmodel).subscribe((res: Responsemodel) => {
+      //this.lrentryService.getLrNoLLP(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
+          var gcNoteNo = this.responseDetails.message;
+          if(!this.inclSeries){
+            gcNoteNo = selectedData.seriesCode+this.responseDetails.message;
+          }
           this.formUser.patchValue({
             gcSlNo: this.responseDetails.message,
-            gcNoteNo: selectedData.seriesCode+this.responseDetails.message
+            gcNoteNo: gcNoteNo,
           });
         }
        else{
@@ -635,6 +643,12 @@ export class ConsignmentllpaddComponent {
     }    
   }
 
+  checkIncSeries(docType: string){
+    this.requestmodel.strRequest = docType;
+    this.commonService.checkIncSeries(this.requestmodel).subscribe((res) => {
+      this.inclSeries = res.status;
+    });
+  }
 
   chkLrDuplicateLLP(){
     var selectedData = this.formUser.getRawValue();
@@ -647,33 +661,51 @@ export class ConsignmentllpaddComponent {
       return;
     }
     else{
-      this.reportmodel.filterStr = selectedData.bookingPlace;
-      this.reportmodel.filterStr1 = selectedData.gcSlNo;
-      this.reportmodel.filterStr2 = selectedData.seriesCode;
-      this.reportmodel.filterStr3 = this.year;
-      this.lrentryService.checkDuplicateLrLLP(this.reportmodel).subscribe((res: Responsemodel) => {
-        this.responseDetails = res;
-        if (this.responseDetails.status) {
-          var str = selectedData.gcSlNo;
+      
+      this.requestmodel.strRequest  = "CN";
+      this.requestmodel.strRequest1 = selectedData.bookingPlace;
+      this.requestmodel.strRequest2 = this.year;
+      this.requestmodel.strRequest3 = selectedData.seriesCode;
+      this.requestmodel.strRequest4 = selectedData.gcSlNo;
+      this.commonService.checkDuplicateDocNo(this.requestmodel).subscribe((res: Responsemodel) => {
+      // this.reportmodel.filterStr = selectedData.bookingPlace;
+      // this.reportmodel.filterStr1 = selectedData.gcSlNo;
+      // this.reportmodel.filterStr2 = selectedData.seriesCode;
+      // this.reportmodel.filterStr3 = this.year;
+      // this.lrentryService.checkDuplicateLrLLP(this.reportmodel).subscribe((res: Responsemodel) => {
+        // this.responseDetails = res;
+        // if (this.responseDetails.status) {
+        //   var str = selectedData.gcSlNo;
           
-          var x = "";
-          if(str.length<parseInt(this.seriesLength)){
-            if (this.seriesLength == "1") x = ("0" + str).slice(-1);
-            if (this.seriesLength == "2") x = ("00" + str).slice(-2);
-            if (this.seriesLength == "3") x = ("000" + str).slice(-3);
-            if (this.seriesLength == "4") x = ("0000" + str).slice(-4);
-            if (this.seriesLength == "5") x = ("00000" + str).slice(-5);
-            if (this.seriesLength == "6") x = ("000000" + str).slice(-6); 
-          } 
-          else{
-            x = str;
-          }             
+        //   var x = "";
+        //   if(str.length<parseInt(this.seriesLength)){
+        //     if (this.seriesLength == "1") x = ("0" + str).slice(-1);
+        //     if (this.seriesLength == "2") x = ("00" + str).slice(-2);
+        //     if (this.seriesLength == "3") x = ("000" + str).slice(-3);
+        //     if (this.seriesLength == "4") x = ("0000" + str).slice(-4);
+        //     if (this.seriesLength == "5") x = ("00000" + str).slice(-5);
+        //     if (this.seriesLength == "6") x = ("000000" + str).slice(-6); 
+        //   } 
+        //   else{
+        //     x = str;
+        //   }             
          
 
           
+        //   this.formUser.patchValue({
+        //     gcSlNo: x,
+        //     gcNoteNo: selectedData.seriesCode + x,
+        //   });
+        // }
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          var gcNoteNo = selectedData.gcSlNo;
+          if(!this.inclSeries){
+            gcNoteNo = selectedData.seriesCode+selectedData.gcSlNo;
+          }
           this.formUser.patchValue({
-            gcSlNo: x,
-            gcNoteNo: selectedData.seriesCode + x,
+            gcSlNo: selectedData.gcSlNo,
+            gcNoteNo: gcNoteNo,
           });
         }
        else{

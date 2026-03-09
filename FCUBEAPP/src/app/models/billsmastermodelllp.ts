@@ -73,9 +73,9 @@ export class BillsmastermodelllP {
     cgstPct: string = ""; 
     sgstPct: string = ""; 
     igstPct: string = ""; 
-     againstVehicleYN: string = ""; 
-     fromDate: string = ""; 
-     toDate: string = ""; 
+    againstVehicleYN: string = ""; 
+    fromDate: string = ""; 
+    toDate: string = ""; 
     loggedInUser: string = "";  
     createdBy: string = "";
     createdDate: string = "";

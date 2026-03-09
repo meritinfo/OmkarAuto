@@ -106,6 +106,7 @@ export class DocallotmentllpaddComponent {
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
     this.getBranchList();
+    this.checkIncSeries("CN");
 
     this.selectedDocumentallotmentDetails = this.documentallotmentService.getDocumentallotmentDetails();
     this.formUser = this.formBuilder.group({
@@ -167,25 +168,31 @@ export class DocallotmentllpaddComponent {
 
   getSeries(){    
     var selectedDataVal = this.formUser.getRawValue();
-    this.getSeriesList(selectedDataVal.branchCode,selectedDataVal.docType);
+    this.getSeriesList(selectedDataVal.branchCode,selectedDataVal.docType);    
     this.checkIncSeries(selectedDataVal.docType);
   }
 
   getSeriesList(br: string,docType: string): void {
+    this.formUser.controls["seriesCode"].enable(); 
     if(docType == "BL"){
-    this.requestmodel.strRequest = "B";
-    this.requestmodel.strRequest1 = br;
-    this.commonService.getSeriesllpList(this.requestmodel).subscribe((res) => {
-      this.seriesList = res;
-    });
-  }
-  else if(docType == "CN"){
+      this.requestmodel.strRequest = "B";
+      this.requestmodel.strRequest1 = br;    
+    }
+    else if(docType == "CN"){
       this.requestmodel.strRequest = "L";
       this.requestmodel.strRequest1 = br;
-      this.commonService.getSeriesllpList(this.requestmodel).subscribe((res) => {
-        this.seriesList = res;
-      });
     }
+    this.commonService.getSeriesllpList(this.requestmodel).subscribe((res) => {
+      this.seriesList = res;
+      if(res.length==1){
+        setTimeout(() => {
+          this.formUser.patchValue({
+            seriesCode: res[0].dataId
+          });  
+          this.formUser.controls["seriesCode"].disable(); 
+        }, 500);
+      }
+    });
   }
 
   checkIncSeries(docType: string){
@@ -207,11 +214,11 @@ export class DocallotmentllpaddComponent {
 
       if(selectedDataVal.rangeFrom!="" && selectedDataVal.rangeTo!=""){
         if(this.inclSeries){     
-          var doccode = selectedDataVal.docNumCode.toString();     
-          var rangeFrom = selectedDataVal.rangeFrom.substring(0,doccode.length);
-          var rangeTo = selectedDataVal.rangeTo.substring(0,doccode.length);
+          var seriesCode = selectedDataVal.seriesCode.toString();     
+          var rangeFrom = selectedDataVal.rangeFrom.substring(0,seriesCode.length);
+          var rangeTo = selectedDataVal.rangeTo.substring(0,seriesCode.length);
 
-          if(selectedDataVal.rangeFrom!="" && doccode != rangeFrom){
+          if(selectedDataVal.rangeFrom!="" && seriesCode != rangeFrom){
             this.toasterService.warning("Range From sholud Start With Series Code");
             this.formUser.patchValue({
               rangeFrom: "",
@@ -219,7 +226,7 @@ export class DocallotmentllpaddComponent {
             });       
             return;       
           }  
-          if(selectedDataVal.rangeTo!="" && doccode != rangeTo){
+          if(selectedDataVal.rangeTo!="" && seriesCode != rangeTo){
             this.toasterService.warning("Range To sholud Start With Series Code");
             this.formUser.patchValue({
               rangeTo:"",

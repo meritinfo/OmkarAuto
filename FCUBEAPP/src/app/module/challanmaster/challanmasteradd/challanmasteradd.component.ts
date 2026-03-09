@@ -484,14 +484,21 @@ modifiedBy: string = "";
   onBranchChange() {
    // var selectedData = this.formUser.getRawValue();
    // if (selectedData.challanBranch==""){
-      this.requestmodel.strRequest = this.branch;
-   this.requestmodel.strRequest1 =  this.year;
+   // this.requestmodel.strRequest = this.branch;
+   // this.requestmodel.strRequest1 =  this.year;
   //  }
   //  else{
      // this.requestmodel.strRequest = selectedData.challanBranch;
    // }
-
-    this.challanmasterService.getChallanNo(this.requestmodel).subscribe((res: Responsemodel) => {
+   
+      this.requestmodel.strRequest = "CH"
+      this.requestmodel.strRequest1 = this.branch;
+      this.requestmodel.strRequest2 = this.year;
+      this.requestmodel.strRequest3 = "";
+      this.commonService.getDocAutoGenNo(this.requestmodel).subscribe((res: Responsemodel) => {
+    //this.requestmodel.strRequest = this.branch;
+    //this.requestmodel.strRequest1 =  this.year;
+    //this.challanmasterService.getChallanNo(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
         this.formUser.patchValue({
@@ -510,11 +517,17 @@ modifiedBy: string = "";
       this.toastrService.warning("Challan No should not be Blank");
       return;
     }
-    else{
-      this.requestmodel.strRequest = selectedData.challanBranch;
-      this.requestmodel.strRequest1 = selectedData.challanNo;
+    else{      
+      this.requestmodel.strRequest  = "CH";
+      this.requestmodel.strRequest1 = selectedData.challanBranch;
       this.requestmodel.strRequest2 = this.year;
-      this.challanmasterService.checkDuplicateChallan(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.requestmodel.strRequest3 = "";
+      this.requestmodel.strRequest4 = selectedData.challanNo;
+      this.commonService.checkDuplicateDocNo(this.requestmodel).subscribe((res: Responsemodel) => {
+      // this.requestmodel.strRequest = selectedData.challanBranch;
+      // this.requestmodel.strRequest1 = selectedData.challanNo;
+      // this.requestmodel.strRequest2 = this.year;
+      // this.challanmasterService.checkDuplicateChallan(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
           //ignore
@@ -541,11 +554,17 @@ modifiedBy: string = "";
         this.toastrService.warning("Main Challan No should not be Same as Challan No");
         return;
       }
-      else{
-        this.requestmodel.strRequest = "";
-        this.requestmodel.strRequest1 = selectedData.mainChallanNo;
+      else{        
+        this.requestmodel.strRequest  = "CH";
+        this.requestmodel.strRequest1 = selectedData.mainChallanBranch;
         this.requestmodel.strRequest2 = this.year;
-        this.challanmasterService.checkDuplicateChallan(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.requestmodel.strRequest3 = "M";
+        this.requestmodel.strRequest4 = selectedData.mainChallanNo;
+        this.commonService.checkDuplicateDocNo(this.requestmodel).subscribe((res: Responsemodel) => {
+        // this.requestmodel.strRequest = "";
+        // this.requestmodel.strRequest1 = selectedData.mainChallanNo;
+        // this.requestmodel.strRequest2 = this.year;
+        // this.challanmasterService.checkDuplicateChallan(this.requestmodel).subscribe((res: Responsemodel) => {
           this.responseDetails = res;
           if (this.responseDetails.status) {
             //ignore

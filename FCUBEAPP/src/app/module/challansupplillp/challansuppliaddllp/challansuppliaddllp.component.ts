@@ -206,11 +206,17 @@ ngOnInit(): void {
       this.toastrService.warning("Challan No should not be Blank");
       return;
     }
-    else{
-      this.requestmodel.strRequest = selectedData.challanBranch;
-      this.requestmodel.strRequest1 = selectedData.challanNo;
+    else{      
+      this.requestmodel.strRequest  = "CH";
+      this.requestmodel.strRequest1 = selectedData.challanBranch;
       this.requestmodel.strRequest2 = this.year;
-      this.challanmasterService.checkDuplicateChallan(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.requestmodel.strRequest3 = "";
+      this.requestmodel.strRequest4 = selectedData.challanNo;
+      this.commonService.checkDuplicateDocNo(this.requestmodel).subscribe((res: Responsemodel) => {
+      // this.requestmodel.strRequest = selectedData.challanBranch;
+      // this.requestmodel.strRequest1 = selectedData.challanNo;
+      // this.requestmodel.strRequest2 = this.year;
+      // this.challanmasterService.checkDuplicateChallan(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
           //ignore

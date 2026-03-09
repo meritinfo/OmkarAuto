@@ -353,16 +353,50 @@ export class MraddComponent {
   
   
   getMrNo(): void { 
-    var selectedData =  this.formUser.getRawValue();  
-    this.requestmodel.strRequest = selectedData.mrStation;
-    this.requestmodel.strRequest1 = this.year;
-    this.mrService.getMrNo(this.requestmodel).subscribe((res) => {
+    var selectedData =  this.formUser.getRawValue(); 
+    this.requestmodel.strRequest = "MR"
+    this.requestmodel.strRequest1 = selectedData.mrStation;
+    this.requestmodel.strRequest2 = this.year;
+    this.requestmodel.strRequest3 = "";
+
+    this.commonService.getDocAutoGenNo(this.requestmodel).subscribe((res: Responsemodel) => {
+    // this.requestmodel.strRequest = selectedData.mrStation;
+    // this.requestmodel.strRequest1 = this.year;
+    // this.mrService.getMrNo(this.requestmodel).subscribe((res) => {
       if(res.status){
         this.formUser.patchValue({
           mrNo: res.message
         });
       }
     });
+  }
+
+  
+  chkDocDuplicate(){
+    var selectedData = this.formUser.getRawValue();   
+    if (selectedData.mrNo==""){
+      this.toasterService.warning("MR No should not be Blank");
+      return;
+    }
+    else{
+      this.requestmodel.strRequest = "MR"
+      this.requestmodel.strRequest1 = selectedData.mrStation;
+      this.requestmodel.strRequest2 = this.year;
+      this.requestmodel.strRequest3 = "";
+      this.requestmodel.strRequest4 = selectedData.mrNo;
+      this.commonService.checkDuplicateDocNo(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          //ignore
+        }
+        else{
+          this.toasterService.warning(this.responseDetails.message);
+          this.formUser.patchValue({
+            mrNo: "",
+          });
+        }
+      });
+    }  
   }
 
   getSdAccountList(): void {    

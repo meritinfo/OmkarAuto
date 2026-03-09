@@ -255,21 +255,29 @@ export class DprvehiplacedaddComponent {
 
   chkLrDuplicate(i: number){
     var selectedData = this.formUser.getRawValue();
-    if (selectedData.arrayList[i].gcNoteNo==""){
+    var arr = selectedData.arrayList;
+    if (arr[i].gcNoteNo==""){
       this.toasterService.warning("GC Note No should not be Blank");
       return;
     }  
     else{
-      for (var j=0; j<selectedData.arrayList.length;j++){
-        if(i!=j && selectedData.arrayList[i].gcNoteNo.toString().toUpperCase()==selectedData.arrayList[j].gcNoteNo.toString().toUpperCase()){
+      for (var j=0; j<arr.length;j++){
+        if(i!=j && arr[i].gcNoteNo.toString().toUpperCase()==arr[j].gcNoteNo.toString().toUpperCase()){
           this.toasterService.warning("GC Note No Already Entered in Grid");
           return;
         }
       }
-      this.requestmodel.strRequest = this.branch;
-      this.requestmodel.strRequest1 = selectedData.arrayList[i].gcNoteNo.toString().toUpperCase();
-      this.requestmodel.strRequest2 = "";
-      this.lrentryService.checkDuplicateLr(this.requestmodel).subscribe((res: Responsemodel) => {
+      
+      this.requestmodel.strRequest  = "CN";
+      this.requestmodel.strRequest1 = this.branch;
+      this.requestmodel.strRequest2 = this.year;
+      this.requestmodel.strRequest3 = "";
+      this.requestmodel.strRequest4 = arr[i].gcNoteNo.toString().toUpperCase();
+      this.commonService.checkDuplicateDocNo(this.requestmodel).subscribe((res: Responsemodel) => {
+      // this.requestmodel.strRequest = this.branch;
+      // this.requestmodel.strRequest1 = arr[i].gcNoteNo.toString().toUpperCase();
+      // this.requestmodel.strRequest2 = "";
+      // this.lrentryService.checkDuplicateLr(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
           //ignore
@@ -512,10 +520,16 @@ export class DprvehiplacedaddComponent {
         this.toasterService.warning("Main LR Number Should Not be Empty");
         return;
       }
-      this.requestmodel.strRequest = this.branch;
-      this.requestmodel.strRequest1 = selectedDataVal.arrayList[i].gcNoteNo;
-      this.requestmodel.strRequest2 = "";
-      this.lrentryService.checkDuplicateLr(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.requestmodel.strRequest  = "CN";
+      this.requestmodel.strRequest1 = this.branch;
+      this.requestmodel.strRequest2 = this.year;
+      this.requestmodel.strRequest3 = "";
+      this.requestmodel.strRequest4 = selectedDataVal.arrayList[i].gcNoteNo;
+      this.commonService.checkDuplicateDocNo(this.requestmodel).subscribe((res: Responsemodel) => {
+      // this.requestmodel.strRequest = this.branch;
+      // this.requestmodel.strRequest1 = selectedDataVal.arrayList[i].gcNoteNo;
+      // this.requestmodel.strRequest2 = "";
+      //this.lrentryService.checkDuplicateLr(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
           //ignore

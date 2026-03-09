@@ -4246,6 +4246,43 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetDocAutoGenNo")]
+        public async Task<IActionResult> GetDocAutoGenNo(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await consignmentBusiness.GetDocAutoGenNo(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CheckDuplicateDocNo")]
+        public async Task<IActionResult> CheckDuplicateDocNo(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await consignmentBusiness.CheckDuplicateDocNo(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
     }
 

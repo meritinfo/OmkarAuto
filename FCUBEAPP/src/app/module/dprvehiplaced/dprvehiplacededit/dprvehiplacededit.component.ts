@@ -316,10 +316,17 @@ export class DprvehiplacededitComponent {
           return;
         }
       }
-      this.requestmodel.strRequest = this.branch;
-      this.requestmodel.strRequest1 = selectedData.arrayList[i].gcNoteNo.toString().toUpperCase();
-      this.requestmodel.strRequest2 = "";
-      this.lrentryService.checkDuplicateLr(this.requestmodel).subscribe((res: Responsemodel) => {
+      
+      this.requestmodel.strRequest  = "CN";
+      this.requestmodel.strRequest1 = this.branch;
+      this.requestmodel.strRequest2 = this.year;
+      this.requestmodel.strRequest3 = "";
+      this.requestmodel.strRequest4 = selectedData.arrayList[i].gcNoteNo.toString().toUpperCase();
+      this.commonService.checkDuplicateDocNo(this.requestmodel).subscribe((res: Responsemodel) => {
+      // this.requestmodel.strRequest = this.branch;
+      // this.requestmodel.strRequest1 = selectedData.arrayList[i].gcNoteNo.toString().toUpperCase();
+      // this.requestmodel.strRequest2 = "";
+      // this.lrentryService.checkDuplicateLr(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
           //ignore
@@ -739,10 +746,17 @@ export class DprvehiplacededitComponent {
         this.toasterService.warning("MainGcYN No Should Not be Empty");
         return;
       }
-      this.requestmodel.strRequest = this.branch;
-      this.requestmodel.strRequest1 = selectedDataVal.arrayList[i].gcNoteNo;
-      this.requestmodel.strRequest2 = this.dprid?this.dprid:"";
-      this.lrentryService.checkDuplicateLr(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.requestmodel.strRequest  = "CN";
+      this.requestmodel.strRequest1 = this.branch;
+      this.requestmodel.strRequest2 = this.year;
+      this.requestmodel.strRequest3 = this.dprid?this.dprid:"";
+      this.requestmodel.strRequest4 = selectedDataVal.arrayList[i].gcNoteNo.toString().toUpperCase();
+      this.commonService.checkDuplicateDocNo(this.requestmodel).subscribe((res: Responsemodel) => {
+      // this.requestmodel.strRequest = this.branch;
+      // this.requestmodel.strRequest1 = selectedDataVal.arrayList[i].gcNoteNo;
+      // this.requestmodel.strRequest2 = this.dprid?this.dprid:"";
+      
+      // this.lrentryService.checkDuplicateLr(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
           //ignore
