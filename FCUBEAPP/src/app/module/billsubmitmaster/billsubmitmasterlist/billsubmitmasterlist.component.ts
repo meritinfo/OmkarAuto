@@ -163,6 +163,10 @@ export class BillsubmitmasterlistComponent {
           data: 'submitMstId',
         },  
         {
+          title: 'Excel',
+          data: 'submitMstId',
+        },  
+        {
           title: 'Submit Stn',
           data: 'Sname',
         },
@@ -224,16 +228,23 @@ export class BillsubmitmasterlistComponent {
     this.request.strRequest2 = format;
 
     this.billSubmitMasterService.getBillSubmitPrint(this.request).subscribe(resp => {
-      if(resp.status){    
+      if(resp.status){   
         let link = document.createElement("a");
-        link.download = "BillSubmit_" + new Date().getTime() + '.pdf';
-        link.href = "assets/reports/billsubmitprint/" + resp.message;
-        link.click();
-        window.open(link.href, "_blank");
+        if(format=="XL"){
+          link.download = "BillSubmit_" + new Date().getTime() + '.xls';
+          link.href = "assets/reports/billsubmitprint/" + resp.message;
+          link.click();
+        }
+        else{
+          link.download = "BillSubmit_" + new Date().getTime() + '.pdf';
+          link.href = "assets/reports/billsubmitprint/" + resp.message;
+          link.click();
+          window.open(link.href, "_blank");
+        } 
       }
       else{        
         this.toastrService.warning(resp.message);   
-      }
+      }      
     });
   }
 

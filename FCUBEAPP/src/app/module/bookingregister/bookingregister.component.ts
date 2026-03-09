@@ -158,11 +158,9 @@ export class BookingregisterComponent {
       this.commonService.getPartyList().subscribe((res) => {
         this.partyList = res;
       });
-    }
-  
+    }  
     
-    get f() { return this.formFilter.controls; }
-  
+    get f() { return this.formFilter.controls; } 
      
   
     onChangeSearch(search: string) {

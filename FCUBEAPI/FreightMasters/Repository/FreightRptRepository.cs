@@ -2569,6 +2569,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@Destination",request.FilterStr3),
                             new SqlParameter("@VehicleNo",  request.Search),
                             new SqlParameter("@GcSeries",   request.SortColumn),
+                            new SqlParameter("@RptType",    request.SortOrder),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBookingRegisterRptExcel", param);
 
@@ -2576,11 +2577,14 @@ namespace FreightMasters.Repository
                     {
                         var filter = "From " + Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy");
                         filter = filter  + " To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy");
-                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        if (request.SortOrder == "L")
                         {
-                            dataSet.Tables[0].Rows[i]["Invoice No"] =  "'" + dataSet.Tables[0].Rows[i]["Invoice No"].ToString();
-                            dataSet.Tables[0].Rows[i]["Eway Bill No"] = "'" + dataSet.Tables[0].Rows[i]["Eway Bill No"].ToString();
-                        }
+                            for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                            {
+                                dataSet.Tables[0].Rows[i]["Invoice No"] = "'" + dataSet.Tables[0].Rows[i]["Invoice No"].ToString();
+                                dataSet.Tables[0].Rows[i]["Eway Bill No"] = "'" + dataSet.Tables[0].Rows[i]["Eway Bill No"].ToString();
+                            }
+                        }                        
 
                         response = await GetBookingRegisterExcelReport(dataSet.Tables[0], "Booking Register", filter);
                     }
