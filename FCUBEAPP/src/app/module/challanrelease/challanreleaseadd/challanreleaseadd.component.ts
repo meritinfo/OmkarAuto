@@ -37,7 +37,7 @@ export class ChallanreleaseaddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   loginDate: string = '';
   year: string = '';
   branch: string = '';
@@ -47,7 +47,7 @@ dashboard: string ="";
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private challanreleaseModel: ChallanreleaseModel,  
-                                      private sharedService : SharedService,
+    private sharedService : SharedService,
     private toasterService: ToastrService,private challanReleaseService: ChallanReleaseService,
     private requestmodel:Requestmodel,private reportmodel:Reportmodel, 
     private commonService: CommonService) {
@@ -189,10 +189,7 @@ dashboard: string ="";
         challanDateTime:this.commonService.formatDate(this.selectedChallanDetails.challanDateTime), 
         challanFromStn:this.selectedChallanDetails.challanFromStn, 
         challanToStn:this.selectedChallanDetails.challanToStn, 
-        brokerId:this.selectedChallanDetails.brokerId, 
-        //brokerId :this.brokerList.find(e => e.dataId == this.selectedChallanDetails.brokerId),
-        //challanFromStn: this.locationList.find(e => e.dataId == this.selectedChallanDetails.challanFromStn),
-        // challanToStn: this.locationList.find(e => e.dataId == this.selectedChallanDetails.challanToStn),             
+        brokerId:this.selectedChallanDetails.brokerId,              
       })   
       this.formUser.controls["releaseForPmt"].disable();   
       this.formUser.controls["challanFromStn"].disable(); 
@@ -239,7 +236,7 @@ dashboard: string ="";
             if (this.responseDetails.status) {
               this.toasterService.success(this.responseDetails.message);
               this.formUser.reset();
-              this.route.navigate(['/challanreleaselist']);
+              this.route.navigate(['/challanrelease']);
             }
             else {
               this.toasterService.warning(this.responseDetails.message);

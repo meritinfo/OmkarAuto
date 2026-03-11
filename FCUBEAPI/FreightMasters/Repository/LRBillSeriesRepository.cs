@@ -122,7 +122,7 @@ namespace FreightMasters.Repository
                            
                            // new SqlParameter("@ToDate", request.ToDate)
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_LRBillSeriesList", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getLRBillSeriesList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {

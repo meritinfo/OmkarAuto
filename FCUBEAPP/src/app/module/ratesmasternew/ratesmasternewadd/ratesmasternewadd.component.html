@@ -31,11 +31,9 @@
                                                     formControlName="partyId" 
                                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['partyId'].invalid) }">
                                                 </ng-autocomplete>
-
                                                 <ng-template #itemTemplate let-item>
                                                     <a [innerHTML]="item.dataName"></a>
                                                 </ng-template>
-
                                                 <ng-template #notFoundTemplate let-notFound>
                                                     <div [innerHTML]="notFound"></div>
                                                 </ng-template>
@@ -63,7 +61,6 @@
                                     <div class="col-sm-4">
                                         <div class="mb-3">
                                             <label>From Location </label> <span style="color: red">*</span> 
-                                                                              
                                             <div class="ng-autocomplete">
                                                 <ng-autocomplete [data]="locationList"
                                                     [searchKeyword]="keywordLocation"  
@@ -76,11 +73,9 @@
                                                     formControlName="fromLocation" 
                                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['fromLocation'].invalid) }">
                                                 </ng-autocomplete>
-
                                                 <ng-template #itemTemplate let-item>
                                                     <a [innerHTML]="item.dataName"></a>
                                                 </ng-template>
-
                                                 <ng-template #notFoundTemplate let-notFound>
                                                     <div [innerHTML]="notFound"></div>
                                                 </ng-template>
@@ -99,26 +94,8 @@
                                             </select>
                                         </div>
                                     </div> 
-                                  
-                                     
                                 </div> 
                                 <div class="row">   
-                                   
-                                    
-                                    <!-- <div class="col-sm-3">
-                                        <div class="mb-3">
-                                            <label>Vendor State </label><span style="color: red">*</span> 
-                                            <select class="form-control form-select ng-pristine ng-touched"formControlName="vendorState"      
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorState'].invalid) }">
-                                                <option *ngFor="let state of stateList" value={{state.dataId}}>
-                                                   {{state.dataName}}
-                                                </option>
-                                             </select>
-                                        </div>
-                                    </div>   -->
-                                   
-                                  
-                                   
                                 </div>             
                             </div>                  
                             <!-- end card body -->
@@ -184,7 +161,7 @@
                                                     <td class="col-lg-2">
                                                         <select id="scope"  formControlName="productId" (change)='changeProduct($event,i)' 
                                             class="form-control form-select ng-pristine ng-touched">
-                                            <option selected="0">ALL</option>
+                                            <option value="0">ALL</option>
                                                 <option *ngFor="let br of productList" value={{br.dataId}}  >
                                                     {{br.dataName}}
                                                 </option>
@@ -206,29 +183,10 @@
                                                 </div>
                                             </tr>
                                         </table>
-                                   
                                 </div>
                             </div>
                         </div>
-                    </div>
-                  
-      
-                   
-                    <div class="row">                                                               
-                        
-                        <!-- <div class="col-sm-3">
-                            <div class="mb-3">
-                                <label>Branch Code: </label>
-                                <select class="form-control form-select ng-pristine ng-touched"formControlName="branchCode"
-                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['branchCode'].invalid) }">
-                                    <option *ngFor="let branch of branchList" value={{branch.dataId}}>
-                                        {{branch.dataName}}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>                                -->
-                                                              
-                    </div>                     
+                    </div>              
                 </div>         
                 <div class="row text-right">
                     <div class="col-lg-12">

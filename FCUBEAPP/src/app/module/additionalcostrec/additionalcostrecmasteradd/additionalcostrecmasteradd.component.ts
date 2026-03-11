@@ -1,4 +1,3 @@
-
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -17,40 +16,36 @@ import { SharedService } from 'src/app/services/shared.service';
   templateUrl: './additionalcostrecmasteradd.component.html',
   styleUrls: ['./additionalcostrecmasteradd.component.css']
 })
-export class AdditionalcostrecmasteraddComponent {
-  loggedInUserID: string = '';
-  formUser!: FormGroup;
-  formSubmitted = false;
-  branchname: string = '';
-  year: string = '';
-  loginDate: string = '';
-  editMode = false;
-  createStatus = false;
-  editStatus = false;
-  deleteStatus = false;
-  viewStatus = false; 
-  dashboard: string ="";
-  responseDetails = new Responsemodel();
-  debitAcList: Dropdownmodel[] = [];
-  branchList: Dropdownmodel[] = [];
-  
-  stateList: Dropdownmodel[] = [];
-  ledgerAcList: Dropdownmodel[] = [];
-  keywordLocation = 'dataName';
-  
-  
-  selectedAdditionalcostrecDetails = new AdditionalcostrecmasterModel();
 
+export class AdditionalcostrecmasteraddComponent {
+  loggedInUserID  : string = '';
+  formUser!       : FormGroup;
+  formSubmitted   = false;
+  branchname      : string = '';
+  year            : string = '';
+  loginDate       : string = '';
+  editMode        = false;
+  createStatus    = false;
+  editStatus      = false;
+  deleteStatus    = false;
+  viewStatus      = false; 
+  dashboard       : string ="";
+  responseDetails = new Responsemodel();
+  debitAcList     : Dropdownmodel[] = [];
+  branchList      : Dropdownmodel[] = [];
+  stateList       : Dropdownmodel[] = [];
+  ledgerAcList    : Dropdownmodel[] = [];
+  keywordLocation = 'dataName';
+  selectedAdditionalcostrecDetails = new AdditionalcostrecmasterModel();
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private additionalcostrecmasterModel: AdditionalcostrecmasterModel, 
     private toasterService: ToastrService,private requestmodel:Requestmodel,
     private additionalcostrecService: AdditionalcostrecService, private sharedService: SharedService,
     private commonService: CommonService) {
     this.additionalcostrecmasterModel = new AdditionalcostrecmasterModel();
+  }
+  ngOnInit(): void {
 
-}
-ngOnInit(): void {
-    
   var menuData = sessionStorage.getItem('menulist')?.toString();
   if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
     var privilegeData = JSON.parse(menuData);
@@ -92,9 +87,20 @@ ngOnInit(): void {
   
   this.sharedService.loading=true;
   this.getBankAcList();
+
   
 
   this.selectedAdditionalcostrecDetails = this.additionalcostrecService.getAdditionalcostrecmasterModelDetails();
+
+     setTimeout(() => { 
+  if (this.selectedAdditionalcostrecDetails.addCostID != '') {
+    this.formUser.patchValue(this.selectedAdditionalcostrecDetails);      
+    this.editMode = true;  
+    this.formUser.patchValue({
+      accountID: this.ledgerAcList.find(e => e.dataId ==this.selectedAdditionalcostrecDetails.accountID),     
+    })      
+  }
+}, 2000);  
   this.formUser = this.formBuilder.group({
     addCostID: new FormControl('',), 
     addCostCode: new FormControl('',[Validators.required,Validators.minLength(2)]), 
@@ -103,18 +109,8 @@ ngOnInit(): void {
     accountID : new FormControl('',[Validators.required]), 
     affectCosting: new FormControl('Y',[Validators.required]),    
   });
-
-  if (this.selectedAdditionalcostrecDetails.addCostID != '') {
-    this.formUser.patchValue(this.selectedAdditionalcostrecDetails);      
-    this.editMode = true;  
-    this.formUser.patchValue({
-      accountID: this.ledgerAcList.find(e => e.dataId ==this.selectedAdditionalcostrecDetails.accountID),     
-    })      
-  }
-  
-
   this.sharedService.loading=false;
-}
+  }
 
 
   onChangeSearch(search: string) {
@@ -130,8 +126,8 @@ ngOnInit(): void {
     return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
 
-get f() { return this.formUser.controls; }
-deleteAdditionalcostrecForm(): void {
+  get f() { return this.formUser.controls; }
+ deleteAdditionalcostrecForm(): void {
   if(this.selectedAdditionalcostrecDetails.addCostID != '' ){      
     this.sharedService.loading=true;
     this.requestmodel.strRequest =this.selectedAdditionalcostrecDetails.addCostID 
@@ -151,16 +147,19 @@ deleteAdditionalcostrecForm(): void {
     
     this.sharedService.loading=false;
   }
-}
-exit(): void {
+ }
+ 
+ exit(): void {
   this.route.navigate(['/addcostrecmst']);
-}
-getBranchList(): void {
+ }
+
+ getBranchList(): void {
   this.commonService.getBranchList().subscribe((res) => {
     this.branchList = res;
   });
-}
-onGlobleChange(e:any){
+ }
+
+ onGlobleChange(e:any){
   if(e='Y'){
   this.formUser.controls['branchCode'].clearValidators(); 
   this.formUser.controls['branchCode'].updateValueAndValidity(); 
@@ -169,17 +168,16 @@ onGlobleChange(e:any){
   this.formUser.controls['branchCode'].setValidators([Validators.required]);
   this.formUser.controls['branchCode'].updateValueAndValidity(); 
   }
+ }
 
-}
-
-getStateList(): void {
+ getStateList(): void {
   this.commonService.getStateList().subscribe((res) => {
     this.stateList = res;
   });
-}
-chkAddCostDescriptionDuplicate(){
+ }
+
+ chkAddCostDescriptionDuplicate(){
   var selectedData = this.formUser.getRawValue();
-  
     this.requestmodel.strRequest = selectedData.addCostDescription;
   //  this.requestmodel.strRequest1 = selectedData.gcNoteNo;
     this.additionalcostrecService.checkDuplicateAddCostDescription(this.requestmodel).subscribe((res: Responsemodel) => {
@@ -191,19 +189,14 @@ chkAddCostDescriptionDuplicate(){
         this.toasterService.warning(this.responseDetails.message);
         this.formUser.patchValue({
           addCostDescription: ''
-  
         });
-        
       }
     });
     
-}
-chkAddCostCodeDuplicate(){
+ }
+ chkAddCostCodeDuplicate(){
   var selectedData = this.formUser.getRawValue();
-  
-
     this.requestmodel.strRequest = selectedData.addCostCode;
-  //  this.requestmodel.strRequest1 = selectedData.gcNoteNo;
     this.additionalcostrecService.checkDuplicateAddCostCode(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
@@ -218,7 +211,7 @@ chkAddCostCodeDuplicate(){
         
       }
     });
-  }
+ }
 
   getBankAcList(): void {
     this.requestmodel.strRequest = "E";
@@ -227,53 +220,45 @@ chkAddCostCodeDuplicate(){
     });
   }
   
-
-//Submit user form details //
-submitAdditionalcostrecMasterForm(): void {
-if (this.formUser.invalid) {
-  this.toasterService.warning("Please enter mandatory fields");
-
-  const controls = this.formUser.controls;
-  for (const name in controls) {
-    if (controls[name].invalid) {
-      // Convert camelCase key to readable format
-      const readableName = name.replace(/([A-Z])/g, ' $1');
-      const titleCaseName = readableName.charAt(0).toUpperCase() + readableName.slice(1);
-
-      this.toasterService.warning(titleCaseName + " field is invalid");
-    }
-  }
-
-  return;
-}
-  this.sharedService.loading=true;
-  var selectedDataVal =this.formUser.getRawValue();
-  this.formSubmitted = true;
-  this.additionalcostrecmasterModel.addCostID = this.selectedAdditionalcostrecDetails.addCostID != '' ? this.selectedAdditionalcostrecDetails.addCostID : '';
- // this.docRenewalMasterModel.docCode = selectedDataVal.docCode.toUpperCase();
- this.additionalcostrecmasterModel.addCostCode = selectedDataVal.addCostCode.toString().toUpperCase();
-  this.additionalcostrecmasterModel.addCostType = selectedDataVal.addCostType.toString().toUpperCase();
-  this.additionalcostrecmasterModel.addCostDescription = selectedDataVal.addCostDescription;
-  this.additionalcostrecmasterModel.accountID = selectedDataVal.accountID.dataId;
-  this.additionalcostrecmasterModel.affectCosting = selectedDataVal.affectCosting;
- // this.cnorcneemastermodel.address1 = selectedDataVal.address1.toString().toUpperCase();
+ //Submit user form details //
+ submitAdditionalcostrecMasterForm(): void {
+ if (this.formUser.invalid) {
+   this.toasterService.warning("Please enter mandatory fields");
+   const controls = this.formUser.controls;
+   for (const name in controls) {
+     if (controls[name].invalid) {
+       // Convert camelCase key to readable format
+       const readableName = name.replace(/([A-Z])/g, ' $1');
+       const titleCaseName = readableName.charAt(0).toUpperCase() + readableName.slice(1);
  
- // this.cnorcneemastermodel.olD_CnorCnee_ID = selectedDataVal.olD_CnorCnee_ID;
-  this.additionalcostrecmasterModel.loggedInUser = this.loggedInUserID;  
-
-  this.additionalcostrecService.additionalcostrecmasterSubmitted(this.additionalcostrecmasterModel).subscribe((res: Responsemodel) => {
-    this.responseDetails = res;
-    if(this.responseDetails.status){
-      this.toasterService.success(this.responseDetails.message);
-      this.formUser.reset();
-      this.route.navigate(['/addcostrecmst']);
-    }
-    else{
-      this.toasterService.warning(this.responseDetails.message);        
-    }   
-  });
-  this.sharedService.loading=false;
-}
+       this.toasterService.warning(titleCaseName + " field is invalid");
+     }
+   }
+   return;
+  } 
+   this.sharedService.loading=true;
+   var selectedDataVal =this.formUser.getRawValue();
+   this.formSubmitted = true;
+   this.additionalcostrecmasterModel.addCostID = this.selectedAdditionalcostrecDetails.addCostID != '' ? this.selectedAdditionalcostrecDetails.addCostID : '';
+  this.additionalcostrecmasterModel.addCostCode = selectedDataVal.addCostCode.toString().toUpperCase();
+   this.additionalcostrecmasterModel.addCostType = selectedDataVal.addCostType.toString().toUpperCase();
+   this.additionalcostrecmasterModel.addCostDescription = selectedDataVal.addCostDescription.toString().toUpperCase();
+   this.additionalcostrecmasterModel.accountID = selectedDataVal.accountID.dataId;
+   this.additionalcostrecmasterModel.affectCosting = selectedDataVal.affectCosting;
+   this.additionalcostrecmasterModel.loggedInUser = this.loggedInUserID;  
+   this.additionalcostrecService.additionalcostrecmasterSubmitted(this.additionalcostrecmasterModel).subscribe((res: Responsemodel) => {
+     this.responseDetails = res;
+     if(this.responseDetails.status){
+       this.toasterService.success(this.responseDetails.message);
+       this.formUser.reset();
+       this.route.navigate(['/addcostrecmst']);
+     }
+     else{
+       this.toasterService.warning(this.responseDetails.message);        
+     }   
+   });
+   this.sharedService.loading=false;
+  }
 }
 
 

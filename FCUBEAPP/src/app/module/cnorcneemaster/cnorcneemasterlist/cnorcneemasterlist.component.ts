@@ -1,5 +1,3 @@
-
-
 import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Filtermodel } from 'src/app/models/filtermodel';
@@ -58,7 +56,6 @@ dashboard: string ="";
 
 }
 ngOnInit(): void {
-
   var menuData = sessionStorage.getItem('menulist')?.toString();
   if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
     var privilegeData = JSON.parse(menuData);
@@ -74,27 +71,14 @@ ngOnInit(): void {
   }
 
   this.cnorCneeMasterService.clearCnorcneeMasterModelDetails();
-  // this.formFilter = this.formBuilder.group({
-  //  // fromDate: new FormControl( this.fromDate,[Validators.required]),
-  // //  toDate: new FormControl(this.loginDate,[Validators.required]),
-  //   branchCode: new FormControl('',),  
-  //   cnorCneeName: new FormControl('',),  
-   
-  // });
   this.filter.filterStr   = "";
   this.filter.filterStr1  = "";
-
-
   this.sharedService.loading=true;
   this.getBranchList();
   this.cnorcneeMasterList();
   this.formFilter = this.formBuilder.group({
-    //fromDate: new FormControl(this.fromDate,),
-  //  toDate: new FormControl(this.loginDate,),
-  
     branchCode: new FormControl('',),  
     cnorCneeName: new FormControl('',),  
-   
   });
 
   this.sharedService.loading=false;
@@ -147,10 +131,7 @@ cnorcneeMasterList(){
         title: 'Print Name',
         data: 'printName',
       },
-      {
-        title: 'Cnor Cnee Flag',
-        data: 'cnorCneeFlag',
-      },
+      
       {
         title: 'Address 1',
         data: 'address1',

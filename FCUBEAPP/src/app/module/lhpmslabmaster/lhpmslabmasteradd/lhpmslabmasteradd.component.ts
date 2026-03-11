@@ -169,8 +169,13 @@ dashboard: string ="";
     this.lhpmslabModel.hireTo = selectedDataVal.hireTo;
     this.lhpmslabModel.lhpmAmt = selectedDataVal.lhpmAmt;
     this.lhpmslabModel.loggedInUser = selectedDataVal.loggedInUserID;
-    //this.classificationModel.loggedInUserID   = this.loggedInUserID;
-  
+    let d1 = new Date(this.lhpmslabModel.fromDt);
+    let d2 = new Date(this.lhpmslabModel.toDt);
+      if (d1 < d2) {
+      this.toasterService.warning("TO date should be greater than From date");
+      this.sharedService.loading=false;
+      return;
+    } 
     this.lhpmslabmasterService.lhpmSlabMasterDetailsSubmitted(this.lhpmslabModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {

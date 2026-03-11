@@ -122,10 +122,7 @@ beneficiaryList(){
           });
       },
       columns: [
-        {
-          title: 'Ben Type',
-          data: 'benType',
-        }, 
+
         {
           title: 'Ben Code',
           data: 'benCode',
