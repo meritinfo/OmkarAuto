@@ -165,7 +165,7 @@ namespace FleetMasters.Repository
                             {
                                 BrandID = Convert.ToString(dataSet.Tables[0].Rows[i]["BrandID"]),
                                 BrandName = Convert.ToString(dataSet.Tables[0].Rows[i]["BrandName"]),
-                 
+                                Brand = Convert.ToString(dataSet.Tables[0].Rows[i]["Brand"]),
                                 BrandType = Convert.ToString(dataSet.Tables[0].Rows[i]["BrandType"]),
                                 IsActive = Convert.ToString(dataSet.Tables[0].Rows[i]["IsActive"]),
 

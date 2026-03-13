@@ -160,7 +160,7 @@ export class AdditionalcostrecmasteraddComponent {
  }
 
  onGlobleChange(e:any){
-  if(e='Y'){
+  if(e=='Y'){
   this.formUser.controls['branchCode'].clearValidators(); 
   this.formUser.controls['branchCode'].updateValueAndValidity(); 
   }

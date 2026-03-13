@@ -10,7 +10,7 @@ namespace FleetMasters.Models
         public string? BrandName { get; set; }
         public string? BrandType { get; set; }
         public string? IsActive { get; set; }
-  
+        public string? Brand { get; set; }
         public string? LoggedInUser { get; set; }
     }
 }

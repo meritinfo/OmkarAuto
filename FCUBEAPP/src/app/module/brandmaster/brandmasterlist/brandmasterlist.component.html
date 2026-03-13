@@ -18,7 +18,7 @@
                             <div class="col-md-4">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">Brand</label>
-                                    <input type="text" class="form-control" formControlName="brandName">
+                                    <input type="text" class="form-control" formControlName="brandName" uppercaseonly>
                                 </div>
                             </div>
                             <div class="col-lg-2">
@@ -40,25 +40,18 @@
                     <thead>
                         <tr>
                             <th>Brand Name</th>
-                      
                             <th>Brand Type</th>
-                         
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody *ngIf="allBrandMaster.brandList?.length != 0">
                         <tr *ngFor="let brandmaster of allBrandMaster.brandList">
                             <td>
-                                
                                 <button type="button" class="btn btn-edit"
                                 (click)="getBrandMasterDetails(brandmaster)"></button>  
-                       
                         </td>
                             <td>{{ brandmaster.brandName }}</td>
-                    
-                            <td>{{ brandmaster.brandType }}</td>
-                         
-                          
+                            <td>{{ brandmaster.brand }}</td>
                         </tr>
                     </tbody>
                     <tbody *ngIf="allBrandMaster.brandList?.length == 0">

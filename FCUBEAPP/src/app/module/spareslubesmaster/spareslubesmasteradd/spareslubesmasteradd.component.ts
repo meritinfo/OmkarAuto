@@ -90,10 +90,12 @@ export class SpareslubesmasteraddComponent {
       lifeType: new FormControl('',[Validators.required]),
       lifeExpectancy: new FormControl('',[Validators.required]),
       isActive: new FormControl('Y',[Validators.required]),
-      inventroyYN: new FormControl('',[Validators.required]),
+      inventroyYN: new FormControl('N',[Validators.required]),
       arrayList: this.formBuilder.array([this.createInitialArray()])
     });
-
+     if(this.formSparesMaster.value.inventroyYN==="N"){
+        this.formArray.clear(); 
+      }
     if (this.selectedSpareslubesMasterDetails.spareLubId != '') {
       this.formSparesMaster.patchValue(this.selectedSpareslubesMasterDetails); 
       if(this.selectedSpareslubesMasterDetails.inventroyYN=="N"){
