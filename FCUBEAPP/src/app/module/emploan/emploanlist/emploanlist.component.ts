@@ -142,7 +142,7 @@ dashboard: string ="";
   }
 
   addempLoan(): void {
-    this.route.navigate(['/loansrepayadd']);
+    this.route.navigate(['/loansentryadd']);
   }
 
   getempLoanDetails(emp: Emploanmodel): void {

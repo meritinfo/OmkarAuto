@@ -169,7 +169,7 @@
                                                 <label for="formrow-inputCity">Mileage</label>
                                                 <span style="color: red">*</span>
                                                 <input decimalonly autocomplete="off" type="text" id="formrow-inputCity" class="form-control"
-                                                    formControlName="mileageLt"                                                   
+                                                    formControlName="mileageLt"  maxlength="5"                                                  
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['mileageLt'].invalid) }">
                                             </div>
                                         </div>
@@ -587,9 +587,6 @@
                                                     <div class="mb-3">
                                                         <label for="formrow-inputZip">Chassis Loan Ledger </label>
                                                         <span style="color: red">*</span>
-                                                     
-
-
                                                             <select class="form-control form-select ng-pristine ng-touched"formControlName="chassisLoanLedger"   
                                                             class="form-control form-select ng-pristine ng-touched"   
                                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['chassisLoanLedger'].invalid) }">
