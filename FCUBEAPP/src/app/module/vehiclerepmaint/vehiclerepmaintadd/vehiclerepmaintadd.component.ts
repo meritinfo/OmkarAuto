@@ -735,14 +735,6 @@ export class VehiclerepmaintaddComponent {
       this.formTyreArray.controls[ind].get(clm)?.setValue("0");
       return;
     }    
-
-    // if(selectedDate.arrayList[ind].availQty!=""){
-    //   if(parseFloat(selectedDate.arrayList[ind].itemQty) > parseFloat(selectedDate.arrayList[ind].availQty)){
-    //     this.formTyreArray.controls[ind].get("itemQty")?.setValue("");
-    //     this.toastrService.warning("Issue Qty should not be more than stock Qty");
-    //     return;
-    //   }
-    // }
     this.CalTotal();
   }
 
@@ -870,20 +862,7 @@ export class VehiclerepmaintaddComponent {
       this.toastrService.warning("Invalid Vehicle");
       return;
     }
-    
-    // const d3 = this.minDate?Date.parse(this.minDate):0;
-    // const d2 = this.maxDate?Date.parse(this.maxDate):0;
-    // const d4 = selectedDataValue.transDate?Date.parse(selectedDataValue.transDate):0;
-
-    // if (d3>d4 || d2<d4 ) {
-    //   this.formUser.patchValue({
-    //     transDate: ''
-    //   });
-    //   this.toastrService.warning("Trans Date should be with in Fin Year");
-    //   return;
-    // }    
-
-        let d3 = new Date(this.minDate);
+    let d3 = new Date(this.minDate);
     let d2 = new Date(this.maxDate);
     let d4 = new Date(selectedDataValue.transDate);
 
@@ -919,7 +898,7 @@ export class VehiclerepmaintaddComponent {
     this.vehiclerepmaintMaster.nonVendor= selectedDataValue.nonVendor?"Y":"N";
     this.vehiclerepmaintMaster.vendorId= selectedDataValue.vendorId?(selectedDataValue.vendorId.dataId?selectedDataValue.vendorId.dataId:""):'';
     this.vehiclerepmaintMaster.vendorInvDt= selectedDataValue.vendorInvDt;
-    this.vehiclerepmaintMaster.vendorInvNo= selectedDataValue.vendorInvNo;
+    this.vehiclerepmaintMaster.vendorInvNo= selectedDataValue.vendorInvNo.toString().toUpperCase();
     this.vehiclerepmaintMaster.vendorName= selectedDataValue.vendorName.toString()==""?selectedDataValue.vendorId.dataName:selectedDataValue.vendorName.toString().toUpperCase();
     this.vehiclerepmaintMaster.vendorAddress= selectedDataValue.vendorAddress.toString().toUpperCase();
     this.vehiclerepmaintMaster.vendorState= selectedDataValue.vendorState;

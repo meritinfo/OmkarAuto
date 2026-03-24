@@ -73,13 +73,24 @@
                                             *ngFor="let arrayData of formRatesArray.controls; let i = index">
                                             <div [formGroupName]="i" class="grid-table" >
                                                 <td class="col-lg-2">
-                                                    <select class="form-control form-select ng-pristine ng-touched"
-                                                        formControlName="accountId"   (change)="checkDublicateGrid($event,i)">
-                                                        <option *ngFor="let branch of ledgerAcList" 
-                                                            value={{branch.dataId}}>
-                                                            {{branch.dataName}}
-                                                        </option>
-                                                    </select>                                                   
+                                                <div class="ng-autocomplete">
+                                                  <ng-autocomplete [data]="ledgerAcList"
+                                                      [searchKeyword]="keywordLocation"  
+                                                      (inputChanged)='onChangeSearch($event)'
+                                                      (inputFocused)='onFocused($event)'
+                                                      [itemTemplate]="itemTemplate"
+                                                      [notFoundTemplate]="notFoundTemplate"
+                                                      [customFilter]="startWithFilter"
+                                                      formControlName="accountId" 
+                                                      [ngClass]="{ 'is-invalid': formSubmitted && (f['accountId'].invalid) }">
+                                                  </ng-autocomplete>
+                                                  <ng-template #itemTemplate let-item>
+                                                      <a [innerHTML]="item.dataName"></a>
+                                                  </ng-template>
+                                                  <ng-template #notFoundTemplate let-notFound>
+                                                      <div [innerHTML]="notFound"></div>
+                                                  </ng-template>
+                                                    </div>                                                  
                                                 </td>
                                                 <td class="col-lg-2">  
                                                     <input decimalonly autocomplete="off" autoclose="false" class="form-control" decimalonly

@@ -17,17 +17,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <!-- Personal Details -->
-                               
                                 <section>
                                     <div class="row">
-                                        <!-- <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label>Driver name</label><span style="color: red">*</span>
-                                                <input uppercaseonly type="text" class="form-control"
-                                                    formControlName="panNo" (change)="chkDriverDupli($event)"
-                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['driverName'].invalid) }">
-                                            </div>
-                                        </div> -->
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label>Pan No</label><span style="color: red">*</span>
@@ -51,7 +42,6 @@
                                                 <label>Valid From</label><span style="color: red">*</span>
                                                 <input type="date" class="form-control" formControlName="validFrom" (change)="dateChange()"
                                                     min="{{minDate}}" max="{{maxDate}}"   
-                                                  
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['validFrom'].invalid) }">
                                             </div>
                                         </div>
@@ -60,8 +50,6 @@
                                                 <label>Valid Upto</label><span style="color: red">*</span>
                                                 <input type="date" class="form-control" formControlName="validUpto"  
                                                  min="{{minDt}}"  
-                                                    
-                                                  
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['validUpto'].invalid) }">
                                             </div>
                                         </div>
@@ -87,7 +75,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                     
                                     </div>
                                 </section>
                             </div>
@@ -101,7 +88,6 @@
                             <div class="card">
                                 <div class="card-body">
                                     <!-- Attachment Details -->
-                                  
                                     <section>
                                         <div>
                                             <div class="row">
@@ -114,11 +100,7 @@
                                                             href={{uploadedDrLic}}>Download</a>
                                                     </div>
                                                 </div>
-                                               
-                                               
                                             </div>
-                                       
-                                           
                                         </div>
                                     </section>
                                 </div>

@@ -119,7 +119,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Defined Mileage</label><span style="color: red">*</span> 
                                                 <input class="form-control" decimalonly autocomplete="off" formControlName="definedMileage"
-                                                (change)="onKmrChange()"
+                                                (change)="onKmrChange()" maxlength="5"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['definedMileage'].invalid) }">
                                             </div>
                                         </div>

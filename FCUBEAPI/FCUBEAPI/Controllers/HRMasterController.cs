@@ -25,6 +25,7 @@ namespace FCUBEAPI.Controllers
         readonly IEmpSalaryBusiness empSalaryBusiness;
         readonly ILoanBusiness loanBusiness;
         readonly IEmpSalaryCalcBusiness empSalaryCalcBusiness;
+        readonly IPayGenerationBusiness payGenerationBusiness;
 
 
         public HRMasterController(IOptions<DBModel> _dbconnection, 
@@ -33,7 +34,8 @@ namespace FCUBEAPI.Controllers
             IEmpSalaryBusiness _empSalaryBusiness,
             IPtSlabMasterBusiness _ptSlabMasterBusiness,
             ILoanBusiness _loanBusiness,
-            IEmpSalaryCalcBusiness _empSalaryCalcBusiness)
+            IEmpSalaryCalcBusiness _empSalaryCalcBusiness,
+            IPayGenerationBusiness _payGenerationBusiness)
         {
             dbconnection = _dbconnection;
             hrMasterBusiness = _hrMasterBusiness;
@@ -42,6 +44,7 @@ namespace FCUBEAPI.Controllers
             empSalaryBusiness = _empSalaryBusiness;
             loanBusiness = _loanBusiness;
             empSalaryCalcBusiness = _empSalaryCalcBusiness;
+            payGenerationBusiness = _payGenerationBusiness;
         }
        
 
@@ -870,6 +873,80 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await ptSlabMasterBusiness.GetPtSlabMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetEmpPayGenerationList")]
+        public async Task<IActionResult> GetEmpPayGenerationList(PageFromDtToDtRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await payGenerationBusiness.GetEmpPayGenerationList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("EmpPayGenerationSave")]
+        public async Task<IActionResult> EmpPayGenerationSave(EmpPayGenList payGenModel)
+        {
+            if (payGenModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await payGenerationBusiness.EmpPayGenerationSave(payGenModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("EmpPayGenerationDelete")]
+        public async Task<IActionResult> EmpPayGenerationDelete(PageFromDtToDtRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await payGenerationBusiness.EmpPayGenerationDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetSelectedEmpDetails")]
+        public async Task<IActionResult> GetSelectedEmpDetails(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await empSalaryCalcBusiness.GetSelectedEmpDetails(request);
 
                 return Ok(result);
             }

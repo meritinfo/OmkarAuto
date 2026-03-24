@@ -899,7 +899,7 @@ const routes: Routes = [
   { path: 'bpclcardamtreturnadd', component: BpclcardreturnaddComponent }, 
   { path: 'bpclcardamtreturnedit', component: BpclcardreturnaddComponent }, 
   { path: 'updatelocalfrt', component: ConsignmentlocalfrtupdateComponent }, 
-    { path: 'creditnotelist', component: CreditnoteentrylistComponent }, 
+  { path: 'creditnotelist', component: CreditnoteentrylistComponent }, 
   { path: 'creditnoteadd', component: CreditnoteentryaddComponent }, 
   { path: 'creditnoteedit', component: CreditnoteentryaddComponent }, 
   { path: 'debitnotelist', component: DebitnotelistComponent }, 

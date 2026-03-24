@@ -38,7 +38,7 @@ export class RatesmasternewlistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   loginDate: string = '';
   fromDate: string = '';
   maxDate: string = '';

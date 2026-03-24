@@ -23,42 +23,42 @@ export class ChallanreleaselistComponent {
   allChallan: Challanreleaselistmodel = new Challanreleaselistmodel();
   filter: Reportmodel = {
     pageNumber: 1,
-    pageSize: 10,
+    pageSize  : 10,
     sortColumn: 'brandname',
-    sortOrder: 'asc',
-    search: '',
-    fromDate: '',
-    toDate: '',
-    filterStr: '',
+    sortOrder : 'asc',
+    search    : '',
+    fromDate  : '',
+    toDate    : '',
+    filterStr : '',
     filterStr1: '',
     filterStr2:'',
     filterStr3:''
-
-}
-formFilter!: FormGroup;
-  branchList: Dropdownmodel[] = [];
-  vehicleList: Dropdownmodel[] = [];
+  }
+  formFilter!     : FormGroup;
+  branchList      : Dropdownmodel[] = [];
+  vehicleList     : Dropdownmodel[] = [];
   keywordLocation = 'dataName';
-  loginDate: string = '';
-  branch: string = '';
-  fromDate: string = '';
-  maxDate: string = '';
-  minDate: string = '';
-  editMode = false;
-  createmode  = true;
-  createStatus = false;
-  editStatus = false;
-  deleteStatus = false;
-  viewStatus = false; 
-dashboard: string ="";
+  loginDate       : string = '';
+  branch          : string = '';
+  fromDate        : string = '';
+  maxDate         : string = '';
+  minDate         : string = '';
+  editMode        = false;
+  createmode      = true;
+  createStatus    = false;
+  editStatus      = false;
+  deleteStatus    = false;
+  viewStatus      = false; 
+  dashboard       : string ="";
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
 
   constructor(private formBuilder: FormBuilder,
-                                    private sharedService : SharedService,
+    private sharedService : SharedService,
     private challanreleaseService: ChallanReleaseService, private route: Router,
     private commonService: CommonService,) {
   }
+
   ngOnInit(): void {   
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
@@ -113,25 +113,18 @@ dashboard: string ="";
     
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
-    
     this.fromDate = this.minDate ;
-    
-  
-
     this.challanreleaseService.clearChallanReleaseDetails();
-
     this.formFilter = this.formBuilder.group({
-      fromDate: new FormControl(this.fromDate,),
-      toDate: new FormControl(this.loginDate,),
-      vehicleNo: new FormControl("",),
-      challanNo: new FormControl("",),
+      fromDate      : new FormControl(this.fromDate,),
+      toDate        : new FormControl(this.loginDate,),
+      vehicleNo     : new FormControl("",),
+      challanNo     : new FormControl("",),
     });
     this.getBranchList();
     this.getVehicleNoList();
 
     var selectedDataVal = this.formFilter.getRawValue();
-
-   // this.filter.filterStr = selectedDataVal.vehicleNo;
     this.filter.filterStr = selectedDataVal.challanNo;
     this.getChallanReleaseList();
   }
@@ -228,19 +221,13 @@ dashboard: string ="";
 
   search(): void {
     var selectedDataVal = this.formFilter.getRawValue();
-    //this.filter.fromDate = selectedDataVal.fromDate;
-    //this.filter.toDate = selectedDataVal.toDate;
-    //this.filter.filterStr = selectedDataVal.vehicleNo;
     this.filter.filterStr = selectedDataVal.challanNo;
-    //this.filter.filterStr2 = this.branch;    
-    
+
      this.getChallanReleaseList();
      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload(); 
      });
   }
-  
-
 }
 
 

@@ -198,7 +198,7 @@ export class BranchcustomermstaddComponent {
         this.formRatesArray.controls[i].get("id")?.setValue(res.branchCustomerTargetDtlList[i].id);  
         this.formRatesArray.controls[i].get("yearId")?.setValue(res.branchCustomerTargetDtlList[i].yearId);
         this.formRatesArray.controls[i].get("branchCode")?.setValue(res.branchCustomerTargetDtlList[i].branchCode);  
-        this.formRatesArray.controls[i].get("accountId")?.setValue(res.branchCustomerTargetDtlList[i].accountId);   
+        this.formRatesArray.controls[i].get("accountId")?.setValue(this.ledgerAcList.find(e => e.dataId == res.branchCustomerTargetDtlList[i].accountId));   
         this.formRatesArray.controls[i].get("targetAmt")?.setValue(res.branchCustomerTargetDtlList[i].targetAmt);   
         this.formRatesArray.controls[i].get("accountId")?.disable();
       }       
@@ -278,7 +278,7 @@ export class BranchcustomermstaddComponent {
           'id': '',
           'yearId': selectedDataVal.yearId,
           'branchCode': selectedDataVal.branchCode,
-          'accountId': selectedDataVal.arrayList[i].accountId,
+          'accountId': selectedDataVal.arrayList[i].accountId.dataId?selectedDataVal.arrayList[i].accountId.dataId:"",
           'targetAmt': selectedDataVal.arrayList[i].targetAmt ,        
         });
       }

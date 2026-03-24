@@ -113,7 +113,7 @@ brandMasterList(){
 
      {
       title: 'Brand Type',
-      data: 'brandType',
+      data: 'brand',
     },
    
   

@@ -43,7 +43,7 @@
                      <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                        <thead>
                             <tr>
-                                <th>dprDate </th>                          
+                                                      
                                 <th>fromPlace </th>
                                 <th>toPlace</th>  
                                 <th>partyName</th>  
@@ -52,7 +52,7 @@
                         </thead>
                         <tbody *ngIf="allbenificiarylist.beneficiaryList?.length != 0">
                             <tr *ngFor="let dpr of allbenificiarylist.beneficiaryList">
-                                <td>{{ dpr.benType }}</td>  
+                               
                                 <td>{{ dpr.benCode }}</td>                        
                                 <td>{{ dpr.benName }}</td>                          
                                 <td>{{ dpr.benCoAcName }}</td>                                  

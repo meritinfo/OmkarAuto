@@ -464,7 +464,7 @@ export class BillsubmitmasteraddComponent {
           'submitDt': selectedDataValue.submitDt,
           'billsMasterId': selectedDataValue.arrayList[i].billsMasterId,        
           'billAmt': selectedDataValue.arrayList[i].billAmt,  
-          'dtlRemarks': selectedDataValue.arrayList[i].dtlRemarks,
+          'dtlRemarks': selectedDataValue.arrayList[i].dtlRemarks.toString().toUpperCase(),
           'billNo': '',
           'billDate': ''
         }) 
