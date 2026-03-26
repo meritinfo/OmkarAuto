@@ -111,7 +111,8 @@ export class DprvehiplacedlistComponent {
       this.branch = userData;
     }
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
-    this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
+    //this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
+    this.maxDate = this.commonService.getCurrentFiscalYear(this.loginDate).eDate.toLocaleDateString('en-CA').toString();
     
     this.fromDate = this.minDate ;
     
@@ -344,7 +345,7 @@ export class DprvehiplacedlistComponent {
     var selecteddata = this.formFilter.getRawValue();
     let frmdt = new Date(selecteddata.fromDate);
     let todt = new Date(selecteddata.toDate);
-    let maxdt = new Date(this.loginDate);
+    let maxdt = new Date(this.maxDate);
     let mindt = new Date(this.minDate);
 
     if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
