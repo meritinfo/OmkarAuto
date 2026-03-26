@@ -622,19 +622,21 @@ namespace FleetTrans.Repository
         {
             BrplTransferModel transfer = new();
             RequestModel requestModel = new RequestModel();
-
             try
             {
                 string URL = "https://api.cep.bpcl.in/retail/v2/bpcl/smartfleet/";
                 requestModel = await sharedRepository.GetBpclAccessParentToken();
 
-                HttpClient client = new()
+                using HttpClient client = new()
                 {
                     BaseAddress = new Uri(URL)
                 };
 
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + requestModel.strRequest);
-                client.DefaultRequestHeaders.Add("Cookie", "ROUTE=.api-7f4488bdbd-qgbdp");
+                client.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", requestModel.strRequest);
+
+                client.DefaultRequestHeaders.Accept.Add(
+                    new MediaTypeWithQualityHeaderValue("application/json"));
 
                 var data = new
                 {
@@ -653,24 +655,77 @@ namespace FleetTrans.Repository
                 };
 
                 string jsonBody = JsonConvert.SerializeObject(data);
-
                 var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
 
-                HttpResponseMessage response = client.PostAsync("wallet/transfer", content).Result;
+                HttpResponseMessage response = await client.PostAsync("wallet/transfer", content);
+
+                var result = await response.Content.ReadAsStringAsync();
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var result = await response.Content.ReadAsStringAsync();
                     if (result.Contains("successfully transferred"))
                     {
                         transfer = JsonConvert.DeserializeObject<BrplTransferModel>(result);
                     }
-                    client.Dispose();
+                }
+                else
+                {
+                    // Log full error for debugging
+                    Console.WriteLine(result);
                 }
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
             }
+            //try
+            //{
+            //    string URL = "https://api.cep.bpcl.in/retail/v2/bpcl/smartfleet/";
+            //    requestModel = await sharedRepository.GetBpclAccessParentToken();
+
+            //    HttpClient client = new()
+            //    {
+            //        BaseAddress = new Uri(URL)
+            //    };
+
+            //    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + requestModel.strRequest);
+            //    client.DefaultRequestHeaders.Add("Cookie", "ROUTE=.api-7f4488bdbd-qgbdp");
+
+            //    var data = new
+            //    {
+            //        cards = new[]
+            //        {
+            //            new {
+            //                cardId = request.strRequest,
+            //                transfer = "CARD_WALLET_TO_CMS",
+            //                amount = request.strRequest1,
+            //                cardWalletBalance = 5020
+            //            }
+            //        },
+            //        remarks = "",
+            //        channel = "Web",
+            //        accountId = requestModel.strRequest1
+            //    };
+
+            //    string jsonBody = JsonConvert.SerializeObject(data);
+
+            //    var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+
+            //    HttpResponseMessage response = client.PostAsync("wallet/transfer", content).Result;
+
+            //    if (response.IsSuccessStatusCode)
+            //    {
+            //        var result = await response.Content.ReadAsStringAsync();
+            //        if (result.Contains("successfully transferred"))
+            //        {
+            //            transfer = JsonConvert.DeserializeObject<BrplTransferModel>(result);
+            //        }
+            //        client.Dispose();
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //}
             return transfer;
         }
 
