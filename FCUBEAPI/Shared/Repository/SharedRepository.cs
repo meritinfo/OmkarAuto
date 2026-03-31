@@ -1139,5 +1139,29 @@ namespace Shared.Repository
             }
             return configModel;
         }
+        public async Task<EWayAPIConfigurationModel> MpayConfigurationDetails()
+        {
+            EWayAPIConfigurationModel configModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param = { };
+
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getMpayApiDetails", param);
+
+                    if (resultData != null && resultData.Tables[0].Rows.Count > 0)
+                    {
+                        configModel.ApiCheckGstinUrl = Convert.ToString(resultData.Tables[0].Rows[0]["ApiUrl"]);
+                        configModel.ApiPassword = Convert.ToString(resultData.Tables[0].Rows[0]["ApiAuthCode"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return configModel;
+        }
     }
 }

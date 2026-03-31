@@ -4,20 +4,24 @@ using FleetTrans.Models;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Shared.Models;
+using Shared.Repository;
 using SqlHelper.Models;
 using System.Data;
 using System.Data.SqlClient;
 
 using System.Net.Http.Headers;
+using System.Text;
 
 namespace FleetTrans.Repository
 {
     public class TripPaymentsRepository : ITripPaymentsRepository
     {
         private readonly IOptions<DBModel> dbconnection;
-        public TripPaymentsRepository(IOptions<DBModel> _dbconnection)
+        private readonly ISharedRepository sharedRepository;
+        public TripPaymentsRepository(IOptions<DBModel> _dbconnection, ISharedRepository _sharedRepository)
         {
             dbconnection = _dbconnection;
+            sharedRepository = _sharedRepository;
         }
 
         public async Task<ResponseModel> TripPaymentsSave(TripPaymentsModel tripPaymentsModel)
@@ -30,6 +34,10 @@ namespace FleetTrans.Repository
             transaction = connection.BeginTransaction();
             try
             {
+                if (tripPaymentsModel.PmtType == "T")
+                {
+                    //M Pay
+                }
                 if (dbconnection != null)
                 {
                     SqlParameter[] param =
@@ -83,6 +91,61 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
+        public async Task<BrplTransferModel> MpayPaymentCreate(RequestModel request)
+        {
+            BrplTransferModel transfer = new();
+            RequestModel requestModel = new RequestModel();
+            EWayAPIConfigurationModel eway = new EWayAPIConfigurationModel();
+
+            try
+            {
+                eway = await sharedRepository.MpayConfigurationDetails();
+
+                string URL = eway.ApiCheckGstinUrl;
+
+                HttpClient client = new()
+                {
+                    BaseAddress = new Uri(URL)
+                };
+
+                client.DefaultRequestHeaders.Add("Authorization", eway.ApiPassword);
+
+                var data = new
+                {
+                    clientPaymentId = "",
+                    amount = "",
+                    paymentInstrument = new 
+                    {
+                        bankAccountNumber = request.strRequest,
+                        bankIfscCode = request.strRequest1,
+                    },
+                    vendor = new
+                    {
+                        name = request.strRequest,
+                    },
+                };
+
+                string jsonBody = JsonConvert.SerializeObject(data);
+
+                var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = client.PostAsync("payment/create", content).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    if (result.Contains("successfully transferred"))
+                    {
+                        transfer = JsonConvert.DeserializeObject<BrplTransferModel>(result);
+                    }
+                    client.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return transfer;
+        }
         public async Task<ReportRequestModel> GetDriverAccountDetails(RequestModel request)
         {
             ReportRequestModel dprVehi = new();
@@ -129,7 +192,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@FromDate",   request.FromDate),
                             new SqlParameter("@ToDate",     request.ToDate),
                             new SqlParameter("@Vehicle",    request.FilterStr1),
-                              new SqlParameter("@Branch",     request.FilterStr),
+                            new SqlParameter("@Branch",     request.FilterStr),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTripPaymentsList", param);
 

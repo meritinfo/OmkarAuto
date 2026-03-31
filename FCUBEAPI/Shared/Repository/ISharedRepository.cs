@@ -30,5 +30,6 @@ namespace Shared.Repository
         Task<ResponseModel> GetCustomerProfitLossRptExcel(ReportRequestModel report);
         Task<ResponseModel> GenerateLoginOTP(LoginModel login);
         Task<RequestModel> GetBpclAccessParentToken();
+        Task<EWayAPIConfigurationModel> MpayConfigurationDetails();
     }
 }

@@ -171,7 +171,6 @@ namespace AdminMasters.Repository
             return responseModel;
         }
 
-
         /// <summary>
         /// Service method for get module list
         /// </summary>
