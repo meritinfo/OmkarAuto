@@ -37,5 +37,7 @@ export class Trippaymentsmodel {
     fromloc: string = "";
     toloc: string = "";
     yearId: string = "";
+    bankAc: string = "";
+    ifsc: string = "";
     loggedInUser: string = "";
 }

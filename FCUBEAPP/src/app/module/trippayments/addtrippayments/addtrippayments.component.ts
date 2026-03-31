@@ -151,6 +151,8 @@ export class AddtrippaymentsComponent {
       toPlace: new FormControl('',),
       loadMemoDt: new FormControl('',),
       loadFor: new FormControl('',),
+      driverMasterID: new FormControl('',),
+     
     });
         
     if (this.selectedTripPaymentsDetails.pmtId != '') {      
@@ -231,6 +233,8 @@ export class AddtrippaymentsComponent {
     }, 2000);
     this.sharedService.loading = false;
   }
+
+  
 
   getFinDocDetails(finId: string){
     this.requestmodel.strRequest=finId;
@@ -570,7 +574,9 @@ export class AddtrippaymentsComponent {
     this.trippaymentsmodel.qtyLtrs = selectedDataValue.qtyLtrs;
     this.trippaymentsmodel.ratePerLtr = selectedDataValue.ratePerLtr; 
     this.trippaymentsmodel.driverMasterID = selectedDataValue.driverMasterID?selectedDataValue.driverMasterID.dataId:"";
-    this.trippaymentsmodel.yearId = this.year;
+     this.trippaymentsmodel.yearId = this.year;
+    this.trippaymentsmodel.bankAc = this.bankAc;
+    this.trippaymentsmodel.ifsc= this.ifsc;
     this.trippaymentsmodel.loggedInUser = this.loggedInUserID;
 
     let formData = new FormData();

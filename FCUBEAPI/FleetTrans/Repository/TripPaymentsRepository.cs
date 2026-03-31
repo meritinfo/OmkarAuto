@@ -65,6 +65,8 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Attachment2", tripPaymentsModel.Attachment2),
                             new SqlParameter("@YearId", tripPaymentsModel.YearId),
                             new SqlParameter("@DriverMasterID", tripPaymentsModel.DriverMasterID),
+                            new SqlParameter("@BankAc", tripPaymentsModel.BankAc),
+                            new SqlParameter("@Ifsc", tripPaymentsModel.Ifsc),
                             new SqlParameter("@LoggedInUser", tripPaymentsModel.LoggedInUser),
 
                         };
@@ -241,6 +243,8 @@ namespace FleetTrans.Repository
                                 CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
                                 ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
                                 ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
+                                BankAc = Convert.ToString(dataSet.Tables[0].Rows[i]["BankAc"]),
+                                Ifsc = Convert.ToString(dataSet.Tables[0].Rows[i]["Ifsc"]),
                             });
                         }
 

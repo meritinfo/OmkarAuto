@@ -46,6 +46,8 @@ namespace FleetTrans.Models
         public string? ModifiedBy { get; set; }
         public string? ModifiedDate { get; set; }
         public string? YearId { get; set; }
+        public string? BankAc { get; set; }
+        public string? Ifsc { get; set; }
         public string? LoggedInUser { get; set; }
      
     }
