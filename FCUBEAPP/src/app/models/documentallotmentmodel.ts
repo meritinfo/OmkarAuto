@@ -15,5 +15,6 @@ export class Documentallotmentmodel {
     autoGenYN: string = "";
     remarks: string = "";
     seriesCode: string = "";
+    yearId: string = "";
     loggedInUser: string = "";
 }

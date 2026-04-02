@@ -51,6 +51,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@AutoGenYN", documentAllotmentModel.AutoGenYN),
                             new SqlParameter("@Remarks", documentAllotmentModel.Remarks),
                             new SqlParameter("@SeriesCode", documentAllotmentModel.SeriesCode),
+                            new SqlParameter("@YearId", documentAllotmentModel.YearId),
                             new SqlParameter("@LoggedInUser", documentAllotmentModel.LoggedInUser)
 
                         };
@@ -123,6 +124,7 @@ namespace FreightMasters.Repository
                                 DocMaxNo = Convert.ToString(dataSet.Tables[0].Rows[i]["DocMaxNo"]),
                                 AutoGenYN = Convert.ToString(dataSet.Tables[0].Rows[i]["AutoGenYN"]),
                                 Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
+                                YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
                                 SeriesCode = Convert.ToString(dataSet.Tables[0].Rows[i]["SeriesCode"]),
                             });
                         }
@@ -266,7 +268,8 @@ namespace FreightMasters.Repository
                             new SqlParameter("@DocType",    req.FilterStr1),
                             new SqlParameter("@SeriesCode", req.Search),
                             new SqlParameter("@FromRange",  req.FilterStr2),
-                            new SqlParameter("@ToRange",    req.FilterStr3)
+                            new SqlParameter("@ToRange",    req.FilterStr3),
+                             new SqlParameter("@YearId",    req.SortOrder)
 
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_CheckDocumentLlpRange", param);
@@ -334,6 +337,7 @@ namespace FreightMasters.Repository
                         {
                             new SqlParameter("@BranchCode", req.strRequest1),
                             new SqlParameter("@DocType",    req.strRequest),
+                            new SqlParameter("@YearId",    req.strRequest2),
                         };
 
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getSeriesList", param);
@@ -367,6 +371,7 @@ namespace FreightMasters.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@DocType",    req.strRequest),
+                             new SqlParameter("@YearId",    req.strRequest1),
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_CheckIncSeries", param);
 
