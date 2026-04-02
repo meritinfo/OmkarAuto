@@ -4,4 +4,7 @@ export class Requestmodel {
     strRequest2: string = "";
     strRequest3: string = "";
     strRequest4: string = "";
+    strRequest5: string = "";
+    strRequest6: string = "";
+    strRequest7: string = "";
 }

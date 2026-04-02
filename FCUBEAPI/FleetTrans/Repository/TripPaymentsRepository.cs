@@ -80,11 +80,23 @@ namespace FleetTrans.Repository
                             if (tripPaymentsModel.PmtType == "T")
                             {
                                 tripPaymentsModel.PmtId = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                                request.strRequest = "TPMT" + tripPaymentsModel.PmtId;
+                                request.strRequest1 = tripPaymentsModel.AmountPaid;
+                                request.strRequest2 = tripPaymentsModel.BankAc;
+                                request.strRequest3 = tripPaymentsModel.Ifsc;
+                                request.strRequest4 = tripPaymentsModel.Bname;
+                                request.strRequest5 = tripPaymentsModel.DriverMasterID;
+                                request.strRequest6 = tripPaymentsModel.VehicleMasterID;
 
-                                responseModel = await MpayPaymentCreate(tripPaymentsModel);
-                                if (!responseModel.Status)
-                                { 
-                                    request.strRequest = tripPaymentsModel.PmtId;
+                                responseModel = await MpayPaymentCreate(request);
+                                if (responseModel.Status)
+                                {
+                                    request.strRequest7 = "S";
+                                    responseModel = await MpayApiDetailsSave(request);
+                                }
+                                else {
+                                    request.strRequest7 = "F";
+                                    responseModel = await MpayApiDetailsSave(request);
                                     responseModel = await TripPaymentsDelete(request);
                                     if (responseModel.Status)
                                     {
@@ -110,10 +122,9 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
-        public async Task<ResponseModel> MpayPaymentCreate(TripPaymentsModel tripPaymentsModel)
+        public async Task<ResponseModel> MpayPaymentCreate(RequestModel request)
         {
             ResponseModel res = new();
-            RequestModel request = new RequestModel();
             EWayAPIConfigurationModel eway = new EWayAPIConfigurationModel();
 
             try
@@ -131,16 +142,16 @@ namespace FleetTrans.Repository
 
                 var data = new
                 {
-                    clientPaymentId = "TPMT"+ tripPaymentsModel.PmtId,
-                    amount = tripPaymentsModel.AmountPaid,
+                    clientPaymentId = request.strRequest,
+                    amount = request.strRequest1,
                     paymentInstrument = new 
                     {
-                        bankAccountNumber = tripPaymentsModel.BankAc,
-                        bankIfscCode = tripPaymentsModel.Ifsc,
+                        bankAccountNumber = request.strRequest2,
+                        bankIfscCode = request.strRequest3,
                     },
                     vendor = new
                     {
-                        name = tripPaymentsModel.Bname,
+                        name = request.strRequest4,
                     },
                 };
 
@@ -149,6 +160,8 @@ namespace FleetTrans.Repository
                 var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
 
                 HttpResponseMessage response = client.PostAsync("payment/create", content).Result;
+
+
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -170,14 +183,12 @@ namespace FleetTrans.Repository
                     }
                     else
                     {
-                        request.strRequest = "TPMT" + tripPaymentsModel.PmtId;
                         res = await CheckMpayPaymentCreated(request);
                     }
                     client.Dispose();
                 }
                 else
                 {
-                    request.strRequest = "TPMT" + tripPaymentsModel.PmtId;
                     res = await CheckMpayPaymentCreated(request);
                 }
             }
@@ -239,6 +250,59 @@ namespace FleetTrans.Repository
             {
             }
             return res;
+        }
+        public async Task<ResponseModel> MpayApiDetailsSave(RequestModel request)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+
+                            new SqlParameter("@ClientPaymentId", request.strRequest),
+                            new SqlParameter("@Amount", request.strRequest1),
+                            new SqlParameter("@BankAccountNumber", request.strRequest2),
+                            new SqlParameter("@BankIfscCode", request.strRequest3),
+                            new SqlParameter("@AccountName", request.strRequest4),
+                            new SqlParameter("@DriverMasterID", request.strRequest5),
+                            new SqlParameter("@VehicleMasterID", request.strRequest6),
+                            new SqlParameter("@Status",  request.strRequest7),
+
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_MpayApiUsageSave", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+
+                        if (responseModel.Status)
+                        {
+                            transaction.Commit();
+                        }
+                        else { transaction.Rollback(); }
+
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
         }
         public async Task<ReportRequestModel> GetDriverAccountDetails(RequestModel request)
         {

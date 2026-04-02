@@ -8,5 +8,8 @@ namespace Shared.Models
         public string? strRequest2 { get; set; }
         public string? strRequest3 { get; set; }
         public string? strRequest4 { get; set; }
+        public string? strRequest5 { get; set; }
+        public string? strRequest6 { get; set; }
+        public string? strRequest7 { get; set; }
     }
 }
