@@ -182,6 +182,7 @@ export class DocallotmentllpaddComponent {
       this.requestmodel.strRequest = "L";
       this.requestmodel.strRequest1 = br;
     }
+    this.requestmodel.strRequest2 = this.year; 
     this.commonService.getSeriesllpList(this.requestmodel).subscribe((res) => {
       this.seriesList = res;
       if(res.length==1){
@@ -197,6 +198,7 @@ export class DocallotmentllpaddComponent {
 
   checkIncSeries(docType: string){
     this.requestmodel.strRequest = docType;
+     this.requestmodel.strRequest1 = this.year;
     this.commonService.checkIncSeries(this.requestmodel).subscribe((res) => {
       this.inclSeries = res.status;
     });
@@ -251,6 +253,7 @@ export class DocallotmentllpaddComponent {
       this.report.filterStr1 = selectedDataVal.docType;
       this.report.filterStr2 = selectedDataVal.rangeFrom;
       this.report.filterStr3 = selectedDataVal.rangeTo;
+      this.report.sortOrder = this.year;
 
       this.documentallotmentService.checkDocumentllpRange(this.report).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
@@ -340,6 +343,7 @@ export class DocallotmentllpaddComponent {
     this.documentallotmentmodel.docStatus = selectedDataVal.docStatus.toString();
     this.documentallotmentmodel.docCloseDate = selectedDataVal.docCloseDate;
     this.documentallotmentmodel.autoGenYN = selectedDataVal.autoGenYN;
+     this.documentallotmentmodel.yearId = this.year;
     this.documentallotmentmodel.loggedInUser = this.loggedInUserID;
     this.documentallotmentmodel.remarks = selectedDataVal.remarks.toString().toUpperCase();
 
