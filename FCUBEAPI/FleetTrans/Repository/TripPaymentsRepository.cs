@@ -27,6 +27,7 @@ namespace FleetTrans.Repository
         public async Task<ResponseModel> TripPaymentsSave(TripPaymentsModel tripPaymentsModel)
         {
             ResponseModel responseModel = new();
+            RequestModel request = new();
 
             var connection = new SqlConnection(dbconnection.Value.DBConnection);
             connection.Open();
@@ -34,10 +35,7 @@ namespace FleetTrans.Repository
             transaction = connection.BeginTransaction();
             try
             {
-                if (tripPaymentsModel.PmtType == "T")
-                {
-                    //M Pay
-                }
+                
                 if (dbconnection != null)
                 {
                     SqlParameter[] param =
@@ -65,8 +63,6 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Attachment2", tripPaymentsModel.Attachment2),
                             new SqlParameter("@YearId", tripPaymentsModel.YearId),
                             new SqlParameter("@DriverMasterID", tripPaymentsModel.DriverMasterID),
-                            new SqlParameter("@BankAc", tripPaymentsModel.BankAc),
-                            new SqlParameter("@Ifsc", tripPaymentsModel.Ifsc),
                             new SqlParameter("@LoggedInUser", tripPaymentsModel.LoggedInUser),
 
                         };
@@ -77,8 +73,29 @@ namespace FleetTrans.Repository
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
 
-                        if (responseModel.Status) { transaction.Commit(); }
+                        if (responseModel.Status) {                            
+                            transaction.Commit();
+                            responseModel.Message = "Saved Successfully";
+
+                            if (tripPaymentsModel.PmtType == "T")
+                            {
+                                tripPaymentsModel.PmtId = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+
+                                responseModel = await MpayPaymentCreate(tripPaymentsModel);
+                                if (!responseModel.Status)
+                                { 
+                                    request.strRequest = tripPaymentsModel.PmtId;
+                                    responseModel = await TripPaymentsDelete(request);
+                                    if (responseModel.Status)
+                                    {
+                                        responseModel.Status = false;
+                                        responseModel.Message = "Payment Not Created";
+                                    }
+                                }
+                            }
+                        }
                         else { transaction.Rollback(); }
+                        
                     }
                     else
                     {
@@ -93,10 +110,10 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
-        public async Task<BrplTransferModel> MpayPaymentCreate(RequestModel request)
+        public async Task<ResponseModel> MpayPaymentCreate(TripPaymentsModel tripPaymentsModel)
         {
-            BrplTransferModel transfer = new();
-            RequestModel requestModel = new RequestModel();
+            ResponseModel res = new();
+            RequestModel request = new RequestModel();
             EWayAPIConfigurationModel eway = new EWayAPIConfigurationModel();
 
             try
@@ -114,16 +131,16 @@ namespace FleetTrans.Repository
 
                 var data = new
                 {
-                    clientPaymentId = "",
-                    amount = "",
+                    clientPaymentId = "TPMT"+ tripPaymentsModel.PmtId,
+                    amount = tripPaymentsModel.AmountPaid,
                     paymentInstrument = new 
                     {
-                        bankAccountNumber = request.strRequest,
-                        bankIfscCode = request.strRequest1,
+                        bankAccountNumber = tripPaymentsModel.BankAc,
+                        bankIfscCode = tripPaymentsModel.Ifsc,
                     },
                     vendor = new
                     {
-                        name = request.strRequest,
+                        name = tripPaymentsModel.Bname,
                     },
                 };
 
@@ -136,17 +153,92 @@ namespace FleetTrans.Repository
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
-                    if (result.Contains("successfully transferred"))
+                    if (result.Contains("success"))
                     {
-                        transfer = JsonConvert.DeserializeObject<BrplTransferModel>(result);
+                        res.Status = true;
+                        res.Message = "Payement Created";
+                    }
+                    else if (result.Contains("error") && result.Contains("clientPaymentId already exists"))
+                    {
+                        res.Status = false;
+                        res.Message = "ClientPaymentId already exists";
+                    }
+                    else if (result.Contains("error") && result.Contains("failed"))
+                    {
+                        res.Status = false;
+                        res.Message = "failed, Please Try again";
+                    }
+                    else
+                    {
+                        request.strRequest = "TPMT" + tripPaymentsModel.PmtId;
+                        res = await CheckMpayPaymentCreated(request);
                     }
                     client.Dispose();
+                }
+                else
+                {
+                    request.strRequest = "TPMT" + tripPaymentsModel.PmtId;
+                    res = await CheckMpayPaymentCreated(request);
                 }
             }
             catch (Exception ex)
             {
             }
-            return transfer;
+            return res;
+        }
+        public async Task<ResponseModel> CheckMpayPaymentCreated(RequestModel request)
+        {
+            ResponseModel res = new();
+            EWayAPIConfigurationModel eway = new EWayAPIConfigurationModel();
+
+            try
+            {
+                eway = await sharedRepository.MpayConfigurationDetails();
+
+                string URL = eway.ApiCheckGstinUrl;
+
+                HttpClient client = new()
+                {
+                    BaseAddress = new Uri(URL)
+                };
+
+                client.DefaultRequestHeaders.Add("Authorization", eway.ApiPassword);
+
+                var data = new
+                {
+                    clientPaymentId = request.strRequest,
+                };
+
+                string jsonBody = JsonConvert.SerializeObject(data);
+
+                var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = client.PostAsync("payment/get", content).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    if (result.Contains("success"))
+                    {
+                        res.Status = true;
+                        res.Message = "Payement Created";
+                    }
+                    else
+                    {
+                        res.Status = false;
+                        res.Message = "failed, Please Try again";
+                    }
+                    client.Dispose();
+                }
+                else
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return res;
         }
         public async Task<ReportRequestModel> GetDriverAccountDetails(RequestModel request)
         {
@@ -164,8 +256,8 @@ namespace FleetTrans.Repository
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
                         dprVehi.FilterStr = Convert.ToString(dataSet.Tables[0].Rows[0]["BankAcNo"]);
-                        dprVehi.FilterStr1 = Convert.ToString(dataSet.Tables[0].Rows[0]["BankIfsCode"]);
-                    
+                        dprVehi.FilterStr1 = Convert.ToString(dataSet.Tables[0].Rows[0]["BankIfsCode"]); 
+                        dprVehi.FilterStr2 = Convert.ToString(dataSet.Tables[0].Rows[0]["DrBankAccountName"]); 
                     }
                   
                 }
@@ -235,7 +327,7 @@ namespace FleetTrans.Repository
                                 Attachment2 = Convert.ToString(dataSet.Tables[0].Rows[i]["Attachment2"]),
                                 YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
                                 DriverMasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverMasterID"]),
-                                BName = Convert.ToString(dataSet.Tables[0].Rows[i]["BName"]),
+                                Bname = Convert.ToString(dataSet.Tables[0].Rows[i]["BName"]),
                                 VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
                                 Fromloc = Convert.ToString(dataSet.Tables[0].Rows[i]["FromLoc"]),
                                 Toloc = Convert.ToString(dataSet.Tables[0].Rows[i]["ToLoc"]),
@@ -243,8 +335,8 @@ namespace FleetTrans.Repository
                                 CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
                                 ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
                                 ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
-                                BankAc = Convert.ToString(dataSet.Tables[0].Rows[i]["BankAc"]),
-                                Ifsc = Convert.ToString(dataSet.Tables[0].Rows[i]["Ifsc"]),
+                                //BankAc = Convert.ToString(dataSet.Tables[0].Rows[i]["BankAc"]),
+                                //Ifsc = Convert.ToString(dataSet.Tables[0].Rows[i]["Ifsc"]),
                             });
                         }
 
@@ -628,7 +720,6 @@ namespace FleetTrans.Repository
             return responseModel;
         
         }
-
         public async Task<ResponseModel> GetTripPmtLoadShow()
         {
             ResponseModel responseModel = new();
@@ -649,8 +740,6 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
-
-
         public async Task<ResponseModel> TripPaymentsBrplSave(TripPaymentsModel tripPaymentsModel)
         {
             ResponseModel responseModel = new();
@@ -716,7 +805,6 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
-
 
     }
 }

@@ -36,7 +36,7 @@ namespace FleetTrans.Models
         public string? Kmr { get; set; }
         public string? Attachment1 { get; set; }
         public string? Attachment2 { get; set; }
-        public string? BName { get; set; }
+        public string? Bname { get; set; }
         public string? VehicleNo { get; set; }
         public string? DriverMasterID { get; set; }
         public string? Fromloc { get; set; }

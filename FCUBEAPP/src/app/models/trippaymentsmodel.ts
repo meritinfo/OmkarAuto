@@ -27,7 +27,7 @@ export class Trippaymentsmodel {
     kmr: string = "";
     attachment1: string = "";
     attachment2: string = "";        
-    bName: string = "";
+    bname: string = "";
     vehicleNo: string = "";
     createdBy: string = "";
     createdDate: string = "";

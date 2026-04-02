@@ -171,7 +171,7 @@ export class TrippaymentsbrpllistComponent {
         },
         {
           title: 'Branch',
-          data: 'bName',
+          data: 'bname',
         },
         {
           title: 'Date',

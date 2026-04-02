@@ -28,6 +28,7 @@ export class AddtrippaymentsComponent {
   trip: string = '';
   bankAc: string = '';
   ifsc: string = '';
+  bankAccountName: string = '';
   formTripPayment!: FormGroup;
   formSubmitted = false;
   keywordLocation = 'dataName';
@@ -170,7 +171,10 @@ export class AddtrippaymentsComponent {
       this.formTripPayment.controls['loadFor'].disable();
 
       if (this.selectedTripPaymentsDetails.pmtId != '') {
-         this.changeTransTypeNew(this.selectedTripPaymentsDetails.transType);
+        if(this.selectedTripPaymentsDetails.pmtType=="T"){
+          this.editStatus = false;
+        }
+        this.changeTransTypeNew(this.selectedTripPaymentsDetails.transType);
         this.onDriverSelect(this.selectedTripPaymentsDetails.driverMasterID)
         this.seriesDoc = this.selectedTripPaymentsDetails.seriesDoc; 
         this.formTripPayment.patchValue(this.selectedTripPaymentsDetails);
@@ -327,6 +331,8 @@ export class AddtrippaymentsComponent {
   }
   
   getCreditAcList(pmttp:string): void {
+    if(pmttp=='T')
+      pmttp = 'P'
     this.requestmodel.strRequest= pmttp;
     this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
       this.creditAcList = res;
@@ -376,6 +382,7 @@ export class AddtrippaymentsComponent {
     this.tripPaymentsService.getDriverAccountDetails(this.requestmodel).subscribe((res) => {
       this.bankAc =res.filterStr;
       this.ifsc = res.filterStr1;
+      this.bankAccountName = res.filterStr2;
     });     
   }
 
@@ -574,9 +581,10 @@ export class AddtrippaymentsComponent {
     this.trippaymentsmodel.qtyLtrs = selectedDataValue.qtyLtrs;
     this.trippaymentsmodel.ratePerLtr = selectedDataValue.ratePerLtr; 
     this.trippaymentsmodel.driverMasterID = selectedDataValue.driverMasterID?selectedDataValue.driverMasterID.dataId:"";
-     this.trippaymentsmodel.yearId = this.year;
+    this.trippaymentsmodel.yearId = this.year;
     this.trippaymentsmodel.bankAc = this.bankAc;
-    this.trippaymentsmodel.ifsc= this.ifsc;
+    this.trippaymentsmodel.ifsc = this.ifsc;
+    this.trippaymentsmodel.bname = this.bankAccountName;
     this.trippaymentsmodel.loggedInUser = this.loggedInUserID;
 
     let formData = new FormData();

@@ -139,7 +139,7 @@ export class TrippaymentsllplistComponent {
       ajax: (dataTablesParameters: any, callback) => {
         this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
         this.filter.pageSize = dataTablesParameters.length;
-        this.filter.sortColumn = 'bName';
+        this.filter.sortColumn = 'bname';
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
         callback({
           recordsTotal: 0,
@@ -164,7 +164,7 @@ export class TrippaymentsllplistComponent {
         },
         {
           title: 'Branch',
-          data: 'bName',
+          data: 'bname',
         },
         {
           title: 'Date',
