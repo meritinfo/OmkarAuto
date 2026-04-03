@@ -127,8 +127,6 @@ lrBillSeriesList(){
     ajax: (dataTablesParameters: any, callback) => {
       this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
       this.filter.pageSize = dataTablesParameters.length;
-      this.filter.sortColumn = 'bName';
-      this.filter.sortOrder = dataTablesParameters.order[0].dir;
       callback({
         recordsTotal: 0,
         recordsFiltered: 0,
