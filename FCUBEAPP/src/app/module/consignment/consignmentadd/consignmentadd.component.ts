@@ -149,6 +149,13 @@ export class ConsignmentaddComponent implements OnInit {
     this.getVehTypes();
     this.getCnorCneeList();
     this.getCnorList();
+    this.chkMandatoryRequired("cneeMobile");
+    this.chkMandatoryRequired("actualWt");
+    this.chkMandatoryRequired("senderWt");
+    this.chkMandatoryRequired("chargewt");
+    this.chkMandatoryRequired("noPackages");
+    
+
 
     this.sharedService.loading = false;
     
@@ -344,6 +351,22 @@ export class ConsignmentaddComponent implements OnInit {
       invValue: ['', []],
     });
   }
+
+    chkMandatoryRequired(clm: string){
+      this.requestmodel.strRequest = "consignmentadd";
+      this.requestmodel.strRequest1 = clm;
+      this.commonService.chkMandatoryRequired(this.requestmodel).subscribe((res) => {
+        if(res.status){
+          if(res.message=="Y"){
+            this.formUser.controls[clm].setValidators([Validators.required]);
+          }
+          else{
+            this.formUser.controls[clm].clearValidators(); 
+          }
+          this.formUser.controls[clm].updateValueAndValidity(); 
+        };
+      });
+    }
 
   getCnorList(): void {
     this.commonService.GetCnorList().subscribe((res) => {
@@ -689,7 +712,8 @@ export class ConsignmentaddComponent implements OnInit {
                 ewayBillExpDate: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_valid_date),
                 invoiceDate: this.commonService.formatDate(this.eWayBillDetails.result.message.document_date),
                 invoiceNo: this.eWayBillDetails.result.message.document_number,
-                goodsValue: this.eWayBillDetails.result.message.total_invoice_value.toString(),
+               goodsValue: this.eWayBillDetails.result.message.total_invoice_value.toString(),
+              invoiceValue: this.eWayBillDetails.result.message.total_invoice_value.toString(),
                
                 cnorName: this.eWayBillDetails.result.message.legal_name_of_consignor,
                 cnorAdd1: this.eWayBillDetails.result.message.address1_of_consignor,
