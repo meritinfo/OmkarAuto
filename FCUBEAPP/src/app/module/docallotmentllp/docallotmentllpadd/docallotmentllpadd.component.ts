@@ -343,9 +343,9 @@ export class DocallotmentllpaddComponent {
     this.documentallotmentmodel.docStatus = selectedDataVal.docStatus.toString();
     this.documentallotmentmodel.docCloseDate = selectedDataVal.docCloseDate;
     this.documentallotmentmodel.autoGenYN = selectedDataVal.autoGenYN;
-     this.documentallotmentmodel.yearId = this.year;
-    this.documentallotmentmodel.loggedInUser = this.loggedInUserID;
     this.documentallotmentmodel.remarks = selectedDataVal.remarks.toString().toUpperCase();
+    this.documentallotmentmodel.yearId = this.year;
+    this.documentallotmentmodel.loggedInUser = this.loggedInUserID;
 
     this.documentallotmentService.documentallotmentSubmitted(this.documentallotmentmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
