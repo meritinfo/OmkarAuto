@@ -337,7 +337,7 @@ namespace FreightMasters.Repository
                         {
                             new SqlParameter("@BranchCode", req.strRequest1),
                             new SqlParameter("@DocType",    req.strRequest),
-                            new SqlParameter("@YearId",    req.strRequest2),
+                            new SqlParameter("@YearId",     req.strRequest2),
                         };
 
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getSeriesList", param);

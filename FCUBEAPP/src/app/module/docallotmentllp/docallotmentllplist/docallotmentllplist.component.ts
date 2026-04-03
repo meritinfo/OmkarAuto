@@ -22,6 +22,7 @@ export class DocallotmentllplistComponent {
   deleteStatus = false;
   viewStatus = false; 
   dashboard: string ="";
+  year: string = '';
   branchList: Dropdownmodel[] = [];
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
@@ -68,6 +69,11 @@ export class DocallotmentllplistComponent {
       this.route.navigate([this.dashboard]);
     }
 
+    var yearIDData = sessionStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
+    }
+
     this.formFilter = this.formBuilder.group({
       branchCode: new FormControl('',),
       docType: new FormControl('',),
@@ -78,6 +84,7 @@ export class DocallotmentllplistComponent {
 
     this.filter.search = "";
     this.filter.sortColumn = "";
+    this.filter.sortOrder = this.year;
 
     this.sharedService.loading = true;
     this.documentallotmentList();
@@ -170,6 +177,7 @@ export class DocallotmentllplistComponent {
     var selecteddata = this.formFilter.getRawValue();
     this.filter.search = selecteddata.branchCode;
     this.filter.sortColumn = selecteddata.docType;
+    this.filter.sortOrder = this.year;
 
     this.sharedService.loading=true;
     this.documentallotmentList();

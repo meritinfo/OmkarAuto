@@ -117,7 +117,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@SortColumn", request.SortColumn),
                             new SqlParameter("@SortOrder", request.SortOrder),
                             new SqlParameter("@Search", request.Search),
-                             new SqlParameter("@LRBillType", request.FilterStr),
+                            new SqlParameter("@LRBillType", request.FilterStr),
                             new SqlParameter("@BranchCode", request.FilterStr1),
                            
                            // new SqlParameter("@ToDate", request.ToDate)
