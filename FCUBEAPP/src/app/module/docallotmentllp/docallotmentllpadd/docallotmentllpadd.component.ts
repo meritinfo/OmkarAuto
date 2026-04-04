@@ -246,31 +246,31 @@ export class DocallotmentllpaddComponent {
             docCount: ""
           });    
           return;
-        }            
-      } 
-      this.report.search = selectedDataVal.seriesCode;
-      this.report.filterStr = selectedDataVal.branchCode;
-      this.report.filterStr1 = selectedDataVal.docType;
-      this.report.filterStr2 = selectedDataVal.rangeFrom;
-      this.report.filterStr3 = selectedDataVal.rangeTo;
-      this.report.sortOrder = this.year;
+        }  
+        this.report.search = selectedDataVal.seriesCode;
+        this.report.filterStr = selectedDataVal.branchCode;
+        this.report.filterStr1 = selectedDataVal.docType;
+        this.report.filterStr2 = selectedDataVal.rangeFrom;
+        this.report.filterStr3 = selectedDataVal.rangeTo;
+        this.report.sortOrder = this.year;
 
-      this.documentallotmentService.checkDocumentllpRange(this.report).subscribe((res: Responsemodel) => {
-        this.responseDetails = res;
-        if (this.responseDetails.status) {
-          this.formUser.patchValue({            
-            docCount: docCount + 1
-          });  
-        }
-        else{
-          this.toasterService.warning(this.responseDetails.message);    
-          this.formUser.patchValue({
-            rangeFrom: "",
-            rangeTo:"",
-            docCount:""
-          });       
-        }
-      });
+        this.documentallotmentService.checkDocumentllpRange(this.report).subscribe((res: Responsemodel) => {
+          this.responseDetails = res;
+          if (this.responseDetails.status) {
+            this.formUser.patchValue({            
+              docCount: docCount + 1
+            });  
+          }
+          else{
+            this.toasterService.warning(this.responseDetails.message);    
+            this.formUser.patchValue({
+              rangeFrom: "",
+              rangeTo:"",
+              docCount:""
+            });       
+          }
+        });
+      }
     }
   }
 
