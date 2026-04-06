@@ -781,6 +781,53 @@ export class ConsignmentaddComponent implements OnInit {
     this.formArray.controls[0].get("invValue")?.setValue(selectedDataValue.invoiceValue);
   }
 
+  searchGSTDetailsForGrid(e:any,i: number): void {
+    
+    var selectedDataValue = this.formUser.getRawValue();
+ if(selectedDataValue.ewayBillEntryType=="A"){
+    var ewayBillNo = e.target.value;
+    this.requestmodel.strRequest1 = selectedDataValue.rcm_Fcm;  
+    this.requestmodel.strRequest2 = this.branch;  
+
+    if(ewayBillNo != "") {
+      this.requestmodel.strRequest = ewayBillNo;        
+      this.commonService.checkEwaybillExits(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if(this.responseDetails.status){
+          this.commonService.billDetails(this.requestmodel).subscribe((res: any) => {
+          var result = res.result;
+            if (result.code === 200) {
+              this.formUser.controls['ewayBillEntryType'].disable();
+              this.eWayBillDetails.result = result;
+
+             
+              this.formArray.controls[i].get("ewayBillNo")?.setValue(this.eWayBillDetails.result.message.eway_bill_number);
+              this.formArray.controls[i].get("ewayBillDate")?.setValue(this.commonService.formatDate((this.eWayBillDetails.result.message.eway_bill_date)));
+              this.formArray.controls[i].get("ewayBillExpDate")?.setValue(this.commonService.formatDate((this.eWayBillDetails.result.message.eway_bill_valid_date)));
+              this.formArray.controls[i].get("invNo")?.setValue(this.eWayBillDetails.result.message.document_number);
+              this.formArray.controls[i].get("invDate")?.setValue(this.commonService.formatDate((this.eWayBillDetails.result.message.document_date)));
+              this.formArray.controls[i].get("invValue")?.setValue(this.eWayBillDetails.result.message.total_invoice_value.toString());
+              this.formArray.push(this.createInitialArray());
+            }
+            else{  
+              this.formArray.controls[i].get("ewayBillNo")?.setValue('');            
+              this.toastrService.warning("Please Enter Valid Eway bill no");  
+             
+            }
+          });
+        }
+        else{
+           this.formArray.controls[i].get("ewayBillNo")?.setValue('');
+          this.toastrService.warning("Eway bill no already exists in database");
+          return
+        }
+      });
+    } 
+   }
+     
+  }
+
+
   selectCnorEvent(item: any) {
     // do something with selected item
     this.requestmodel.strRequest = item.dataId;        
