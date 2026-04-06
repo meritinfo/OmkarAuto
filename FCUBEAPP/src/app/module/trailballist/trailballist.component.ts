@@ -230,12 +230,11 @@ export class TrailballistComponent {
         {
           title: 'CREDIT',
           data: 'credit'
-        },
-       
-        {
-          title: 'Balance',
-          data: 'balAmt',
-        },
+        },       
+        // {
+        //   title: 'Balance',
+        //   data: 'balAmt',
+        // },
       ],
     };
   }

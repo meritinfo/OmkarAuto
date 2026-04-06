@@ -226,46 +226,48 @@ export class ConsignmentlocalfrtupdateComponent {
       rateRs        :  "", 
       freightRs     :  "", 
       gstType       :  "", 
+      extrasRecd2   :  "",
     });
-      this.sharedService.loading    = true;
-      this.requestmodel.strRequest  = this.branch;
-      this.requestmodel.strRequest1 = e.target.value; 
-      this.requestmodel.strRequest2 = this.year; 
-      this.lrentryService.getConsignmentDetailsForUpdate(this.requestmodel).subscribe((res:Consignmentmodel) => {
+    this.sharedService.loading    = true;
+    this.requestmodel.strRequest  = this.branch;
+    this.requestmodel.strRequest1 = e.target.value; 
+    this.requestmodel.strRequest2 = this.year; 
+    this.lrentryService.getConsignmentDetailsForUpdate(this.requestmodel).subscribe((res:Consignmentmodel) => {
       this.lrmodel = res;
       var cn = this.lrmodel.fromPlace;
-        if (typeof cn === 'undefined' || cn === null || cn === '') {
-          this.toastrService.warning("LR No Doesn't Exists ");
-          this.formUser.patchValue({
-            gcNoteNo : "",
-          });    
-          return;
-        }
-        else{
-          this.formUser.patchValue({
-            bookingDate  :   this.commonService.formatDate(this.lrmodel.bookingDate),
-            vehicleNo    :   this.lrmodel.invoiceNo,
-            containerNo  :   this.lrmodel.containerNo,
-            fromPlace    :   this.lrmodel.fromPlace,
-            toPlace      :   this.lrmodel.toPlace, 
-            poNo         :   this.lrmodel.poNo,
-            shipmentNo   :   this.lrmodel.poNo,
-            noPackages   :   this.lrmodel.noPackages,
-            actualWt     :   this.lrmodel.actualWt, 
-            chargewt     :   this.lrmodel.chargewt, 
-            cnorName     :   this.lrmodel.cnorName,
-            cneeName     :   this.lrmodel.cneeName, 
-            party        :   this.partyList.find(x => x.dataId == this.lrmodel.billingParty), 
-            rateType     :   this.lrmodel.rateType, 
-            gstBy        :   this.lrmodel.gstBy, 
-            rateRs       :   this.lrmodel.rateRs, 
-            freightRs    :   this.lrmodel.freightRs, 
-            fovRs        :   this.lrmodel.fovRs ,
-            productId    :   this.lrmodel.productId, 
-            gstType      :   this.lrmodel.gstType, 
-          });
-        }
-      });
+      if (typeof cn === 'undefined' || cn === null || cn === '') {
+        this.toastrService.warning("LR No Doesn't Exists ");
+        this.formUser.patchValue({
+          gcNoteNo : "",
+        });    
+        return;
+      }
+      else{
+        this.formUser.patchValue({
+          bookingDate  :   this.commonService.formatDate(this.lrmodel.bookingDate),
+          vehicleNo    :   this.lrmodel.invoiceNo,
+          containerNo  :   this.lrmodel.containerNo,
+          fromPlace    :   this.lrmodel.fromPlace,
+          toPlace      :   this.lrmodel.toPlace, 
+          poNo         :   this.lrmodel.poNo,
+          shipmentNo   :   this.lrmodel.poNo,
+          noPackages   :   this.lrmodel.noPackages,
+          actualWt     :   this.lrmodel.actualWt, 
+          chargewt     :   this.lrmodel.chargewt, 
+          cnorName     :   this.lrmodel.cnorName,
+          cneeName     :   this.lrmodel.cneeName, 
+          party        :   this.partyList.find(x => x.dataId == this.lrmodel.billingParty), 
+          rateType     :   this.lrmodel.rateType, 
+          gstBy        :   this.lrmodel.gstBy, 
+          rateRs       :   this.lrmodel.rateRs, 
+          freightRs    :   this.lrmodel.freightRs, 
+          fovRs        :   this.lrmodel.fovRs ,
+          productId    :   this.lrmodel.productId, 
+          gstType      :   this.lrmodel.gstType, 
+          extrasRecd2  :   this.lrmodel.extrasRecd2
+        });
+      }
+    });
     this.sharedService.loading = false;
   }
   
@@ -291,7 +293,7 @@ export class ConsignmentlocalfrtupdateComponent {
     this.cnmodel.consignmentID = this.lrmodel.consignmentID;           
     this.cnmodel.extrasRecd2 = selectedDataVal.extrasRecd2.toString();
     this.lrentryService.consignmentLocalFrtUpdate(this.cnmodel).subscribe((res: Responsemodel) => {
-    this.responseDetails = res; 
+      this.responseDetails = res; 
       if (this.responseDetails.status) {
         this.toastrService.success(this.responseDetails.message);
         this.formUser.reset();

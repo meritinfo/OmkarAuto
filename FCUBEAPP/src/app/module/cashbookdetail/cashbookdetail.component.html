@@ -57,7 +57,7 @@
                     </form>
                 </div>                
             </div>
-            <h6>Note:-<span style="color: red"> Only Ref Type = 'OTHERS' can be editable </span></h6>
+            <!-- <h6>Note:-<span style="color: red"> Only Ref Type = 'OTHERS' can be editable </span></h6> -->
             <div  style=" max-height: 350px; overflow-y: auto;" id="datatable_wrapper" 
                 class="dataTables_wrapper dt-bootstrap4 no-footer">
                 <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
@@ -77,7 +77,9 @@
                         <tbody *ngIf="allLedger.ledgerList?.length != 0">
                             <tr *ngFor="let dsl of allLedger.ledgerList">                      
                                 <td style="width: 15px;">
-                                    <button *ngIf="dsl.docType!='' && dsl.refType=='OTHERS'" type="button" class="btn btn-edit" 
+                                    <!-- <button *ngIf="dsl.docType!='' && dsl.refType=='OTHERS'" type="button" class="btn btn-edit" 
+                                    (click)="getCashReceiptEntryDetails(dsl)"></button>  -->
+                                    <button *ngIf="dsl.docType!=''" type="button" class="btn btn-edit" 
                                     (click)="getCashReceiptEntryDetails(dsl)"></button> 
                                 </td> 
                                 <td style="width: 20px;">{{ dsl.ftmDate}}</td>                            
