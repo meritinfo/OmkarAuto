@@ -269,7 +269,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@SeriesCode", req.Search),
                             new SqlParameter("@FromRange",  req.FilterStr2),
                             new SqlParameter("@ToRange",    req.FilterStr3),
-                             new SqlParameter("@YearId",    req.SortOrder)
+                            new SqlParameter("@YearId",    req.SortOrder)
 
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_CheckDocumentLlpRange", param);

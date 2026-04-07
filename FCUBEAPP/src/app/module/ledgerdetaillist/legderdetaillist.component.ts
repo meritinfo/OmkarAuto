@@ -281,7 +281,7 @@ export class LegderdetaillistComponent {
 
     this.cashFilter.fromDate = selecteddata.fromDate;
     this.cashFilter.toDate = selecteddata.toDate;
-    this.cashFilter.branch = "";
+    this.cashFilter.branch = this.branch;
     this.cashFilter.search = finTrans.docNo;
     this.cashFilter.yearId = this.year;
     this.cashFilter.receiptOrPayment = finTrans.docType;

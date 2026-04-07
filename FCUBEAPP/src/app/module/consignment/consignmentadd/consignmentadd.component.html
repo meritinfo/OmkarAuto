@@ -318,7 +318,7 @@
                                                 *ngFor="let arrayData of formArray.controls; let i = index">
                                                 <div [formGroupName]="i" class="grid-table">
                                                     <td class="col-lg-2">
-                                                        <input uppercaseonly type="text" class="form-control" 
+                                                        <input uppercaseonly type="text" class="form-control" (change)="searchGSTDetailsForGrid($event,i)"
                                                         formControlName="ewayBillNo">
                                                     </td>
                                                     <td class="col-lg-2">

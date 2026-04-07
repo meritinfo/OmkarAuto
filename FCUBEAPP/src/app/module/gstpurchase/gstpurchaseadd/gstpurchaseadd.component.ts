@@ -667,7 +667,7 @@ export class GstpurchaseaddComponent {
         itemAmt = parseFloat(selArray[i].itemAmt);        
         sgstPct = selArray[i].sgstPct==''?0:parseFloat(selArray[i].sgstPct);
         cgstPct = selArray[i].cgstPct==''?0:parseFloat(selArray[i].cgstPct);
-        sgstPct = selArray[i].sgstPct==''?0:parseFloat(selArray[i].sgstPct);
+        igstPct = selArray[i].igstPct==''?0:parseFloat(selArray[i].igstPct);
         totAmount = itemAmt;
         totalItemAmt = totalItemAmt + itemAmt;
 
@@ -690,8 +690,8 @@ export class GstpurchaseaddComponent {
           this.formArray.controls[i].get("igstAmt")?.setValue(cgstAmt.toFixed(2));
         }    
         
+        totalAmount = totalAmount + totAmount + totalSgstAmt + totalCgstAmt + totalIgstAmt;
         
-        totalAmount = totalAmount + totalSgstAmt + totalCgstAmt + totalIgstAmt;
         this.formArray.controls[i].get("totAmount")?.setValue(totAmount.toFixed(2));
       }
     }
