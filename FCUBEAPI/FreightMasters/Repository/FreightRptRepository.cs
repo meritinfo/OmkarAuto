@@ -2584,9 +2584,14 @@ namespace FreightMasters.Repository
                                 dataSet.Tables[0].Rows[i]["Invoice No"] = "'" + dataSet.Tables[0].Rows[i]["Invoice No"].ToString();
                                 dataSet.Tables[0].Rows[i]["Eway Bill No"] = "'" + dataSet.Tables[0].Rows[i]["Eway Bill No"].ToString();
                             }
-                        }                        
+                            response = await GetBookingRegisterExcelReport(dataSet.Tables[0], "Booking Register", filter);
+                        }
+                        if(request.SortOrder=="S")
+                        {
+                            response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Booking Register", filter);
+                        }
 
-                        response = await GetBookingRegisterExcelReport(dataSet.Tables[0], "Booking Register", filter);
+                        
                     }
                     else
                     {

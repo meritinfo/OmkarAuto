@@ -206,7 +206,7 @@ export class VehiclerepmaintaddComponent {
         this.formUser.controls['godownId'].disable();      
         //this.formUser.controls['vendorId'].disable();   
         this.formUser.controls['vendorName'].disable(); 
-        this.formUser.controls['vendorInvNo'].disable();  
+        //this.formUser.controls['vendorInvNo'].disable();  
         this.formUser.controls['vendorInvDt'].disable();  
         this.formUser.controls['vendorName'].disable();    
         this.formUser.controls['vendorAddress'].disable();  
