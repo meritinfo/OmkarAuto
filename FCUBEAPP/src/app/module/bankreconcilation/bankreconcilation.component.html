@@ -165,7 +165,7 @@
                                                 *ngFor="let miscData of formArray.controls; let k = index">
                                                 <div [formGroupName]="k" class="grid-table">   
                                                     <td  class="col-lg-1">   
-                                                        <input autoclose="false" type="text" class="form-control" 
+                                                        <input autoclose="false" type="date" class="form-control" 
                                                         formControlName="ftmDate"> 
                                                         <input autoclose="false" type="hidden" class="form-control" 
                                                         formControlName="ftdID">                                                                                                    
@@ -190,7 +190,7 @@
                                                         [class.bg-highlight]="searchbyfield === 'ChequeNo' && miscData.get('chequeNo')?.value === searchValue">                                                        
                                                     </td>
                                                     <td  class="col-lg-1"> 
-                                                        <input autoclose="false" type="text" class="form-control" 
+                                                        <input autoclose="false" type="date" class="form-control" 
                                                         formControlName="chequeDate">                                                        
                                                     </td>
                                                     <td  class="col-lg-3">   
@@ -204,7 +204,7 @@
                                                     </td>
                                                     <td class="col-lg-1">
                                                         <input type="date" class="form-control"   
-                                                            formControlName="clearDate">                                                
+                                                            formControlName="clearDate"  (change)="selectedData(k)">                                                
                                                     </td>                                   
                                                 </div>
                                             </tr>
