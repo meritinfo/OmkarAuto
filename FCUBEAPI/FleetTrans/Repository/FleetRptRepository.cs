@@ -1172,7 +1172,7 @@ namespace FleetTrans.Repository
             ResponseModel response = new();
             try
             {
-                if (dbconnection != null)
+                if (dbconnection != null) 
                 {
                     SqlParameter[] param =
                         {
@@ -1180,7 +1180,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@ToDate",             request.ToDate),
                             new SqlParameter("@VehicleMasterId",          request.FilterStr),
                             new SqlParameter("@SpareLubId",          request.FilterStr1),
-                            new SqlParameter("@RptType",          request.FilterStr2),
+                            new SqlParameter("@RptType"   ,          request.FilterStr2),
 
                         };
 

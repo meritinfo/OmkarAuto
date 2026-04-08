@@ -22,6 +22,7 @@ export class BankreconcilationComponent {
   formBankRecEntry!: FormGroup;
   formSubmitted = false;
   branchCode: string = '';
+  compname: string = '';
   year: string = '';
   loginDate: string = '';
   fromDate: string = '';
@@ -92,6 +93,10 @@ export class BankreconcilationComponent {
     var loginDate = sessionStorage.getItem('loginDate')?.toString();
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
+    }
+    var CompanyName = sessionStorage.getItem('companyname')?.toString();
+    if (typeof CompanyName !== 'undefined' && CompanyName !== null && CompanyName !== '') {
+      this.compname = CompanyName;
     }
     else {
       this.route.navigate(['/']);
@@ -216,6 +221,7 @@ export class BankreconcilationComponent {
       this.searchbyfield = 'Credit'
     }
   }
+  
 
   get formArray() {
     return this.formBankRecEntry.get("arrayList") as FormArray;
@@ -235,7 +241,23 @@ export class BankreconcilationComponent {
       this.IncOpn = "N"
     }
   }
+ 
 
+selectedData(k: number) {
+debugger
+  const row = this.formArray.at(k);
+
+  if (this.compname === "LALITA LOGISTICS AND AGENCIES PRIVATE LIMITED" &&
+      row.get('clearDate')?.value !== row.get('ftmDate')?.value) {
+
+    this.toasterService.warning('Clear Date must be same as Trans Date');
+
+    row.patchValue(
+      { clearDate: '' })
+      
+    ;
+  }
+}
 
   getbankacList(): void {
     this.bankreconcilationService.getbankacList().subscribe((res) => {
@@ -261,6 +283,7 @@ export class BankreconcilationComponent {
       return;
     }
 
+    
 
     this.sharedService.loading = true;
     var selectedDataValue = this.formBankRecEntry.getRawValue();
@@ -269,7 +292,7 @@ export class BankreconcilationComponent {
 
     if (this.formArray.value != undefined) {
       for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
-        if (selectedDataValue.arrayList[i].clearDate != "" && selectedDataValue.arrayList[i].ftdID != "") {
+        if (  selectedDataValue.arrayList[i].ftdID != "") {
           this.bankreclist.bankreconcilationList.push({
             'ftdID': selectedDataValue.arrayList[i].ftdID,
             'ftmDate': '',
