@@ -31,6 +31,7 @@ export class BankreconcilationComponent {
   IncOpn: string = "";
   locationList: Dropdownmodel[] = [];
   bankreclist: Bankreconcilationlist = new Bankreconcilationlist();
+  bankrecmodel: Bankreconcilationlist = new Bankreconcilationlist();
   bankrecfilter = new Bankrecfiltermodel();
   responseDetails = new Responsemodel();
   requestmodel = new Requestmodel();
@@ -94,13 +95,10 @@ export class BankreconcilationComponent {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
-    var CompanyName = sessionStorage.getItem('companyname')?.toString();
-    if (typeof CompanyName !== 'undefined' && CompanyName !== null && CompanyName !== '') {
-      this.compname = CompanyName;
-    }
-    else {
-      this.route.navigate(['/']);
-    }
+    const shortCode = sessionStorage.getItem('shortCode')?.toString();
+    if (shortCode) {
+      this.compname = shortCode;
+    }   
 
     
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
@@ -118,8 +116,7 @@ export class BankreconcilationComponent {
       inclopening: new FormControl('',),
       searchby: new FormControl('',),
       search: new FormControl('',),
-
-      arrayList: this.formBuilder.array([this.createInitialArray()]),
+      //arrayList: this.formBuilder.array([this.createInitialArray()]),
     });
 
   }
@@ -169,36 +166,36 @@ export class BankreconcilationComponent {
     this.bankrecfilter.accountid = selectedfilterVal.accountid;
     this.bankrecfilter.reconcile = selectedfilterVal.reconcile ? selectedfilterVal.reconcile : 'N';
     this.bankrecfilter.inclopening = this.IncOpn == "" ? "N" : this.IncOpn;
-    this.formArray.clear();
+   // this.formArray.clear();
     this.sharedService.loading = true;
     this.bankreconcilationService.getBankReconcileGridList(this.bankrecfilter).subscribe((res) => {
-      if (this.formArray.controls.length > 0) {
-        this.formArray.removeAt(0);
-      }
+      // if (this.formArray.controls.length > 0) {
+      //   this.formArray.removeAt(0);
+      // }
       this.bankreclist = res;
-      for (let i = 0; i < res.bankreconcilationList.length; i++) {
-        this.formArray.push(this.createInitialArray());
-        this.formArray.controls[i].get("ftdID")?.setValue(res.bankreconcilationList[i].ftdID);
-        this.formArray.controls[i].get("ftmDate")?.setValue(this.commonService.formatDate(res.bankreconcilationList[i].ftmDate));
-        this.formArray.controls[i].get("docNo")?.setValue(res.bankreconcilationList[i].docNo);
-        this.formArray.controls[i].get("debit")?.setValue(res.bankreconcilationList[i].debit);
-        this.formArray.controls[i].get("credit")?.setValue(res.bankreconcilationList[i].credit);
-        this.formArray.controls[i].get("chequeNo")?.setValue(res.bankreconcilationList[i].chequeNo);
-        this.formArray.controls[i].get("chequeDate")?.setValue(this.commonService.formatDate(res.bankreconcilationList[i].chequeDate));
-        this.formArray.controls[i].get("narration")?.setValue(res.bankreconcilationList[i].narration.toString().toUpperCase());
-        this.formArray.controls[i].get("subAccountName")?.setValue(res.bankreconcilationList[i].subAccountName);
-        this.formArray.controls[i].get("clearDate")?.setValue(this.commonService.formatDate(res.bankreconcilationList[i].clearDate));
+      // for (let i = 0; i < res.bankreconcilationList.length; i++) {
+      //   this.formArray.push(this.createInitialArray());
+      //   this.formArray.controls[i].get("ftdID")?.setValue(res.bankreconcilationList[i].ftdID);
+      //   this.formArray.controls[i].get("ftmDate")?.setValue(this.commonService.formatDate(res.bankreconcilationList[i].ftmDate));
+      //   this.formArray.controls[i].get("docNo")?.setValue(res.bankreconcilationList[i].docNo);
+      //   this.formArray.controls[i].get("debit")?.setValue(res.bankreconcilationList[i].debit);
+      //   this.formArray.controls[i].get("credit")?.setValue(res.bankreconcilationList[i].credit);
+      //   this.formArray.controls[i].get("chequeNo")?.setValue(res.bankreconcilationList[i].chequeNo);
+      //   this.formArray.controls[i].get("chequeDate")?.setValue(this.commonService.formatDate(res.bankreconcilationList[i].chequeDate));
+      //   this.formArray.controls[i].get("narration")?.setValue(res.bankreconcilationList[i].narration.toString().toUpperCase());
+      //   this.formArray.controls[i].get("subAccountName")?.setValue(res.bankreconcilationList[i].subAccountName);
+      //   this.formArray.controls[i].get("clearDate")?.setValue(this.commonService.formatDate(res.bankreconcilationList[i].clearDate));
 
-        this.formArray.controls[i].get("chequeNo")?.disable();
-        this.formArray.controls[i].get("ftmDate")?.disable();
-        this.formArray.controls[i].get("docNo")?.disable();
-        this.formArray.controls[i].get("debit")?.disable();
-        this.formArray.controls[i].get("credit")?.disable();
-        this.formArray.controls[i].get("chequeNo")?.disable();
-        this.formArray.controls[i].get("chequeDate")?.disable();
-        this.formArray.controls[i].get("narration")?.disable();
-        this.formArray.controls[i].get("subAccountName")?.disable();
-      }
+      //   this.formArray.controls[i].get("chequeNo")?.disable();
+      //   this.formArray.controls[i].get("ftmDate")?.disable();
+      //   this.formArray.controls[i].get("docNo")?.disable();
+      //   this.formArray.controls[i].get("debit")?.disable();
+      //   this.formArray.controls[i].get("credit")?.disable();
+      //   this.formArray.controls[i].get("chequeNo")?.disable();
+      //   this.formArray.controls[i].get("chequeDate")?.disable();
+      //   this.formArray.controls[i].get("narration")?.disable();
+      //   this.formArray.controls[i].get("subAccountName")?.disable();
+      // }
     });
 
     this.sharedService.loading = false;
@@ -243,21 +240,23 @@ export class BankreconcilationComponent {
   }
  
 
-selectedData(k: number) {
-debugger
-  const row = this.formArray.at(k);
-
-  if (this.compname === "LALITA LOGISTICS AND AGENCIES PRIVATE LIMITED" &&
-      row.get('clearDate')?.value !== row.get('ftmDate')?.value) {
-
-    this.toasterService.warning('Clear Date must be same as Trans Date');
-
-    row.patchValue(
-      { clearDate: '' })
-      
-    ;
+  selectedData(k: number, e: any) {
+    var cleardate = e.target.value;
+    var cldt = new Date(cleardate);
+    var parts = this.bankreclist.bankreconcilationList[k].ftmDate.split("/");
+    var ftmdt = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
+    var clDateOnly = cldt.setHours(0, 0, 0, 0);
+    var ftmDateOnly = ftmdt.setHours(0, 0, 0, 0);
+    if (this.compname === "LLP" && clDateOnly !== ftmDateOnly)
+    {
+      this.toasterService.warning('Clear Date must be same as Trans Date');
+      this.bankreclist.bankreconcilationList[k].clearDate = "";
+      e.target.value = "";
+    }
+    else{    
+      this.bankreclist.bankreconcilationList[k].clearDate = cleardate;
+    }
   }
-}
 
   getbankacList(): void {
     this.bankreconcilationService.getbankacList().subscribe((res) => {
@@ -286,36 +285,54 @@ debugger
     
 
     this.sharedService.loading = true;
-    var selectedDataValue = this.formBankRecEntry.getRawValue();
 
-    this.bankreclist.bankreconcilationList = [];
-
-    if (this.formArray.value != undefined) {
-      for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
-        if (  selectedDataValue.arrayList[i].ftdID != "") {
-          this.bankreclist.bankreconcilationList.push({
-            'ftdID': selectedDataValue.arrayList[i].ftdID,
-            'ftmDate': '',
-            'docNo': '',
-            'debit': '',
-            'credit': '',
-            'chequeNo': '',
-            'chequeDate': '',
-            'narration': '',
-            'subAccountName': '',
-            'clearDate': this.formArray.value[i].clearDate,
-          })
-        }
+    this.bankrecmodel.bankreconcilationList = [];
+    for (let i = 0; i < this.bankreclist.bankreconcilationList.length; i++) {
+      if(this.bankreclist.bankreconcilationList[i].clearDate!=""){
+        this.bankrecmodel.bankreconcilationList.push({
+          'ftdID': this.bankreclist.bankreconcilationList[i].ftdID,
+          'ftmDate': '',
+          'docNo': '',
+          'debit': '',
+          'credit': '',
+          'chequeNo': '',
+          'chequeDate': '',
+          'narration': '',
+          'subAccountName': '',
+          'clearDate': this.bankreclist.bankreconcilationList[i].clearDate,
+        })
       }
     }
 
-    if (this.bankreclist.bankreconcilationList.length == 0) {
+    //var selectedDataValue = this.formBankRecEntry.getRawValue();
+    // this.bankreclist.bankreconcilationList = [];
+
+    // if (this.formArray.value != undefined) {
+    //   for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
+    //     if (  selectedDataValue.arrayList[i].ftdID != "") {
+    //       this.bankreclist.bankreconcilationList.push({
+    //         'ftdID': selectedDataValue.arrayList[i].ftdID,
+    //         'ftmDate': '',
+    //         'docNo': '',
+    //         'debit': '',
+    //         'credit': '',
+    //         'chequeNo': '',
+    //         'chequeDate': '',
+    //         'narration': '',
+    //         'subAccountName': '',
+    //         'clearDate': this.formArray.value[i].clearDate,
+    //       })
+    //     }
+    //   }
+    // }
+
+    if (this.bankrecmodel.bankreconcilationList.length == 0) {
       this.toasterService.warning("No Records To save");
       return;
     }
 
     this.formSubmitted = true;
-    this.bankreconcilationService.bankreconcilationSubmitted(this.bankreclist).subscribe((res: Responsemodel) => {
+    this.bankreconcilationService.bankreconcilationSubmitted(this.bankrecmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if(this.responseDetails.status){
         this.toasterService.success(this.responseDetails.message); 

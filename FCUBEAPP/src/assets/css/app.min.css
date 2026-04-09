@@ -5972,3 +5972,9 @@ th, td {
     text-align: left;
     border: 1px solid #ddd;
 }
+.narration-cell {
+    white-space: normal;       /* allow wrapping */
+    word-wrap: break-word;     /* break long words */
+    word-break: break-word;    /* ensure no overflow */
+    max-width: 250px;          /* adjust as needed */
+}
