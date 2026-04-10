@@ -1,5 +1,5 @@
 export class Constants {
-   public static API_ENDPOINT = "http://localhost:65496/api/";
+   //public static API_ENDPOINT = "http://localhost:65496/api/";
   // public static API_ENDPOINT = "/brlapi/api/";
   // public static API_ENDPOINT = "/nccapi/api/";
  // public static API_ENDPOINT = "/gsrapi/api/";
@@ -7,13 +7,13 @@ export class Constants {
  // public static API_ENDPOINT = "/brplapi/api/";
  // public static API_ENDPOINT = "/jrwapi/api/";
  // public static API_ENDPOINT = "/rafleetapi/api/";
- // public static API_ENDPOINT = "/lalitaapi/api/";
+  //public static API_ENDPOINT = "/lalitaapi/api/";
  // public static API_ENDPOINT = "/fcubeapi/api/";
   //public static API_ENDPOINT = "/velapi/api/"; 
 
   //public static API_ENDPOINT = "http://188.241.62.61/lalitaapi/api/";
  //public static API_ENDPOINT = "http://103.180.163.199/fcubeapi/api/"; 
-   // public static API_ENDPOINT = "http://183.82.144.101/nccapi/api/";
+    public static API_ENDPOINT = "http://183.82.144.101/nccapi/api/";
 
     public static UploadFolderPath = 'assets/upload/';
 

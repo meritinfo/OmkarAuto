@@ -44,6 +44,7 @@ export class DprvehiplacedlistComponent {
   loginDate: string = '';
   fromDate: string = '';
   maxDate: string = '';
+  toDate: string = '';
   minDate: string = '';
   branch: string = '';
   editMode = false;
@@ -110,11 +111,25 @@ export class DprvehiplacedlistComponent {
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.branch = userData;
     }
+  
+    
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     //this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
-    this.maxDate = this.commonService.getCurrentFiscalYear(this.loginDate).eDate.toLocaleDateString('en-CA').toString();
+   this.maxDate = this.commonService.getCurrentFiscalYear(this.loginDate).eDate.toLocaleDateString('en-CA').toString();
+   this.fromDate = this.minDate; 
+
+    var todt = new Date(this.loginDate);
+    var maxdt = new Date(this.maxDate);    
+    var dt = todt.getDate();
+    todt.setDate(dt + 3);
+
+    if(todt>maxdt){
+      this.toDate =  this.maxDate ;
+    }
+    else{
+      this.toDate = todt.toLocaleDateString('en-CA').toString();   
+    }   
     
-    this.fromDate = this.minDate ;
     
     var vehfromDate = sessionStorage.getItem('vehfromDate')?.toString();
     if (typeof vehfromDate !== 'undefined' && vehfromDate !== null && vehfromDate !== '') {
@@ -128,7 +143,7 @@ export class DprvehiplacedlistComponent {
       this.vehtoDate = vehtoDate;
     }
     else{
-      this.vehtoDate = this.loginDate;
+      this.vehtoDate = this.toDate;
     }
     var vehpayParty = sessionStorage.getItem('vehpayParty')?.toString();
     if (typeof vehpayParty !== 'undefined' && vehpayParty !== null && vehpayParty !== '') {

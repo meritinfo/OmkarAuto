@@ -43,7 +43,7 @@
                                             <label for="formrow-inputCity">CN Date: </label>
                                             <span style="color: red">*</span>  
                                             <input type="date" class="form-control" 
-                                            min="{{minDate}}" max="{{maxDate}}" formControlName="bookingDate" 
+                                            min="{{minDate}}" max="{{toDate}}" formControlName="bookingDate" 
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['bookingDate'].invalid) }">
                                         </div>
                                     </div>

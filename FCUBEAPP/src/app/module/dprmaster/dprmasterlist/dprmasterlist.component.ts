@@ -42,6 +42,7 @@ export class DrpmasterlistComponent {
   loginDate: string = '';
   branch: string = '';
   fromDate: string = '';
+  toDate: string = '';
   maxDate: string = '';
   minDate: string = '';
   editMode = false;
@@ -113,16 +114,18 @@ export class DrpmasterlistComponent {
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     //this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
    this.maxDate = this.commonService.getCurrentFiscalYear(this.loginDate).eDate.toLocaleDateString('en-CA').toString();
-    
-    var frdt = new Date(this.loginDate);
-    var mindt = new Date(this.minDate);    
-    var mnth = frdt.getMonth();
-    frdt.setMonth(mnth - 1);
-    if(frdt<mindt){
-      this.fromDate =  this.minDate ;
+   this.fromDate = this.minDate; 
+
+    var todt = new Date(this.loginDate);
+    var maxdt = new Date(this.maxDate);    
+    var dt = todt.getDate();
+    todt.setDate(dt + 3);
+
+    if(todt>maxdt){
+      this.toDate =  this.maxDate ;
     }
     else{
-      this.fromDate = frdt.toLocaleDateString('en-CA').toString();   
+      this.toDate = todt.toLocaleDateString('en-CA').toString();   
     }   
     
     var dprfromDate = sessionStorage.getItem('dprfromDate')?.toString();
@@ -137,7 +140,7 @@ export class DrpmasterlistComponent {
       this.dprtoDate = dprtoDate;
     }
     else{
-      this.dprtoDate = this.loginDate;
+      this.dprtoDate = this.toDate;
     }
     var dprpayParty = sessionStorage.getItem('dprpayParty')?.toString();
     if (typeof dprpayParty !== 'undefined' && dprpayParty !== null && dprpayParty !== '') {

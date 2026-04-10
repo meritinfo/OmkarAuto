@@ -39,6 +39,7 @@ export class DprvehiplacededitComponent {
   userType: string = '';
   loginDate: string = '';
   fromDate: string = '';
+  toDate: string = '';
   maxDate: string = '';
   minDate: string = '';
   keywordLocation = 'dataName';
@@ -130,9 +131,21 @@ export class DprvehiplacededitComponent {
     }
     
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
-    this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
-    
-    this.fromDate = this.minDate ;    
+    //this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
+   this.maxDate = this.commonService.getCurrentFiscalYear(this.loginDate).eDate.toLocaleDateString('en-CA').toString();
+   this.fromDate = this.minDate; 
+
+    var todt = new Date(this.loginDate);
+    var maxdt = new Date(this.maxDate);    
+    var dt = todt.getDate();
+    todt.setDate(dt + 3);
+
+    if(todt>maxdt){
+      this.toDate =  this.maxDate ;
+    }
+    else{
+      this.toDate = todt.toLocaleDateString('en-CA').toString();   
+    }     
     
     this.sharedService.loading = true;
     this.getBranchList();

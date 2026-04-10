@@ -42,6 +42,7 @@ export class ConsignmentlistComponent implements OnInit  {
   loginDate       : string = '';
   branch          : string = '';
   fromDate        : string = '';
+  toDate: string = '';
   maxDate         : string = '';
   minDate         : string = '';
   editMode        = false;
@@ -117,10 +118,23 @@ export class ConsignmentlistComponent implements OnInit  {
 
     }
     
+      
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
-    this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
-    
-    this.fromDate = this.minDate ;
+    //this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
+   this.maxDate = this.commonService.getCurrentFiscalYear(this.loginDate).eDate.toLocaleDateString('en-CA').toString();
+   this.fromDate = this.minDate; 
+
+    var todt = new Date(this.loginDate);
+    var maxdt = new Date(this.maxDate);    
+    var dt = todt.getDate();
+    todt.setDate(dt + 3);
+
+    if(todt>maxdt){
+      this.toDate =  this.maxDate ;
+    }
+    else{
+      this.toDate = todt.toLocaleDateString('en-CA').toString();   
+    }     
     
     var lrfromDate = sessionStorage.getItem('lrfromDate')?.toString();
     if (typeof lrfromDate !== 'undefined' && lrfromDate !== null && lrfromDate !== '') {
@@ -134,7 +148,7 @@ export class ConsignmentlistComponent implements OnInit  {
       this.lrtoDate = lrtoDate;
     }
     else{
-      this.lrtoDate = this.loginDate;
+      this.lrtoDate = this.toDate;
     }
     var lrpayParty = sessionStorage.getItem('lrpayParty')?.toString();
     if (typeof lrpayParty !== 'undefined' && lrpayParty !== null && lrpayParty !== '') {
