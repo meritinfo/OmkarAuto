@@ -1,0 +1,70 @@
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Consignment/LR Costing</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row top-controls">
+                <div class="col-sm-8 col-md-8">
+                    <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">From Date </label><span style="color: red">*</span>    
+                                    <input type="date" class="form-control" 
+                                    formControlName="fromDate" min="{{minDate}}" max="{{maxDate}}"
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['fromDate'].invalid) }">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">To Date </label><span style="color: red">*</span>    
+                                    <input type="date" class="form-control" 
+                                    formControlName="toDate" min="{{minDate}}" max="{{maxDate}}"
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['toDate'].invalid) }">
+                                </div>
+                            </div>
+                             <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label for="formrow-inputZip">Gc Notno</label>
+                                        <input type="text" alphanumericonly autocomplete="off" id="formrow-inputCity" class="form-control"
+                                        formControlName="gcNoteNo"> 
+                                    </div>
+                            </div>     
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Invoice No</label>
+                                    <input type="text" alphanumericonly autocomplete="off" id="formrow-inputCity" class="form-control"
+                                    formControlName="invoiceNo"> 
+                                </div>
+                            </div> 
+                        </div>
+                       
+                    </form>
+                </div>
+                <div class="col-sm-4 col-md-4 text-right" style="padding-right:270px;padding-top: 22px;">
+                    <div class="dt-buttons btn-group flex-wrap export-button">
+                        <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
+                            aria-controls="datatable-buttons" type="button" 
+                            (click)="exportExcel()"><span>Excel</span></button>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>
+
+
+
+
+
+

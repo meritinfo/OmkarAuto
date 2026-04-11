@@ -291,5 +291,10 @@ namespace FreightMasters.Business
         {
             return await freightRptRepository.GetCountOfDocEnteredRptExcel(request);
         }
+
+        public async Task<ResponseModel> GetLRwiseCostingLlpRptExcel(ReportRequestModel request)
+        {
+            return await freightRptRepository.GetLRwiseCostingLlpRptExcel(request);
+        }
     }
 }

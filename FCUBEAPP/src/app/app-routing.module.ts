@@ -385,6 +385,7 @@ import { DebitnoteaddComponent } from './module/debitnoteentry/debitnoteadd/debi
 import { DebitnotelistComponent } from './module/debitnoteentry/debitnotelist/debitnotelist.component';
 import { DocumentmasteraddComponent } from './module/documentmaster/documentmasteradd/documentmasteradd.component';
 import { DocumentmasterlistComponent } from './module/documentmaster/documentmasterlist/documentmasterlist.component';
+import { LrwisecostinglprptComponent } from './module/lrwisecostinglprpt/lrwisecostinglprpt.component';
 
 
 const routes: Routes = [
@@ -907,6 +908,7 @@ const routes: Routes = [
   { path: 'debititnoteedit', component: DebitnoteaddComponent }, 
   { path: 'docsetting', component: DocumentmasterlistComponent }, 
   { path: 'docmasteredit', component: DocumentmasteraddComponent }, 
+  { path: 'llpcosting', component: LrwisecostinglprptComponent }, 
 ];
 
 
