@@ -86,6 +86,7 @@
                                 <th>refNo </th>                         
                                 <th>accountOf</th>                    
                                 <th>narration</th>                  
+                                <th>Action</th>                
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -102,7 +103,8 @@
                                 <td>{{ br.refType }}</td>                   
                                 <td>{{ br.refNo }}</td>                   
                                 <td style="width:80px; word-wrap:break-word;">{{ br.accountOf }}</td>                   
-                                <td>{{ br.narration }}</td>  
+                                <td>{{ br.narration }}</td>                   
+                                <td>{{ br.chequeNo }}</td>                                  
                             </tr>
                         </tbody>
                         <tbody *ngIf="allBankReceiptEntry.recPaymentsList?.length == 0">

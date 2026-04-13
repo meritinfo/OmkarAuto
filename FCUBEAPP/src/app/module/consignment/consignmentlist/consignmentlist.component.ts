@@ -357,7 +357,7 @@ export class ConsignmentlistComponent implements OnInit  {
     var selectedDataVal = this.formFilter.getRawValue();
     let frmdt = new Date(selectedDataVal.fromDate);
     let todt = new Date(selectedDataVal.toDate);
-    let maxdt = new Date(this.loginDate);
+    let maxdt = new Date(this.toDate);
     let mindt = new Date(this.minDate);
     if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
       this.toastrService.warning("From Date and To Date should be with in Fin Year");

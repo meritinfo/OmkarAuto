@@ -377,8 +377,6 @@ export class DrpmasterlistComponent {
     let todt = new Date(selecteddata.toDate);
     //let maxdt = new Date(this.loginDate);
       let maxdt = new Date(this.maxDate);
-
-    
     let mindt = new Date(this.minDate);
 
     if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {

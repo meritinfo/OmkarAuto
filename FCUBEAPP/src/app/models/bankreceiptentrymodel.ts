@@ -20,6 +20,7 @@ export class bankreceiptentrymodel {
     branchCode     : string = "";
     onAcBranchYN : string = "";
     onAcBranchCode : string = "";
+    chequeNo: string = "";
     createdBy: string = "";
     createdDate: string = "";
     modifiedBy: string = "";

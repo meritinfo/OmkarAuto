@@ -534,7 +534,7 @@ export class GeneratetempgclistComponent {
     var selecteddata = this.formFilter.getRawValue();
     let frmdt = new Date(selecteddata.fromDate);
     let todt = new Date(selecteddata.toDate);
-    let maxdt = new Date(this.loginDate);
+    let maxdt = new Date(this.toDate);
     let mindt = new Date(this.minDate);
 
     if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {

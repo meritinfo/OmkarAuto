@@ -208,6 +208,10 @@ export class BankreceiptentrylistComponent {
           title: 'Remarks',
           data: 'narration',
         },
+        {
+          title: 'Cheque No',
+          data: 'chequeNo',
+        },
       ],
     };
   }
