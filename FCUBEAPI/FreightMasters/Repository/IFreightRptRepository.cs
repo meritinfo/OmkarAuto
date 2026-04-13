@@ -97,6 +97,7 @@ namespace FreightMasters.Repository
         Task<List<DropDownListModel>> GetPartyMisList();
         Task<ResponseModel> GetBillInterestLossRptExcel(ReportRequestModel request);
         Task<ResponseModel> GetCountOfDocEnteredRptExcel(ReportRequestModel request);
+        Task<ResponseModel> GetLRwiseCostingLlpRptExcel(ReportRequestModel request);
 
     }
 }

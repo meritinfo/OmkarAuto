@@ -3087,6 +3087,25 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetLRwiseCostingLlpRptExcel")]
+        public async Task<IActionResult> GetLRwiseCostingLlpRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await freightRptBusiness.GetLRwiseCostingLlpRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetLRCostingRptList")]
         public async Task<IActionResult> GetLRCostingRptList(ReportRequestModel request)
         {

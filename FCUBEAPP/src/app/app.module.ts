@@ -590,6 +590,7 @@ import { DebitnotelistComponent } from './module/debitnoteentry/debitnotelist/de
 import { DocumentmasteraddComponent } from './module/documentmaster/documentmasteradd/documentmasteradd.component';
 import { DocumentmasterlistComponent } from './module/documentmaster/documentmasterlist/documentmasterlist.component';
 import { Documentmastermodel } from 'src/app/models/documentmastermodel';
+import { LrwisecostinglprptComponent } from './module/lrwisecostinglprpt/lrwisecostinglprpt.component';
 
 
 
@@ -789,7 +790,8 @@ import { Documentmastermodel } from 'src/app/models/documentmastermodel';
     DebitnoteaddComponent,
     DebitnotelistComponent,
     DocumentmasteraddComponent,
-    DocumentmasterlistComponent
+    DocumentmasterlistComponent,
+    LrwisecostinglprptComponent
    
     
   ],
