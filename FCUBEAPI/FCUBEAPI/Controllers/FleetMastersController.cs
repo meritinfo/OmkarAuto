@@ -369,14 +369,15 @@ namespace FCUBEAPI.Controllers
            
             try
             {
-                var attachConfirmDoc = HttpContext.Request.Form.Files["attach"];
+                var attachRcUpload = HttpContext.Request.Form.Files["attach"];
+                var attachOtherUpload = HttpContext.Request.Form.Files["attach1"];
 
                 TruckMasterModel truckMasterModel = JsonConvert.DeserializeObject<TruckMasterModel>(HttpContext.Request.Form["datadetails"]);
 
-                if (attachConfirmDoc != null)
+                if (attachRcUpload != null)
                 {
-                    string imageName = new String(Path.GetFileNameWithoutExtension(attachConfirmDoc.FileName)).Replace(" ", "-");
-                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attachConfirmDoc.FileName);
+                    string imageName = new String(Path.GetFileNameWithoutExtension(attachRcUpload.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attachRcUpload.FileName);
                     var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/truck");
                     var filePath = System.IO.Path.Combine(pathToSave, imageName);
                     bool exists = System.IO.Directory.Exists(pathToSave);
@@ -386,8 +387,25 @@ namespace FCUBEAPI.Controllers
                     }
                     using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                     {
-                        await attachConfirmDoc.CopyToAsync(fileStream);
+                        await attachRcUpload.CopyToAsync(fileStream);
                         truckMasterModel.RcUpload = imageName;
+                    }
+                }
+                if (attachOtherUpload != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(attachOtherUpload.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attachOtherUpload.FileName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/truck");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await attachOtherUpload.CopyToAsync(fileStream);
+                        truckMasterModel.OtherUpload = imageName;
                     }
                 }
                 var result = await truckMasterBusiness.TruckMasterSave(truckMasterModel);

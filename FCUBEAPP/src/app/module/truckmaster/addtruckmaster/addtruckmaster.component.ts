@@ -27,7 +27,7 @@ export class AddtruckmasterComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   year: string = '';
   loginDate: string = '';
   branch:string = '';
@@ -65,16 +65,16 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -176,45 +176,43 @@ dashboard: string ="";
   }
 
   submitTruckMasterForm(): void {
-if (this.formUser.invalid) {
-  this.toastrService.warning("Please enter mandatory fields");
+    if (this.formUser.invalid) {
+      this.toastrService.warning("Please enter mandatory fields");
+      const controls = this.formUser.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          // Convert camelCase key to readable format
+          const readableName = name.replace(/([A-Z])/g, ' $1');
+          const titleCaseName = readableName.charAt(0).toUpperCase() + readableName.slice(1);
 
-  const controls = this.formUser.controls;
-  for (const name in controls) {
-    if (controls[name].invalid) {
-      // Convert camelCase key to readable format
-      const readableName = name.replace(/([A-Z])/g, ' $1');
-      const titleCaseName = readableName.charAt(0).toUpperCase() + readableName.slice(1);
-
-      this.toastrService.warning(titleCaseName + " field is invalid");
+          this.toastrService.warning(titleCaseName + " field is invalid");
+        }
+      }
+      return;
     }
-  }
-
-  return;
-}
     var selectedDataValue = this.formUser.getRawValue();
 
-    this.vehicleTypeGroupMasterModel.truckID = this.selectedTruckMasterDetail.truckID != '' ? this.selectedTruckMasterDetail.truckID : '';
+    this.vehicleTypeGroupMasterModel.truckID = this.selectedTruckMasterDetail.truckID;
     this.vehicleTypeGroupMasterModel.truckNo = selectedDataValue.truckNo;
     this.vehicleTypeGroupMasterModel.regnDate = selectedDataValue.regnDate;
     this.vehicleTypeGroupMasterModel.ownerName = selectedDataValue.ownerName.toString().toUpperCase();
     this.vehicleTypeGroupMasterModel.ownerType = selectedDataValue.ownerType;
     this.vehicleTypeGroupMasterModel.ownMarket = selectedDataValue.ownMarket;
-    this.vehicleTypeGroupMasterModel.panNo = selectedDataValue.panNo;
+    this.vehicleTypeGroupMasterModel.panNo = selectedDataValue.panNo?selectedDataValue.panNo.toString().toUpperCase():"";
     this.vehicleTypeGroupMasterModel.aadharNo = selectedDataValue.aadharNo;
     this.vehicleTypeGroupMasterModel.aadharLinkedYN = selectedDataValue.aadharLinkedYN;
     this.vehicleTypeGroupMasterModel.panValidYN = selectedDataValue.panValidYN;
     this.vehicleTypeGroupMasterModel.itFiledYN = selectedDataValue.itFiledYN;
-    this.vehicleTypeGroupMasterModel.address1 = selectedDataValue.address1.toString().toUpperCase()
+    this.vehicleTypeGroupMasterModel.address1 = selectedDataValue.address1.toString().toUpperCase();
     this.vehicleTypeGroupMasterModel.address2 = selectedDataValue.address2.toString().toUpperCase();
     this.vehicleTypeGroupMasterModel.address3 = selectedDataValue.address3.toString().toUpperCase();
     this.vehicleTypeGroupMasterModel.address4 = selectedDataValue.address4.toString().toUpperCase();
     this.vehicleTypeGroupMasterModel.stateCode = selectedDataValue.stateCode;
     this.vehicleTypeGroupMasterModel.pinCode = selectedDataValue.pinCode;
     this.vehicleTypeGroupMasterModel.phoneNo = selectedDataValue.phoneNo;
-    this.vehicleTypeGroupMasterModel.contactName = selectedDataValue.contactName.toString().toUpperCase();   
+    this.vehicleTypeGroupMasterModel.contactName = selectedDataValue.contactName?selectedDataValue.contactName.toString().toUpperCase():"";   
      this.vehicleTypeGroupMasterModel.mobileNo = selectedDataValue.mobileNo;
-    this.vehicleTypeGroupMasterModel.chasisNo = selectedDataValue.chasisNo.toString().toUpperCase();
+    this.vehicleTypeGroupMasterModel.chasisNo = selectedDataValue.chasisNo?selectedDataValue.chasisNo.toString().toUpperCase():"";
     this.vehicleTypeGroupMasterModel.engineNo = selectedDataValue.engineNo;
     this.vehicleTypeGroupMasterModel.vehCode = selectedDataValue.vehCode;
     this.vehicleTypeGroupMasterModel.model = selectedDataValue.model;

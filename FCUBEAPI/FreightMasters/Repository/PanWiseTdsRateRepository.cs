@@ -127,10 +127,9 @@ namespace FreightMasters.Repository
                             new SqlParameter("@PageSize",   request.PageSize),
                             new SqlParameter("@SortColumn", request.SortColumn),
                             new SqlParameter("@SortOrder",  request.SortOrder),
-                            new SqlParameter("@Search",     request.Search),
-                      
-                            new SqlParameter("@PanNo",     request.FilterStr),
-                             new SqlParameter("@YearId",     request.FilterStr1),
+                            new SqlParameter("@Search",     request.Search),                      
+                            new SqlParameter("@PanNo",      request.FilterStr),
+                            new SqlParameter("@YearId",     request.FilterStr1),
                          
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getPanWiseTdsRateList", param);
