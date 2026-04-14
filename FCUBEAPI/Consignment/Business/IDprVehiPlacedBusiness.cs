@@ -10,6 +10,7 @@ namespace Consignment.Business
         Task<DprVehiPlacedModel> GetVehicleDetails(RequestModel request);
         Task<List<DropDownListModel>> GetBrokerList();
         Task<List<DropDownListModel>> GetBrokerListLLP();
+        Task<ResponseModel> ChkVehicleApiDataDprYN();
         Task<ResponseModel> DprVehiPlacedSave(DprVehiPlacedModel dprVehi);
         Task<ResponseModel> DprVehiUpdateAdvance(DprVehiPlacedModel dprVehi);
         Task<ResponseModel> DprVehiPlacedDelete(RequestModel requestModel);
