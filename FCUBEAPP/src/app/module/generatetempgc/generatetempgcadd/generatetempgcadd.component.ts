@@ -651,6 +651,32 @@ export class GeneratetempgcaddComponent {
       return;
     }
     var selectedDataVal =this.formUser.getRawValue();
+    
+    let bookingDate = new Date(selectedDataVal.bookingDate);
+    let maxdt = new Date(this.toDate);
+    let mindt = new Date(this.minDate);
+
+    if (maxdt<bookingDate || bookingDate<mindt) {
+      this.toasterService.warning("Booking date must be with in the Fin Year");
+      return;
+    }
+
+
+    if (selectedDataVal.fromPlace.dataId) {
+      //ignore
+    }
+    else{
+      this.toasterService.warning(" From Place is Invalid");
+      return;
+    }
+
+    if (selectedDataVal.toPlace.dataId) {
+      //ignore
+    }
+    else{
+      this.toasterService.warning(" To Place is Invalid");
+      return;
+    }
 
     this.tempgcmodel.tempGcId   = this.selectedTempgcDetails.tempGcId? this.selectedTempgcDetails.tempGcId :"";
     this.tempgcmodel.dprId      = this.selectedTempgcDetails.dprId? this.selectedTempgcDetails.dprId :"";

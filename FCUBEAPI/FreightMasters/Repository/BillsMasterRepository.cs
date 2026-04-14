@@ -894,6 +894,57 @@ namespace FreightMasters.Repository
             return responseModel;
         }
 
+        public async Task<ResponseModel> GetBillGsrPdf(ReportRequestModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                string baseUrl = "";
+                if (request.Search == "S")
+                {
+                    baseUrl = dbconnection.Value.apiPath + "api/BillSupply/";
+                }
+                else
+                {
+                    baseUrl = dbconnection.Value.apiPath + "api/BillGsr/";
+                }
+
+
+                string UrlParam = "?BillingStn=" + request.FilterStr +
+                                    "&BillNo=" + request.FilterStr1 +
+                                    "&YearId=" + request.FilterStr2;
+
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(baseUrl);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = client.GetAsync(UrlParam).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    dynamic data = JsonConvert.DeserializeObject(result);
+                    if (data != "500")
+                    {
+                        responseModel.Status = true;
+                        responseModel.Message = data;
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = data;
+                    }
+
+
+                    client.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseModel;
+        }
 
 
     }

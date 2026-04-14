@@ -44,6 +44,7 @@ export class BillsmasterlistComponent {
   deleteStatus = false;
   viewStatus = false; 
   dashboard: string ="";
+  company: string ="";
   formFilter!: FormGroup;
   keywordLocation = 'dataName'; 
   year: string = '';
@@ -82,6 +83,10 @@ export class BillsmasterlistComponent {
       this.route.navigate([this.dashboard]);
     }
     
+    const shortCode = sessionStorage.getItem('shortCode');
+    if (shortCode) {
+      this.company = shortCode;
+    }
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
@@ -221,7 +226,7 @@ export class BillsmasterlistComponent {
     this.reportmodel.filterStr1 = bill.billNo;
     this.reportmodel.filterStr2 = bill.yearId;
     this.reportmodel.filterStr3 = this.formFilter.value.printSign;
-    
+    if(this.company=="NCC")
     this.billsMasterService.getBillPdf(this.reportmodel).subscribe(resp => {
       if(resp.status){    
         let link = document.createElement("a");
@@ -234,6 +239,20 @@ export class BillsmasterlistComponent {
         this.toasterService.warning(resp.message);   
       }
     });
+    else{
+      this.billsMasterService.getBillGsrPdf(this.reportmodel).subscribe(resp => {
+        if(resp.status){    
+          let link = document.createElement("a");
+          link.download = "Bill_" + new Date().getTime() + '.pdf';
+          link.href = "assets/reports/billprint/" + resp.message;
+          link.click();
+          window.open(link.href, "_blank");
+        }
+        else{        
+          this.toasterService.warning(resp.message);   
+        }
+      });      
+    }
   }
   
   search(): void {

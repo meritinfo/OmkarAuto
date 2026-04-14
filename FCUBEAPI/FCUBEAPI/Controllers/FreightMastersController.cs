@@ -1010,8 +1010,6 @@ namespace FCUBEAPI.Controllers
             }
         }
 
-
-
         [HttpPost("GetBillPdf")]
         public async Task<IActionResult> GetBillPdf(ReportRequestModel request)
         {
@@ -1022,6 +1020,24 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await billsMasterBusiness.GetBillPdf(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetBillGsrPdf")]
+        public async Task<IActionResult> GetBillGsrPdf(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusiness.GetBillGsrPdf(request);
 
                 return Ok(result);
             }
