@@ -995,13 +995,26 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
         [HttpPost("GetBrokerList")]
         public async Task<IActionResult> GetBrokerList()
         {
             try
             {
                 var result = await dprVehiPlacedBusiness.GetBrokerList();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("ChkVehicleApiDataDprYN")]
+        public async Task<IActionResult> ChkVehicleApiDataDprYN()
+        {
+            try
+            {
+                var result = await dprVehiPlacedBusiness.ChkVehicleApiDataDprYN();
                 return Ok(result);
             }
             catch (Exception ex)
