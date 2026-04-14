@@ -328,41 +328,51 @@ export class DprvehiplacedaddComponent {
 
   onVehicalChange(e:any){
     var truckno = e.target.value;
-    if(truckno!=""){
-      this.requestmodel.strRequest = truckno;
-      this.requestmodel.strRequest1 = this.loggedInUserID;
-      this.dprvehiplacedService.getVehicleDetails(this.requestmodel).subscribe((res) => {
-        this.selectedDprDetails = res; 
-        var vehInsValidDate = this.selectedDprDetails.vehInsValidDate;
-        var vehFitValidDate = this.selectedDprDetails.vehFitValidDate;
-        var vehPermitValidDate = this.selectedDprDetails.vehPermitValidDate;
-        
-        vehInsValidDate     = vehInsValidDate    =="NA"? "": vehInsValidDate  ; 
-        vehFitValidDate     = vehFitValidDate    =="NA"? "": vehFitValidDate   ;
-        vehPermitValidDate  = vehPermitValidDate =="NA"? "": vehPermitValidDate;
-        
-        if(vehInsValidDate!=""){
-          vehInsValidDate = this.commonService.formatDate(vehInsValidDate);
+    this.dprvehiplacedService.ChkVehicleApiDataDprYN(this.requestmodel).subscribe((res) => {
+        this.responseDetails = res; 
+        if(this.responseDetails.message!='Y'){
+          //ignore
         }
-        if(vehFitValidDate!=""){
-          vehFitValidDate = this.commonService.formatDate(vehFitValidDate);
-        }
-        if(vehPermitValidDate!=""){
-          vehPermitValidDate = this.commonService.formatDate(vehPermitValidDate);
+        else{
+            if(truckno!=""){
+            this.requestmodel.strRequest = truckno;
+            this.requestmodel.strRequest1 = this.loggedInUserID;
+            this.dprvehiplacedService.getVehicleDetails(this.requestmodel).subscribe((res) => {
+              this.selectedDprDetails = res; 
+              var vehInsValidDate = this.selectedDprDetails.vehInsValidDate;
+              var vehFitValidDate = this.selectedDprDetails.vehFitValidDate;
+              var vehPermitValidDate = this.selectedDprDetails.vehPermitValidDate;
+              
+              vehInsValidDate     = vehInsValidDate    =="NA"? "": vehInsValidDate  ; 
+              vehFitValidDate     = vehFitValidDate    =="NA"? "": vehFitValidDate   ;
+              vehPermitValidDate  = vehPermitValidDate =="NA"? "": vehPermitValidDate;
+              
+              if(vehInsValidDate!=""){
+                vehInsValidDate = this.commonService.formatDate(vehInsValidDate);
+              }
+              if(vehFitValidDate!=""){
+                vehFitValidDate = this.commonService.formatDate(vehFitValidDate);
+              }
+              if(vehPermitValidDate!=""){
+                vehPermitValidDate = this.commonService.formatDate(vehPermitValidDate);
+              }
+
+              this.formUser.patchValue({
+                vehOwnerName: this.selectedDprDetails.vehOwnerName,
+                vehAdd1 : this.selectedDprDetails.vehAdd1,
+                vehAdd2 : this.selectedDprDetails.vehAdd2,
+                ownerPan : this.selectedDprDetails.ownerPan,
+                vehOwnerMobile : this.selectedDprDetails.vehOwnerMobile,
+                vehInsValidDate : vehInsValidDate,
+                vehFitValidDate : vehFitValidDate,
+                vehPermitValidDate : vehPermitValidDate,
+              });         
+            });
+          }
         }
 
-        this.formUser.patchValue({
-          vehOwnerName: this.selectedDprDetails.vehOwnerName,
-          vehAdd1 : this.selectedDprDetails.vehAdd1,
-          vehAdd2 : this.selectedDprDetails.vehAdd2,
-          ownerPan : this.selectedDprDetails.ownerPan,
-          vehOwnerMobile : this.selectedDprDetails.vehOwnerMobile,
-          vehInsValidDate : vehInsValidDate,
-          vehFitValidDate : vehFitValidDate,
-          vehPermitValidDate : vehPermitValidDate,
-        });         
       });
-    }
+   
   }
 
 

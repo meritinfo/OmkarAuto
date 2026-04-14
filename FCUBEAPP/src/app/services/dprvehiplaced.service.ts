@@ -70,4 +70,7 @@ export class DprvehiplacedService {
   getVehicleDetails(req: Requestmodel): Observable<Dprvehiplacedmodel> {
     return this.httpClient.post<Dprvehiplacedmodel>(Constants.API_ENDPOINT + 'Consignment/GetVehicleDetails', req, this.httpOptions);
   }
+   ChkVehicleApiDataDprYN(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/ChkVehicleApiDataDprYN', 'req', this.httpOptions);
+  }
 }
