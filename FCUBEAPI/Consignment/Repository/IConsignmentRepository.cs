@@ -41,5 +41,8 @@ namespace Consignment.Repository
         Task<ResponseModel> ConsignmentLocalFrtUpdate(ConsignmentUpdateModel ConsignmentModel);
         Task<ResponseModel> GetDocAutoGenNo(RequestModel req);
         Task<ResponseModel> CheckDuplicateDocNo(RequestModel req);
+
+        Task<ResponseModel> CheckTruckNo(RequestModel request);
+        Task<ResponseModel> GetTruckMasterMandatoryYN();
     }
 }

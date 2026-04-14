@@ -298,7 +298,41 @@ namespace FCUBEAPI.Controllers
             }
         }
 
-        
+        [HttpPost("CheckTruckNo")]
+        public async Task<IActionResult> CheckTruckNo(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await consignmentBusiness.CheckTruckNo(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetTruckMasterMandatoryYN")]
+        public async Task<IActionResult> GetTruckMasterMandatoryYN()
+        {
+            try
+            {
+                var result = await consignmentBusiness.GetTruckMasterMandatoryYN();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
 
         [HttpPost("GetLrNo")]
         public async Task<IActionResult> GetLrNo(RequestModel request)

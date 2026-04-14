@@ -75,6 +75,14 @@ export class ConsignmentService {
   checkVehicleNo(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/CheckVehicleNo', req, this.httpOptions);
   }
+    checkTruckNo(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/CheckTruckNo', req, this.httpOptions);
+  }
+
+
+  getTruckMasterMandatoryYN(): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetTruckMasterMandatoryYN', null, this.httpOptions);
+  } 
   getLrInnerGridList(req: Requestmodel): Observable<Consignmentmodel> {
     return this.httpClient.post<Consignmentmodel>(Constants.API_ENDPOINT + 'Consignment/GetLrInnerGridList', req, this.httpOptions);
   }
