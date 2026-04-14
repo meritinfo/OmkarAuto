@@ -1,5 +1,6 @@
 ﻿using Consignment.Models;
 using Consignment.Repository;
+using DocumentFormat.OpenXml.Office2016.Excel;
 using Shared.Models;
 
 namespace Consignment.Business
@@ -22,6 +23,10 @@ namespace Consignment.Business
         public async Task<DprVehiPlacedModel> GetVehicleDetails(RequestModel request)
         {
             return await dprRepository.GetVehicleDetails(request);
+        }
+        public async Task<ResponseModel> ChkVehicleApiDataDprYN()
+        {
+            return await dprRepository.ChkVehicleApiDataDprYN();
         }
         public async Task<List<DropDownListModel>> GetBrokerList()
         {
