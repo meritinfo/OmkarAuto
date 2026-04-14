@@ -58,6 +58,7 @@ modifiedBy: string = "";
   step1Active = true;
   step2Active = false;
   step3Active = false;
+  truckMasterMandatoryYN: string = "";
   
   @ViewChild('photo1Input', {
     static: true
@@ -146,6 +147,7 @@ modifiedBy: string = "";
     this.getBrokerList();
     this.getEmpList();  
     this.getYearList(); 
+    this.getTruckMasterMandatoryYN();
 
     this.sharedService.loading = false;
     
@@ -446,6 +448,13 @@ modifiedBy: string = "";
       this.branchList = res;
     });
   }
+
+    getTruckMasterMandatoryYN(): void {
+    this.lrentryService.getTruckMasterMandatoryYN().subscribe((res) => {
+      this.truckMasterMandatoryYN = res.message;
+    });
+  }
+
 
   getLocationList(): void {
     this.commonService.getLocationList().subscribe((res) => {
@@ -881,14 +890,33 @@ modifiedBy: string = "";
   }
 
   chkTruckNo(e: any) {
+    debugger
     var selectedData = this.formUser.getRawValue();
+   
     if (selectedData.truckNo==""){
       this.toastrService.warning("Vehicle No should not be Blank");
       return;
     }
+    if(this.truckMasterMandatoryYN=="Y")
+    {
+
+      this.requestmodel.strRequest = selectedData.truckNo.toString().toUpperCase();
+      this.lrentryService.checkTruckNo(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          //ignore
+        }
+       else{
+          this.toastrService.warning(this.responseDetails.message);
+          this.formUser.patchValue({
+            truckNo:"",
+          });   
+        }
+      });
+    }
     if(selectedData.ownTruckYN)
     {
-      this.requestmodel.strRequest = selectedData.truckNo;
+       this.requestmodel.strRequest = selectedData.truckNo.toString().toUpperCase();
       this.lrentryService.checkVehicleNo(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {

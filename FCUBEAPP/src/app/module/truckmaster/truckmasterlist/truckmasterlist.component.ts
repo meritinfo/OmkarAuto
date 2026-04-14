@@ -1,11 +1,7 @@
 import { Component ,ViewChild } from '@angular/core';
-
-
-
 import { Router } from '@angular/router';
 import { Filtermodel } from 'src/app/models/filtermodel';
 import { Truckmasterlistmodel  } from 'src/app/models/truckmasterlistmodel';
-import { Usermodel } from 'src/app/models/usermodel';
 import { Truckmastermodel } from 'src/app/models/truckmastermodel';
 import { TruckMasterService } from 'src/app/services/truckmaster.service';
 import { DataTableDirective } from 'angular-datatables';
@@ -26,20 +22,19 @@ export class TruckmasterlistComponent {
     sortColumn: 'groupname',
     sortOrder: 'asc',
     search: ''
-
-}
-editMode = false;
+  }
+  editMode = false;
   createStatus = false;
   editStatus = false;
   createmode= true;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
-constructor(private truckmasterService: TruckMasterService, private route: Router) {
-}
+  dashboard: string ="";
+  constructor(private truckmasterService: TruckMasterService, private route: Router) {
+  }
 
-ngOnInit(): void {
-  var menuData = sessionStorage.getItem('menulist')?.toString();
+  ngOnInit(): void {
+    var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
@@ -53,83 +48,76 @@ ngOnInit(): void {
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     
-  this.truckmasterService.clearTruckMasterDetails();
-  this.truckmstlist();
-}
-truckmstlist(){
-  this.dtOptions = {
-    pagingType: 'full_numbers',
-    pageLength: 50,
-    serverSide: true,
-    processing: true,
-    searching: false,     
-        language: {
-          zeroRecords: ''
-        }, 
-    ajax: (dataTablesParameters: any, callback) => {
+    this.truckmasterService.clearTruckMasterDetails();
+    this.truckmstlist();
+  }
+
+  truckmstlist(){
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 50,
+      serverSide: true,
+      processing: true,
+      searching: false,     
+      language: {
+        zeroRecords: ''
+      }, 
+      ajax: (dataTablesParameters: any, callback) => {
       // Filter setting
-      this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
-      this.filter.pageSize = dataTablesParameters.length;
-      this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
-      this.filter.sortOrder = dataTablesParameters.order[0].dir;
-      this.filter.search = dataTablesParameters.search.value;
-      this.truckmasterService.getTruckMasterList(this.filter)
-        .subscribe(resp => {
-         this.allTruckMaster = resp;
+        this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
+        this.filter.pageSize = dataTablesParameters.length;
+        this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
+        this.filter.sortOrder = dataTablesParameters.order[0].dir;
+        
+        this.truckmasterService.getTruckMasterList(this.filter).subscribe(resp => {
+          this.allTruckMaster = resp;
           callback({
             recordsTotal: resp.pageMetaData.totalCount,
             recordsFiltered: resp.pageMetaData.totalCount,
             data: []
           });
         });
-    },
-    columns: [
-      {
-        title: 'Action',
-        data: 'truckID',
       },
-     {
-      title: 'Truck No ',
-      data: 'truckNo',
-    },
-    {
-      title: 'Regn Date ',
-      data: 'regnDate',
-    },
-    {
-      title: 'Owner Name ',
-      data: 'ownerName',
-    },
-    {
-      title: 'Phone No ',
-      data: 'phoneNo',
-    },
-   
-   
-  
-  
-   
-  ],
-};
-}
-//Open new destination add screen
-addTruckmaster(): void {
-this.route.navigate(['/addtruckmaster']);
-}
+      columns: [
+        {
+          title: 'Action',
+          data: 'truckID',
+        },
+        {
+          title: 'Truck No ',
+          data: 'truckNo',
+        },
+        {
+          title: 'Regn Date ',
+          data: 'regnDate',
+        },
+        {
+          title: 'Owner Name ',
+          data: 'ownerName',
+        },
+        {
+          title: 'Phone No ',
+          data: 'phoneNo',
+        },   
+      ],
+    };
+  }
 
+  addTruckmaster(): void {
+    this.route.navigate(['/addtruckmaster']);
+  }
 
-//Open user details screen
-getTruckMasterDetails(Destination: Truckmastermodel): void {
-this.truckmasterService.setTruckMasterDetails(Destination);
-this.route.navigate(['/truckmasteredit']);
-}
+  getTruckMasterDetails(Destination: Truckmastermodel): void {
+    this.truckmasterService.setTruckMasterDetails(Destination);
+    this.route.navigate(['/truckmasteredit']);
+  }
 
 }
 

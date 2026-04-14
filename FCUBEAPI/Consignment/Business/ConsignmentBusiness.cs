@@ -159,5 +159,16 @@ namespace Consignment.Business
         {
             return await consignmentRepository.CheckDuplicateDocNo(req);
         }
+
+
+        public async Task<ResponseModel> CheckTruckNo(RequestModel request)
+        {
+            return await consignmentRepository.CheckTruckNo(request);
+        }
+         public async Task<ResponseModel> GetTruckMasterMandatoryYN()
+        {
+            return await consignmentRepository.GetTruckMasterMandatoryYN();
+
+        }
     }
 }
