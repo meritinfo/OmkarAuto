@@ -226,5 +226,61 @@ namespace FleetMasters.Repository
             return truckMasterList;
         }
 
+        public async Task<TruckMasterModel> GetTruckMasterDetails(RequestModel request)
+        {
+            TruckMasterModel truck = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@TruckNo", request.strRequest)
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleDetails", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        truck.TruckNo          = Convert.ToString(dataSet.Tables[0].Rows[0]["TruckNo"]);
+                        truck.RegnDate         = Convert.ToString(dataSet.Tables[0].Rows[0]["RegnDate"]);
+                        truck.OwnerName        = Convert.ToString(dataSet.Tables[0].Rows[0]["OwnerName"]);
+                        truck.OwnerType        = Convert.ToString(dataSet.Tables[0].Rows[0]["OwnerType"]);
+                        truck.OwnMarket        = Convert.ToString(dataSet.Tables[0].Rows[0]["OwnMarket"]);
+                        truck.PanNo            = Convert.ToString(dataSet.Tables[0].Rows[0]["PanNo"]);
+                        truck.AadharNo         = Convert.ToString(dataSet.Tables[0].Rows[0]["AadharNo"]);
+                        truck.AadharLinkedYN   = Convert.ToString(dataSet.Tables[0].Rows[0]["AadharLinkedYN"]);
+                        truck.PanValidYN       = Convert.ToString(dataSet.Tables[0].Rows[0]["PanValidYN"]);
+                        truck.ItFiledYN        = Convert.ToString(dataSet.Tables[0].Rows[0]["ItFiledYN"]);
+                        truck.Address1         = Convert.ToString(dataSet.Tables[0].Rows[0]["Address1"]);
+                        truck.Address2         = Convert.ToString(dataSet.Tables[0].Rows[0]["Address2"]);
+                        truck.Address3         = Convert.ToString(dataSet.Tables[0].Rows[0]["Address3"]);
+                        truck.Address4         = Convert.ToString(dataSet.Tables[0].Rows[0]["Address4"]);
+                        truck.StateCode        = Convert.ToString(dataSet.Tables[0].Rows[0]["StateCode"]);
+                        truck.PinCode          = Convert.ToString(dataSet.Tables[0].Rows[0]["PinCode"]);
+                        truck.PhoneNo          = Convert.ToString(dataSet.Tables[0].Rows[0]["PhoneNo"]);
+                        truck.ContactName      = Convert.ToString(dataSet.Tables[0].Rows[0]["ContactName"]);
+                        truck.MobileNo         = Convert.ToString(dataSet.Tables[0].Rows[0]["MobileNo"]);
+                        truck.ChasisNo         = Convert.ToString(dataSet.Tables[0].Rows[0]["ChasisNo"]);
+                        truck.EngineNo         = Convert.ToString(dataSet.Tables[0].Rows[0]["EngineNo"]);
+                        truck.VehCode          = Convert.ToString(dataSet.Tables[0].Rows[0]["VehCode"]);
+                        truck.Model            = Convert.ToString(dataSet.Tables[0].Rows[0]["Model"]);
+                        truck.MfrName          = Convert.ToString(dataSet.Tables[0].Rows[0]["MfrName"]);
+                        truck.LadenWt          = Convert.ToString(dataSet.Tables[0].Rows[0]["LadenWt"]);
+                        truck.UnLadenWt        = Convert.ToString(dataSet.Tables[0].Rows[0]["UnLadenWt"]);
+                        truck.InsuranceDt      = Convert.ToString(dataSet.Tables[0].Rows[0]["InsuranceDt"]);
+                        truck.NationalPermitDt = Convert.ToString(dataSet.Tables[0].Rows[0]["NationalPermitDt"]);
+                        truck.FitnessDt        = Convert.ToString(dataSet.Tables[0].Rows[0]["FitnessDt"]);
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return truck;
+        }
+
+
     }
 }

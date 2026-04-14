@@ -41,7 +41,8 @@ export class DprvehiplacedService {
   }  
   getDprVehiPlacedDetails(filter: Requestmodel): Observable<Dprvehiplacedmodel> {
     return this.httpClient.post<Dprvehiplacedmodel>(Constants.API_ENDPOINT + 'Consignment/GetDprVehiPlacedDetails', filter, this.httpOptions);
-  }  
+  }
+ 
   getDprVehiInnerGridList(filter: Requestmodel): Observable<Dprvehiplacedmodel> {
     return this.httpClient.post<Dprvehiplacedmodel>(Constants.API_ENDPOINT + 'Consignment/GetDprVehiInnerGridList', filter, this.httpOptions);
   }    

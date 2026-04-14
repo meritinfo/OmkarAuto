@@ -14,5 +14,9 @@ namespace FleetMasters.Business
         Task<TruckMasterList> GetTruckMasterList(PageRequest request);
         Task<ResponseModel> TruckMasterDelete(RequestModel requestModel);
 
+        Task<TruckMasterModel> GetTruckMasterDetails(RequestModel request);
+        
+    
+        
     }
 }
