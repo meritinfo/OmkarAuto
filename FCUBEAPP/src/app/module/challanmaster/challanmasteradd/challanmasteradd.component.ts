@@ -959,7 +959,7 @@ export class ChallanmasteraddComponent {
         }
       });
     }
-    else if(this.vehicleApiDataYN=="N")
+    else if(this.vehicleApiDataYN=="Y")
      {
       this.requestmodel.strRequest = selectedData.truckNo;
       this.requestmodel.strRequest1 = this.loggedInUserID;
