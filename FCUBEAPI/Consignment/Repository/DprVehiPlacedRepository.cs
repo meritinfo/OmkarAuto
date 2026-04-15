@@ -170,6 +170,7 @@ namespace Consignment.Repository
             }
             return dprVehi;
         }
+
         public async Task<DprVehiPlacedModel> GetVehicleDetails(RequestModel request)
         {
             DprVehiPlacedModel dprVehi = new();

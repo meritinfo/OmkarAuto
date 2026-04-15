@@ -13,6 +13,8 @@ import { Requestmodel } from 'src/app/models/requestmodel';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { Constants } from 'src/app/common/constants';
 import { Panvalidapiresultmodel } from 'src/app/models/panvalidapiresultmodel';
+import { DprvehiplacedService } from 'src/app/services/dprvehiplaced.service';
+import { TruckMasterService } from 'src/app/services/truckmaster.service';
 
 @Component({
   selector: 'app-challanmasteradd',
@@ -36,9 +38,9 @@ export class ChallanmasteraddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
-createdBy : string = "";
-modifiedBy: string = "";
+ dashboard: string ="";
+ createdBy : string = "";
+ modifiedBy: string = "";
   branchList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
   vehicalList: Dropdownmodel[] = [];
@@ -59,6 +61,7 @@ modifiedBy: string = "";
   step2Active = false;
   step3Active = false;
   truckMasterMandatoryYN: string = "";
+  vehicleApiDataYN: string = "";
   
   @ViewChild('photo1Input', {
     static: true
@@ -76,9 +79,9 @@ modifiedBy: string = "";
     static: true
   }) truckDriverImageInput: any;
 
-  constructor(private route: Router, private formBuilder: FormBuilder,
+  constructor(private route: Router, private formBuilder: FormBuilder, private dprvehiplacedService: DprvehiplacedService,
     private challanmodel: Challanmastermodel, private challanmasterService: ChallanmasterService,
-    private commonService: CommonService,  private sharedService: SharedService,
+    private commonService: CommonService,  private sharedService: SharedService, private truckMasterService: TruckMasterService,
     private lrentryService: ConsignmentService,
     private toastrService: ToastrService, private requestmodel: Requestmodel) {
     this.challanmodel = new Challanmastermodel();
@@ -148,6 +151,7 @@ modifiedBy: string = "";
     this.getEmpList();  
     this.getYearList(); 
     this.getTruckMasterMandatoryYN();
+    this.getVehicleApiDataYN();
 
     this.sharedService.loading = false;
     
@@ -449,11 +453,18 @@ modifiedBy: string = "";
     });
   }
 
-    getTruckMasterMandatoryYN(): void {
+  getTruckMasterMandatoryYN(): void {
     this.lrentryService.getTruckMasterMandatoryYN().subscribe((res) => {
       this.truckMasterMandatoryYN = res.message;
     });
   }
+
+  getVehicleApiDataYN(): void {
+      this.lrentryService.getVehicleApiDataYN().subscribe((res) => {
+      this.vehicleApiDataYN = res.message;
+    });
+  }
+
 
 
   getLocationList(): void {
@@ -904,7 +915,29 @@ modifiedBy: string = "";
       this.lrentryService.checkTruckNo(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
-          //ignore
+          this.truckMasterService.getTruckMstDetails(this.requestmodel).subscribe((res) => {
+         var chlDate = new Date(selectedData.challanDateTime);
+        var panValid = res.panValidYN=="Y"?"Y":"";
+        var aadharLinked = res.aadharLinkedYN=="Y"?"Y":"";
+        var permitDate = new Date(this.commonService.formatDate(res.nationalPermitDt));
+        var clrchlDate=chlDate.setHours(0, 0, 0, 0);
+        var clrpermitDate=permitDate.setHours(0, 0, 0, 0);
+        var permitValid = clrchlDate<clrpermitDate ? "Y" : "";
+        this.formUser.patchValue({
+            vehicleOwnerName : res.ownerName.toString(),
+            vehicleOwnerPanNo: res.panNo.toString(),
+            vehicleOwnerAdd1 : res.address1.toString(),
+            vehicleOwnerAdd2 : res.address2.toString(),
+            vehicleOwnerMblNo: res.mobileNo.toString(),
+            permitValid      : permitValid,
+            panValid         : panValid,
+            aadharLinked     : aadharLinked,
+            vehicleModel     : res.model.toString(),
+            engineNo         : res.engineNo.toString(),
+            chassisNo        : res.chasisNo.toString(),
+          });            
+        });
+        
         }
        else{
           this.toastrService.warning(this.responseDetails.message);
@@ -914,6 +947,21 @@ modifiedBy: string = "";
         }
       });
     }
+     if(this.vehicleApiDataYN=="N")
+     {
+     this.requestmodel.strRequest = selectedData.truckNo;
+      this.requestmodel.strRequest1 = this.loggedInUserID;
+      this.dprvehiplacedService.getVehicleDetails(this.requestmodel).subscribe((res) => {
+        this.formUser.patchValue({
+           vehicleOwnerName  : res.vehOwnerName.toString(),
+            vehicleOwnerPanNo: res.ownerPan.toString(),
+            vehicleOwnerAdd1 : res.vehAdd1.toString(),
+            vehicleOwnerAdd2 : res.vehAdd2.toString(),
+            vehicleOwnerMblNo: res.vehOwnerMobile.toString(),
+        });         
+      });
+    
+     }
     if(selectedData.ownTruckYN)
     {
        this.requestmodel.strRequest = selectedData.truckNo.toString().toUpperCase();

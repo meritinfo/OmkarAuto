@@ -331,6 +331,20 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetVehicleApiDataYN")]
+        public async Task<IActionResult> GetVehicleApiDataYN()
+        {
+            try
+            {
+                var result = await consignmentBusiness.GetVehicleApiDataYN();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
 
 
@@ -977,6 +991,8 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
 
         [HttpPost("GetVehicleDetails")]
         public async Task<IActionResult> GetVehicleDetails(RequestModel request)

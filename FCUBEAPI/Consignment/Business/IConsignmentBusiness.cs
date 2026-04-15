@@ -45,5 +45,8 @@ namespace Consignment.Business
         Task<ResponseModel> CheckTruckNo(RequestModel request);
      
         Task<ResponseModel> GetTruckMasterMandatoryYN();
+
+        Task<ResponseModel> GetVehicleApiDataYN();
+        
     }
 }

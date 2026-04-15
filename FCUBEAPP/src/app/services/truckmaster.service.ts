@@ -41,4 +41,8 @@ export class TruckMasterService {
   getTruckMasterList(filter: Filtermodel): Observable<Truckmasterlistmodel> {
     return this.httpClient.post<Truckmasterlistmodel>(Constants.API_ENDPOINT + 'FleetMasters/GetTruckMasterList', filter, this.httpOptions);
   }
+
+    getTruckMstDetails(filter: Requestmodel): Observable<Truckmastermodel> {
+      return this.httpClient.post<Truckmastermodel>(Constants.API_ENDPOINT + 'FleetMasters/GetTruckMasterDetails', filter, this.httpOptions);
+    } 
 }

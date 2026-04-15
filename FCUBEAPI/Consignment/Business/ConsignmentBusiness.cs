@@ -170,5 +170,11 @@ namespace Consignment.Business
             return await consignmentRepository.GetTruckMasterMandatoryYN();
 
         }
+
+        public async Task<ResponseModel> GetVehicleApiDataYN()
+        {
+            return await consignmentRepository.GetVehicleApiDataYN();
+
+        }
     }
 }
