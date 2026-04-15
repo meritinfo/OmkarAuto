@@ -5,8 +5,12 @@ import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Truckmastermodel } from 'src/app/models/truckmastermodel';
 import { CommonService } from 'src/app/services/common.service';
+import { ChallanmasterService } from 'src/app/services/challanmaster.service';
 import { TruckMasterService } from 'src/app/services/truckmaster.service';
 import { ToastrService } from 'ngx-toastr';
+import { Reportmodel } from 'src/app/models/reportmodel';
+import { Panvalidapiresultmodel } from 'src/app/models/panvalidapiresultmodel';
+import { Constants } from 'src/app/common/constants';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { SharedService } from 'src/app/services/shared.service';
 
@@ -38,13 +42,13 @@ export class AddtruckmasterComponent {
   @ViewChild('attachmentInput1', {
     static: true
   }) attachmentInput1: any;
-
+  panDetails = new Panvalidapiresultmodel();
   selectedTruckMasterDetail = new Truckmastermodel();
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private vehicleTypeGroupMasterModel: Truckmastermodel, 
     private vehicleTypeGroupMasterService: TruckMasterService, 
-    private sharedService : SharedService,
+    private sharedService : SharedService,private challanmasterService: ChallanmasterService,
     private commonService: CommonService,private toastrService: ToastrService,
     private requestmodel:Requestmodel) {
     this.vehicleTypeGroupMasterModel = new Truckmastermodel();
@@ -130,6 +134,8 @@ export class AddtruckmasterComponent {
     });
 
     if (this.selectedTruckMasterDetail.truckID != '') {
+       this.attachmentInput = Constants.UploadFolderPath + 'truck/' + this.selectedTruckMasterDetail.rcUpload;
+      this.attachmentInput1 = Constants.UploadFolderPath + 'truck/' + this.selectedTruckMasterDetail.otherUpload;
       this.formUser.patchValue(this.selectedTruckMasterDetail);
       this.formUser.controls['truckNo'].disable();
       this.formUser.patchValue({
@@ -143,7 +149,117 @@ export class AddtruckmasterComponent {
       })
     }
   }
+  onOwnerPanChange() {
+    var selectedData = this.formUser.getRawValue();
+    var pan = selectedData.panNo ;
+    var regexp = new RegExp('^[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}$')
+    var test = regexp.test(pan);
+    var tdsPct = 0;
 
+    if(pan == "PANNOTREQD"){
+      tdsPct = 0;
+    }
+    else if(pan == "NOVALIDPAN"){
+      tdsPct = 20;
+    }
+    else if(pan.length!=10){
+      this.toastrService.warning("PAN No should be 10 characters...!");
+      return;
+    }
+    else if(!test){
+      this.toastrService.warning("Invalid PAN No...!");
+      return;
+    }
+    else
+    {
+      this.requestmodel.strRequest = pan;
+      this.requestmodel.strRequest1 = selectedData.challanDateTime;
+      
+      this.challanmasterService.getPanwiseTdsRate(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          this.formUser.patchValue({
+            panValidYN:"Y",
+            tdsPct: parseFloat(this.responseDetails.message)
+          });  
+          this.formUser.patchValue({
+            panValidYN: "Y",
+          //  tdsPct: parseFloat(this.responseDetails.message),
+          //  declarationYN:"",
+          });   
+        }
+        else
+        {
+          this.requestmodel.strRequest = this.branch;      
+          this.challanmasterService.getBranchPanApiUse(this.requestmodel).subscribe((res: Responsemodel) => {
+            if(res.status){
+               this.formUser.controls["panValidYN"].disable();  
+               this.formUser.controls["aadharLinkedYN"].disable();  
+              // this.formUser.controls["declarationYN"].disable();  
+              // this.formUser.controls["tdsPct"].disable(); 
+                           
+              this.requestmodel.strRequest = pan;
+              this.requestmodel.strRequest1 = this.loggedInUserID;
+              
+              this.challanmasterService.getPanValidDetails(this.requestmodel).subscribe((res: Panvalidapiresultmodel) => {
+                this.panDetails = res;
+                var panValidYN = "N";
+                var aadharLinkedYN = "N";
+                if (this.panDetails.result.number!="") { 
+                  if(this.panDetails.result.isValid){
+                    panValidYN= "Y";
+                  }
+                  if(this.panDetails.result.aadhaarSeedingStatusCode=="Y"){
+                    aadharLinkedYN="Y";
+                  }             
+                  tdsPct = 20;
+
+                  this.requestmodel.strRequest = pan.substring(3, 4) ;
+                  this.requestmodel.strRequest1 = selectedData.challanDateTime;
+
+                  this.challanmasterService.getLhPanTdsRate(this.requestmodel).subscribe((res: Reportmodel) => {
+                    if(panValidYN == "Y"){
+                      tdsPct = parseFloat(res.filterStr);
+                      if(res.filterStr1=="Y" && aadharLinkedYN!="Y")//Aadhar
+                      {
+                        tdsPct = 20;
+                      }
+                    }
+                    else{                
+                      tdsPct = 20;
+                    }
+                    if(res.filterStr2=='Y'){  
+                     // this.formUser.controls["declarationYN"].enable();   
+                    }
+                    this.formUser.patchValue({
+                      panValidYN: panValidYN,
+                      aadharLinkedYN: aadharLinkedYN,
+                      // vehicleOwnerName: this.panDetails.result.name,
+                      // tdsPct: tdsPct,
+                      // declarationYN: "",
+                    });   
+                  });  
+                }
+                else{          
+                  this.toastrService.warning("Invalid PAN No...!");
+                  return;
+                }            
+              });      
+            }
+            else
+            {                 
+              this.formUser.controls["panValidYN"].enable();  
+              this.formUser.controls["aadharLinkedYN"].enable();  
+             // this.formUser.controls["tdsPct"].enable();
+            //  this.formUser.controls["declarationYN"].enable(); 
+            }
+          });
+        }
+      });
+    }
+
+
+  }
   getStateList(): void {
     this.commonService.getStateList().subscribe((res) => {
       this.stateList = res;
@@ -231,7 +347,7 @@ export class AddtruckmasterComponent {
     
     let formData = new FormData();
     formData.append('attach', this.attachmentInput.nativeElement.files[0]);
-    formData.append('attach', this.attachmentInput1.nativeElement.files[1]);
+    formData.append('attach1', this.attachmentInput1.nativeElement.files[0]);
     formData.append('datadetails', JSON.stringify(this.vehicleTypeGroupMasterModel));
 
     this.vehicleTypeGroupMasterService.truckmasterSubmitted(formData).subscribe((res: Responsemodel) => {

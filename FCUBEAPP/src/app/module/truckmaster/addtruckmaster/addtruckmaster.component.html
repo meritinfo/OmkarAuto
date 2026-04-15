@@ -64,7 +64,7 @@
                               <div class="col-sm-2">
                                  <label for="horizontal-firstname-input" 
                                     class="col-form-label"> Pan No  </label>                             
-                                 <input type="text"  uppercaseonly autofocus="autofocus" 
+                                 <input type="text"  uppercaseonly autofocus="autofocus" (change)="onOwnerPanChange()"
                                     class="form-control"  formControlName="panNo"
                                  [ngClass]=>
                               </div>                         
@@ -254,11 +254,15 @@
                                  <label for="formDLFile" class="col-form-label">Rc Upload</label>
                                  <input #attachmentInput class="form-control" type="file"
                                     id="formAttFile"  >
+                                     <a *ngIf="selectedTruckMasterDetail.rcUpload" target="_blank"
+                                                            href={{attachmentInput}}>Download</a>
                               </div>
                               <div class="col-sm-4">
                                  <label for="otherUpload" class="col-form-label">Other Upload</label>
                                  <input #attachmentInput1 class="form-control" type="file"
-                                 id="formAttFile"  >
+                                 id="formAttFileoth"  >
+                                  <a *ngIf="selectedTruckMasterDetail.otherUpload" target="_blank"
+                                                            href={{attachmentInput1}}>Download</a>
                               </div>
                            </div>
                            <div class="row">

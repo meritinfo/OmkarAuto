@@ -193,6 +193,7 @@ namespace FleetMasters.Repository
                                 InsuranceDt = Convert.ToString(dataSet.Tables[0].Rows[i]["InsuranceDt"]),
                                 NationalPermitDt = Convert.ToString(dataSet.Tables[0].Rows[i]["NationalPermitDt"]),
                                 FitnessDt = Convert.ToString(dataSet.Tables[0].Rows[i]["FitnessDt"]),
+                                RcUpload = Convert.ToString(dataSet.Tables[0].Rows[i]["RcUpload"]),
                                 OtherUpload = Convert.ToString(dataSet.Tables[0].Rows[i]["OtherUpload"]),
                                 IsActive = Convert.ToString(dataSet.Tables[0].Rows[i]["IsActive"]),
                                 InActiveDate = Convert.ToString(dataSet.Tables[0].Rows[i]["InActiveDate"]),

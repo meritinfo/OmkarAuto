@@ -1,5 +1,6 @@
 import { Component ,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Filtermodel } from 'src/app/models/filtermodel';
 import { Truckmasterlistmodel  } from 'src/app/models/truckmasterlistmodel';
 import { Truckmastermodel } from 'src/app/models/truckmastermodel';
@@ -27,10 +28,11 @@ export class TruckmasterlistComponent {
   createStatus = false;
   editStatus = false;
   createmode= true;
+  formFilter!     : FormGroup;
   deleteStatus = false;
   viewStatus = false; 
   dashboard: string ="";
-  constructor(private truckmasterService: TruckMasterService, private route: Router) {
+  constructor( private formBuilder: FormBuilder,private truckmasterService: TruckMasterService, private route: Router) {
   }
 
   ngOnInit(): void {
@@ -57,6 +59,9 @@ export class TruckmasterlistComponent {
     
     this.truckmasterService.clearTruckMasterDetails();
     this.truckmstlist();
+    this.formFilter = this.formBuilder.group({
+          truckNo: new FormControl('',),
+        });
   }
 
   truckmstlist(){
@@ -119,6 +124,20 @@ export class TruckmasterlistComponent {
     this.route.navigate(['/truckmasteredit']);
   }
 
+  search(): void {
+    var selectedDataVal = this.formFilter.getRawValue();
+    // if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+    //   this.toastrService.warning("From Date and To Date should be with in Fin Year");
+    //   return;
+    // }
+    this.filter.search = selectedDataVal.truckNo;
+   // this.filter.sortOrder = this.branch,  
+   // this.filter.search = this.year;    
+    this.truckmstlist();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload(); 
+     });
+  }
 }
 
 
