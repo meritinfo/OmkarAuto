@@ -909,8 +909,8 @@ export class ChallanmasteraddComponent {
     if(selectedData.ownTruckYN)
     {
        this.requestmodel.strRequest = selectedData.truckNo.toString().toUpperCase();
-      this.lrentryService.checkVehicleNo(this.requestmodel).subscribe((res: Responsemodel) => {
-        this.responseDetails = res;
+       this.lrentryService.checkVehicleNo(this.requestmodel).subscribe((res: Responsemodel) => {
+       this.responseDetails = res;
         if (this.responseDetails.status) {
           //ignore
         }
@@ -951,7 +951,7 @@ export class ChallanmasteraddComponent {
         });            
         });
         }
-       else{
+        else{
           this.toastrService.warning(this.responseDetails.message);
           this.formUser.patchValue({
             truckNo:"",
@@ -961,17 +961,17 @@ export class ChallanmasteraddComponent {
     }
     else if(this.vehicleApiDataYN=="N")
      {
-     this.requestmodel.strRequest = selectedData.truckNo;
+      this.requestmodel.strRequest = selectedData.truckNo;
       this.requestmodel.strRequest1 = this.loggedInUserID;
       this.dprvehiplacedService.getVehicleDetails(this.requestmodel).subscribe((res) => {
-        this.formUser.patchValue({
+      this.formUser.patchValue({
           vehicleOwnerName  : res.vehOwnerName.toString(),
           vehicleOwnerPanNo: res.ownerPan.toString(),
           vehicleOwnerAdd1 : res.vehAdd1.toString(),
           vehicleOwnerAdd2 : res.vehAdd2.toString(),
           vehicleOwnerMblNo: res.vehOwnerMobile.toString(),
-        });         
-      });
+      });         
+    });
     }
   }
    
