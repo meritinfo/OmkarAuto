@@ -901,9 +901,7 @@ export class ChallanmasteraddComponent {
   }
 
   chkTruckNo(e: any) {
-    debugger
     var selectedData = this.formUser.getRawValue();
-   
     if (selectedData.truckNo==""){
       this.toastrService.warning("Vehicle No should not be Blank");
       return;
@@ -926,13 +924,12 @@ export class ChallanmasteraddComponent {
     }   
     if(this.truckMasterMandatoryYN=="Y")
     {
-
       this.requestmodel.strRequest = selectedData.truckNo.toString().toUpperCase();
       this.lrentryService.checkTruckNo(this.requestmodel).subscribe((res: Responsemodel) => {
-        this.responseDetails = res;
-        if (this.responseDetails.status) {
-          this.truckMasterService.getTruckMstDetails(this.requestmodel).subscribe((res) => {
-         var chlDate = new Date(selectedData.challanDateTime);
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        this.truckMasterService.getTruckMstDetails(this.requestmodel).subscribe((res) => {
+        var chlDate = new Date(selectedData.challanDateTime);
         var panValid = res.panValidYN=="Y"?"Y":"";
         var aadharLinked = res.aadharLinkedYN=="Y"?"Y":"";
         var permitDate = new Date(this.commonService.formatDate(res.nationalPermitDt));
@@ -940,20 +937,19 @@ export class ChallanmasteraddComponent {
         var clrpermitDate=permitDate.setHours(0, 0, 0, 0);
         var permitValid = clrchlDate<clrpermitDate ? "Y" : "";
         this.formUser.patchValue({
-            vehicleOwnerName : res.ownerName.toString(),
-            vehicleOwnerPanNo: res.panNo.toString(),
-            vehicleOwnerAdd1 : res.address1.toString(),
-            vehicleOwnerAdd2 : res.address2.toString(),
-            vehicleOwnerMblNo: res.mobileNo.toString(),
-            permitValid      : permitValid,
-            panValid         : panValid,
-            aadharLinked     : aadharLinked,
-            vehicleModel     : res.model.toString(),
-            engineNo         : res.engineNo.toString(),
-            chassisNo        : res.chasisNo.toString(),
-          });            
+        vehicleOwnerName : res.ownerName.toString(),
+        vehicleOwnerPanNo: res.panNo.toString(),
+        vehicleOwnerAdd1 : res.address1.toString(),
+        vehicleOwnerAdd2 : res.address2.toString(),
+        vehicleOwnerMblNo: res.mobileNo.toString(),
+        permitValid      : permitValid,
+        panValid         : panValid,
+        aadharLinked     : aadharLinked,
+        vehicleModel     : res.model.toString(),
+        engineNo         : res.engineNo.toString(),
+        chassisNo        : res.chasisNo.toString(),
+        });            
         });
-        
         }
        else{
           this.toastrService.warning(this.responseDetails.message);
@@ -969,16 +965,14 @@ export class ChallanmasteraddComponent {
       this.requestmodel.strRequest1 = this.loggedInUserID;
       this.dprvehiplacedService.getVehicleDetails(this.requestmodel).subscribe((res) => {
         this.formUser.patchValue({
-           vehicleOwnerName  : res.vehOwnerName.toString(),
-            vehicleOwnerPanNo: res.ownerPan.toString(),
-            vehicleOwnerAdd1 : res.vehAdd1.toString(),
-            vehicleOwnerAdd2 : res.vehAdd2.toString(),
-            vehicleOwnerMblNo: res.vehOwnerMobile.toString(),
+          vehicleOwnerName  : res.vehOwnerName.toString(),
+          vehicleOwnerPanNo: res.ownerPan.toString(),
+          vehicleOwnerAdd1 : res.vehAdd1.toString(),
+          vehicleOwnerAdd2 : res.vehAdd2.toString(),
+          vehicleOwnerMblNo: res.vehOwnerMobile.toString(),
         });         
       });
-    
-     }
-    
+    }
   }
    
   
