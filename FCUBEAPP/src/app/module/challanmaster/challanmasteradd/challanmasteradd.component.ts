@@ -731,7 +731,7 @@ export class ChallanmasteraddComponent {
       this.toastrService.warning("Invalid PAN No...!");
       return;
     }
-    else if(this.panValidationYn=="Y")
+    else 
     {
       this.requestmodel.strRequest = pan;
       this.requestmodel.strRequest1 = selectedData.challanDateTime;
@@ -739,17 +739,23 @@ export class ChallanmasteraddComponent {
       this.challanmasterService.getPanwiseTdsRate(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
-          this.formUser.patchValue({
-            panValid:"Y",
-            tdsPct: parseFloat(this.responseDetails.message)
-          });  
+          if(this.tdsCalcYn=="Y")
+          {
+            this.formUser.patchValue({           
+              tdsPct: parseFloat(this.responseDetails.message)
+            });
+          }
+          else{
+            this.formUser.patchValue({           
+              tdsPct: "0"
+            });
+          }
           this.formUser.patchValue({
             panValid: "Y",
-            tdsPct: parseFloat(this.responseDetails.message),
             declarationYN:"",
           });   
         }
-        else
+        else if(this.panValidationYn=="Y")
         {
           this.requestmodel.strRequest = this.branch;      
           this.challanmasterService.getBranchPanApiUse(this.requestmodel).subscribe((res: Responsemodel) => {
@@ -792,6 +798,17 @@ export class ChallanmasteraddComponent {
                     if(res.filterStr2=='Y'){  
                       this.formUser.controls["declarationYN"].enable();   
                     }
+                     if(this.tdsCalcYn=="Y")
+                     {
+                       this.formUser.patchValue({           
+                         tdsPct: tdsPct
+                       });
+                     }
+                     else{
+                       this.formUser.patchValue({           
+                         tdsPct: "0"
+                       });
+                     }
                     this.formUser.patchValue({
                       panValid: panValid,
                       aadharLinked: aadharLinked,
@@ -1165,9 +1182,19 @@ export class ChallanmasteraddComponent {
         });    
   
         if(this.selectedChallanDetails.vehicleOwnerPanNo==""){
-          this.formUser.patchValue({        
+          if(this.tdsCalcYn=="Y")
+          {
+            this.formUser.patchValue({        
             tdsPct: 20
-          });  
+          }); 
+          }
+          else{
+             this.formUser.patchValue({        
+            tdsPct: "0"
+          }); 
+          }
+          
+           
         }
         else{
           setTimeout(() => {
