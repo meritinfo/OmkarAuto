@@ -1054,7 +1054,7 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("GetTdsCalcYn")]
-        public async Task<IActionResult> GetTdsCalcYn()
+        public async  Task<IActionResult> GetTdsCalcYn()
         {
             try
             {
