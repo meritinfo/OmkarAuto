@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DprvehiplacedService } from 'src/app/services/dprvehiplaced.service';
+import { ConsignmentService } from 'src/app/services/consignment.service';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Truckmastermodel } from 'src/app/models/truckmastermodel';
@@ -30,11 +32,15 @@ export class AddtruckmasterComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
+    editMode = false;
   viewStatus = false; 
   dashboard: string ="";
   year: string = '';
   loginDate: string = '';
   branch:string = '';
+  truckMasterMandatoryYN: string = "";
+  vehicleApiDataYN: string = "";
+  
 
   @ViewChild('attachmentInput', {
     static: true
@@ -46,8 +52,8 @@ export class AddtruckmasterComponent {
   selectedTruckMasterDetail = new Truckmastermodel();
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
-    private vehicleTypeGroupMasterModel: Truckmastermodel, 
-    private vehicleTypeGroupMasterService: TruckMasterService, 
+    private vehicleTypeGroupMasterModel: Truckmastermodel, private dprvehiplacedService: DprvehiplacedService,
+    private vehicleTypeGroupMasterService: TruckMasterService,  private lrentryService: ConsignmentService,
     private sharedService : SharedService,private challanmasterService: ChallanmasterService,
     private commonService: CommonService,private toastrService: ToastrService,
     private requestmodel:Requestmodel) {
@@ -95,6 +101,8 @@ export class AddtruckmasterComponent {
     }
 
     this.getStateList();
+    this.getTruckMasterMandatoryYN();
+    this.getVehicleApiDataYN();
     this.selectedTruckMasterDetail = this.vehicleTypeGroupMasterService.getTruckMasterDetails();
     this.formUser = this.formBuilder.group({
       truckNo: new FormControl('',[Validators.required]),
@@ -147,6 +155,7 @@ export class AddtruckmasterComponent {
         inActiveDate: this.commonService.formatDate(this.selectedTruckMasterDetail.inActiveDate),
         ownerType:this.selectedTruckMasterDetail.ownerType   
       })
+        this.editMode = true;
     }
   }
   onOwnerPanChange() {
@@ -266,11 +275,107 @@ export class AddtruckmasterComponent {
     });
   }
 
+
+
   get f() { return this.formUser.controls; }
 
   exit(): void {
     this.route.navigate(['/mkttrucklist']);
   }
+
+  chkTruckNo(e: any) {
+ 
+    var selectedData = this.formUser.getRawValue();
+   
+    if (selectedData.truckNo==""){
+      this.toastrService.warning("Vehicle No should not be Blank");
+      return;
+    }
+    // if(this.truckMasterMandatoryYN=="Y")
+    // {
+
+    //   this.requestmodel.strRequest = selectedData.truckNo.toString().toUpperCase();
+    //   this.lrentryService.checkTruckNo(this.requestmodel).subscribe((res: Responsemodel) => {
+    //     this.responseDetails = res;
+    //     if (this.responseDetails.status) {
+    //       this.vehicleTypeGroupMasterService.getTruckMstDetails(this.requestmodel).subscribe((res) => {
+    //      var chlDate = new Date(selectedData.challanDateTime);
+    //     var panValid = res.panValidYN=="Y"?"Y":"";
+    //     var aadharLinked = res.aadharLinkedYN=="Y"?"Y":"";
+    //     var permitDate = new Date(this.commonService.formatDate(res.nationalPermitDt));
+    //     var clrchlDate=chlDate.setHours(0, 0, 0, 0);
+    //     var clrpermitDate=permitDate.setHours(0, 0, 0, 0);
+    //     var permitValid = clrchlDate<clrpermitDate ? "Y" : "";
+    //     this.formUser.patchValue({
+    //         ownerName : res.ownerName.toString(),
+    //         panNo: res.panNo.toString(),
+    //         address1 : res.address1.toString(),
+    //         address2 : res.address2.toString(),
+    //         mobileNo: res.mobileNo.toString(),
+    //        // permitValid      : permitValid,
+    //         panValidYN         : panValid,
+    //         aadharLinkedYN     : aadharLinked,
+    //         model     : res.model.toString(),
+    //         engineNo         : res.engineNo.toString(),
+    //         chassisNo        : res.chasisNo.toString(),
+    //       });            
+    //     });
+        
+    //     }
+    //    else{
+    //       this.toastrService.warning(this.responseDetails.message);
+    //       this.formUser.patchValue({
+    //         truckNo:"",
+    //       });   
+    //     }
+    //   });
+    // }
+     if(this.vehicleApiDataYN=="Y")
+     {
+     this.requestmodel.strRequest = selectedData.truckNo;
+      this.requestmodel.strRequest1 = this.loggedInUserID;
+      this.dprvehiplacedService.getVehicleDetails(this.requestmodel).subscribe((res) => {
+        this.formUser.patchValue({
+           ownerName  : res.vehOwnerName.toString(),
+            panNo: res.ownerPan.toString(),
+            address1 : res.vehAdd1.toString(),
+            address2 : res.vehAdd2.toString(),
+            mobileNo: res.vehOwnerMobile.toString(),
+        });         
+      });
+    
+     }
+    if(selectedData.ownTruckYN)
+    {
+       this.requestmodel.strRequest = selectedData.truckNo.toString().toUpperCase();
+      this.lrentryService.checkVehicleNo(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          //ignore
+        }
+       else{
+          this.toastrService.warning(this.responseDetails.message);
+          this.formUser.patchValue({
+            truckNo:"",
+          });   
+        }
+      });
+    }   
+  }
+
+  
+  getTruckMasterMandatoryYN(): void {
+    this.lrentryService.getTruckMasterMandatoryYN().subscribe((res) => {
+      this.truckMasterMandatoryYN = res.message;
+    });
+  }
+
+  getVehicleApiDataYN(): void {
+      this.lrentryService.getVehicleApiDataYN().subscribe((res) => {
+      this.vehicleApiDataYN = res.message;
+    });
+  }
+
 
   truckMasterDelete(): void {
     if(this.selectedTruckMasterDetail.truckID != '' ){
