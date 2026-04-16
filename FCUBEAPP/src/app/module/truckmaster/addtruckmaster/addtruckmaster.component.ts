@@ -40,6 +40,7 @@ export class AddtruckmasterComponent {
   branch:string = '';
   truckMasterMandatoryYN: string = "";
   vehicleApiDataYN: string = "";
+   panValidationYn: string = "";
   
 
   @ViewChild('attachmentInput', {
@@ -103,6 +104,7 @@ export class AddtruckmasterComponent {
     this.getStateList();
     this.getTruckMasterMandatoryYN();
     this.getVehicleApiDataYN();
+    this.getPanValidationYn();
     this.selectedTruckMasterDetail = this.vehicleTypeGroupMasterService.getTruckMasterDetails();
     this.formUser = this.formBuilder.group({
       truckNo: new FormControl('',[Validators.required]),
@@ -199,6 +201,8 @@ export class AddtruckmasterComponent {
         }
         else
         {
+         if(this.panValidationYn=="Y")
+        {
           this.requestmodel.strRequest = this.branch;      
           this.challanmasterService.getBranchPanApiUse(this.requestmodel).subscribe((res: Responsemodel) => {
             if(res.status){
@@ -264,6 +268,7 @@ export class AddtruckmasterComponent {
             }
           });
         }
+        }
       });
     }
 
@@ -274,6 +279,12 @@ export class AddtruckmasterComponent {
       this.stateList = res;
     });
   }
+   getPanValidationYn(): void {
+    this.lrentryService.getPanValidationYn().subscribe((res) => {
+      this.panValidationYn = res.message;
+    });
+  }
+
 
 
 
