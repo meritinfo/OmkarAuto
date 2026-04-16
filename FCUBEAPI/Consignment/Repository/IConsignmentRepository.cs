@@ -46,5 +46,7 @@ namespace Consignment.Repository
         Task<ResponseModel> GetTruckMasterMandatoryYN();
 
         Task<ResponseModel> GetVehicleApiDataYN();
+        Task<ResponseModel> GetPanValidationYn();
+        Task<ResponseModel> GetTdsCalcYn();
     }
 }

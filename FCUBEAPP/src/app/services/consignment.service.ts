@@ -83,7 +83,13 @@ export class ConsignmentService {
   getTruckMasterMandatoryYN(): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetTruckMasterMandatoryYN', null, this.httpOptions);
   } 
+  getPanValidationYn(): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetPanValidationYn', null, this.httpOptions);
+  } 
 
+  getTdsCalcYn(): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetTdsCalcYn', null, this.httpOptions);
+  }
   getVehicleApiDataYN(): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetVehicleApiDataYN', null, this.httpOptions);
   } 

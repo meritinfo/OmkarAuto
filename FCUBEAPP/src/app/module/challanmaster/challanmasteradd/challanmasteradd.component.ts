@@ -61,7 +61,9 @@ export class ChallanmasteraddComponent {
   step2Active = false;
   step3Active = false;
   truckMasterMandatoryYN: string = "";
+  panValidationYn: string = "";
   vehicleApiDataYN: string = "";
+  tdsCalcYn: string = "";
   
   @ViewChild('photo1Input', {
     static: true
@@ -151,7 +153,9 @@ export class ChallanmasteraddComponent {
     this.getEmpList();  
     this.getYearList(); 
     this.getTruckMasterMandatoryYN();
+    this.getPanValidationYn();
     this.getVehicleApiDataYN();
+    this.getTdsCalcYn();
 
     this.sharedService.loading = false;
     
@@ -459,6 +463,19 @@ export class ChallanmasteraddComponent {
     });
   }
 
+  getPanValidationYn(): void {
+    this.lrentryService.getPanValidationYn().subscribe((res) => {
+      this.panValidationYn = res.message;
+    });
+  }
+
+  getTdsCalcYn(): void {
+    this.lrentryService.getTdsCalcYn().subscribe((res) => {
+      this.tdsCalcYn = res.message;
+    });
+  }
+
+
   getVehicleApiDataYN(): void {
       this.lrentryService.getVehicleApiDataYN().subscribe((res) => {
       this.vehicleApiDataYN = res.message;
@@ -714,7 +731,7 @@ export class ChallanmasteraddComponent {
       this.toastrService.warning("Invalid PAN No...!");
       return;
     }
-    else
+    else if(this.panValidationYn=="Y")
     {
       this.requestmodel.strRequest = pan;
       this.requestmodel.strRequest1 = selectedData.challanDateTime;

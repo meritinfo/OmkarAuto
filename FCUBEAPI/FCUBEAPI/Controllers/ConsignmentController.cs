@@ -1038,6 +1038,34 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetPanValidationYn")]
+        public async Task<IActionResult> GetPanValidationYn()
+        {
+            try
+            {
+                var result = await consignmentBusiness.GetPanValidationYn();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetTdsCalcYn")]
+        public async Task<IActionResult> GetTdsCalcYn()
+        {
+            try
+            {
+                var result = await consignmentBusiness.GetTdsCalcYn();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetBrokerListLLP")]
         public async Task<IActionResult> GetBrokerListLLP()
         {
