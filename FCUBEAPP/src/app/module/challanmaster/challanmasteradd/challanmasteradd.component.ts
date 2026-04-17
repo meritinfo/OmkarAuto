@@ -31,6 +31,8 @@ export class ChallanmasteraddComponent {
   maxDate: string = '';
   minDate: string = '';
   seriesDoc: string = "";
+  declMand : string = "";
+
 
   formSubmitted = false;
   editMode = false;
@@ -38,9 +40,9 @@ export class ChallanmasteraddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
- dashboard: string ="";
- createdBy : string = "";
- modifiedBy: string = "";
+  dashboard: string ="";
+  createdBy : string = "";
+  modifiedBy: string = "";
   branchList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
   vehicalList: Dropdownmodel[] = [];
@@ -104,20 +106,20 @@ export class ChallanmasteraddComponent {
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     
     var userData3 = sessionStorage.getItem('userBranch')?.toString();
     if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
       this.branch = userData3;
     }
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -152,6 +154,7 @@ export class ChallanmasteraddComponent {
     this.getBrokerList();
     this.getEmpList();  
     this.getYearList(); 
+    this.chkMandatoryRequired();
     this.getTruckMasterMandatoryYN();
     this.getPanValidationYn();
     this.getVehicleApiDataYN();
@@ -456,6 +459,17 @@ export class ChallanmasteraddComponent {
       this.branchList = res;
     });
   }
+  
+  chkMandatoryRequired(){
+    this.requestmodel.strRequest = "challanadd";
+    this.requestmodel.strRequest1 = "photo1";
+    this.commonService.chkMandatoryRequired(this.requestmodel).subscribe((res) => {
+      if(res.status){
+        this.declMand = res.message
+      }
+    });
+  }
+
 
   getTruckMasterMandatoryYN(): void {
     this.lrentryService.getTruckMasterMandatoryYN().subscribe((res) => {
@@ -1300,7 +1314,7 @@ export class ChallanmasteraddComponent {
       this.toastrService.warning(" Broker is Invalid");
       return;
     }
-    if(selectedDataValue.declarationYN){
+    if(selectedDataValue.declarationYN && this.declMand == "Y"){
       if(this.photo1Input.nativeElement.files[0]?this.photo1Input.nativeElement.files[0]:""!="" || 
         this.selectedChallanDetails.photo1?this.selectedChallanDetails.photo1:""!=""){
         //ignore
