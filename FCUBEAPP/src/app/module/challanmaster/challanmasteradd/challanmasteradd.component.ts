@@ -964,6 +964,7 @@ export class ChallanmasteraddComponent {
         if (this.responseDetails.status) {
           this.truckMasterService.getTruckMstDetails(this.requestmodel).subscribe((res) => {
             var chlDate = new Date(selectedData.challanDateTime);
+            this.formUser.controls["truckNo"].disable();  
             var panValid = res.panValidYN=="Y"?"Y":"";
             var aadharLinked = res.aadharLinkedYN=="Y"?"Y":"";
             var permitDate = new Date(this.commonService.formatDate(res.nationalPermitDt));
@@ -987,6 +988,7 @@ export class ChallanmasteraddComponent {
         }
         else{
           this.toastrService.warning(this.responseDetails.message);
+          
           this.formUser.patchValue({
             truckNo:"",
           });   
@@ -997,6 +999,7 @@ export class ChallanmasteraddComponent {
     {
       this.requestmodel.strRequest = selectedData.truckNo;
       this.requestmodel.strRequest1 = this.loggedInUserID;
+       this.formUser.controls["truckNo"].disable();  
       this.dprvehiplacedService.getVehicleDetails(this.requestmodel).subscribe((res) => {
         this.formUser.patchValue({
             vehicleOwnerName  : res.vehOwnerName.toString(),
@@ -1008,7 +1011,9 @@ export class ChallanmasteraddComponent {
       });
     }
   }
-   
+
+
+
   
   calculateTotalAmount(){
     var subTotal = 0;
