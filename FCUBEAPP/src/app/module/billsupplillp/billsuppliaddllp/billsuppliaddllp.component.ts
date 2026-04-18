@@ -507,21 +507,22 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
     }
   }
 
-  FreightTotal(i: number, e: any)
-   {
-    debugger
-     const amt = parseFloat(e.target.value) || 0;
-     this.formVehArray.at(i).patchValue({
-     freightAmt: amt
-   });
-   this.totalFreight = 0;
-   for (let i = 0; i < this.formVehArray.length; i++) {
-     const control = this.formVehArray.at(i);
-     const amt = parseFloat(control.get('freightAmt')?.value) || 0;
-     this.totalFreight += amt;
-   }
+FreightTotal(i: number, e: any) {
+  const amt = parseFloat(e.target.value) || 0;
+  const roundedAmt = parseFloat(amt.toFixed(2));
+  this.formVehArray.at(i).patchValue({
+    freightAmt: roundedAmt
+  });
+  this.totalFreight = 0;
+  for (let j = 0; j < this.formVehArray.length; j++) {
+    const control = this.formVehArray.at(j);
+    const value = parseFloat(control.get('freightAmt')?.value) || 0;
+
+    this.totalFreight += value;
   }
 
+  this.totalFreight = parseFloat(this.totalFreight.toFixed(2));
+}
   
   getVehicleNoList(): void {
     this.commonService.getVehicleIdList().subscribe((res) => {
