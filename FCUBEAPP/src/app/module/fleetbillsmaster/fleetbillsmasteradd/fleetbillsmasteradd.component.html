@@ -1,0 +1,369 @@
+
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Fleet Bill Entry (Main)</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <form (keydown.enter)="$event.preventDefault()"[formGroup]="formBillsMaster">
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">                             
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Bill Station</label><span style="color: red"> * </span>
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="billingStation" 
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['billingStation'].invalid) }">
+                                                    <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+                                                        {{branch.dataName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Bill No.</label><span style="color: red"> * </span>
+                                                <input autoclose="false" type="text" numbersonly autocomplete="off" class="form-control"
+                                                formControlName="billNo" (change)="onBillNoChange()" 
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['billNo'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Bill Date</label><span style="color: red"> * </span>
+                                                <input autoclose="false" type="date" min="{{minDate}}" max="{{maxDate}}"
+                                                    class="form-control" formControlName="billDate" 
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['billDate'].invalid) }">
+                                            </div>
+                                        </div>                                          
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Due Date</label><span style="color: red"> * </span>
+                                                <input autoclose="false" type="date" min="{{maxDate}}" max="{{duedate}}"
+                                                    class="form-control" formControlName="dueDate" (change)="onDueDtChange($event)" 
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['dueDate'].invalid) }">
+                                            </div>
+                                        </div> 
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Party</label><span style="color: red"> * </span>
+                                                <div class="ng-autocomplete">
+                                                    <ng-autocomplete [data]="partyList" 
+                                                        formControlName="partyCode"
+                                                        [searchKeyword]="keywordLocation" 
+                                                        (selected)='selectEvent($event)'
+                                                        (inputChanged)='onChangeSearch($event)'
+                                                        (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                                                        [notFoundTemplate]="notFoundTemplate"
+                                                        [customFilter]="startWithFilter"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['partyCode'].invalid) }">
+                                                    </ng-autocomplete>
+                                                    <ng-template #itemTemplate let-item>
+                                                        <a [innerHTML]="item.dataName"></a>
+                                                    </ng-template>
+                                                    <ng-template #notFoundTemplate let-notFound>
+                                                        <div [innerHTML]="notFound"></div>
+                                                    </ng-template>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Party Location</label><span style="color: red"> * </span>                                                 
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="partyGstLocation" 
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['partyGstLocation'].invalid) }">
+                                                    <option *ngFor="let branch of partyLocationList" value={{branch.dataId}}>
+                                                        {{branch.dataName}}
+                                                    </option>
+                                                </select>
+                                            </div>    
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">GST By</label><span style="color: red"> * </span>                                            
+                                                <select id="formrow-inputState" class="form-control"
+                                                    formControlName="gstBy"  
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['gstBy'].invalid) }">
+                                                    <option *ngFor="let dl of gstByList" value={{dl.dataId}}>
+                                                        {{dl.dataName}}
+                                                    </option>          
+                                                </select>
+                                            </div>
+                                        </div>    
+                                    </div>
+                                    <div class="row">  
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Collection Branch</label><span style="color: red"> * </span>                                                                                             
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="collBranch" 
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['collBranch'].invalid) }">
+                                                    <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+                                                        {{branch.dataName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Sac Hsn</label>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="sacHsn" >
+                                            </div>
+                                        </div>     
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <button (click)="searchStatement()" *ngIf="showButton"
+                                                    class="btn btn-primary w-md mt-4">Show</button>
+                                            </div>
+                                        </div>                               
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <button (click)="append()" *ngIf="appendMode"
+                                                    class="btn btn-primary w-md mt-4">Append</button>
+                                            </div>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                                <!-- end card body -->
+                            </div>
+                            <!-- end card -->
+                        </div>
+                    </div>
+                </div>
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4"></h4>
+                                    <div class="overflow-x">
+                                    <table class="table table-bordered dt-responsive nowrap w-100 no-border-table half-grid-width">
+                                        <tr>
+                                            <td colspan="3">
+                                                <div class="mb-3">
+                                                    <input type="checkbox"  name="select" 
+                                                         class="form-check-input" *ngIf="!editMode"
+                                                        (change)="selectAll($event)" formControlName="selectedAll">  
+                                                        <label for="formrow-inputCity">  SELECT ALL</label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="formrow-inputCity"></label></th>
+                                            <th><label for="formrow-inputZip">Load Branch</label></th>
+                                            <th><label for="formrow-inputCity">Load Memo No.</label></th>
+                                            <th><label for="formrow-inputZip">Load Date</label></th>
+                                            <th><label for="formrow-inputZip">From Place</label></th>
+                                            <th><label for="formrow-inputZip">To Place </label></th>
+                                            <th><label for="formrow-inputZip">Rate </label></th>
+                                            <th><label for="formrow-inputZip">Hire Amount</label></th>
+                             
+                                            <!-- <th><label for="formrow-inputZip">Sub Total</label></th> -->
+                                        </tr>
+                                        <tr  
+                                            *ngFor="let arrayData of billsmastersearchlistmodel.billsMasterSearchList; let i = index">
+                                            <td>
+                                                <input type="checkbox"   class="form-check-input-small" 
+                                                (change)="selectedData(i, $event)" [checked]="arrayData.selected" >                                            
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.bookingPlace}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.gcNoteNo}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.bookingDate}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.fromPlace}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.toPlace}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.rateRs}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.freightRs}}
+                                                </div>
+                                            </td>
+                                            <!-- <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.statisticalRs}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.fovRs}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.doorCollRs}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.handlingRs}}
+                                                </div>
+                                            </td>                                           
+                                            <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.loadingDetnRs}}
+                                                </div>
+                                            </td>                                            
+                                            <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.enrouteRs}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.miscRs}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.doorDelRs}}
+                                                </div>
+                                            </td>                                            
+                                            <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.unLoadingRs}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.unLoadingDetnRs}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.extrasRS}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.othersRs}}
+                                                </div>
+                                            </td> -->
+                                            <!-- <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.subTotalRs}}
+                                                </div>
+                                            </td> -->
+                                        </tr>
+                                    </table>
+                                    </div>                               
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity"> Total Hire Amount</label><span style="color: red"> * </span>
+                                                <input autoclose="false" type="text" class="form-control" 
+                                                    formControlName="totalFreight"  
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['totalFreight'].invalid) }">
+                                            </div>
+                                        </div>
+                                      
+                                    
+                                   
+                                     
+                                    
+                                    
+                                    </div>
+                                   
+                                    <div class="row">
+                                                                       
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Bill Remarks</label>
+                                                <input uppercaseonly autoclose="false" type="text" class="form-control"
+                                                    formControlName="billRemarks"  >
+                                            </div>
+                                        </div>                                                                                                               
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label style="color: red"> 
+                                                    <h6>Fin Doc Series: {{ this.seriesDoc}} </h6> 
+                                                </label>                                                 
+                                            </div>
+                                        </div>
+                                    </div>                                    
+                                    <div class="row">                         
+                                        <div class="col-lg-5">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Enclosed Docs</label>
+                                                <input uppercaseonly autoclose="false" type="text" 
+                                                    class="form-control"
+                                                    formControlName="enlcosedDocs"  >
+                                            </div>
+                                        </div>     
+                                    </div>
+                                    <div class="row">                    
+                                        <div class="col-lg-5">
+                                            <div class="mb-3">
+                                                <label style="color: blue"> 
+                                                    <h6><b>Created By:</b>  {{ this.createdBy }} </h6> 
+                                                </label>                                                 
+                                            </div>
+                                        </div>                   
+                                        <div class="col-lg-5">
+                                            <div class="mb-3">
+                                                <label style="color: blue"> 
+                                                    <h6><b>Modified By:</b> {{ this.modifiedBy}} </h6> 
+                                                </label>                                                 
+                                            </div>
+                                        </div>
+                                        <!-- end col -->
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                            <button class="btn btn-primary w-md" 
+                            *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
+                                (click)="saveBillsDetails()">Save</button>
+                            <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                (click)="billsMasterDelete()">Delete</button>                           
+                            <button class="btn btn-secondary w-md  m-2" 
+                                (click)="exit()">Exit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- end row -->
+            <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>

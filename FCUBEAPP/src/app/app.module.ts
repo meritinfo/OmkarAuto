@@ -591,6 +591,8 @@ import { DocumentmasteraddComponent } from './module/documentmaster/documentmast
 import { DocumentmasterlistComponent } from './module/documentmaster/documentmasterlist/documentmasterlist.component';
 import { Documentmastermodel } from 'src/app/models/documentmastermodel';
 import { LrwisecostinglprptComponent } from './module/lrwisecostinglprpt/lrwisecostinglprpt.component';
+import { FleetBillsmasterlistComponent } from './module/fleetbillsmaster/fleetbillsmasterlist/fleetbillsmasterlist.component';
+import { FleetBillsmasteraddComponent } from './module/fleetbillsmaster/fleetbillsmasteradd/fleetbillsmasteradd.component';
 
 
 
@@ -783,7 +785,7 @@ import { LrwisecostinglprptComponent } from './module/lrwisecostinglprpt/lrwisec
     LegderdetaillistComponent, CashbookdetailComponent, BankbookdetailComponent, TrailballistComponent, 
     BpclcardrechargereqlistComponent, BpclcardrechargereqaddComponent, BpclcardrechargeappComponent, 
     BpclcardreturnlistComponent, BpclcardreturnaddComponent, LrrealisationstatusrptComponent,
-    ConsignmentlocalfrtupdateComponent,
+    ConsignmentlocalfrtupdateComponent,FleetBillsmasterlistComponent,
    
     CreditnoteentrylistComponent,
     CreditnoteentryaddComponent,
@@ -791,7 +793,8 @@ import { LrwisecostinglprptComponent } from './module/lrwisecostinglprpt/lrwisec
     DebitnotelistComponent,
     DocumentmasteraddComponent,
     DocumentmasterlistComponent,
-    LrwisecostinglprptComponent
+    LrwisecostinglprptComponent,
+    FleetBillsmasteraddComponent
    
     
   ],
@@ -871,7 +874,7 @@ import { LrwisecostinglprptComponent } from './module/lrwisecostinglprpt/lrwisec
     Unbilledprovisionmstmodel,Menureportaccessrightsmodel,Driversalaryentrymodel,Creditnoteentrymodel,
     Vendorpmtmodel,Fleetgroupmastermodel,Vehiclemfrmastermodel,Vehiclefincompmastermodel,Vehicleflttypemstmodel,
     Rechargerequestmodel,Rechargerequestlist,Pltransfermodel,Fleetgodownmastermodel,Godownstockmodel,Ledgerdetaillistmodel,Fleetcardreturntransfermodel,
-    Fleetcardmasterlistmodel
+    Fleetcardmasterlistmodel,
   ],
   bootstrap: [AppComponent]
 })

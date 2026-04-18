@@ -337,8 +337,8 @@ namespace FCUBEAPI
             services.AddScoped<IDebitNoteEntryRepository, DebitNoteEntryRepository>();
             services.AddScoped<IDocumentMasterBusiness, DocumentMasterBusiness>();
             services.AddScoped<IDocumentMasterRepository, DocumentMasterRepository>();
-
-
+            services.AddScoped<IFleetBillsMasterBusiness, FleetBillsMasterBusiness>();
+            services.AddScoped<IFleetBillsMasterRepository, FleetBillsMasterRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.RequireHttpsMetadata = false;

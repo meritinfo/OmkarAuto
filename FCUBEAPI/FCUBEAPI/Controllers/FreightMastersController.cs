@@ -27,6 +27,7 @@ namespace FCUBEAPI.Controllers
         readonly IProductMasterBusiness productMasterBusiness;
         readonly IClassificationMasterBusiness classificationMasterBusiness;
         readonly IBillsMasterBusiness billsMasterBusiness;
+        readonly IFleetBillsMasterBusiness fleetbillsMasterBusiness;
         readonly IBillsTypeBusiness billsTypeBusiness;
         readonly IRatetypesBusiness ratetypesBusiness;
         readonly IFreightRatesMstBusiness freightRatesMstBusiness;
@@ -67,6 +68,7 @@ namespace FCUBEAPI.Controllers
             IRatetypesBusiness _ratetypesBusiness,
             IClassificationMasterBusiness _classificationMasterBusiness,
             IBillsMasterBusiness _billsMasterBusiness,
+            IFleetBillsMasterBusiness _fleetbillsMasterBusiness,
             IFreightRatesMstBusiness _freightRatesMstBusiness,
             IDistanceMasterFrtBusiness _distanceMasterFrtBusiness,
             IDistanceMasterTripBusiness _distanceMasterTripBusiness,
@@ -96,6 +98,7 @@ namespace FCUBEAPI.Controllers
             productGroupMastersBusiness = _productGroupMasterBusiness;
             productMasterBusiness = _productMasterBusiness;
             billsMasterBusiness = _billsMasterBusiness;
+            fleetbillsMasterBusiness = _fleetbillsMasterBusiness;
             ratetypesBusiness = _ratetypesBusiness;
             classificationMasterBusiness = _classificationMasterBusiness;
             freightRatesMstBusiness = _freightRatesMstBusiness;
@@ -973,6 +976,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetFleetBillsMasterList")]
+        public async Task<IActionResult> GetFleetBillsMasterList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetbillsMasterBusiness.GetBillsMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetBillEnqDetails")]
         public async Task<IActionResult> GetBillEnqDetails(RequestModel req)
         {
@@ -991,6 +1012,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("FleetGetBillEnqDetails")]
+        public async Task<IActionResult> GetFleetBillEnqDetails(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetbillsMasterBusiness.GetBillEnqDetails(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetBillEnqInnerGridList")]
         public async Task<IActionResult> GetMrEnqInnerGridList(RequestModel req)
         {
@@ -1001,6 +1040,24 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await billsMasterBusiness.GetBillEnqInnerGridList(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetFleetBillEnqInnerGridList")]
+        public async Task<IActionResult> GetFleetMrEnqInnerGridList(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetbillsMasterBusiness.GetBillEnqInnerGridList(req);
 
                 return Ok(result);
             }
@@ -1028,8 +1085,8 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("GetBillGsrPdf")]
-        public async Task<IActionResult> GetBillGsrPdf(ReportRequestModel request)
+        [HttpPost("GetFleetBillPdf")]
+        public async Task<IActionResult> GetFleetBillPdf(ReportRequestModel request)
         {
             if (request == null)
             {
@@ -1037,7 +1094,25 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await billsMasterBusiness.GetBillGsrPdf(request);
+                var result = await fleetbillsMasterBusiness.GetBillPdf(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetFleetBillGsrPdf")]
+        public async Task<IActionResult> GetFleetBillGsrPdf(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetbillsMasterBusiness.GetBillGsrPdf(request);
 
                 return Ok(result);
             }
@@ -1056,6 +1131,24 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await billsMasterBusiness.GetBillsMasterSearchList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetFleetBillsMasterSearchList")]
+        public async Task<IActionResult> GetFleetBillsMasterSearchList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetbillsMasterBusiness.GetBillsMasterSearchList(request);
 
                 return Ok(result);
             }
@@ -1083,6 +1176,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetFleetBillPartyGstLocationList")]
+        public async Task<IActionResult> GetFleetBillPartyGstLocationList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetbillsMasterBusiness.GetBillPartyGstLocationList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("CheckDuplicateBillsNo")]
         public async Task<IActionResult> CheckDuplicateBillsNo(BillsMasterModel request)
@@ -1102,9 +1213,8 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        [HttpPost("GetBillTypeSacHsn")]
-        public async Task<IActionResult> GetBillTypeSacHsn(RequestModel request)
+        [HttpPost("CheckFleetDuplicateBillsNo")]
+        public async Task<IActionResult> CheckFleetDuplicateBillsNo(BillsMasterModel request)
         {
             if (request == null)
             {
@@ -1112,7 +1222,26 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await billsMasterBusiness.GetBillTypeSacHsn(request);
+                var result = await fleetbillsMasterBusiness.CheckDuplicateBillsNo(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetFleetBillTypeSacHsn")]
+        public async Task<IActionResult> GetFleetBillTypeSacHsn(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetbillsMasterBusiness.GetBillTypeSacHsn(request);
 
                 return Ok(result);
             }
@@ -1231,6 +1360,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("FleetBillsMasterSave")]
+        public async Task<IActionResult> FleetBillsMasterSave(BillsMasterModel billsMasterModel)
+        {
+            if (billsMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetbillsMasterBusiness.BillsMasterSave(billsMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetBillsInnerGridList")]
         public async Task<IActionResult> GetBillsInnerGridList(RequestModel request)
         {
@@ -1248,6 +1395,23 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetFleetBillsInnerGridList")]
+        public async Task<IActionResult> GetFleetBillsInnerGridList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetbillsMasterBusiness.GetBillsInnerGridList(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("BillsMasterDelete")]
         public async Task<IActionResult> BillsMasterDelete(RequestModel req)
         {
@@ -1258,6 +1422,24 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await billsMasterBusiness.BillsMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("FleetBillsMasterDelete")]
+        public async Task<IActionResult> FleetBillsMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetbillsMasterBusiness.BillsMasterDelete(req);
 
                 return Ok(result);
             }

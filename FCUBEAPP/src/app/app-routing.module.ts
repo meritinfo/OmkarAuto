@@ -123,6 +123,8 @@ import { ClassificationmasterlistComponent } from './module/classificationmaster
 import { ClassificationmasteraddComponent } from './module/classificationmaster/classificationmasteradd/classificationmasteradd.component';
 import { BillsmasterlistComponent } from './module/billsmaster/billsmasterlist/billsmasterlist.component';
 import { BillsmasteraddComponent } from './module/billsmaster/billsmasteradd/billsmasteradd.component';
+import { FleetBillsmasterlistComponent } from './module/fleetbillsmaster/fleetbillsmasterlist/fleetbillsmasterlist.component';
+import { FleetBillsmasteraddComponent } from './module/fleetbillsmaster/fleetbillsmasteradd/fleetbillsmasteradd.component';
 import { AddtransportmasterComponent } from './module/transportmaster/addtransportmaster/addtransportmaster.component';
 import { TransportmasterlistComponent } from './module/transportmaster/transportmasterlist/transportmasterlist.component';
 import { ChallanmasterlistComponent } from './module/challanmaster/challanmasterlist/challanmasterlist.component';
@@ -570,6 +572,9 @@ const routes: Routes = [
   { path: 'billstatementlist', component:  BillsmasterlistComponent },
   { path: 'billsmasteradd', component:  BillsmasteraddComponent },
   { path: 'billsmasteredit', component:  BillsmasteraddComponent },
+  { path: 'fleetbill', component:  FleetBillsmasterlistComponent },
+  { path: 'fleetbillsmasteradd', component:  FleetBillsmasteraddComponent },
+  { path: 'fleetbillsmasteredit', component:  FleetBillsmasteraddComponent },
   { path: 'delacklist', component:  DeliveryackpodlistComponent },
   { path: 'delackadd', component:  DeliveryackpodaddComponent },
   { path: 'delackedit', component:  DeliveryackpodaddComponent },

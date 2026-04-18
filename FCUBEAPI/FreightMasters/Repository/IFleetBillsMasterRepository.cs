@@ -1,0 +1,28 @@
+﻿using FreightMasters.Models;
+using Shared.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace FreightMasters.Repository
+{
+    public interface IFleetBillsMasterRepository
+    {
+        Task<BillsListModel> GetBillsMasterList(ReportRequestModel request);
+        Task<BillsMasterSearchListModel> GetBillsInnerGridList(RequestModel request);
+        Task<ResponseModel> BillsMasterSave(BillsMasterModel challanModel);
+        Task<ResponseModel> BillsMasterDelete(RequestModel requestModel);
+        Task<ResponseModel> LrBillUpdate(RequestModel reqmodel);
+        Task<BillsMasterSearchListModel> GetBillsMasterSearchList(RequestModel request);
+        Task<List<DropDownListModel>> GetBillPartyGstLocationList(RequestModel requestModel);
+        Task<ResponseModel> CheckDuplicateBillsNo(BillsMasterModel requestModel);
+        Task<ResponseModel> GetBillTypeSacHsn(RequestModel requestModel);
+        Task<ResponseModel> GetBillPdf(ReportRequestModel request);
+        Task<ResponseModel> GetBillGsrPdf(ReportRequestModel request);
+        Task<BillsMasterModel> GetBillEnqDetails(RequestModel req);
+        Task<BillsMasterModel> GetBillEnqInnerGridList(RequestModel request);
+
+    }
+}
