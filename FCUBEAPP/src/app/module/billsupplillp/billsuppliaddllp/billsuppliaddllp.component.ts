@@ -23,6 +23,7 @@ import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
   styleUrls: ['./billsuppliaddllp.component.css']
 })
 export class BillsuppliaddllpComponent {loggedInUserID: string = '';
+  totalFreight: number = 0;
   year: string = '';
   branch: string = '';
   loginDate: string = '';
@@ -505,6 +506,23 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
     
     }
   }
+
+  FreightTotal(i: number, e: any)
+   {
+    debugger
+     const amt = parseFloat(e.target.value) || 0;
+     this.formVehArray.at(i).patchValue({
+     freightAmt: amt
+   });
+   this.totalFreight = 0;
+   for (let i = 0; i < this.formVehArray.length; i++) {
+     const control = this.formVehArray.at(i);
+     const amt = parseFloat(control.get('freightAmt')?.value) || 0;
+     this.totalFreight += amt;
+   }
+  }
+
+  
   getVehicleNoList(): void {
     this.commonService.getVehicleIdList().subscribe((res) => {
       this.vehicleList = res;

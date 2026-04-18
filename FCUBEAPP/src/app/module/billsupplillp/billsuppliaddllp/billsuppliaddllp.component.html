@@ -432,7 +432,8 @@
                                         </div>  
                                         <div class="ng-untouched ng-pristine ng-valid">
                                             <div class="row">
-                                                <div class="col-lg-12" *ngIf="showButtonAgVeh2">
+                                                <div class="col-lg-12" >
+                                                    <!-- *ngIf="showButtonAgVeh2" -->
                                                     <div class="card">
                                                         <div class="card-body">
                                                             <h4 class="card-title mb-4"></h4>
@@ -476,7 +477,7 @@
                                                                         <td class="col-lg-2">
                                                                             <input decimalonly autocomplete="off" 
                                                                             autoclose="false" class="form-control"
-                                                                                        formControlName="freightAmt" >
+                                                                              (change)="FreightTotal(i, $event)"formControlName="freightAmt" >
                                                                         </td>
                                                                         <td class="col-lg-4">
                                                                             <div class="col-lg-4 details-button">
@@ -488,9 +489,12 @@
                                                                         </td>
                                                                     </div>
                                                                 </tr>
-                                                                <tr>
-                                                                    <td colspan="2">
-
+                                                               <tr>
+                                                                    <td class="col-lg-1">
+                                                                        <h6>Total Freight Amount</h6>
+                                                                       <input decimalonly autocomplete="off" 
+                                                                            autoclose="false" class="form-control"
+                                                                             [value]="totalFreight" disabled >
                                                                     </td>
                                                                 </tr>
                                                             </table>
