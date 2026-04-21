@@ -1013,7 +1013,7 @@ export class ChallanmasteraddComponent {
     {
       this.requestmodel.strRequest = selectedData.truckNo;
       this.requestmodel.strRequest1 = this.loggedInUserID;
-       this.formUser.controls["truckNo"].disable();  
+      this.formUser.controls["truckNo"].disable();  
       this.dprvehiplacedService.getVehicleDetails(this.requestmodel).subscribe((res) => {
         this.formUser.patchValue({
             vehicleOwnerName  : res.vehOwnerName.toString(),
