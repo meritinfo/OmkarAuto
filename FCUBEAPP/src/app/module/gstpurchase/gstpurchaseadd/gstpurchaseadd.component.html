@@ -55,6 +55,7 @@
                                                         [searchKeyword]="keywordLocation"  
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)'
+                                                        (selected)='selectEvent($event)'
                                                         [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"

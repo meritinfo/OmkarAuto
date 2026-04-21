@@ -143,8 +143,6 @@ export class FleetBillsmasteraddComponent implements OnInit {
       collBranch: new FormControl(this.branch,[Validators.required]),
       gstType: new FormControl('NA',[Validators.required]),
       totalFreight: new FormControl('',[Validators.required]),
-     
-      totalGtotal: new FormControl('',[Validators.required]),
       billRemarks: new FormControl('',),
       enlcosedDocs: new FormControl('',),
       gstBy : new FormControl('N',[Validators.required]),
@@ -163,9 +161,6 @@ export class FleetBillsmasteraddComponent implements OnInit {
       //this.formBillsMaster.controls['billNo'].disable();
       this.formBillsMaster.controls['gstBy'].disable();
       this.formBillsMaster.controls['totalFreight'].disable();
-      this.formBillsMaster.controls['totalGtotal'].disable();
-  
-
       if (this.selectedBillsmasterDetails.billsMasterId != '') {
         this.formBillsMaster.patchValue(this.selectedBillsmasterDetails); 
         this.formBillsMaster.patchValue({
@@ -173,21 +168,7 @@ export class FleetBillsmasteraddComponent implements OnInit {
           dueDate:this.commonService.formatDate(this.selectedBillsmasterDetails.dueDate), 
           partyCode :this.partyList.find(e => e.dataId == this.selectedBillsmasterDetails.partyCode),
         })   
-        // if (this.selectedBillsmasterDetails.gstType == "IG") {   
-        //   this.formBillsMaster.controls['sgstPct'].disable();
-        //   this.formBillsMaster.controls['cgstPct'].disable();  
-        //   this.formBillsMaster.controls['igstPct'].enable(); 
-        // }    
-        // else if (this.selectedBillsmasterDetails.gstType == "SC")  {      
-        //   this.formBillsMaster.controls['sgstPct'].enable();
-        //   this.formBillsMaster.controls['cgstPct'].enable();  
-        //   this.formBillsMaster.controls['igstPct'].disable(); 
-        // }
-        // else{
-        //   this.formBillsMaster.controls['sgstPct'].disable();
-        //   this.formBillsMaster.controls['cgstPct'].disable();  
-        //   this.formBillsMaster.controls['igstPct'].disable(); 
-        // }  
+ 
         this.getFinDocDetails(this.selectedBillsmasterDetails.finFtmid);
         this.getBillsMasterInnerGridList();
         this.createdBy = this.selectedBillsmasterDetails.createdBy + " " + this.selectedBillsmasterDetails.createdDate;
@@ -229,24 +210,7 @@ export class FleetBillsmasteraddComponent implements OnInit {
       fromPlace:  ['', []],
       toPlace:  ['', []],
       consignmentid:  ['', []],
-      statistical:  ['', []],
-      fov:  ['', []],
-      doorColl:  ['', []],
-      handling:  ['', []],
-      loadingDetn:  ['', []],
-      enroute:  ['', []],
-      misc:  ['', []],
-      doorDel:  ['', []],
-      unLoading:  ['', []],
-      unLoadingDetnRs:  ['', []],
-      extras:  ['', []],
-      others:  ['', []],
-      subTotal:  ['', []],
-      dedAmt:  ['', []],
       yearId:  ['', []],
-      suppBillDetRemarks:  ['', []],
-      remarks1:  ['', []],
-      remarks2:  ['', []],
       remarks3:  ['', []],
       selected:  ['', []],
     }); 
@@ -510,20 +474,6 @@ export class FleetBillsmasteraddComponent implements OnInit {
   
   calculateTotal() {
     var totalFreight = 0;
-    var totalStatistical = 0;
-    var totalFov = 0;
-    var totalDoorColl = 0;
-    var totalHandling = 0;
-    var totalLoadingDetn = 0;
-    var totalDetention = 0;
-    var totalEnroute = 0;
-    var totalMisc = 0;
-    var totalDoorDel = 0;
-    var totalUnLoading = 0;
-    var totalExtras = 0;
-    var totalOthers = 0;
-    var totalSubTotal = 0;
-    var totalGtotal = 0;
 
     var billlist = this.billsmastersearchlistmodel.billsMasterSearchList
 
@@ -531,15 +481,14 @@ export class FleetBillsmasteraddComponent implements OnInit {
       if (billlist[i].selected) {
         totalFreight      = totalFreight     + (billlist[i].freightRs == ""? 0 : parseFloat(billlist[i].freightRs) );
         
-        totalSubTotal     = totalSubTotal    + (billlist[i].freightRs == ""? 0 : parseFloat(billlist[i].freightRs) );
+       
       }
     }
 
     this.formBillsMaster.patchValue({
       totalFreight      : totalFreight.toFixed(2),
      
-      totalSubTotal     : totalSubTotal.toFixed(2),
-      totalGtotal       : totalGtotal.toFixed(2),
+   
     });
   
   }
@@ -627,15 +576,6 @@ export class FleetBillsmasteraddComponent implements OnInit {
       return;
     } 
     
-    // if(parseFloat(selectedDataValue.totalGtotal) > 0 ){
-    //   //ignore
-    // }
-    // else{
-    //   this.toasterService.warning(" Bill Amount is Invalid");   
-    //   return;
-    // }
-   
-   
     this.formSubmitted = true;
     this.billsmastermodel.billsMasterId = this.selectedBillsmasterDetails.billsMasterId;
     this.billsmastermodel.billingStation = selectedDataValue.billingStation;
@@ -661,7 +601,7 @@ export class FleetBillsmasteraddComponent implements OnInit {
     this.billsmastermodel.totalOthers =  '0';
     this.billsmastermodel.totalUnLoading=  '0';
     this.billsmastermodel.totalSubTotal = selectedDataValue.totalFreight.toString();
-    this.billsmastermodel.gstType = this.btype;
+    this.billsmastermodel.gstType = selectedDataValue.gstType;
     this.billsmastermodel.gstBy = selectedDataValue.gstBy;    
     this.billsmastermodel.totalSgstAmt =  '0';
     this.billsmastermodel.totalCgstAmt =  '0';
