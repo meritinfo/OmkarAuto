@@ -655,7 +655,19 @@ export class GstpurchaseaddComponent {
       refDocNo: ['', []],
     });
   }
-  
+  selectEvent(item: any) {
+    this.formGSTPurchase.patchValue({
+      vendorName: item.dataName
+    })
+    this.requestmodel.strRequest = item.dataId;
+    this.commonService.getVendorDetails(this.requestmodel).subscribe((res) => {
+      this.formGSTPurchase.patchValue({
+        vendorAddress: res.strRequest,
+        vendorGST: res.strRequest1,
+        vendorState: res.strRequest2,
+      })
+    });  
+  }
   onAmtChange(){
     var selectedDataVal= this.formGSTPurchase.getRawValue();
     var selArray= selectedDataVal.arrayList;
@@ -671,26 +683,29 @@ export class GstpurchaseaddComponent {
         totAmount = itemAmt;
         totalItemAmt = totalItemAmt + itemAmt;
 
-        if(selArray[i].sgstPct!=''){
+    
+        if(selArray[i].sgstPct !== '' && Number(selArray[i].sgstPct) > 0){
           sgstAmt = itemAmt * sgstPct / 100;
           totAmount = totAmount + sgstAmt;
           totalSgstAmt = totalSgstAmt + sgstAmt;
           this.formArray.controls[i].get("sgstAmt")?.setValue(sgstAmt.toFixed(2));
         }
-        if(selArray[i].cgstPct!=''){
+       // if(selArray[i].cgstPct!=''){
+        if(selArray[i].cgstPct !== '' && Number(selArray[i].cgstPct) > 0){
           cgstAmt = itemAmt * cgstPct / 100;
           totAmount = totAmount + cgstAmt;
           totalCgstAmt = totalCgstAmt + cgstAmt;
           this.formArray.controls[i].get("cgstAmt")?.setValue(cgstAmt.toFixed(2));
         }
-        if(selArray[i].igstPct!=''){
+        if(selArray[i].igstPct !== '' && Number(selArray[i].igstPct) > 0){
           igstAmt = itemAmt * igstPct / 100;
           totAmount = totAmount + igstAmt;
           totalIgstAmt = totalIgstAmt + igstAmt;
-          this.formArray.controls[i].get("igstAmt")?.setValue(cgstAmt.toFixed(2));
+          this.formArray.controls[i].get("igstAmt")?.setValue(igstAmt.toFixed(2));
         }    
         
-        totalAmount = totalAmount + totAmount + totalSgstAmt + totalCgstAmt + totalIgstAmt;
+       // totalAmount = totalAmount + totAmount + totalSgstAmt + totalCgstAmt + totalIgstAmt;
+       totalAmount=  totalAmount+totAmount ;
         
         this.formArray.controls[i].get("totAmount")?.setValue(totAmount.toFixed(2));
       }

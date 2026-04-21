@@ -473,6 +473,7 @@ namespace FleetTrans.Repository
                     {
                         req.strRequest = Convert.ToString(statusData.Tables[0].Rows[0]["VendorAddress"]);
                         req.strRequest1 = Convert.ToString(statusData.Tables[0].Rows[0]["VendorGstNo"]);
+                        req.strRequest2 = Convert.ToString(statusData.Tables[0].Rows[0]["StateCode"]);
                     }
                 }
             }
