@@ -1233,7 +1233,6 @@ export class ChallanmasteraddComponent {
             this.onOwnerPanChange();
           }, 2000);
         }   
-  
         setTimeout(() => {
           this.calculateTotalAmount();
         }, 2000);
