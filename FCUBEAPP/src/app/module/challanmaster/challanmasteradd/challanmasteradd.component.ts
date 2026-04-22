@@ -1000,13 +1000,13 @@ export class ChallanmasteraddComponent {
             });            
           });
         }
-        else{
+         else{
           this.toastrService.warning(this.responseDetails.message);
-          
           this.formUser.patchValue({
             truckNo:"",
           });   
         }
+       
       });
     }
     else if(this.vehicleApiDataYN=="Y")
@@ -1015,15 +1015,28 @@ export class ChallanmasteraddComponent {
       this.requestmodel.strRequest1 = this.loggedInUserID;
       this.formUser.controls["truckNo"].disable();  
       this.dprvehiplacedService.getVehicleDetails(this.requestmodel).subscribe((res) => {
-        this.formUser.patchValue({
+       if(res.vehOwnerName && res.vehOwnerName !== "")
+        {
+           this.formUser.patchValue({
             vehicleOwnerName  : res.vehOwnerName.toString(),
             vehicleOwnerPanNo: res.ownerPan.toString(),
             vehicleOwnerAdd1 : res.vehAdd1.toString(),
             vehicleOwnerAdd2 : res.vehAdd2.toString(),
             vehicleOwnerMblNo: res.vehOwnerMobile.toString(),
-        });         
+        });  
+        }
+        else{
+          this.toastrService.warning("Entered Truck No Does not Exists in Truck Master");
+          this.formUser.patchValue({
+            truckNo:"",
+          });  
+        }
+              
       });
+      
     }
+    
+      
   }
 
 
