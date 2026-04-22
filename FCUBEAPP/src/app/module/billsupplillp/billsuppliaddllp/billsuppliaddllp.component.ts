@@ -22,8 +22,9 @@ import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
   templateUrl: './billsuppliaddllp.component.html',
   styleUrls: ['./billsuppliaddllp.component.css']
 })
-export class BillsuppliaddllpComponent {loggedInUserID: string = '';
-  totalFreight: number = 0;
+export class BillsuppliaddllpComponent {
+  loggedInUserID: string = '';
+  totFrght: number = 0;
   year: string = '';
   branch: string = '';
   loginDate: string = '';
@@ -507,22 +508,22 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
     }
   }
 
-FreightTotal(i: number, e: any) {
-  const amt = parseFloat(e.target.value) || 0;
-  const roundedAmt = parseFloat(amt.toFixed(2));
-  this.formVehArray.at(i).patchValue({
-    freightAmt: roundedAmt
-  });
-  this.totalFreight = 0;
-  for (let j = 0; j < this.formVehArray.length; j++) {
-    const control = this.formVehArray.at(j);
-    const value = parseFloat(control.get('freightAmt')?.value) || 0;
+  FreightTotal(i: number, e: any) {
+    const amt = parseFloat(e.target.value) || 0;
+    const roundedAmt = parseFloat(amt.toFixed(2));
+    this.formVehArray.at(i).patchValue({
+      freightAmt: roundedAmt
+    });
+    this.totFrght = 0;
+    for (let j = 0; j < this.formVehArray.length; j++) {
+      const control = this.formVehArray.at(j);
+      const value = parseFloat(control.get('freightAmt')?.value) || 0;
 
-    this.totalFreight += value;
+      this.totFrght = this.totFrght  + value;
+    }
+
+    this.totFrght = parseFloat(this.totFrght.toFixed(2));
   }
-
-  this.totalFreight = parseFloat(this.totalFreight.toFixed(2));
-}
   
   getVehicleNoList(): void {
     this.commonService.getVehicleIdList().subscribe((res) => {
@@ -567,13 +568,18 @@ FreightTotal(i: number, e: any) {
     this.requestmodel.strRequest = this.selectedBillsmasterDetails.billsMasterId;
     this.billsMasterService.getBillsVehInnerGridList(this.requestmodel).subscribe((res) => {
      // this.formVehArray.clear();
+      var frt = 0;
       for(let i = 0; i < res.ownvehdata.length; i++) {
         this.formVehArray.push(this.createInitialVehArray());
         this.formVehArray.controls[i].get("vehicleMasterId")?.setValue( this.vehicleList.find(e => e.dataId == res.ownvehdata[i].vehicleMasterId))
         this.formVehArray.controls[i].get("freightAmt")?.setValue(res.ownvehdata[i].freightAmt);
         this.formVehArray.controls[i].get("vehicleMasterId")?.disable();
         this.formVehArray.controls[i].get("freightAmt")?.disable();
+        frt = frt + parseFloat(res.ownvehdata[i].freightAmt);
       }
+      this.formBillsMaster.patchValue({
+        totalFreight : frt.toString()
+      })
     });
   }
 
@@ -946,7 +952,7 @@ FreightTotal(i: number, e: any) {
           'billDetailVehId': '',
           'billsMasterId': '',// this.selectedBillsmasterDetails.billsMasterId,
           'vehicleMasterId': vehlist[i].vehicleMasterId.dataId,
-          'freightAmt': vehlist[i].freightAmt,
+          'freightAmt': vehlist[i].freightAmt.toString(),
         }); 
         frtamt = frtamt + parseFloat(vehlist[i].freightAmt);
       }   
