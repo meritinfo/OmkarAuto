@@ -10,19 +10,11 @@ namespace FreightMasters.Business
 {
     public interface IFleetBillsMasterBusiness
     {
-        Task<BillsListModel> GetBillsMasterList(ReportRequestModel request);
-        Task<BillsMasterSearchListModel> GetBillsInnerGridList(RequestModel request);
-        Task<ResponseModel> BillsMasterSave(BillsMasterModel challanModel);
-        Task<ResponseModel> BillsMasterDelete(RequestModel requestModel);
-        Task<BillsMasterSearchListModel> GetBillsMasterSearchList(RequestModel request);
-        Task<ResponseModel> LrBillUpdate(RequestModel reqmodel);
-        Task<List<DropDownListModel>> GetBillPartyGstLocationList(RequestModel requestModel);
-        Task<ResponseModel> CheckDuplicateBillsNo(BillsMasterModel requestModel);
-        Task<ResponseModel> GetBillTypeSacHsn(RequestModel requestModel);
-        Task<ResponseModel> GetBillPdf(ReportRequestModel request);
-        Task<ResponseModel> GetBillGsrPdf(ReportRequestModel request);
-        Task<BillsMasterModel> GetBillEnqDetails(RequestModel req);
-        Task<BillsMasterModel> GetBillEnqInnerGridList(RequestModel request);
+        Task<BillsListModel> GetFleetBillsMasterList(ReportRequestModel request);
+        Task<BillsMasterSearchListModel> GetFleetBillsInnerGridList(RequestModel request);
+        Task<BillsMasterSearchListModel> GetFleetBillsMasterSearchList(RequestModel request);
+        Task<ResponseModel> GetFleetBillPdf(ReportRequestModel request);
+        Task<ResponseModel> GetFleetBillGsrPdf(ReportRequestModel request);
 
     }
 }

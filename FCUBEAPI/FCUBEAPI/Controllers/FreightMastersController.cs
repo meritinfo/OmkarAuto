@@ -985,7 +985,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await fleetbillsMasterBusiness.GetBillsMasterList(request);
+                var result = await fleetbillsMasterBusiness.GetFleetBillsMasterList(request);
 
                 return Ok(result);
             }
@@ -1012,24 +1012,6 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("FleetGetBillEnqDetails")]
-        public async Task<IActionResult> GetFleetBillEnqDetails(RequestModel req)
-        {
-            if (req == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await fleetbillsMasterBusiness.GetBillEnqDetails(req);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
         [HttpPost("GetBillEnqInnerGridList")]
         public async Task<IActionResult> GetMrEnqInnerGridList(RequestModel req)
         {
@@ -1040,24 +1022,6 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await billsMasterBusiness.GetBillEnqInnerGridList(req);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("GetFleetBillEnqInnerGridList")]
-        public async Task<IActionResult> GetFleetMrEnqInnerGridList(RequestModel req)
-        {
-            if (req == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await fleetbillsMasterBusiness.GetBillEnqInnerGridList(req);
 
                 return Ok(result);
             }
@@ -1094,7 +1058,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await fleetbillsMasterBusiness.GetBillPdf(request);
+                var result = await fleetbillsMasterBusiness.GetFleetBillPdf(request);
 
                 return Ok(result);
             }
@@ -1112,7 +1076,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await fleetbillsMasterBusiness.GetBillGsrPdf(request);
+                var result = await fleetbillsMasterBusiness.GetFleetBillGsrPdf(request);
 
                 return Ok(result);
             }
@@ -1148,7 +1112,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await fleetbillsMasterBusiness.GetBillsMasterSearchList(request);
+                var result = await fleetbillsMasterBusiness.GetFleetBillsMasterSearchList(request);
 
                 return Ok(result);
             }
@@ -1176,24 +1140,6 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("GetFleetBillPartyGstLocationList")]
-        public async Task<IActionResult> GetFleetBillPartyGstLocationList(RequestModel request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await fleetbillsMasterBusiness.GetBillPartyGstLocationList(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
 
         [HttpPost("CheckDuplicateBillsNo")]
         public async Task<IActionResult> CheckDuplicateBillsNo(BillsMasterModel request)
@@ -1213,44 +1159,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("CheckFleetDuplicateBillsNo")]
-        public async Task<IActionResult> CheckFleetDuplicateBillsNo(BillsMasterModel request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await fleetbillsMasterBusiness.CheckDuplicateBillsNo(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpPost("GetFleetBillTypeSacHsn")]
-        public async Task<IActionResult> GetFleetBillTypeSacHsn(RequestModel request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await fleetbillsMasterBusiness.GetBillTypeSacHsn(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
+          
 
         [HttpPost("CheckDuplicateClass")]
         public async Task<IActionResult> CheckDuplicateClass(RequestModel req)
@@ -1360,24 +1269,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("FleetBillsMasterSave")]
-        public async Task<IActionResult> FleetBillsMasterSave(BillsMasterModel billsMasterModel)
-        {
-            if (billsMasterModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await fleetbillsMasterBusiness.BillsMasterSave(billsMasterModel);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+       
         [HttpPost("GetBillsInnerGridList")]
         public async Task<IActionResult> GetBillsInnerGridList(RequestModel request)
         {
@@ -1404,7 +1296,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await fleetbillsMasterBusiness.GetBillsInnerGridList(request);
+                var result = await fleetbillsMasterBusiness.GetFleetBillsInnerGridList(request);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -1422,24 +1314,6 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await billsMasterBusiness.BillsMasterDelete(req);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("FleetBillsMasterDelete")]
-        public async Task<IActionResult> FleetBillsMasterDelete(RequestModel req)
-        {
-            if (req == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await fleetbillsMasterBusiness.BillsMasterDelete(req);
 
                 return Ok(result);
             }

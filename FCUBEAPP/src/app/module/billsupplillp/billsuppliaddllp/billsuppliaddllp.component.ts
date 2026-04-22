@@ -575,11 +575,7 @@ export class BillsuppliaddllpComponent {
         this.formVehArray.controls[i].get("freightAmt")?.setValue(res.ownvehdata[i].freightAmt);
         this.formVehArray.controls[i].get("vehicleMasterId")?.disable();
         this.formVehArray.controls[i].get("freightAmt")?.disable();
-        frt = frt + parseFloat(res.ownvehdata[i].freightAmt);
       }
-      this.formBillsMaster.patchValue({
-        totalFreight : frt.toString()
-      })
     });
   }
 

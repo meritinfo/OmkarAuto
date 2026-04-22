@@ -106,7 +106,7 @@ export class FleetBillsmasterlistComponent {
     this.fromDate = this.minDate ;
     
     
-    this.billsMasterService.clearBillsMasterDetails();
+    this.billsMasterService.clearFleetBillsMasterDetails();
     this.formFilter = this.formBuilder.group({
       bill_StmtNo: new FormControl(''),
       fromDate: new FormControl(this.fromDate),
@@ -158,7 +158,7 @@ export class FleetBillsmasterlistComponent {
           recordsFiltered: 0,
           data: []
         });
-        this.billsMasterService.getBillsMasterList(this.filter).subscribe(resp => {
+        this.billsMasterService.getFleetBillsMasterList(this.filter).subscribe(resp => {
             this.allBillsMaster = resp;
             callback({
               recordsTotal: resp.pageMetaData.totalCount,
@@ -226,21 +226,22 @@ export class FleetBillsmasterlistComponent {
     this.reportmodel.filterStr1 = bill.billNo;
     this.reportmodel.filterStr2 = bill.yearId;
     this.reportmodel.filterStr3 = this.formFilter.value.printSign;
-    if(this.company=="NCC")
-    this.billsMasterService.getBillPdf(this.reportmodel).subscribe(resp => {
-      if(resp.status){    
-        let link = document.createElement("a");
-        link.download = "Bill_" + new Date().getTime() + '.pdf';
-        link.href = "assets/reports/billprint/" + resp.message;
-        link.click();
-        window.open(link.href, "_blank");
-      }
-      else{        
-        this.toasterService.warning(resp.message);   
-      }
-    });
+    if(this.company=="NCC"){
+      this.billsMasterService.getFleetBillPdf(this.reportmodel).subscribe(resp => {
+        if(resp.status){    
+          let link = document.createElement("a");
+          link.download = "Bill_" + new Date().getTime() + '.pdf';
+          link.href = "assets/reports/billprint/" + resp.message;
+          link.click();
+          window.open(link.href, "_blank");
+        }
+        else{        
+          this.toasterService.warning(resp.message);   
+        }
+      });      
+    }
     else{
-      this.billsMasterService.getBillGsrPdf(this.reportmodel).subscribe(resp => {
+      this.billsMasterService.getFleetBillGsrPdf(this.reportmodel).subscribe(resp => {
         if(resp.status){    
           let link = document.createElement("a");
           link.download = "Bill_" + new Date().getTime() + '.pdf';

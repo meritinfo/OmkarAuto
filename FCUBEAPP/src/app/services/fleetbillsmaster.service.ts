@@ -30,52 +30,25 @@ export class FleetBillsMasterService {
     this.selectedBillsMasterDetails = docrenewalmaster;
   }
 
-  getBillsMasterDetails() {
+  getFleetBillsMasterDetails() {
     return this.selectedBillsMasterDetails;
   }
-  clearBillsMasterDetails() {
+  clearFleetBillsMasterDetails() {
     this.selectedBillsMasterDetails= new Billsmastermodel();
   }    
-  getBillsMasterSearchList(request: Requestmodel): Observable<Billsmastersearchlistmodel> {
+  getFleetBillsMasterSearchList(request: Requestmodel): Observable<Billsmastersearchlistmodel> {
     return this.httpClient.post<Billsmastersearchlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetFleetBillsMasterSearchList', request, this.httpOptions);
   }  
-  getBillsMasterList(filter: Reportmodel): Observable<Billsmasterlistmodel> {
+  getFleetBillsMasterList(filter: Reportmodel): Observable<Billsmasterlistmodel> {
     return this.httpClient.post<Billsmasterlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetFleetBillsMasterList', filter, this.httpOptions);
-  }  
-  getBillsSuppliList(filter: Reportmodel): Observable<Billsmasterlistmodel> {
-    return this.httpClient.post<Billsmasterlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetFleetBillsMasterList', filter, this.httpOptions);
-  }  
-  getBillsStmtCreditAcList(): Observable<Dropdownmodel[]> {
-    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetFleetBillsStmtCreditAcList', null, this.httpOptions);
-  }
-  getPartyGstLocationList(req: Requestmodel): Observable<Dropdownmodel[]> {
-    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FreightMasters/GetFleetBillPartyGstLocationList', req, this.httpOptions);
-  }
-  billsMasterDelete(req: Requestmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/FleetBillsMasterDelete', req, this.httpOptions);
-  }
-  saveBillsMasterDetails(request: Billsmastermodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/FleetBillsMasterSave', request, this.httpOptions);
-  }
-  getBillsMasterInnerGridList(request: Requestmodel): Observable<Billsmastersearchlistmodel> {
+  }    
+  getFleetBillsMasterInnerGridList(request: Requestmodel): Observable<Billsmastersearchlistmodel> {
     return this.httpClient.post<Billsmastersearchlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/FleetGetBillsInnerGridList', request, this.httpOptions);
   }
-  checkDuplicateBillsNo(request: Billsmastermodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/FleetCheckDuplicateBillsNo', request, this.httpOptions);
-  }  
-  getBillTypeSacHsn(request: Requestmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetFleetBillTypeSacHsn', request, this.httpOptions);
-  }  
-  getBillPdf(filter: Reportmodel): Observable<Responsemodel> {
+  getFleetBillPdf(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/FleetGetBillPdf', filter, this.httpOptions);
   }
-  getBillGsrPdf(filter: Reportmodel): Observable<Responsemodel> {
+  getFleetBillGsrPdf(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/FleetGetBillGsrPdf', filter, this.httpOptions);
-  }
-  getBillEnqDetails(filter: Requestmodel): Observable<Billsmastermodel> {
-    return this.httpClient.post<Billsmastermodel>(Constants.API_ENDPOINT + 'FreightMasters/FleetGetBillEnqDetails', filter, this.httpOptions);
-  }
-  getBillEnqInnerGridList(req: Requestmodel): Observable<Billsmastermodel> {
-    return this.httpClient.post<Billsmastermodel>(Constants.API_ENDPOINT + 'FreightMasters/FleetGetBillEnqInnerGridList', req, this.httpOptions);
   }
 }

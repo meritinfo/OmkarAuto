@@ -18,57 +18,25 @@ namespace FreightMasters.Business
         {
             billsRepository = _billsRepository;
         }
-        public async Task<BillsMasterSearchListModel> GetBillsMasterSearchList(RequestModel request)
+        public async Task<BillsMasterSearchListModel> GetFleetBillsMasterSearchList(RequestModel request)
         {
-            return await billsRepository.GetBillsMasterSearchList(request);
+            return await billsRepository.GetFleetBillsMasterSearchList(request);
         }
-        public async Task<BillsListModel> GetBillsMasterList(ReportRequestModel request)
+        public async Task<BillsListModel> GetFleetBillsMasterList(ReportRequestModel request)
         {
-            return await billsRepository.GetBillsMasterList(request);
+            return await billsRepository.GetFleetBillsMasterList(request);
         }
-        public async Task<BillsMasterSearchListModel> GetBillsInnerGridList(RequestModel request)
+        public async Task<BillsMasterSearchListModel> GetFleetBillsInnerGridList(RequestModel request)
         {
-            return await billsRepository.GetBillsInnerGridList(request);
+            return await billsRepository.GetFleetBillsInnerGridList(request);
         }
-        public async Task<ResponseModel> BillsMasterSave(BillsMasterModel billsModel)
+        public async Task<ResponseModel> GetFleetBillPdf(ReportRequestModel request)
         {
-            return await billsRepository.BillsMasterSave(billsModel);
+            return await billsRepository.GetFleetBillPdf(request);
         }
-        public async Task<ResponseModel> BillsMasterDelete(RequestModel request)
+        public async Task<ResponseModel> GetFleetBillGsrPdf(ReportRequestModel request) 
         {
-            return await billsRepository.BillsMasterDelete(request);
+            return await billsRepository.GetFleetBillGsrPdf(request);
         }
-        public async Task<ResponseModel> LrBillUpdate(RequestModel reqmodel)
-        {
-            return await billsRepository.LrBillUpdate(reqmodel);
-        }
-        public async Task<List<DropDownListModel>> GetBillPartyGstLocationList(RequestModel requestModel)
-        {
-            return await billsRepository.GetBillPartyGstLocationList(requestModel);
-        }
-        public async Task<ResponseModel> CheckDuplicateBillsNo(BillsMasterModel requestModel)
-        {
-            return await billsRepository.CheckDuplicateBillsNo(requestModel);
-        }
-        public async Task<ResponseModel> GetBillTypeSacHsn(RequestModel requestModel)
-        {
-            return await billsRepository.GetBillTypeSacHsn(requestModel);
-        }
-        public async Task<ResponseModel> GetBillPdf(ReportRequestModel request)
-        {
-            return await billsRepository.GetBillPdf(request);
-        }
-        public async Task<ResponseModel> GetBillGsrPdf(ReportRequestModel request) 
-        {
-            return await billsRepository.GetBillGsrPdf(request);
-        }
-        public async Task<BillsMasterModel> GetBillEnqDetails(RequestModel req)
-        {
-            return await billsRepository.GetBillEnqDetails(req);
-        }
-        public async Task<BillsMasterModel> GetBillEnqInnerGridList(RequestModel request)
-          {
-            return await billsRepository.GetBillEnqInnerGridList(request);
     }
-}
 }

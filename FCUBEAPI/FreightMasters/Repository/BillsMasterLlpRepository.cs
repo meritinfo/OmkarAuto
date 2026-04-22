@@ -1031,8 +1031,7 @@ namespace FreightMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@BillsMasterId",      billsModel.BillsMasterId),
-                           
+                            new SqlParameter("@BillsMasterId",      billsModel.BillsMasterId),                           
                             new SqlParameter("@AgainstVehicleYN",       billsModel.AgainstVehicleYN),
                             new SqlParameter("@FromDate",       billsModel.FromDate),
                             new SqlParameter("@ToDate",       billsModel.ToDate),

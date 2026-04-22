@@ -9,6 +9,7 @@ import { Pagerequestwithdatesmodel } from 'src/app/models/pagerequestwithdatesmo
 import { SharedService } from 'src/app/services/shared.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { FleetBillsMasterService } from 'src/app/services/fleetbillsmaster.service';
+import { BillsMasterService } from 'src/app/services/billsmaster.service';
 import { CommonService } from 'src/app/services/common.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
@@ -62,7 +63,8 @@ export class FleetBillsmasteraddComponent implements OnInit {
   usertriprightsmodel = new Usertriprightsmodel();
   
   constructor(private billsmastermodel: Billsmastermodel, private commonService: CommonService, 
-    private billsMasterService: FleetBillsMasterService, private route: Router, 
+    private billsMasterService:BillsMasterService,
+    private fleetBillsMasterService: FleetBillsMasterService, private route: Router, 
     private formBuilder: FormBuilder,private sharedService: SharedService, 
     private toasterService: ToastrService,private requestmodel:Requestmodel) {
     this.billsmastermodel = new Billsmastermodel();    
@@ -130,7 +132,7 @@ export class FleetBillsmasteraddComponent implements OnInit {
     this.getLocationList();
     this.getBillTypeSacHsn();
     
-    this.selectedBillsmasterDetails = this.billsMasterService.getBillsMasterDetails();
+    this.selectedBillsmasterDetails = this.fleetBillsMasterService.getFleetBillsMasterDetails();
 
     this.formBillsMaster = this.formBuilder.group({
       billingStation: new FormControl(this.branch,[Validators.required]),
@@ -156,7 +158,7 @@ export class FleetBillsmasteraddComponent implements OnInit {
 
     setTimeout(() => {
       this.createmode = true;
-        this.getBillTypesList();
+      this.getBillTypesList();
       this.formBillsMaster.controls['billingStation'].disable();
       //this.formBillsMaster.controls['billNo'].disable();
       this.formBillsMaster.controls['gstBy'].disable();
@@ -226,7 +228,7 @@ export class FleetBillsmasteraddComponent implements OnInit {
   }
 
 
-   getBillTypesList(): void {
+  getBillTypesList(): void {
     this.commonService.getBillTypesList().subscribe((res) => {
       this.BillTypesList = res;
       this.btype = this.BillTypesList.find(e => e.dataName === "FLEET BILL")?.dataId?.toString() || '';
@@ -292,7 +294,7 @@ export class FleetBillsmasteraddComponent implements OnInit {
     } 
     this.requestmodel.strRequest = selectedDataValue.partyCode.dataId;
 
-    this.billsMasterService.getBillsMasterSearchList(this.requestmodel).subscribe((res: Billsmastersearchlistmodel) => {
+    this.fleetBillsMasterService.getFleetBillsMasterSearchList(this.requestmodel).subscribe((res: Billsmastersearchlistmodel) => {
         this.appendMode = false;
         for(var i=0;i<res.billsMasterSearchList.length;i++){
         this.billsmastersearchlistmodel.billsMasterSearchList.push({
@@ -349,7 +351,7 @@ export class FleetBillsmasteraddComponent implements OnInit {
     } 
     this.requestmodel.strRequest = selectedDataValue.partyCode.dataId;
 
-    this.billsMasterService.getBillsMasterSearchList(this.requestmodel)
+    this.fleetBillsMasterService.getFleetBillsMasterSearchList(this.requestmodel)
       .subscribe((res: Billsmastersearchlistmodel) => {
       this.billsmastersearchlistmodel = res;      
       this.formBillsMaster.controls['partyCode'].disable();
@@ -438,14 +440,13 @@ export class FleetBillsmasteraddComponent implements OnInit {
   
   getBillsMasterInnerGridList(): void {
     this.requestmodel.strRequest= this.selectedBillsmasterDetails.billsMasterId;
-    this.billsMasterService.getBillsMasterInnerGridList(this.requestmodel).subscribe((res) => {
+    this.fleetBillsMasterService.getFleetBillsMasterInnerGridList(this.requestmodel).subscribe((res) => {
       this.billsmastersearchlistmodel = res; 
     });
   }
 
   
-  selectAll(e: any) {
-    
+  selectAll(e: any) {    
     if(e.target.checked){
       for (let i = 0; i < this.billsmastersearchlistmodel.billsMasterSearchList.length; i++) {
         this.billsmastersearchlistmodel.billsMasterSearchList[i].selected = true;
@@ -474,27 +475,19 @@ export class FleetBillsmasteraddComponent implements OnInit {
   
   calculateTotal() {
     var totalFreight = 0;
-
-    var billlist = this.billsmastersearchlistmodel.billsMasterSearchList
+    var billlist = this.billsmastersearchlistmodel.billsMasterSearchList;
 
     for (let i = 0; i < billlist.length; i++) {
       if (billlist[i].selected) {
-        totalFreight      = totalFreight     + (billlist[i].freightRs == ""? 0 : parseFloat(billlist[i].freightRs) );
-        
-       
+        totalFreight = totalFreight + (billlist[i].freightRs == ""? 0 : parseFloat(billlist[i].freightRs) );
       }
     }
 
     this.formBillsMaster.patchValue({
       totalFreight      : totalFreight.toFixed(2),
-     
-   
     });
   
   }
-
-  
-
 
 
   getUserTripRights(): void {
@@ -514,18 +507,18 @@ export class FleetBillsmasteraddComponent implements OnInit {
 
   billsMasterDelete(): void {
     if(this.selectedBillsmasterDetails.billsMasterId != '' ){
-     this.requestmodel.strRequest =this.selectedBillsmasterDetails.billsMasterId
+      this.requestmodel.strRequest =this.selectedBillsmasterDetails.billsMasterId
       if (confirm("Are you sure, you want to delete this?")) {
-            this.billsMasterService.billsMasterDelete(this.requestmodel).subscribe((res: Responsemodel) => {
-            this.responseDetails = res;
-            if (this.responseDetails.status) {
-              this.toasterService.success(this.responseDetails.message);
-              this.formBillsMaster.reset();
-              this.route.navigate(['/billstatementlist']);
-            }
-            else {
-              this.toasterService.warning(this.responseDetails.message);
-            }
+        this.billsMasterService.billsMasterDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+          this.responseDetails = res;
+          if (this.responseDetails.status) {
+            this.toasterService.success(this.responseDetails.message);
+            this.formBillsMaster.reset();
+            this.route.navigate(['/billstatementlist']);
+          }
+          else {
+            this.toasterService.warning(this.responseDetails.message);
+          }
         });
       }
     }
@@ -601,7 +594,7 @@ export class FleetBillsmasteraddComponent implements OnInit {
     this.billsmastermodel.totalOthers =  '0';
     this.billsmastermodel.totalUnLoading=  '0';
     this.billsmastermodel.totalSubTotal = selectedDataValue.totalFreight.toString();
-    this.billsmastermodel.gstType = selectedDataValue.gstType;
+    this.billsmastermodel.gstType = "NA";
     this.billsmastermodel.gstBy = selectedDataValue.gstBy;    
     this.billsmastermodel.totalSgstAmt =  '0';
     this.billsmastermodel.totalCgstAmt =  '0';
@@ -644,7 +637,7 @@ export class FleetBillsmasteraddComponent implements OnInit {
           'detention':  '0',
           'extras':  '0',
           'others': '0',
-          'subTotal': '0',
+          'subTotal': this.billsmastersearchlistmodel.billsMasterSearchList[i].freightRs,
           'sgstAmt': "0",
           'cgstAmt': "0",
           'igstAmt': "0",
