@@ -42,5 +42,23 @@ namespace FleetTrans.Models
         public string? ModifiedBy { get; set; }
         public string? ModifiedDate { get; set; }
         public string? LoggedInUser { get; set; }
+        //added
+        public string? HandlingRs { get; set; }
+        public string? LoadingDetnRs { get; set; }
+       
+        public string? UnLoadingDetnRs { get; set; }
+        public string? UnLoadingRs { get; set; }
+        public string? ExtrasRS { get; set; }
+        public string? MiscRs { get; set; }
+        public string? OthersRs { get; set; }
+        public string? SubTotalRs { get; set; }
+        public string? GtotalRs { get; set; }
+        public string? HandlingNarr { get; set; }
+        public string? LoadingDetnNarr { get; set; }
+        public string? UnLoadingNarr { get; set; }
+        public string? UnloadingDetenNarr { get; set; }
+        public string? ExtrasNarr { get; set; }
+        public string? MiscNarr { get; set; }
+        public string? OthersNarr { get; set; }
     }
 }

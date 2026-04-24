@@ -250,7 +250,7 @@
                                             </select>
                                         </div>
                                     </div>  
-                                    <div class="col-lg-2">
+                                    <div class="col-lg-3">
                                         <div class="mb-3">
                                             <label for="formrow-inputCity">Qty Wt (MT)</label>
                                             <span style="color: red"> * </span> 
@@ -259,7 +259,7 @@
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['qtyWt'].invalid) }">
                                         </div>
                                     </div>
-                                    <div class="col-lg-2">
+                                    <div class="col-lg-3">
                                         <div class="mb-3">
                                             <label for="formrow-inputCity">Packages</label>
                                             <span style="color: red"> * </span> 
@@ -268,7 +268,7 @@
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['qtyPkgs'].invalid) }">
                                         </div>
                                     </div>
-                                    <div class="col-lg-2">
+                                    <div class="col-lg-3">
                                         <div class="mb-3">
                                             <label for="formrow-inputCity">Rate Per Ton</label>
                                             <input class="form-control" decimalonly autocomplete="off" (change)="onRateChange()"
@@ -286,6 +286,128 @@
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['hireAmt'].invalid) }">
                                         </div>
                                     </div>
+                                    
+                                     <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputCity">Handling Rs</label>
+                                            <input class="form-control" formControlName="handlingRs" 
+                                            (change)="calculateTotals()" decimalonly>
+                                        </div>
+                                    </div>
+                                     <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputCity">Handling Narr</label>
+                                            <input class="form-control" formControlName="handlingNarr" 
+                                            uppercaseonly>
+                                        </div>
+                                    </div>
+                                   
+                                     </div> 
+                                   <div class="row"> 
+                                       <div class="col-lg-3">
+                                         <div class="mb-3">
+                                             <label for="formrow-inputCity">Un Loading Rs</label>
+                                             <input class="form-control" formControlName="unLoadingRs" 
+                                             (change)="calculateTotals()" decimalonly>
+                                         </div>
+                                        </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputCity">UnLoading Narr</label>
+                                            <input class="form-control" formControlName="unLoadingNarr" 
+                                            uppercaseonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputCity">Loading DetnRs</label>
+                                            <input class="form-control" formControlName="loadingDetnRs" 
+                                            (change)="calculateTotals()" decimalonly>
+                                        </div>
+                                    </div>
+                                     <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputCity">Loading Detn Narr</label>
+                                            <input class="form-control" formControlName="loadingDetnNarr" 
+                                            uppercaseonly>
+                                        </div>
+                                    </div>
+                                    </div> 
+                                <div class="row">  
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputCity">Un Loading Detn Rs</label>
+                                            <input class="form-control" formControlName="unLoadingDetnRs" 
+                                            (change)="calculateTotals()" decimalonly>
+                                        </div>
+                                    </div>
+                                     <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputCity">Unloading Deten Narr</label>
+                                            <input class="form-control" formControlName="unloadingDetenNarr" 
+                                            uppercaseonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputCity">Extras RS</label>
+                                            <input class="form-control" formControlName="extrasRS" 
+                                            (change)="calculateTotals()" decimalonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputCity">Extras Narr</label>
+                                            <input class="form-control" formControlName="extrasNarr" 
+                                             uppercaseonly>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="row"> 
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputCity">Misc Rs</label>
+                                            <input class="form-control" formControlName="miscRs" 
+                                            (change)="calculateTotals()" decimalonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputCity">Misc Narr</label>
+                                            <input class="form-control" formControlName="miscNarr" 
+                                             uppercaseonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputCity">Others Rs</label>
+                                            <input class="form-control" formControlName="othersRs" 
+                                            (change)="calculateTotals()" decimalonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputCity">Others Narr</label>
+                                            <input class="form-control" formControlName="othersNarr" 
+                                             uppercaseonly>
+                                        </div>
+                                    </div>  
+                                </div> 
+                                <div class="row">
+                                   <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputCity">Sub Total Rs</label>
+                                            <input class="form-control" formControlName="subTotalRs" 
+                                            decimalonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputCity">Grand Total Rs</label>
+                                            <input class="form-control" formControlName="gtotalRs" 
+                                            decimalonly>
+                                        </div>
+                                    </div>
                                     <div class="col-lg-3">
                                         <div class="mb-3">
                                             <label for="formrow-inputCity">Advance</label>
@@ -293,8 +415,6 @@
                                             (change)="onChangeAdv()" decimalonly>
                                         </div>
                                     </div>
-                                </div> 
-                                <div class="row">   
                                     <div class="col-lg-3">
                                         <div class="mb-3">
                                             <label for="formrow-inputCity"> Attach Memo Copy</label>
@@ -304,12 +424,14 @@
                                                         href={{uploadedAttach}}>Download</a>
                                         </div>
                                     </div>
-                                    <div class="col-lg-5">
+                                    <div class="row">
+                                    <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label for="formrow-inputCity">Remarks</label>
                                             <input class="form-control"   uppercaseonly  maxlength="250"
                                                 formControlName="remarks">
                                         </div>
+                                    </div>
                                     </div>
                                 </div>   
                             </div>
