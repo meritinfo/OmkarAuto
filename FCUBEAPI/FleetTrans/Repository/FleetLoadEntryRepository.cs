@@ -37,7 +37,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@FromDate",   request.FromDate),
                             new SqlParameter("@ToDate",     request.ToDate),
                             new SqlParameter("@LoadFor",    request.FilterStr),
-                            new SqlParameter("@VehicleMasterId",    request.FilterStr1),
+                            new SqlParameter("@VehicleMasterId",  request.FilterStr1),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getFleetLoadEntryList", param);
 
