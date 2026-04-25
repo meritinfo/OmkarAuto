@@ -44,10 +44,17 @@ namespace FreightMasters.Repository
                                 FromPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["FromPlace"]),
                                 ToPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["ToPlace"]),
                                 RateRs = Convert.ToString(dataSet.Tables[0].Rows[i]["RateRs"]),
-                                FreightRs = Convert.ToString(dataSet.Tables[0].Rows[i]["FreightRs"]),                             
-                                SubTotalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["FreightRs"]),                              
-                                GtotalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["FreightRs"]),
-                               
+                                FreightRs = Convert.ToString(dataSet.Tables[0].Rows[i]["FreightRs"]),
+                                HandlingRs = Convert.ToString(dataSet.Tables[0].Rows[i]["HandlingRs"]),
+                                LoadingDetnRs = Convert.ToString(dataSet.Tables[0].Rows[i]["LoadingDetnRs"]),
+                                MiscRs = Convert.ToString(dataSet.Tables[0].Rows[i]["MiscRs"]),
+                                UnLoadingRs = Convert.ToString(dataSet.Tables[0].Rows[i]["UnLoadingRs"]),
+                                UnLoadingDetnRs = Convert.ToString(dataSet.Tables[0].Rows[i]["UnLoadingDetnRs"]),
+                                ExtrasRS = Convert.ToString(dataSet.Tables[0].Rows[i]["ExtrasRS"]),
+                                OthersRs = Convert.ToString(dataSet.Tables[0].Rows[i]["OthersRs"]),
+                                SubTotalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["SubTotalRs"]),
+                                GtotalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["GtotalRs"]),
+
                                 Selected = false
                             });
                         }

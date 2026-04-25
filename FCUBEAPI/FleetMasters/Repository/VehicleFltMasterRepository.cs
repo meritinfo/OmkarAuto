@@ -179,7 +179,6 @@ namespace FleetMasters.Repository
             return responseModel;
 
         }
-
         public async Task<ResponseModel> VehicleFltDtlsSave(SqlTransaction transaction, VehicleFltDtlsModel vehicleFltDtlsModel)
         {
             ResponseModel responseModel = new();
@@ -226,9 +225,6 @@ namespace FleetMasters.Repository
             }
             return responseModel;
         }
-
-
-
         public async Task<ResponseModel> VehicalMasterDetailsDelete(RequestModel req)
         {
             ResponseModel responseModel = new();
@@ -267,9 +263,6 @@ namespace FleetMasters.Repository
             }
             return responseModel;
         }
-
-
-
         public async Task<VehicleFltMasterList> GetVehicleFltMasterList(PageRequest request)
         {
             VehicleFltMasterList vehicleFltMasterList = new();
@@ -393,12 +386,6 @@ namespace FleetMasters.Repository
             }
             return vehicleFltMasterList;
         }
-
-        /// <summary>
-        /// Service method for get Vehical Type List
-        /// </summary>
-        /// <returns>List<DropDownListModel></returns>
-        /// 
         public async Task<List<DropDownListModel>> GetFinCompName()
         {
             List<DropDownListModel> VehicalTypeList = new();
@@ -475,7 +462,6 @@ namespace FleetMasters.Repository
             }
             return VehicalTypeList;
         }
-
         public async Task<List<DropDownListModel>> GetVehicalTypeGroupList()
         {
             List<DropDownListModel> VehicalTypeList = new();
@@ -590,14 +576,6 @@ namespace FleetMasters.Repository
             }
             return VehicalTypeGrpList;
         }
-
-
-
-
-        /// <summary>
-        /// Service method for get Vehical Ledger Account List
-        /// </summary>
-        /// <returns>List<DropDownListModel></returns>
         public async Task<List<DropDownListModel>> GetVehicalLedgerAccountList()
         {
             List<DropDownListModel> VehicalLedgerList = new();
@@ -674,11 +652,6 @@ namespace FleetMasters.Repository
             }
             return VehicalLedgerList;
         }
-
-        /// <summary>
-        /// Service method for get Vehical Ledger Account List
-        /// </summary>
-        /// <returns>List<DropDownListModel></returns>
         public async Task<List<DropDownListModel>> GetVehicalAssetAccountList()
         {
             List<DropDownListModel> VehicalAssetList = new();
@@ -717,11 +690,6 @@ namespace FleetMasters.Repository
             }
             return VehicalAssetList;
         }
-
-        /// <summary>
-        /// Service method for get Vehical Mfr List
-        /// </summary>
-        /// <returns>List<DropDownListModel></returns>
         public async Task<List<DropDownListModel>> GetVehicalMfrList()
         {
             List<DropDownListModel> VehicalMfrList = new();
@@ -760,7 +728,6 @@ namespace FleetMasters.Repository
             }
             return VehicalMfrList;
         }
-
         public async Task<ResponseModel> ChkVehicalNoExist(RequestModel req)
         {
             ResponseModel responseModel = new();

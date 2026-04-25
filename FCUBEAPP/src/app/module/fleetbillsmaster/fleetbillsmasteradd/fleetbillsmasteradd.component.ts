@@ -82,7 +82,7 @@ export class FleetBillsmasteraddComponent implements OnInit {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
         this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
-         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
@@ -145,11 +145,19 @@ export class FleetBillsmasteraddComponent implements OnInit {
       collBranch: new FormControl(this.branch,[Validators.required]),
       gstType: new FormControl('NA',[Validators.required]),
       totalFreight: new FormControl('',[Validators.required]),
+      totalHandling: new FormControl(''),
+      totalLoadingDetn: new FormControl(''),
+      totalDetention: new FormControl(''),
+      totalMisc: new FormControl(''),
+      totalUnLoading: new FormControl(''),
+      totalExtras: new FormControl(''),
+      totalOthers: new FormControl(''),
+      totalSubTotal: new FormControl(''),
+      totalGtotal: new FormControl('',[Validators.required]),
       billRemarks: new FormControl('',),
       enlcosedDocs: new FormControl('',),
       gstBy : new FormControl('N',[Validators.required]),
       selectedAll: new FormControl(''),
-      arrayList: this.formBuilder.array([this.createInitialArray()]) 
     });
     
     if (this.selectedBillsmasterDetails.billsMasterId != '') {
@@ -163,6 +171,16 @@ export class FleetBillsmasteraddComponent implements OnInit {
       //this.formBillsMaster.controls['billNo'].disable();
       this.formBillsMaster.controls['gstBy'].disable();
       this.formBillsMaster.controls['totalFreight'].disable();
+      this.formBillsMaster.controls['totalHandling'].disable();
+      this.formBillsMaster.controls['totalLoadingDetn'].disable();
+      this.formBillsMaster.controls['totalDetention'].disable();  
+      this.formBillsMaster.controls['totalMisc'].disable();
+      this.formBillsMaster.controls['totalUnLoading'].disable();
+      this.formBillsMaster.controls['totalExtras'].disable();
+      this.formBillsMaster.controls['totalOthers'].disable();
+      this.formBillsMaster.controls['totalSubTotal'].disable();
+      this.formBillsMaster.controls['totalGtotal'].disable();
+
       if (this.selectedBillsmasterDetails.billsMasterId != '') {
         this.formBillsMaster.patchValue(this.selectedBillsmasterDetails); 
         this.formBillsMaster.patchValue({
@@ -194,30 +212,8 @@ export class FleetBillsmasteraddComponent implements OnInit {
   
   get formArray() {
     return this.formBillsMaster.get("arrayList") as FormArray;
-  }  
-
-  
-  createInitialArray() {
-    return this.formBuilder.group({
-      billDetailId:  ['', []],
-      billsMasterId:  ['', []],
-      billingStation:  ['', []],
-      index:  ['', []],
-      billNo:  ['', []],
-      billDate:  ['', []],
-      billType:  ['', []],
-      partyCode:  ['', []],
-      gcBranch:  ['', []],
-      gcNoteNo:  ['', []],
-      fromPlace:  ['', []],
-      toPlace:  ['', []],
-      consignmentid:  ['', []],
-      yearId:  ['', []],
-      remarks3:  ['', []],
-      selected:  ['', []],
-    }); 
-  }
-
+  }   
+ 
   getBillTypeSacHsn():void{
     this.requestmodel.strRequest = "1";
     this.billsMasterService.getBillTypeSacHsn(this.requestmodel).subscribe((res) => {
@@ -226,7 +222,6 @@ export class FleetBillsmasteraddComponent implements OnInit {
       });
     });
   }
-
 
   getBillTypesList(): void {
     this.commonService.getBillTypesList().subscribe((res) => {
@@ -309,28 +304,28 @@ export class FleetBillsmasteraddComponent implements OnInit {
           'statisticalRs': "0",
           'fovRs': "0", 
           'doorCollRs':  "0",
-          'handlingRs': "0",
-          'loadingDetnRs': "0",
+          'handlingRs': res.billsMasterSearchList[i].handlingRs, 
+          'loadingDetnRs': res.billsMasterSearchList[i].loadingDetnRs, 
           'enrouteRs': "0",
-          'miscRs': "0",
+          'miscRs': res.billsMasterSearchList[i].miscRs, 
           'doorDelRs': "0",
-          'unLoadingRs':  "0",
-          'unLoadingDetnRs': "0",
-          'extrasRS': "0",
-          'othersRs':"0",
-          'subTotalRs': res.billsMasterSearchList[i].freightRs, 
-          'gstType':  "0",
+          'unLoadingRs':  res.billsMasterSearchList[i].unLoadingRs, 
+          'unLoadingDetnRs':res.billsMasterSearchList[i].unLoadingDetnRs, 
+          'extrasRS':res.billsMasterSearchList[i].extrasRS, 
+          'othersRs':res.billsMasterSearchList[i].othersRs, 
+          'subTotalRs': res.billsMasterSearchList[i].subTotalRs, 
+          'gstType':  "NA",
           'cgstAmt':"0",
           'sgstAmt': "0",
           'igstAmt':  "0",
           'nonGstAmt1':"0",
           'nonGstAmt2': "0",
-          'gtotalRs':  res.billsMasterSearchList[i].freightRs, 
-          'remarks1': "0",
-          'remarks2': "0",
-          'remarks3':  "0",
-          'suppBillDetRemarks':  "0",
-          'otherAmt': "0",
+          'gtotalRs':  res.billsMasterSearchList[i].gtotalRs, 
+          'remarks1': "",
+          'remarks2': "",
+          'remarks3':  "",
+          'suppBillDetRemarks':  "",
+          'otherAmt': "",
           'selected': false
          });
       }
@@ -351,8 +346,7 @@ export class FleetBillsmasteraddComponent implements OnInit {
     } 
     this.requestmodel.strRequest = selectedDataValue.partyCode.dataId;
 
-    this.fleetBillsMasterService.getFleetBillsMasterSearchList(this.requestmodel)
-      .subscribe((res: Billsmastersearchlistmodel) => {
+    this.fleetBillsMasterService.getFleetBillsMasterSearchList(this.requestmodel).subscribe((res: Billsmastersearchlistmodel) => {
       this.billsmastersearchlistmodel = res;      
       this.formBillsMaster.controls['partyCode'].disable();
     });   
@@ -475,18 +469,44 @@ export class FleetBillsmasteraddComponent implements OnInit {
   
   calculateTotal() {
     var totalFreight = 0;
-    var billlist = this.billsmastersearchlistmodel.billsMasterSearchList;
+    var totalHandling = 0;
+    var totalLoadingDetn = 0;
+    var totalDetention = 0;
+    var totalMisc = 0;
+    var totalUnLoading = 0;
+    var totalExtras = 0;
+    var totalOthers = 0;
+    var totalSubTotal = 0;
+    var totalGtotal = 0;
+
+    var billlist = this.billsmastersearchlistmodel.billsMasterSearchList
 
     for (let i = 0; i < billlist.length; i++) {
       if (billlist[i].selected) {
-        totalFreight = totalFreight + (billlist[i].freightRs == ""? 0 : parseFloat(billlist[i].freightRs) );
+        totalFreight      = totalFreight     + (billlist[i].freightRs == ""? 0 : parseFloat(billlist[i].freightRs) );
+        totalHandling     = totalHandling    + (billlist[i].handlingRs == ""? 0 : parseFloat(billlist[i].handlingRs) );
+        totalLoadingDetn  = totalLoadingDetn + (billlist[i].loadingDetnRs == ""? 0 : parseFloat(billlist[i].loadingDetnRs) );
+        totalDetention    = totalDetention   + (billlist[i].unLoadingDetnRs == ""? 0 : parseFloat(billlist[i].unLoadingDetnRs) );
+        totalMisc         = totalMisc        + (billlist[i].miscRs == ""? 0 : parseFloat(billlist[i].miscRs) );
+        totalUnLoading    = totalUnLoading   + (billlist[i].unLoadingRs == ""? 0 : parseFloat(billlist[i].unLoadingRs) );
+        totalExtras       = totalExtras      + (billlist[i].extrasRS == ""? 0 : parseFloat(billlist[i].extrasRS) );
+        totalOthers       = totalOthers      + (billlist[i].othersRs == ""? 0 : parseFloat(billlist[i].othersRs) );
+        totalSubTotal     = totalSubTotal    + (billlist[i].subTotalRs == ""? 0 : parseFloat(billlist[i].subTotalRs) );
       }
     }
 
     this.formBillsMaster.patchValue({
       totalFreight      : totalFreight.toFixed(2),
+      totalHandling     : totalHandling.toFixed(2),
+      totalLoadingDetn  : totalLoadingDetn.toFixed(2),
+      totalDetention    : totalDetention.toFixed(2),
+      totalMisc         : totalMisc.toFixed(2),
+      totalUnLoading    : totalUnLoading.toFixed(2),
+      totalExtras       : totalExtras.toFixed(2),
+      totalOthers       : totalOthers.toFixed(2),
+      totalSubTotal     : totalSubTotal.toFixed(2),
+      totalGtotal       : totalGtotal.toFixed(2),
     });
-  
   }
 
 
@@ -583,17 +603,17 @@ export class FleetBillsmasteraddComponent implements OnInit {
     this.billsmastermodel.sacHsn = selectedDataValue.sacHsn.toString();
     this.billsmastermodel.totalFreight =selectedDataValue.totalFreight.toString();
     this.billsmastermodel.totalStatistical = '0';
-    this.billsmastermodel.totalFov =  '0';
-    this.billsmastermodel.totalHandling =  '0';
+    this.billsmastermodel.totalFov =  '0';    
+    this.billsmastermodel.totalHandling =  selectedDataValue.totalHandling.toString();
     this.billsmastermodel.totalDoorColl =  '0';
-    this.billsmastermodel.totalLoadingDetn = '0';
-    this.billsmastermodel.totalDetention =  '0';
+    this.billsmastermodel.totalLoadingDetn = selectedDataValue.totalLoadingDetn.toString();
+    this.billsmastermodel.totalDetention =  selectedDataValue.totalDetention.toString();
     this.billsmastermodel.totalEnroute =  '0';
-    this.billsmastermodel.totalMisc =  '0';
-    this.billsmastermodel.totalExtras =  '0';
-    this.billsmastermodel.totalOthers =  '0';
-    this.billsmastermodel.totalUnLoading=  '0';
-    this.billsmastermodel.totalSubTotal = selectedDataValue.totalFreight.toString();
+    this.billsmastermodel.totalMisc =  selectedDataValue.totalMisc.toString();
+    this.billsmastermodel.totalExtras =  selectedDataValue.totalExtras.toString();
+    this.billsmastermodel.totalOthers =  selectedDataValue.totalOthers.toString();
+    this.billsmastermodel.totalUnLoading= selectedDataValue.totalUnLoading.toString();
+    this.billsmastermodel.totalSubTotal = selectedDataValue.totalSubTotal.toString();
     this.billsmastermodel.gstType = "NA";
     this.billsmastermodel.gstBy = selectedDataValue.gstBy;    
     this.billsmastermodel.totalSgstAmt =  '0';
@@ -601,7 +621,7 @@ export class FleetBillsmasteraddComponent implements OnInit {
     this.billsmastermodel.totalIgstAmt =  '0';
     this.billsmastermodel.totalNonGstAmt1 =  '0';
     this.billsmastermodel.totalNonGstAmt2 =  '0';
-    this.billsmastermodel.totalGtotal = selectedDataValue.totalFreight.toString();
+    this.billsmastermodel.totalGtotal = selectedDataValue.totalGtotal.toString();
     this.billsmastermodel.billRemarks = selectedDataValue.billRemarks.toString().toUpperCase();
     this.billsmastermodel.enlcosedDocs = selectedDataValue.enlcosedDocs.toString().toUpperCase();
     this.billsmastermodel.suppParticulars = "";

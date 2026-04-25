@@ -1049,6 +1049,26 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetBillGsrPdf")]
+        public async Task<IActionResult> GetBillGsrPdf(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusiness.GetBillGsrPdf(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("GetFleetBillPdf")]
         public async Task<IActionResult> GetFleetBillPdf(ReportRequestModel request)
         {

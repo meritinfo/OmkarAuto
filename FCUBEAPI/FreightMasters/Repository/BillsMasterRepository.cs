@@ -177,7 +177,6 @@ namespace FreightMasters.Repository
             { }
             return responseModel;
         }
-
         public async Task<BillsMasterSearchListModel> GetBillsMasterSearchList(RequestModel request)
         {
             BillsMasterSearchListModel billsMasterSearchList = new();

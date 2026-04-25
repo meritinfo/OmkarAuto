@@ -168,8 +168,14 @@
                                             <th><label for="formrow-inputZip">To Place </label></th>
                                             <th><label for="formrow-inputZip">Rate </label></th>
                                             <th><label for="formrow-inputZip">Hire Amount</label></th>
-                             
-                                            <!-- <th><label for="formrow-inputZip">Sub Total</label></th> -->
+                                            <th><label for="formrow-inputZip">Handling</label></th>
+                                            <th><label for="formrow-inputZip">Loading Detn</label></th>
+                                            <th><label for="formrow-inputZip">Misc</label></th>
+                                            <th><label for="formrow-inputZip">UnLoading</label></th>
+                                            <th><label for="formrow-inputZip">UnLoading Detn</label></th>
+                                            <th><label for="formrow-inputZip">Extras </label></th>
+                                            <th><label for="formrow-inputZip">Others </label></th>
+                                            <th><label for="formrow-inputZip">Sub Total</label></th>
                                         </tr>
                                         <tr  
                                             *ngFor="let arrayData of billsmastersearchlistmodel.billsMasterSearchList; let i = index">
@@ -212,21 +218,6 @@
                                                     {{arrayData.freightRs}}
                                                 </div>
                                             </td>
-                                            <!-- <td>
-                                                <div class="mb-3">
-                                                    {{arrayData.statisticalRs}}
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="mb-3">
-                                                    {{arrayData.fovRs}}
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="mb-3">
-                                                    {{arrayData.doorCollRs}}
-                                                </div>
-                                            </td>
                                             <td>
                                                 <div class="mb-3">
                                                     {{arrayData.handlingRs}}
@@ -236,22 +227,12 @@
                                                 <div class="mb-3">
                                                     {{arrayData.loadingDetnRs}}
                                                 </div>
-                                            </td>                                            
-                                            <td>
-                                                <div class="mb-3">
-                                                    {{arrayData.enrouteRs}}
-                                                </div>
-                                            </td>
+                                            </td>   
                                             <td>
                                                 <div class="mb-3">
                                                     {{arrayData.miscRs}}
                                                 </div>
-                                            </td>
-                                            <td>
-                                                <div class="mb-3">
-                                                    {{arrayData.doorDelRs}}
-                                                </div>
-                                            </td>                                            
+                                            </td>                                          
                                             <td>
                                                 <div class="mb-3">
                                                     {{arrayData.unLoadingRs}}
@@ -271,12 +252,12 @@
                                                 <div class="mb-3">
                                                     {{arrayData.othersRs}}
                                                 </div>
-                                            </td> -->
-                                            <!-- <td>
+                                            </td> 
+                                            <td>
                                                 <div class="mb-3">
                                                     {{arrayData.subTotalRs}}
                                                 </div>
-                                            </td> -->
+                                            </td> 
                                         </tr>
                                     </table>
                                     </div>                               
@@ -288,17 +269,66 @@
                                                     formControlName="totalFreight"  
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['totalFreight'].invalid) }">
                                             </div>
+                                        </div>                                      
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Total Handling</label>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="totalHandling" >
+                                            </div>
                                         </div>
-                                      
-                                    
-                                   
-                                     
-                                    
-                                    
-                                    </div>
-                                   
-                                    <div class="row">
-                                                                       
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Total Loading Detn</label>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="totalLoadingDetn" >
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Un Loading Detn</label>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="totalDetention" >
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Total Misc</label>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="totalMisc" >
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Total Extras</label>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="totalExtras" >
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Total Others</label>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="totalOthers" >
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Total Sub Total</label>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="totalSubTotal" >
+                                            </div>
+                                        </div>  
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Grand Total</label><span style="color: red"> * </span>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="totalGtotal"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['totalGtotal'].invalid) }">
+                                            </div>
+                                        </div>                                              
+                                    </div>                                   
+                                    <div class="row">                                                                       
                                         <div class="col-lg-4">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Bill Remarks</label>
