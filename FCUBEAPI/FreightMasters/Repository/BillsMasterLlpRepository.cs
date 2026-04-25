@@ -1060,7 +1060,17 @@ namespace FreightMasters.Repository
                                 }
                             }
                         }
-                  
+                        if (responseModel.Status)
+                           if (responseModel.Status)
+                            {
+                                transaction.Commit();
+                            }
+                            else
+                            {
+                                transaction.Rollback();
+                            }
+                        }
+
                     }
                     else
                     {
