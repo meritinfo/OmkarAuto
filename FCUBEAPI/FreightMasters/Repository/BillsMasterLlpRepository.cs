@@ -775,9 +775,6 @@ namespace FreightMasters.Repository
             }
             return response;
         }
-
-
-
         public async Task<BillsMasterSearchListModelLLP> GetBillsInnerGridList(RequestModel request)
         {
             BillsMasterSearchListModelLLP billsMasterSearchList = new();
@@ -1045,7 +1042,6 @@ namespace FreightMasters.Repository
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
                         BillsMasterId = responseModel.Message;
-
                       
                         if (responseModel.Status)
                         {
@@ -1060,17 +1056,15 @@ namespace FreightMasters.Repository
                                 }
                             }
                         }
-                        if (responseModel.Status)
-                           if (responseModel.Status)
-                            {
-                                transaction.Commit();
-                            }
-                            else
-                            {
-                                transaction.Rollback();
-                            }
+                        if (responseModel.Status) 
+                        { 
+                            transaction.Commit();
                         }
-
+                        else
+                        {
+                            transaction.Rollback();
+                        }
+                        
                     }
                     else
                     {
