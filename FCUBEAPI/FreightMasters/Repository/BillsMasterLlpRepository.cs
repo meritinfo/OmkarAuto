@@ -1052,7 +1052,7 @@ namespace FreightMasters.Repository
                             for (int i = 0; i < billsModel.Ownvehdata.Count; i++)
                             {
                                 billsModel.Ownvehdata[i].BillsMasterId = billsModel.BillsMasterId;
-                                responseModel = await BillsOwnVehDtlSaveLLP(transaction, billsModel.Ownvehdata[i]);
+                                responseModel = await BillsOwnVehDtlSaveLLP(transaction, billsModel.Ownvehdata       [i]);
                                 if (!responseModel.Status)
                                 {
                                     transaction.Rollback();
@@ -1060,7 +1060,17 @@ namespace FreightMasters.Repository
                                 }
                             }
                         }
-                  
+                        if (responseModel.Status)
+                           if (responseModel.Status)
+                            {
+                                transaction.Commit();
+                            }
+                            else
+                            {
+                                transaction.Rollback();
+                            }
+                        }
+
                     }
                     else
                     {
