@@ -153,10 +153,29 @@ export class FleetloadentryaddComponent {
       advAmt: new FormControl('',),
       remarks: new FormControl('',),
       attachMemocopy: new FormControl('',),
+      handlingRs: new FormControl('',),
+      loadingDetnRs: new FormControl('',),
+      unLoadingDetnRs: new FormControl('',),
+      unLoadingRs: new FormControl('',),
+      extrasRS: new FormControl('',),
+      miscRs: new FormControl('',),
+      othersRs: new FormControl('',),
+      subTotalRs: new FormControl('',),
+      gtotalRs: new FormControl('',),
+      handlingNarr: new FormControl('',),
+      loadingDetnNarr: new FormControl('',),
+      unLoadingNarr: new FormControl('',),
+      unloadingDetenNarr: new FormControl('',),
+      extrasNarr: new FormControl('',),
+      miscNarr: new FormControl('',),
+      othersNarr: new FormControl('',),
     });
 
     setTimeout(() => {
       this.formFleetLoad.controls['loadBranch'].disable();  
+        this.formFleetLoad.controls['gtotalRs'].disable();  
+      this.formFleetLoad.controls['subTotalRs'].disable();  
+      
 
       if (this.selectedFleetLoadEntryDetails.loadId != '') {
         this.formFleetLoad.patchValue(this.selectedFleetLoadEntryDetails);    
@@ -350,6 +369,32 @@ export class FleetloadentryaddComponent {
     }
   }
 
+   calculateTotals() {
+  var selectedVal = this.formFleetLoad.getRawValue();
+  var hireAmt = selectedVal.hireAmt ? parseFloat(selectedVal.hireAmt) : 0;
+  var handlingRs = selectedVal.handlingRs ? parseFloat(selectedVal.handlingRs) : 0;
+  var unLoadingRs = selectedVal.unLoadingRs ? parseFloat(selectedVal.unLoadingRs) : 0;
+  var loadingDetnRs = selectedVal.loadingDetnRs ? parseFloat(selectedVal.loadingDetnRs) : 0;
+  var unLoadingDetnRs = selectedVal.unLoadingDetnRs ? parseFloat(selectedVal.unLoadingDetnRs) : 0;
+  var extrasRS = selectedVal.extrasRS ? parseFloat(selectedVal.extrasRS) : 0;
+  var miscRs = selectedVal.miscRs ? parseFloat(selectedVal.miscRs) : 0;
+  var othersRs = selectedVal.othersRs ? parseFloat(selectedVal.othersRs) : 0;
+
+  var subTotal =
+    hireAmt +
+    handlingRs +
+    unLoadingRs +
+    loadingDetnRs +
+    unLoadingDetnRs +
+    extrasRS +
+    miscRs +
+    othersRs;
+    this.formFleetLoad.patchValue({
+      subTotalRs: subTotal.toFixed(2),
+      gtotalRs:  subTotal.toFixed(2)
+    },);
+}
+
   onLoadTypeChange(e:any){
     var ldtp = e.target.value;
 
@@ -493,6 +538,23 @@ export class FleetloadentryaddComponent {
     this.fleetLoadEntryModel.remarks = selectedDataVal.remarks.toString().toUpperCase();
     this.fleetLoadEntryModel.yearID = this.year;
     this.fleetLoadEntryModel.loggedInUser   = this.loggedInUserID;
+    this.fleetLoadEntryModel.handlingRs = selectedDataVal.handlingRs.toString().toUpperCase();
+    this.fleetLoadEntryModel.loadingDetnRs = selectedDataVal.loadingDetnRs.toString().toUpperCase();
+    this.fleetLoadEntryModel.unLoadingDetnRs = selectedDataVal.unLoadingDetnRs.toString().toUpperCase();
+    this.fleetLoadEntryModel.unLoadingRs = selectedDataVal.unLoadingRs.toString().toUpperCase();
+    this.fleetLoadEntryModel.extrasRS = selectedDataVal.extrasRS.toString().toUpperCase();
+    this.fleetLoadEntryModel.miscRs = selectedDataVal.miscRs.toString().toUpperCase();
+    this.fleetLoadEntryModel.othersRs = selectedDataVal.othersRs.toString().toUpperCase();
+    this.fleetLoadEntryModel.subTotalRs = selectedDataVal.subTotalRs.toString().toUpperCase();
+    this.fleetLoadEntryModel.gtotalRs = selectedDataVal.gtotalRs.toString().toUpperCase();
+    this.fleetLoadEntryModel.handlingNarr = selectedDataVal.handlingNarr.toString().toUpperCase();
+    this.fleetLoadEntryModel.loadingDetnNarr = selectedDataVal.loadingDetnNarr.toString().toUpperCase();
+    this.fleetLoadEntryModel.unLoadingNarr = selectedDataVal.unLoadingNarr.toString().toUpperCase();
+    this.fleetLoadEntryModel.unloadingDetenNarr = selectedDataVal.unloadingDetenNarr.toString().toUpperCase();
+    this.fleetLoadEntryModel.extrasNarr = selectedDataVal.extrasNarr.toString().toUpperCase();
+    this.fleetLoadEntryModel.miscNarr = selectedDataVal.miscNarr.toString().toUpperCase();
+    this.fleetLoadEntryModel.othersNarr = selectedDataVal.othersNarr.toString().toUpperCase();
+
 
     let formData = new FormData();
     formData.append('attach', this.attachmentInput.nativeElement.files[0]);
