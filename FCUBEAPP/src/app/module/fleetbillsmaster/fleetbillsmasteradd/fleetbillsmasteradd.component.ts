@@ -505,7 +505,7 @@ export class FleetBillsmasteraddComponent implements OnInit {
       totalExtras       : totalExtras.toFixed(2),
       totalOthers       : totalOthers.toFixed(2),
       totalSubTotal     : totalSubTotal.toFixed(2),
-      totalGtotal       : totalGtotal.toFixed(2),
+      totalGtotal       : totalSubTotal.toFixed(2),
     });
   }
 
