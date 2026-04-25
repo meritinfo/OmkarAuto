@@ -185,7 +185,7 @@ export class FinaccountmastergstComponent {
 
   addItem(index: number): void { 
     var selectedData = this.formAccountMaster.getRawValue();
-    if (selectedData.arrayList[index].location != "" && selectedData.arrayList[index].gstNo != "") {
+    if (selectedData.arrayList[index].location != "") {
       this.formArray.push(this.createInitialArray());
     } 
     else {
@@ -242,22 +242,21 @@ export class FinaccountmastergstComponent {
   
   //Submit user form details //
   submitFinAccountMasterForm(): void {
-   if (this.formAccountMaster.invalid) {
-  this.toasterService.warning("Please enter mandatory fields");
+    if (this.formAccountMaster.invalid) {
+      this.toasterService.warning("Please enter mandatory fields");
+      const controls = this.formAccountMaster.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          // Convert camelCase key to readable format
+          const readableName = name.replace(/([A-Z])/g, ' $1');
+          const titleCaseName = readableName.charAt(0).toUpperCase() + readableName.slice(1);
 
-  const controls = this.formAccountMaster.controls;
-  for (const name in controls) {
-    if (controls[name].invalid) {
-      // Convert camelCase key to readable format
-      const readableName = name.replace(/([A-Z])/g, ' $1');
-      const titleCaseName = readableName.charAt(0).toUpperCase() + readableName.slice(1);
+          this.toasterService.warning(titleCaseName + " field is invalid");
+        }
+      }
 
-      this.toasterService.warning(titleCaseName + " field is invalid");
+      return;
     }
-  }
-
-  return;
-}
     var selectedDataValue = this.formAccountMaster.getRawValue();
    
     this.sharedService.loading = true;
@@ -267,7 +266,7 @@ export class FinaccountmastergstComponent {
     this.finaccountmodel.finAccountsGstDetail = [];
 
     for (let i = 0; i < selectedDataValue.arrayList.length; i++) {
-      if(selectedDataValue.arrayList[i].location!='' && selectedDataValue.arrayList[i].gstNo !=''){
+      if(selectedDataValue.arrayList[i].location!=''){
         this.finaccountmodel.finAccountsGstDetail.push({
           'accountId': selectedDataValue.accountId? selectedDataValue.accountId.dataId : '',
           'location': selectedDataValue.arrayList[i].location.toString(),

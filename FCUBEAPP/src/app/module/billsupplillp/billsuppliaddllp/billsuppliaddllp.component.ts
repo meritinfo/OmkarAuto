@@ -22,7 +22,8 @@ import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
   templateUrl: './billsuppliaddllp.component.html',
   styleUrls: ['./billsuppliaddllp.component.css']
 })
-export class BillsuppliaddllpComponent {loggedInUserID: string = '';
+export class BillsuppliaddllpComponent {
+  loggedInUserID: string = '';
   year: string = '';
   branch: string = '';
   loginDate: string = '';
