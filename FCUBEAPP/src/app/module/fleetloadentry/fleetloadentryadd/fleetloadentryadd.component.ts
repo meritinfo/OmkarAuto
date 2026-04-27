@@ -367,33 +367,27 @@ export class FleetloadentryaddComponent {
       });
       return;
     }
+    this.calculateTotals();
   }
 
-   calculateTotals() {
-  var selectedVal = this.formFleetLoad.getRawValue();
-  var hireAmt = selectedVal.hireAmt ? parseFloat(selectedVal.hireAmt) : 0;
-  var handlingRs = selectedVal.handlingRs ? parseFloat(selectedVal.handlingRs) : 0;
-  var unLoadingRs = selectedVal.unLoadingRs ? parseFloat(selectedVal.unLoadingRs) : 0;
-  var loadingDetnRs = selectedVal.loadingDetnRs ? parseFloat(selectedVal.loadingDetnRs) : 0;
-  var unLoadingDetnRs = selectedVal.unLoadingDetnRs ? parseFloat(selectedVal.unLoadingDetnRs) : 0;
-  var extrasRS = selectedVal.extrasRS ? parseFloat(selectedVal.extrasRS) : 0;
-  var miscRs = selectedVal.miscRs ? parseFloat(selectedVal.miscRs) : 0;
-  var othersRs = selectedVal.othersRs ? parseFloat(selectedVal.othersRs) : 0;
+  calculateTotals() {
+    var selectedVal = this.formFleetLoad.getRawValue();
+    var hireAmt = selectedVal.hireAmt ? parseFloat(selectedVal.hireAmt) : 0;
+    var handlingRs = selectedVal.handlingRs ? parseFloat(selectedVal.handlingRs) : 0;
+    var unLoadingRs = selectedVal.unLoadingRs ? parseFloat(selectedVal.unLoadingRs) : 0;
+    var loadingDetnRs = selectedVal.loadingDetnRs ? parseFloat(selectedVal.loadingDetnRs) : 0;
+    var unLoadingDetnRs = selectedVal.unLoadingDetnRs ? parseFloat(selectedVal.unLoadingDetnRs) : 0;
+    var extrasRS = selectedVal.extrasRS ? parseFloat(selectedVal.extrasRS) : 0;
+    var miscRs = selectedVal.miscRs ? parseFloat(selectedVal.miscRs) : 0;
+    var othersRs = selectedVal.othersRs ? parseFloat(selectedVal.othersRs) : 0;
 
-  var subTotal =
-    hireAmt +
-    handlingRs +
-    unLoadingRs +
-    loadingDetnRs +
-    unLoadingDetnRs +
-    extrasRS +
-    miscRs +
-    othersRs;
+    var subTotal = hireAmt + handlingRs + unLoadingRs + loadingDetnRs + unLoadingDetnRs + extrasRS + miscRs + othersRs;
+
     this.formFleetLoad.patchValue({
       subTotalRs: subTotal.toFixed(2),
       gtotalRs:  subTotal.toFixed(2)
     },);
-}
+  }
 
   onLoadTypeChange(e:any){
     var ldtp = e.target.value;
