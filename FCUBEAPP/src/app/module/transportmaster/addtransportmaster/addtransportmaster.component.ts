@@ -426,6 +426,7 @@ if (this.formUser.invalid) {
     this.transportMasterModel.bankAdd     = selectedData.bankAdd.toString().toUpperCase();
     this.transportMasterModel.bankAcNo      = selectedData.bankAcNo;
     this.transportMasterModel.bankIfsc      = selectedData.bankIfsc;
+    this.transportMasterModel.loggedInUser      = this.loggedInUserID;
     this.transportMasterModel.transportLocationList = [];
     this.transportMasterModel.transportStatesList = [];
     this.transportMasterModel.transportVehTypesList = [];

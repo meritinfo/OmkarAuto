@@ -30,6 +30,7 @@ export class Transportmastermodel {
   bankAdd   : string = "";
   bankAcNo   : string = "";
   bankIfsc    : string = "";
+  loggedInUser    : string = "";
   transportLocationList: TransportLocationListmodel[] = [];
   transportStatesList: TransportStateListmodel[] = [];
   transportVehTypesList: TransportVehTypesListmodel[] = [];
