@@ -264,7 +264,9 @@ export class ConsignmentaddComponent implements OnInit {
       vehicleOutDt: new FormControl('',),
       vehicleOutTime: new FormControl('',),
       generalRemarks : new FormControl('',), 
-      businessBy : new FormControl('',),    
+      businessBy : new FormControl('',),   
+      workPeriod : new FormControl('',),  
+      unloadingAddress  : new FormControl('',), 
       arrayList: this.formBuilder.array([this.createInitialArray()])  , 
     });
 
@@ -1180,6 +1182,8 @@ export class ConsignmentaddComponent implements OnInit {
     this.lrmodel.nonGstAmt2  = selectedDataValue.nonGstAmt2 ? selectedDataValue.nonGstAmt2.toString() : "0"; 
     this.lrmodel.nonGstAmt2Desc  = selectedDataValue.nonGstAmt2Desc?selectedDataValue.nonGstAmt2Desc.toString().toUpperCase():"";
     this.lrmodel.generalRemarks = selectedDataValue.generalRemarks?selectedDataValue.generalRemarks.toString().toUpperCase():"";
+    this.lrmodel.workPeriod = selectedDataValue.workPeriod?selectedDataValue.workPeriod.toString().toUpperCase():"";
+    this.lrmodel.unloadingAddress  = selectedDataValue.unloadingAddress?selectedDataValue.unloadingAddress.toString().toUpperCase():"";
     this.lrmodel.ldReportingDateTime = indt;
     this.lrmodel.despatchDateTime = outdt;
     this.lrmodel.gtotalRs = selectedDataValue.gtotalRs?selectedDataValue.gtotalRs.toString():"";

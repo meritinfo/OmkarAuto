@@ -150,6 +150,8 @@ namespace Consignment.Repository
                                 ContainerNo       = Convert.ToString(dataSet.Tables[0].Rows[i]["ContainerNo"]),
                                 NonGstAmt1        = Convert.ToString(dataSet.Tables[0].Rows[i]["NonGstAmt1"]),
                                 NonGstAmt2        = Convert.ToString(dataSet.Tables[0].Rows[i]["NonGstAmt2"]),
+                                WorkPeriod        = Convert.ToString(dataSet.Tables[0].Rows[i]["WorkPeriod"]),
+                                UnloadingAddress = Convert.ToString(dataSet.Tables[0].Rows[i]["UnloadingAddress"]),
                                 CreatedBy         = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
                                 CreatedDate       = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
                                 ModifiedBy        = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
@@ -393,6 +395,8 @@ namespace Consignment.Repository
                             new SqlParameter("@GcSlNo",              cn.GcSlNo),
                             new SqlParameter("@GcSeries",              cn.GcSeries),
                             new SqlParameter("@ContainerNo",              cn.ContainerNo),
+                            new SqlParameter("@WorkPeriod",          cn.WorkPeriod),
+                            new SqlParameter("@UnloadingAddress",    cn.UnloadingAddress),
                             new SqlParameter("@YearId",              cn.YearId),
                             new SqlParameter("@LoggedInUser",        cn.LoggedInUser),
                         };

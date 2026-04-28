@@ -164,6 +164,8 @@ export class Consignmentmodel {
     gcSlNo              : string = ""; 
     gcSeries            : string = ""; 
     containerNo         : string = ""; 
+    workPeriod          : string = "";
+    unloadingAddress    : string = ""; 
     invList             : Consignmentinvmodel[] = [];
     gstList             : Consignmentgstmodel[] = [];
     chlnList            : Consignmentchlnmodel[] = [];
