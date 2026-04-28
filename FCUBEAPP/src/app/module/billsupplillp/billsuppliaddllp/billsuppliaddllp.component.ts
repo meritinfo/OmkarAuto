@@ -1127,15 +1127,15 @@ export class BillsuppliaddllpComponent {
       }   
     }
 
-    if(this.billsmastermodel.againstVehicleYN =='Y'){
-      if(selectedDataValue.totalFreight==frtamt ){
-        //ignore
-      }
-      else{
-        this.toasterService.warning(" Freight Amount is Invalid");   
-        return;
-      }
-    }    
+    // if(this.billsmastermodel.againstVehicleYN =='Y'){
+    //   if(selectedDataValue.totalFreight==frtamt ){
+    //     //ignore
+    //   }
+    //   else{
+    //     this.toasterService.warning(" Freight Amount is Invalid");   
+    //     return;
+    //   }
+    // }    
     
     this.billsMasterService.saveBillsMasterDetails(this.billsmastermodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
