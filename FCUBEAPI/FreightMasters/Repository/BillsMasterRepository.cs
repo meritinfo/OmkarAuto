@@ -950,15 +950,7 @@ namespace FreightMasters.Repository
             ResponseModel responseModel = new();
             try
             {
-                string baseUrl = "";
-                if (request.Search == "S")
-                {
-                    baseUrl = dbconnection.Value.apiPath + "api/BillSupply/";
-                }
-                else
-                {
-                    baseUrl = dbconnection.Value.apiPath + "api/BillLnT/";
-                }
+                string baseUrl = dbconnection.Value.apiPath + "api/BillLnT/";
 
                 string UrlParam = "?BillingStn=" + request.FilterStr +
                                     "&BillNo=" + request.FilterStr1 +
