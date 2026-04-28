@@ -960,7 +960,6 @@ namespace FreightMasters.Repository
                     baseUrl = dbconnection.Value.apiPath + "api/BillLnT/";
                 }
 
-
                 string UrlParam = "?BillingStn=" + request.FilterStr +
                                     "&BillNo=" + request.FilterStr1 +
                                     "&YearId=" + request.FilterStr2;
