@@ -23,6 +23,7 @@ namespace FreightMasters.Business
         Task<ResponseModel> GetBillGsrPdf(ReportRequestModel request);
         Task<BillsMasterModel> GetBillEnqDetails(RequestModel req);
         Task<BillsMasterModel> GetBillEnqInnerGridList(RequestModel request);
+        Task<ResponseModel> GetBillLnTPdf(ReportRequestModel request);
 
     }
 }

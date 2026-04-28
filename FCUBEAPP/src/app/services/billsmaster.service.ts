@@ -72,6 +72,11 @@ export class BillsMasterService {
   getBillGsrPdf(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillGsrPdf', filter, this.httpOptions);
   }
+
+  getBillLnTPdf(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillLnTPdf', filter, this.httpOptions);
+  }
+
   getBillEnqDetails(filter: Requestmodel): Observable<Billsmastermodel> {
     return this.httpClient.post<Billsmastermodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillEnqDetails', filter, this.httpOptions);
   }
