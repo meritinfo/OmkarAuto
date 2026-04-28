@@ -135,6 +135,7 @@ namespace FleetMasters.Repository
                             new SqlParameter("@BankAdd", tranportMasterModel.BankAdd),
                             new SqlParameter("@BankAcNo", tranportMasterModel.BankAcNo),
                             new SqlParameter("@BankIfsc", tranportMasterModel.BankIfsc),
+                            new SqlParameter("@LoggedInUser", tranportMasterModel.LoggedInUser),
 
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "TransportMaster_Insert", param);

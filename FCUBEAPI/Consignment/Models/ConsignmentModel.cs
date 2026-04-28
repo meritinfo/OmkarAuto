@@ -153,6 +153,8 @@ namespace Consignment.Models
         public string? GcSlNo { get; set; }
         public string? GcSeries { get; set; }
         public string? ContainerNo { get; set; }
+        public string? WorkPeriod { get; set; }
+        public string? UnloadingAddress { get; set; }
         public string? CreatedBy { get; set; }
         public string? CreatedDate { get; set; }
         public string? ModifiedBy { get; set; }

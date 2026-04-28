@@ -40,6 +40,7 @@ namespace FleetMasters.Models
         public string? BankAdd { get; set; }
         public string? BankAcNo { get; set; }
         public string? BankIfsc { get; set; }
+        public string? LoggedInUser { get; set; }
         public List<TransportLocationListmodel>? TransportLocationList { get; set; }
         public List<TransportStatesListmodel>? TransportStatesList { get; set; }
         public List<TransportVehTypesListmodel>? TransportVehTypesList { get; set; }
