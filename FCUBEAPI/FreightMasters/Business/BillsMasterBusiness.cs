@@ -75,5 +75,5 @@ namespace FreightMasters.Business
         {
             return await billsRepository.GetBillLnTPdf(request);
         }
-}
+    }
 }

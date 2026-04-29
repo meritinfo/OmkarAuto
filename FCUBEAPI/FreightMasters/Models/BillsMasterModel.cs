@@ -36,6 +36,9 @@ namespace FreightMasters.Models
         public string? TotalExtras { get; set; }
         public string? TotalOthers { get; set; }
         public string? TotalSubTotal { get; set; }
+        public string? SgstPct { get; set; }
+        public string? CgstPct { get; set; }
+        public string? IgstPct { get; set; }
         public string? TotalSgstAmt { get; set; }
         public string? TotalCgstAmt { get; set; }
         public string? TotalIgstAmt { get; set; }

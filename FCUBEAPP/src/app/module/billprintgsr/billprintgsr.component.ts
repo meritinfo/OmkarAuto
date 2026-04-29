@@ -73,8 +73,6 @@ export class BillprintgsrComponent {
     private route: Router) {
   }
   ngOnInit(): void {
-    
-    debugger
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
@@ -118,8 +116,6 @@ export class BillprintgsrComponent {
     //this.getPartyList(); 
    
     this.formFilter = this.formBuilder.group({
-      copy: new FormControl('',[Validators.required,Validators.minLength(2)]),  
-      cnorCnee: new FormControl('R',[Validators.required]),  
       format: new FormControl('',[Validators.required]),  
       billingStn: new FormControl('',[Validators.required]), 
       billNo: new FormControl('',[Validators.required]),
@@ -155,8 +151,7 @@ export class BillprintgsrComponent {
     return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
 
-  download(): void {
-    debugger
+  download(): void {    
     if (this.formFilter.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields "); 
       const controls = this.formFilter.controls;
@@ -168,14 +163,11 @@ export class BillprintgsrComponent {
       return;
     }
     var selecteddata = this.formFilter.getRawValue();
-    this.reportmodel.filterStr = selecteddata.copy;
-    this.reportmodel.filterStr1 = selecteddata.cnorCnee;
-    this.reportmodel.filterStr2 = selecteddata.format;
-    this.reportmodel.filterStr3 = selecteddata.billingStn;
-    this.reportmodel.filterStr4 = selecteddata.billNo;
-    this.reportmodel.filterStr5 = this.year;
-    this.reportmodel.filterStr6 = "Y";
-    if(this.reportmodel.filterStr2=="GB")
+    this.reportmodel.filterStr = selecteddata.billingStn;
+    this.reportmodel.filterStr1 = selecteddata.billNo;
+    this.reportmodel.filterStr2 = this.year;
+    this.reportmodel.filterStr3 = "Y";
+    if(selecteddata.format=="GB")
     {
       this.billsMasterService.getBillGsrPdf(this.reportmodel).subscribe(resp => {
         if(resp.status){    
@@ -190,7 +182,7 @@ export class BillprintgsrComponent {
         }
       });
     }
-    else if(this.reportmodel.filterStr2=="LT")
+    else if(selecteddata.format=="LT")
     {
       this.billsMasterService.getBillLnTPdf(this.reportmodel).subscribe(resp => {
         if(resp.status){    

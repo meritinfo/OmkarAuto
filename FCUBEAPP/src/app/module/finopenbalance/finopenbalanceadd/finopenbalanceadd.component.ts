@@ -183,8 +183,7 @@ dashboard: string ="";
 
   addItem(i: number): void {
     var selectedDataVal= this.formFinOpenBal.getRawValue()
-    if (selectedDataVal.arrayList[i].accountID != "" &&
-    (parseFloat(selectedDataVal.arrayList[i].creditAmt) > 0 || parseFloat(selectedDataVal.arrayList[i].debitAmt) > 0) ) 
+    if (selectedDataVal.arrayList[i].accountID != "" ) 
     {
        this.formArray.push(this.createInitialArray());  
     }
