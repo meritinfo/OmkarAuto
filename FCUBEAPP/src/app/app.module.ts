@@ -593,6 +593,7 @@ import { Documentmastermodel } from 'src/app/models/documentmastermodel';
 import { LrwisecostinglprptComponent } from './module/lrwisecostinglprpt/lrwisecostinglprpt.component';
 import { FleetBillsmasterlistComponent } from './module/fleetbillsmaster/fleetbillsmasterlist/fleetbillsmasterlist.component';
 import { FleetBillsmasteraddComponent } from './module/fleetbillsmaster/fleetbillsmasteradd/fleetbillsmasteradd.component';
+import { BillprintgsrComponent } from './module/billprintgsr/billprintgsr.component';
 
 
 
@@ -794,7 +795,8 @@ import { FleetBillsmasteraddComponent } from './module/fleetbillsmaster/fleetbil
     DocumentmasteraddComponent,
     DocumentmasterlistComponent,
     LrwisecostinglprptComponent,
-    FleetBillsmasteraddComponent
+    FleetBillsmasteraddComponent,
+    BillprintgsrComponent
    
     
   ],

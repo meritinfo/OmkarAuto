@@ -46,9 +46,9 @@ export class FleetBillsMasterService {
     return this.httpClient.post<Billsmastersearchlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/FleetGetBillsInnerGridList', request, this.httpOptions);
   }
   getFleetBillPdf(filter: Reportmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/FleetGetBillPdf', filter, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetFleetBillPdf', filter, this.httpOptions);
   }
   getFleetBillGsrPdf(filter: Reportmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/FleetGetBillGsrPdf', filter, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetFleetBillGsrPdf', filter, this.httpOptions);
   }
 }

@@ -78,16 +78,15 @@ export class FleetloadentryaddComponent {
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }    
-  
-    
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }    
+   
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -191,7 +190,8 @@ export class FleetloadentryaddComponent {
         this.createdBy = this.selectedFleetLoadEntryDetails.createdBy + " " + this.selectedFleetLoadEntryDetails.createdDate;
         this.modifiedBy = this.selectedFleetLoadEntryDetails.modifiedBy + " " + this.selectedFleetLoadEntryDetails.modifiedDate; 
         this.formFleetLoad.controls['loadType'].disable();  
-        if(this.selectedFleetLoadEntryDetails.loadType == "E"||this.selectedFleetLoadEntryDetails.loadType == "M"){
+        //if(this.selectedFleetLoadEntryDetails.loadType == "E"||this.selectedFleetLoadEntryDetails.loadType == "M"){
+        if(this.selectedFleetLoadEntryDetails.loadType == "E"){
           this.formFleetLoad.controls['qtyWt'].clearValidators();
           this.formFleetLoad.controls['qtyPkgs'].clearValidators(); 
           this.formFleetLoad.controls['hireAmt'].clearValidators();  
