@@ -177,32 +177,34 @@ export class BillprintgsrComponent {
     this.reportmodel.filterStr6 = "Y";
     if(this.reportmodel.filterStr2=="GB")
     {
-          this.billsMasterService.getBillGsrPdf(this.reportmodel).subscribe(resp => {
-      if(resp.status){    
-        let link = document.createElement("a");
-        link.download = resp.message;
-        link.href = "assets/reports/BillPrintGsr/" + resp.message;
-        link.click();
-        window.open(link.href, "_blank");
-      }
-      else{        
-        this.toastrService.warning(resp.message);   
-      }
-       });
-      }else if(this.reportmodel.filterStr2=="LT")
+      this.billsMasterService.getBillGsrPdf(this.reportmodel).subscribe(resp => {
+        if(resp.status){    
+          let link = document.createElement("a");
+          link.download = "Bill_" + new Date().getTime() + '.pdf';
+          link.href = "assets/reports/billprint/" + resp.message;
+          link.click();
+          window.open(link.href, "_blank");
+        }
+        else{        
+          this.toastrService.warning(resp.message);   
+        }
+      });
+    }
+    else if(this.reportmodel.filterStr2=="LT")
+    {
       this.billsMasterService.getBillLnTPdf(this.reportmodel).subscribe(resp => {
-      if(resp.status){    
-        let link = document.createElement("a");
-        link.download = resp.message;
-        link.href = "assets/reports/BillPrintGsr/" + resp.message;
-        link.click();
-        window.open(link.href, "_blank");
-      }
-      else{        
-        this.toastrService.warning(resp.message);   
-      }
-    });
-
+        if(resp.status){    
+          let link = document.createElement("a");
+          link.download = resp.message;
+          link.href = "assets/reports/billprint/" + resp.message;
+          link.click();
+          window.open(link.href, "_blank");
+        }
+        else{        
+          this.toastrService.warning(resp.message);   
+        }
+      });
+    }
   }
    
 } 
