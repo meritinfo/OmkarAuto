@@ -63,6 +63,7 @@ export class Consignmentupdatemodel {
     yearId : string = "";
     loggedInUser :  string = "";
     extrasRecd2 :  string = "";
+    advanceRs :  string = "";
     gstList: Consignmentgstmodel[] = [];
  
 }
