@@ -187,7 +187,8 @@ export class ConsignmentupdateComponent {
       gtotalRs : new FormControl('',),      
       ulReportingDateTime : new FormControl('',), 
       deliveryDateTime : new FormControl('',),      
-      ulDetentionDays : new FormControl('',),     
+      ulDetentionDays : new FormControl('',),  
+      advanceRs : new FormControl('',),     
     });
     this.formUser.controls['rateType'].disable(); 
     this.formUser.controls['rateRs'].disable(); 
@@ -196,7 +197,7 @@ export class ConsignmentupdateComponent {
     this.formUser.controls['bookingDate'].disable();  
     this.formUser.controls['fromPlace'].disable();  
     this.formUser.controls['toPlace'].disable();
-    this.formUser.controls['noPackages'].disable(); 
+    //this.formUser.controls['noPackages'].disable(); 
     this.formUser.controls['cnorName'].disable();  
     this.formUser.controls['cneeName'].disable();  
     this.formUser.controls['subTotalRs'].disable(); 
@@ -378,6 +379,7 @@ export class ConsignmentupdateComponent {
           nonGstAmt2:  this.lrmodel.nonGstAmt2 ,
           nonGstAmt2Desc:  this.lrmodel.nonGstAmt2Desc ,
           gtotalRs :  this.lrmodel.gtotalRs ,
+          advanceRs :  this.lrmodel.advanceRs ,
           ulReportingDateTime :  this.commonService.formatDate(this.lrmodel.ulReportingDateTime ),
           deliveryDateTime :  this.commonService.formatDate(this.lrmodel.deliveryDateTime ),
           ulDetentionDays :  this.lrmodel.ulDetentionDays ,
@@ -545,6 +547,7 @@ export class ConsignmentupdateComponent {
       this.toastrService.warning("Please Enter Both Unloading & Delivery Dates");
       return;
     }
+
     
     if (selectedDataValue.party.dataId) {
       //ignore
@@ -553,6 +556,16 @@ export class ConsignmentupdateComponent {
       this.toastrService.warning("Party is Invalid");
       return;
     }
+
+    //new added for advance rs check
+    const advance = parseFloat(selectedDataValue.advanceRs) || 0;
+    const netTotal = parseFloat(selectedDataValue.gtotalRs) || 0;
+    if ( advance>netTotal) 
+    {
+      this.toastrService.warning("Advance amount cannot be greater than Net Total");
+      return;
+    }
+    
 
     this.cnmodel.consignmentID = this.lrmodel.consignmentID;           
     this.cnmodel.productId = selectedDataValue.productId.toString();    
@@ -605,6 +618,7 @@ export class ConsignmentupdateComponent {
     this.cnmodel.ulReportingDateTime = selectedDataValue.ulReportingDateTime.toString();
     this.cnmodel.deliveryDateTime = selectedDataValue.deliveryDateTime.toString();
     this.cnmodel.ulDetentionDays = selectedDataValue.ulDetentionDays.toString();
+     this.cnmodel.advanceRs  = selectedDataValue.advanceRs ? selectedDataValue.advanceRs : "0"; 
     //this.cnmodel.yearId = this.year;
     this.cnmodel.loggedInUser = this.loggedInUserID;
 

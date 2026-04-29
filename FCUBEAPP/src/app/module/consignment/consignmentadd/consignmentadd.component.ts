@@ -222,7 +222,7 @@ export class ConsignmentaddComponent implements OnInit {
       productId : new FormControl('', [Validators.required]),
       productDesc : new FormControl('',),    
       hsnSac : new FormControl('',),    
-      noPackages : new FormControl('',),    
+      noPackages : new FormControl('',[Validators.required]),    
       looseFlag : new FormControl('',),    
       weightType : new FormControl('MT',[Validators.required]), 
       actualWt : new FormControl('',[Validators.required]),    
@@ -266,6 +266,7 @@ export class ConsignmentaddComponent implements OnInit {
       generalRemarks : new FormControl('',), 
       businessBy : new FormControl('',),   
       workPeriod : new FormControl('',),  
+      advanceRs : new FormControl('',),  
       unloadingAddress  : new FormControl('',), 
       arrayList: this.formBuilder.array([this.createInitialArray()])  , 
     });
@@ -1087,6 +1088,14 @@ export class ConsignmentaddComponent implements OnInit {
         return;
       }
     }
+    //new added for advance rs check
+    const advance = parseFloat(selectedDataValue.advanceRs) || 0;
+    const netTotal = parseFloat(selectedDataValue.gtotalRs) || 0;
+    if ( advance>netTotal) 
+    {
+      this.toastrService.warning("Advance amount cannot be greater than Net Total");
+      return;
+    }
     
     var indt = "", outdt ="";
     indt = selectedDataValue.vehicleInDt?selectedDataValue.vehicleInDt :"";  
@@ -1187,6 +1196,7 @@ export class ConsignmentaddComponent implements OnInit {
     this.lrmodel.ldReportingDateTime = indt;
     this.lrmodel.despatchDateTime = outdt;
     this.lrmodel.gtotalRs = selectedDataValue.gtotalRs?selectedDataValue.gtotalRs.toString():"";
+    this.lrmodel.advanceRs= selectedDataValue.advanceRs ? selectedDataValue.advanceRs.toString() : "0";
      
     this.lrmodel.yearId = this.year;
     this.lrmodel.loggedInUser = this.loggedInUserID;

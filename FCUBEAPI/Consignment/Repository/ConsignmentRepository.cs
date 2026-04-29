@@ -152,6 +152,7 @@ namespace Consignment.Repository
                                 NonGstAmt2        = Convert.ToString(dataSet.Tables[0].Rows[i]["NonGstAmt2"]),
                                 WorkPeriod        = Convert.ToString(dataSet.Tables[0].Rows[i]["WorkPeriod"]),
                                 UnloadingAddress = Convert.ToString(dataSet.Tables[0].Rows[i]["UnloadingAddress"]),
+                                AdvanceRs        = Convert.ToString(dataSet.Tables[0].Rows[i]["AdvanceRs"]),
                                 CreatedBy         = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
                                 CreatedDate       = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
                                 ModifiedBy        = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
@@ -397,6 +398,8 @@ namespace Consignment.Repository
                             new SqlParameter("@ContainerNo",              cn.ContainerNo),
                             new SqlParameter("@WorkPeriod",          cn.WorkPeriod),
                             new SqlParameter("@UnloadingAddress",    cn.UnloadingAddress),
+                         
+                            new SqlParameter("@AdvanceRs",          cn.AdvanceRs),
                             new SqlParameter("@YearId",              cn.YearId),
                             new SqlParameter("@LoggedInUser",        cn.LoggedInUser),
                         };
@@ -714,6 +717,7 @@ namespace Consignment.Repository
                         lrmodel.Deduction3 = Convert.ToString(dataSet.Tables[0].Rows[0]["Others2"]);
                         lrmodel.ExtrasRecd1 = Convert.ToString(dataSet.Tables[0].Rows[0]["TotExt"]);
                         lrmodel.ExtrasRecd2 = Convert.ToString(dataSet.Tables[0].Rows[0]["ExtrasRecd2"]);
+                        lrmodel.AdvanceRs = Convert.ToString(dataSet.Tables[0].Rows[0]["AdvanceRs"]);
                         lrmodel.ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[0]["ModifiedBy"]);
                         lrmodel.YearId = Convert.ToString(dataSet.Tables[0].Rows[0]["YearId"]);
                     }
@@ -801,6 +805,7 @@ namespace Consignment.Repository
                             new SqlParameter("@UlDetentionDays",    ConsignmentModel.UlDetentionDays  ),
                             new SqlParameter("@WhatsappPOD1",       ConsignmentModel.WhatsappPOD1   ),
                             new SqlParameter("@WhatsappPOD2",       ConsignmentModel.WhatsappPOD2   ),
+                            new SqlParameter("@AdvanceRs",       ConsignmentModel.AdvanceRs   ),
                             new SqlParameter("@LoggedInUser",       ConsignmentModel.LoggedInUser),
                         };
 

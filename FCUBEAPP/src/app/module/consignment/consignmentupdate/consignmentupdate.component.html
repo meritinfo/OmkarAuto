@@ -471,6 +471,7 @@
                                                     formControlName="extrasNarr" >
                                             </div>
                                         </div>  
+                                    
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Others </label>
@@ -487,6 +488,7 @@
                                         </div>  
                                     </div>                                
                                     <div class="row">    
+                                         
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Sub Total</label>
@@ -586,7 +588,14 @@
                                                 <input type="text" decimalonly autocomplete="off" class="form-control" 
                                                     formControlName="gtotalRs" [ngClass]=>
                                             </div>
-                                        </div>                              
+                                        </div>   
+                                           <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Advance</label>
+                                                <input type="text" decimalonly autocomplete="off" class="form-control"  
+                                                    formControlName="advanceRs" (change)="calculateTotalAmount()">
+                                            </div>
+                                        </div>                            
                                     </div>                                    
                                     <div class="row">  
                                         <div class="col-lg-4">
