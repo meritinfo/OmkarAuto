@@ -23,7 +23,7 @@ export class Lorryhiredetailmodel {
     extraRemarks : string = "";
     deductRemarks: string = "";   
     benId : string = "";  
-
+    broker: string = "";  
     
     
 

@@ -270,6 +270,7 @@ export class LorryhirepmtaddComponent {
       extraRemarks :  ['', []],
       deductRemarks:  ['', []],
       benId:  ['', []],
+      broker:['', []],
     });
   }
 
@@ -303,7 +304,8 @@ export class LorryhirepmtaddComponent {
         this.formArray.controls[i].get("extraRemarks")?.setValue(res.lhpmDetails[i].extraRemarks); 
         this.formArray.controls[i].get("deductRemarks")?.setValue(res.lhpmDetails[i].deductRemarks);
         this.formArray.controls[i].get("benId")?.setValue(this.benList.find(e => e.dataId == res.lhpmDetails[i].benId));   
-
+        this.formArray.controls[i].get("broker")?.setValue(res.lhpmDetails[i].broker);
+       
         this.formArray.controls[i].get("chYear")?.disable();
         this.formArray.controls[i].get("challanBranch")?.disable();
         this.formArray.controls[i].get("abType")?.disable();
@@ -311,7 +313,8 @@ export class LorryhirepmtaddComponent {
         this.formArray.controls[i].get("challanId")?.disable();
         this.formArray.controls[i].get("dueAmt")?.disable();
         this.formArray.controls[i].get("netAmt")?.disable();
-        this.formArray.controls[i].get("benId")?.disable();        
+        this.formArray.controls[i].get("benId")?.disable();  
+        this.formArray.controls[i].get("broker")?.disable();         
 
         if(res.lhpmDetails[i].abType=='O'){
           this.formArray.controls[i].get("totPaid")?.disable();
@@ -739,6 +742,7 @@ export class LorryhirepmtaddComponent {
         this.formArray.controls[i].get("tdsAmt")?.setValue(res.lhpmDetails[0].tdsAmt);
         this.formArray.controls[i].get("extraRemarks")?.setValue(res.lhpmDetails[0].extraRemarks); 
         this.formArray.controls[i].get("deductRemarks")?.setValue(res.lhpmDetails[0].deductRemarks);
+        this.formArray.controls[i].get("broker")?.setValue(res.lhpmDetails[0].broker);       
 
         this.formArray.controls[i].get("chYear")?.disable();
         this.formArray.controls[i].get("challanBranch")?.disable();
@@ -747,6 +751,7 @@ export class LorryhirepmtaddComponent {
         this.formArray.controls[i].get("challanId")?.disable();
         this.formArray.controls[i].get("dueAmt")?.disable();
         this.formArray.controls[i].get("netAmt")?.disable();
+        this.formArray.controls[i].get("broker")?.disable();     
 
         if(selectedData.arrayList[i].abType=='O'){
           this.formArray.controls[i].get("totPaid")?.disable();
@@ -1081,6 +1086,7 @@ export class LorryhirepmtaddComponent {
           'deductRemarks': selectedDataVal.arrayList[i].deductRemarks.toString().toUpperCase(),
          // 'benId': selectedDataVal.arrayList[i].benId.dataId,
          'benId': selectedDataVal.arrayList[i].benId ? selectedDataVal.arrayList[i].benId.dataId : '',
+         'broker':"",
         });
       }
     }
@@ -1106,8 +1112,5 @@ export class LorryhirepmtaddComponent {
         
     this.sharedService.loading=false;
   }
-
-  
-  
 
 }
