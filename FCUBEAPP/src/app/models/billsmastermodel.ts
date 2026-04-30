@@ -33,6 +33,9 @@ export class Billsmastermodel {
     totalExtras: string = "";  
     totalOthers: string = "";  
     totalSubTotal: string = "";  
+    sgstPct: string = "";  
+    cgstPct: string = "";  
+    igstPct: string = "";  
     totalSgstAmt: string = "";  
     totalCgstAmt: string = "";  
     totalIgstAmt: string = "";  

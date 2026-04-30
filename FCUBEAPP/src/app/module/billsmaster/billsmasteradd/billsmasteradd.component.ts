@@ -807,6 +807,9 @@ export class BillsmasteraddComponent implements OnInit {
     this.billsmastermodel.totalSubTotal = selectedDataValue.totalSubTotal.toString();
     this.billsmastermodel.gstType = selectedDataValue.gstType;
     this.billsmastermodel.gstBy = selectedDataValue.gstBy;    
+    this.billsmastermodel.sgstPct = selectedDataValue.sgstPct.toString();
+    this.billsmastermodel.cgstPct = selectedDataValue.cgstPct.toString();
+    this.billsmastermodel.igstPct = selectedDataValue.igstPct.toString();
     this.billsmastermodel.totalSgstAmt = selectedDataValue.totalSgstAmt.toString();
     this.billsmastermodel.totalCgstAmt = selectedDataValue.totalCgstAmt.toString();
     this.billsmastermodel.totalIgstAmt = selectedDataValue.totalIgstAmt.toString();
