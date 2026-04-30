@@ -64,6 +64,7 @@ export class Consignmentupdatemodel {
     loggedInUser :  string = "";
     extrasRecd2 :  string = "";
     advanceRs :  string = "";
+    productDesc :  string = "";
     gstList: Consignmentgstmodel[] = [];
  
 }

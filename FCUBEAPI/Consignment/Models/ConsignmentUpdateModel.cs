@@ -68,6 +68,8 @@ namespace Consignment.Models
         public string? LoggedInUser { get; set; }
         public string? ExtrasRecd2 { get; set; }
         public string? AdvanceRs { get; set; }
+        public string? ProductDesc { get; set; }
+        
         public List<ConsignmentGstModel> GstList { get; set; }
 
 

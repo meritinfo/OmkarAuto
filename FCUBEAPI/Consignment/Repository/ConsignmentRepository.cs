@@ -718,6 +718,7 @@ namespace Consignment.Repository
                         lrmodel.ExtrasRecd1 = Convert.ToString(dataSet.Tables[0].Rows[0]["TotExt"]);
                         lrmodel.ExtrasRecd2 = Convert.ToString(dataSet.Tables[0].Rows[0]["ExtrasRecd2"]);
                         lrmodel.AdvanceRs = Convert.ToString(dataSet.Tables[0].Rows[0]["AdvanceRs"]);
+                        lrmodel.ProductDesc = Convert.ToString(dataSet.Tables[0].Rows[0]["ProductDesc"]);
                         lrmodel.ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[0]["ModifiedBy"]);
                         lrmodel.YearId = Convert.ToString(dataSet.Tables[0].Rows[0]["YearId"]);
                     }
@@ -806,6 +807,7 @@ namespace Consignment.Repository
                             new SqlParameter("@WhatsappPOD1",       ConsignmentModel.WhatsappPOD1   ),
                             new SqlParameter("@WhatsappPOD2",       ConsignmentModel.WhatsappPOD2   ),
                             new SqlParameter("@AdvanceRs",       ConsignmentModel.AdvanceRs   ),
+                            new SqlParameter("@ProductDesc",       ConsignmentModel.ProductDesc),
                             new SqlParameter("@LoggedInUser",       ConsignmentModel.LoggedInUser),
                         };
 

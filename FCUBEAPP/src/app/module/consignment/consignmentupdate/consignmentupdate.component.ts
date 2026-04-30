@@ -188,7 +188,8 @@ export class ConsignmentupdateComponent {
       ulReportingDateTime : new FormControl('',), 
       deliveryDateTime : new FormControl('',),      
       ulDetentionDays : new FormControl('',),  
-      advanceRs : new FormControl('',),     
+      advanceRs : new FormControl('',), 
+      productDesc : new FormControl('',),    
     });
     this.formUser.controls['rateType'].disable(); 
     this.formUser.controls['rateRs'].disable(); 
@@ -380,6 +381,7 @@ export class ConsignmentupdateComponent {
           nonGstAmt2Desc:  this.lrmodel.nonGstAmt2Desc ,
           gtotalRs :  this.lrmodel.gtotalRs ,
           advanceRs :  this.lrmodel.advanceRs ,
+          productDesc :  this.lrmodel.productDesc ,
           ulReportingDateTime :  this.commonService.formatDate(this.lrmodel.ulReportingDateTime ),
           deliveryDateTime :  this.commonService.formatDate(this.lrmodel.deliveryDateTime ),
           ulDetentionDays :  this.lrmodel.ulDetentionDays ,
@@ -618,7 +620,8 @@ export class ConsignmentupdateComponent {
     this.cnmodel.ulReportingDateTime = selectedDataValue.ulReportingDateTime.toString();
     this.cnmodel.deliveryDateTime = selectedDataValue.deliveryDateTime.toString();
     this.cnmodel.ulDetentionDays = selectedDataValue.ulDetentionDays.toString();
-     this.cnmodel.advanceRs  = selectedDataValue.advanceRs ? selectedDataValue.advanceRs : "0"; 
+    this.cnmodel.advanceRs  = selectedDataValue.advanceRs ? selectedDataValue.advanceRs : "0"; 
+    this.cnmodel.productDesc = selectedDataValue.productDesc.toString().toUpperCase()  ;
     //this.cnmodel.yearId = this.year;
     this.cnmodel.loggedInUser = this.loggedInUserID;
 
