@@ -944,7 +944,8 @@ export class ConsignmentaddComponent implements OnInit {
       this.formUser.controls['invoiceDate'].clearValidators();
       this.formUser.controls['invoiceValue'].clearValidators();
       this.formUser.controls['truckNo'].clearValidators();
-      this.formUser.controls['productId'].clearValidators();
+     // this.formUser.controls['productId'].clearValidators();
+      this.formUser.controls['productId'].setValidators([Validators.required]);
       this.formUser.controls['rateType'].clearValidators();
     }
     if (selectedValue === "M" || selectedValue === "A") {
