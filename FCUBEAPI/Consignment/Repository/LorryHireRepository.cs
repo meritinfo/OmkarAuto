@@ -135,7 +135,6 @@ namespace Consignment.Repository
                                 ChallanBranch   = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanBranch"]),
                                 ChallanNo       = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanNo"]),
                                 ChallanId       = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanId"]),
-                                BenId           = Convert.ToString(dataSet.Tables[0].Rows[i]["BenId"]),
                                 DueAmt          = Convert.ToString(dataSet.Tables[0].Rows[i]["DueAmt"]),
                                 HireAmt         = Convert.ToString(dataSet.Tables[0].Rows[i]["HireAmt"]),
                                 HamaliAmt       = Convert.ToString(dataSet.Tables[0].Rows[i]["HamaliAmt"]),
@@ -152,6 +151,9 @@ namespace Consignment.Repository
                                 TotPaid         = Convert.ToString(dataSet.Tables[0].Rows[i]["TotPaid"]),
                                 ExtraRemarks    = Convert.ToString(dataSet.Tables[0].Rows[i]["ExtraRemarks"]),
                                 DeductRemarks   = Convert.ToString(dataSet.Tables[0].Rows[i]["DeductRemarks"]),
+                                BenId           = Convert.ToString(dataSet.Tables[0].Rows[i]["BenId"]),
+                                Broker          = Convert.ToString(dataSet.Tables[0].Rows[i]["Broker"]),
+                                
                             });
                         }
                     }
@@ -242,6 +244,7 @@ namespace Consignment.Repository
                                 TdsAmt          = Convert.ToString(dataSet.Tables[0].Rows[i]["TdsAmt"]),
                                 ExtraRemarks    = Convert.ToString(dataSet.Tables[0].Rows[i]["ExtraRemarks"]),
                                 DeductRemarks   = Convert.ToString(dataSet.Tables[0].Rows[i]["DeductRemarks"]),
+                                Broker          = Convert.ToString(dataSet.Tables[0].Rows[i]["Broker"]),
                             });
                         }
                     }

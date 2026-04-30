@@ -8,8 +8,7 @@
         public string? ChYear { get; set; }
         public string? ChallanBranch { get; set; }
         public string? ChallanNo { get; set; }
-        public string? ChallanId { get; set; }
-        public string? BenId { get; set; }        
+        public string? ChallanId { get; set; }  
         public string? DueAmt { get; set; }
         public string? HireAmt { get; set; }
         public string? HamaliAmt { get; set; }
@@ -26,6 +25,8 @@
         public string? TotPaid { get; set; }        
         public string? ExtraRemarks { get; set; }
         public string? DeductRemarks { get; set; }
+        public string? BenId { get; set; }
+        public string? Broker { get; set; }
 
     }
 }

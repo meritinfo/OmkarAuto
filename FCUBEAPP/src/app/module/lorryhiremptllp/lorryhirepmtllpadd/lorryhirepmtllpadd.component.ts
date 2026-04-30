@@ -1059,6 +1059,7 @@ export class LorryhirepmtllpaddComponent {
           'extraRemarks': selectedDataVal.arrayList[i].extraRemarks.toString().toUpperCase(),
           'deductRemarks': selectedDataVal.arrayList[i].deductRemarks.toString().toUpperCase(),
           'benId': selectedDataVal.arrayList[i].benId,
+          'broker':""
         });
       }
     }
