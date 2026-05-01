@@ -334,9 +334,11 @@ export class ConsignmentupdateComponent {
           fromPlace : this.lrmodel.fromPlace,
           toPlace :  this.lrmodel.toPlace, 
           shipmentNo: this.lrmodel.shipmentNo,
-          shipmentDt : this.lrmodel.shipmentDt,      
+         // shipmentDt : this.lrmodel.shipmentDt, 
+          shipmentDt:this.commonService.formatDate(this.lrmodel.shipmentDt),     
           poNo : this.lrmodel.poNo,
-          poDt : this.lrmodel.poDt,
+        //  poDt : this.lrmodel.poDt,
+          poDt : this.commonService.formatDate(this.lrmodel.poDt),
           privateMark : this.lrmodel.privateMark,  
           noPackages :  this.lrmodel.noPackages,
           actualWt :  this.lrmodel.actualWt, 
@@ -621,7 +623,7 @@ export class ConsignmentupdateComponent {
     this.cnmodel.deliveryDateTime = selectedDataValue.deliveryDateTime.toString();
     this.cnmodel.ulDetentionDays = selectedDataValue.ulDetentionDays.toString();
     this.cnmodel.advanceRs  = selectedDataValue.advanceRs ? selectedDataValue.advanceRs : "0"; 
-    this.cnmodel.productDesc = selectedDataValue.productDesc.toString().toUpperCase()  ;
+    this.cnmodel.productDesc = selectedDataValue.productDesc  ? selectedDataValue.productDesc : "0"; 
     //this.cnmodel.yearId = this.year;
     this.cnmodel.loggedInUser = this.loggedInUserID;
 
