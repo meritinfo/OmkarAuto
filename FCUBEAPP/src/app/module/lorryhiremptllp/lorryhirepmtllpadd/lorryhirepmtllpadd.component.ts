@@ -1042,6 +1042,7 @@ export class LorryhirepmtllpaddComponent {
           'challanBranch': selectedDataVal.arrayList[i].challanBranch,
           'challanNo': selectedDataVal.arrayList[i].challanNo,
           'challanId': selectedDataVal.arrayList[i].challanId,
+          'challanDt':"",
           'dueAmt': selectedDataVal.arrayList[i].dueAmt.toString(),
           'hireAmt': selectedDataVal.arrayList[i].hireAmt.toString(),
           'hamaliAmt': selectedDataVal.arrayList[i].hamaliAmt.toString(),
@@ -1059,7 +1060,15 @@ export class LorryhirepmtllpaddComponent {
           'extraRemarks': selectedDataVal.arrayList[i].extraRemarks.toString().toUpperCase(),
           'deductRemarks': selectedDataVal.arrayList[i].deductRemarks.toString().toUpperCase(),
           'benId': selectedDataVal.arrayList[i].benId,
-          'broker':""
+          'broker':"",
+          'totalAdvance'	: "",
+          'advPaid'	:  "",
+          'advDed'	:  "",
+          'advDue'	:  "",
+          'totalBalance':  "",
+          'balPaid'	:  "",
+          'balDed'	:  "",
+          'balDue' :  "",
         });
       }
     }

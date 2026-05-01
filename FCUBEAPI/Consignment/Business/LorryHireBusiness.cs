@@ -40,6 +40,10 @@ namespace Consignment.Business
         {
             return await lorryHireRepository.GetChallanLorryhireDetails(request);
         }
+        public async Task<LorryHireMasterModel> GetLHChallanDetails(RequestModel request)
+        {
+            return await lorryHireRepository.GetLHChallanDetails(request);
+        }
         public async Task<ResponseModel> GetLorryHirePmtNo(RequestModel requestModel)
         {
             return await lorryHireRepository.GetLorryHirePmtNo(requestModel);

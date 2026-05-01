@@ -13,11 +13,11 @@
             <form (keydown.enter)="$event.preventDefault()"[formGroup]="formUser">
                 <div class="ng-untouched ng-pristine ng-valid">
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-8">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-4">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Payment Branch</label>
                                                 <span style="color: red">*</span>
@@ -39,7 +39,7 @@
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtNo'].invalid) }">
                                             </div>
                                         </div>
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-3">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Payment Date</label>
                                                 <span style="color: red">*</span>
@@ -48,7 +48,7 @@
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtDate'].invalid) }">
                                             </div>
                                         </div>
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Payment Type</label>
                                                 <span style="color: red">*</span>
@@ -73,7 +73,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-lg-2" *ngIf="onAcBranchShow">
+                                        <div class="col-lg-3" *ngIf="onAcBranchShow">
                                             <div class="form-check">
                                                 <input type="checkbox"  formControlName="onAcBranchYN" 
                                                 class="form-check-input" value="Y" 
@@ -82,7 +82,7 @@
                                                 style="color: green;"> On A/c of Branch</label>
                                             </div>
                                         </div>
-                                        <div class="col-lg-3" *ngIf="onAcBranchShow">
+                                        <div class="col-lg-4" *ngIf="onAcBranchShow">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">On A/c Branch</label>
                                                 <span style="color: red">*</span>
@@ -95,7 +95,7 @@
                                                 </select>
                                             </div>
                                         </div>                                        
-                                        <div class="col-lg-4">
+                                        <div class="col-lg-5">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Payee Name</label>
                                                 <input uppercaseonly autoclose="false" class="form-control"
@@ -113,7 +113,7 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-4">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Credit Account</label>
                                                 <span style="color: red">*</span>
@@ -133,7 +133,7 @@
                                                      >
                                             </div>
                                         </div>
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="basicpill-email-input">Cheque Date </label>
                                                 <input bsdatepicker="" type="date" autoclose="false"
@@ -142,7 +142,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-lg-5">
+                                        <div class="col-lg-7">
                                             <div class="mb-3">
                                                 <label for="basicpill-phoneno-input">Remarks</label>
                                                 <input uppercaseonly type="text" class="form-control"
@@ -154,6 +154,79 @@
                                 <!-- end card body -->
                             </div>
                             <!-- end card -->
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card">
+                                <div class="card-body" style="border: 1px solid red;" *ngIf="chlnDtlsShow">
+                                    <div class="row">
+                                        <div class="col-lg-5">
+                                            <div class="mb-3">
+                                                <label for="basicpill-phoneno-input">Ch No: <span style="color: red;">{{chlnNo}}</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="basicpill-phoneno-input">Ch Dt: <span style="color: red;">{{chlnDt}}</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="basicpill-phoneno-input">Tot Hire: <span style="color: red;">{{totHire}}</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="basicpill-phoneno-input">Tot Adv:<span style="color: red;">{{totAdv}}</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="basicpill-phoneno-input">Adv Paid:<span style="color: red;">{{adPd}}</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="basicpill-phoneno-input">Adv Ded:<span style="color: red;">{{adDed}}</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="basicpill-phoneno-input">Adv Due:<span style="color: red;">{{adDue}}</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="basicpill-phoneno-input">Tot Bal:<span style="color: red;">{{totBal}}</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="basicpill-phoneno-input">Bal Paid:<span style="color: red;">{{blpd}}</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="basicpill-phoneno-input">Bal Ded:<span style="color: red;">{{blDed}}</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="basicpill-phoneno-input">Bal Due:<span style="color: red;">{{blDue}}</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -189,12 +262,14 @@
                                 <tr formArrayName="arrayList"
                                     *ngFor="let arrayData of formArray.controls; let i = index">
                                     <div [formGroupName]="i" class="grid-table">
-                                        <td>
-                                            <div class="col-lg-4 details-button">
+                                        <td style="width: 150px;">
+                                            <div class="col-lg-12 details-button">
                                                 <button *ngIf="i === formArray.controls.length-1" type="button"
                                                     class="btn btn-add" (click)="addItem(i)"></button>
                                                 <button *ngIf="formArray.controls.length > 1"
                                                     (click)="removeItem(i)" class="btn btn-delete"></button>
+                                                <button class="btn btn-primary  btn-sm"  
+                                                    (click)="viewItem(i)"><i class="fa fa-eye"></i></button>
                                             </div>                                        
                                         </td>
                                         <td>
