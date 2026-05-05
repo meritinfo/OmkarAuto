@@ -32,6 +32,7 @@ export class LorryhirepmtaddComponent {
   blpd:string = '';
   blDed:string = '';
   blDue:string = '';
+  brkr:string = '';
   loggedInUserID: string = '';
   year: string = '';
   branch: string = '';
@@ -573,6 +574,7 @@ export class LorryhirepmtaddComponent {
         this.blpd = res.lhpmDetails[0].balPaid;
         this.blDed = res.lhpmDetails[0].balDed;
         this.blDue = res.lhpmDetails[0].balDue;
+        this.brkr = arr[i].broker.toString();
       });
     }      
     else {

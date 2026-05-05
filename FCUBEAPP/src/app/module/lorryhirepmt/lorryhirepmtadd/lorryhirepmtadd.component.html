@@ -180,36 +180,36 @@
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="mb-3">
-                                                <label for="basicpill-phoneno-input">Tot Adv:<span style="color: red;">{{totAdv}}</span></label>
+                                                <label for="basicpill-phoneno-input">Tot Adv: <span style="color: red;">{{totAdv}}</span></label>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="mb-3">
-                                                <label for="basicpill-phoneno-input">Adv Paid:<span style="color: red;">{{adPd}}</span></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="mb-3">
-                                                <label for="basicpill-phoneno-input">Adv Ded:<span style="color: red;">{{adDed}}</span></label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="mb-3">
-                                                <label for="basicpill-phoneno-input">Adv Due:<span style="color: red;">{{adDue}}</span></label>
+                                                <label for="basicpill-phoneno-input">Adv Paid: <span style="color: red;">{{adPd}}</span></label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="mb-3">
-                                                <label for="basicpill-phoneno-input">Tot Bal:<span style="color: red;">{{totBal}}</span></label>
+                                                <label for="basicpill-phoneno-input">Adv Ded: <span style="color: red;">{{adDed}}</span></label>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="mb-3">
-                                                <label for="basicpill-phoneno-input">Bal Paid:<span style="color: red;">{{blpd}}</span></label>
+                                                <label for="basicpill-phoneno-input">Adv Due: <span style="color: red;">{{adDue}}</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="basicpill-phoneno-input">Tot Bal: <span style="color: red;">{{totBal}}</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="basicpill-phoneno-input">Bal Paid: <span style="color: red;">{{blpd}}</span></label>
                                             </div>
                                         </div>
                                     </div>
@@ -221,10 +221,18 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="mb-3">
-                                                <label for="basicpill-phoneno-input">Bal Due:<span style="color: red;">{{blDue}}</span></label>
+                                                <label for="basicpill-phoneno-input">Bal Due: <span style="color: red;">{{blDue}}</span></label>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="mb-3">
+                                                <label for="basicpill-phoneno-input">Brkr: <span style="color: red;">{{brkr}}</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -257,7 +265,6 @@
                                     <th><label for="formrow-inputZip">Extra Remarks</label></th>
                                     <th><label for="formrow-inputZip">Deduction Remarks</label></th>
                                     <th><label for="formrow-inputZip">Beneficiary</label></th>
-                                    <th><label for="formrow-inputZip">Broker</label></th>
                                 </tr>
                                 <tr formArrayName="arrayList"
                                     *ngFor="let arrayData of formArray.controls; let i = index">
@@ -361,7 +368,9 @@
                                         </td>                                      
                                         <td>
                                             <input uppercaseonly autoclose="false" class="form-control" 
-                                                formControlName="deductRemarks">
+                                                formControlName="deductRemarks">                                            
+                                            <input type="hidden" autoclose="false" class="form-control" 
+                                                formControlName="broker">
                                         </td>                                     
                                         <td>
                                             <!-- <select class="form-control form-select ng-pristine ng-touched"
@@ -387,11 +396,7 @@
                                                     </ng-template>
                                                 </div>
                                             </div>
-                                        </td>                                     
-                                        <td>
-                                            <input uppercaseonly autoclose="false" class="form-control" 
-                                                formControlName="broker">
-                                        </td>   
+                                        </td>  
                                     </div>
                                 </tr>
                             </table>
