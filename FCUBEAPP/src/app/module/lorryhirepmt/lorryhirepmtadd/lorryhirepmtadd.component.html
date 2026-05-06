@@ -265,6 +265,7 @@
                                     <th><label for="formrow-inputZip">Extra Remarks</label></th>
                                     <th><label for="formrow-inputZip">Deduction Remarks</label></th>
                                     <th><label for="formrow-inputZip">Beneficiary</label></th>
+                                    <th><label for="formrow-inputZip">Broker</label></th>
                                 </tr>
                                 <tr formArrayName="arrayList"
                                     *ngFor="let arrayData of formArray.controls; let i = index">
@@ -368,9 +369,7 @@
                                         </td>                                      
                                         <td>
                                             <input uppercaseonly autoclose="false" class="form-control" 
-                                                formControlName="deductRemarks">                                            
-                                            <input type="hidden" autoclose="false" class="form-control" 
-                                                formControlName="broker">
+                                                formControlName="deductRemarks"> 
                                         </td>                                     
                                         <td>
                                             <!-- <select class="form-control form-select ng-pristine ng-touched"
@@ -396,7 +395,11 @@
                                                     </ng-template>
                                                 </div>
                                             </div>
-                                        </td>  
+                                        </td>                                     
+                                        <td>                                         
+                                            <input uppercaseonly autoclose="false" class="form-control" 
+                                                formControlName="broker">
+                                        </td>     
                                     </div>
                                 </tr>
                             </table>
