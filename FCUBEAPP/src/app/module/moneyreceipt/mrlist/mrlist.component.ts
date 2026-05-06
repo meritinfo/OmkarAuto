@@ -167,6 +167,18 @@ dashboard: string ="";
             data: 'partyName',
           },
           {
+            title: 'Receipt Type',
+            data: 'mrReceiptTypeStatus',
+          },
+          {
+            title: 'On AcStatus',
+            data: 'onAcStatus',
+          },
+          {
+            title: 'On AcNew Amt',
+            data: 'onAcNewAmt',
+          },
+          {
             title: 'Cheq Cash Amt',
             data: 'cheqCashAmt',
           },

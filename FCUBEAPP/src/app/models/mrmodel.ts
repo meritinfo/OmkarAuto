@@ -66,6 +66,7 @@ export class Mrmodel {
     createdDate: string = "";
     modifiedBy: string = "";
     modifiedDate: string = "";
+    mrReceiptTypeStatus: string = "";
 
     
 
