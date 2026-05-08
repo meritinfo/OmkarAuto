@@ -242,7 +242,7 @@ export class LedgerreportComponent {
       });
     }
     else if(format=="XX"){
-      this.ledgerrptService.getLedgerrptExcel(this.filter).subscribe(resp => {
+      this.ledgerrptService.getLedgerrptNewExcel(this.filter).subscribe(resp => {
         if(resp.status){      
           let link = document.createElement("a");
           link.download = "LedgerReport_" + new Date().getTime() + '.xlsx';
