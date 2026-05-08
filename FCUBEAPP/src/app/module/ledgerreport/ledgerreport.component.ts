@@ -241,6 +241,19 @@ export class LedgerreportComponent {
         }
       });
     }
+    else if(format=="XX"){
+      this.ledgerrptService.getLedgerrptNewExcel(this.filter).subscribe(resp => {
+        if(resp.status){      
+          let link = document.createElement("a");
+          link.download = "LedgerReport_" + new Date().getTime() + '.xlsx';
+          link.href = "assets/reports/Ledger/" + resp.message;
+          link.click();
+        }
+        else{        
+          this.toastrService.warning(resp.message);   
+        }
+      });
+    }
     else{
       this.ledgerrptService.getLedgerrptPdf(this.filter).subscribe(resp => {
         if(resp.status){    

@@ -57,6 +57,9 @@ export class FinreportsService {
   getLedgerrptExcel(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetLedgerRptExcel', filter, this.httpOptions);
   } 
+  getLedgerrptNewExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetLedgerRptNewExcel', filter, this.httpOptions);
+  } 
   getLedgerDetailList(filter: Reportmodel): Observable<Ledgerdetaillistmodel> {
     return this.httpClient.post<Ledgerdetaillistmodel>(Constants.API_ENDPOINT + 'FinTrans/GetLedgerDetailList', filter, this.httpOptions);
   } 

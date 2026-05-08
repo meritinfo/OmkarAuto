@@ -712,6 +712,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetLedgerRptNewExcel")]
+        public async Task<IActionResult> GetLedgerRptNewExcel(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await ledgerRptBusiness.GetLedgerRptNewExcel(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("GetMultipleLedgerRptExcel")]
         public async Task<IActionResult> GetMultipleLedgerRptExcel(RepReqModel req)

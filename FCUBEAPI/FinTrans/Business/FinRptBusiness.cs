@@ -78,6 +78,23 @@ namespace FinTrans.Business
             return await ledgerRptRepository.LedgerPrintPdf(req);
 
         }
+        public async Task<ResponseModel> GetLedgerRptNewExcel(ReportRequestModel request)
+        {
+            RepReqModel req = new RepReqModel();
+            req.FromDate = request.FromDate;
+            req.ToDate = request.ToDate;
+            req.SortColumn = request.SortColumn == "" ? "N" : request.SortColumn;
+            req.SortOrder = request.SortOrder == "" ? "N" : request.SortOrder;
+            req.Search = request.Search;
+            req.FilterStr = request.FilterStr;
+            req.FilterStr1 = request.FilterStr1;
+            req.FilterStr2 = request.FilterStr2;
+            req.FilterStr3 = request.FilterStr3;
+            req.FilterStr4 = "XX";
+
+            return await ledgerRptRepository.LedgerPrintPdf(req);
+
+        }
         public async Task<ResponseModel> GetMultipleLedgerRptExcel(RepReqModel request)
         {
             RepReqModel req = new RepReqModel();
@@ -113,9 +130,6 @@ namespace FinTrans.Business
             return await ledgerRptRepository.AnnexurePrintPdf(req);
 
         }
-
-
-
 
         public async Task<ResponseModel> GetLedgerRptPdf(ReportRequestModel request)
         {
