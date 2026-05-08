@@ -596,7 +596,6 @@ namespace Consignment.Repository
             }
             return response;
         }
-
         public async Task<ResponseModel> GetLrNoLLP(RequestModel req)
         {
             ResponseModel response = new();
@@ -730,7 +729,6 @@ namespace Consignment.Repository
             }
             return lrmodel;
         }
-
         public async Task<ResponseModel> ConsignmentUpdate(ConsignmentUpdateModel ConsignmentModel)
         {
             ResponseModel responseModel = new();

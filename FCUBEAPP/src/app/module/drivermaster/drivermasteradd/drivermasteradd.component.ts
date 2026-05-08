@@ -158,7 +158,7 @@ export class DrivermasteraddComponent {
       removedYN: new FormControl('N',),
       removedDate: new FormControl('',),
       remarks: new FormControl('',),
-      groupName: new FormControl('', [Validators.required]),
+      groupName: new FormControl('',),
       driverAcct: new FormControl('',),
       drPhoto: new FormControl('',),
       attachDrLic: new FormControl('',),

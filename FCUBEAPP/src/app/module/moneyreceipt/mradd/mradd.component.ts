@@ -280,6 +280,9 @@ export class MraddComponent {
             mrStatus: ""
           });
         }
+        if(this.selectedMrDetails.mrReceiptType=="B"){      
+          this.formUser.controls['chequeDt'].enable();
+        }
         // if (this.selectedMrDetails.groupMrYN=="N"){
         //   this.formUser.patchValue({
         //     groupMrYN: ""
@@ -492,42 +495,47 @@ export class MraddComponent {
   getMrInnerGridList(): void {
     this.requestmodel.strRequest = this.selectedMrDetails.mrMasterId;
     this.mrService.getMrInnerGridList(this.requestmodel).subscribe((res) => {
-      this.formArray.clear();
-      for (let i = 0; i < res.mrDtlsList.length; i++) {
-        this.formArray.push(this.createInitialArray()); 
+      if(res.mrDtlsList.length>0){
+        this.formArray.clear();
+        for (let i = 0; i < res.mrDtlsList.length; i++) {
+          this.formArray.push(this.createInitialArray()); 
 
-        this.formArray.controls[i].get("billLrMasterId")?.setValue(res.mrDtlsList[i].billLrMasterId);
-        this.formArray.controls[i].get("billLrYear")?.setValue(res.mrDtlsList[i].billLrYear);
-        this.formArray.controls[i].get("billLrStn")?.setValue(res.mrDtlsList[i].billLrStn);
-        this.formArray.controls[i].get("billLrNo")?.setValue(res.mrDtlsList[i].billLrNo);        
-        this.formArray.controls[i].get("billLrDate")?.setValue(this.commonService.formatDate(res.mrDtlsList[i].billLrDate));
-        //this.formArray.controls[i].get("partyCode")?.setValue(res.mrDtlsList[i].partyCode);
-        this.formArray.controls[i].get("dueAmt")?.setValue(res.mrDtlsList[i].dueAmt);
-        this.formArray.controls[i].get("oldDueAmt")?.setValue(res.mrDtlsList[i].oldDueAmt);
-        this.formArray.controls[i].get("recdAmt")?.setValue(res.mrDtlsList[i].recdAmt);
-        this.formArray.controls[i].get("freightDed")?.setValue(res.mrDtlsList[i].freightDed);
-        this.formArray.controls[i].get("claimsDed")?.setValue(res.mrDtlsList[i].claimsDed);
-        this.formArray.controls[i].get("bankChrgDed")?.setValue(res.mrDtlsList[i].bankChrgDed);
-        this.formArray.controls[i].get("othersDed")?.setValue(res.mrDtlsList[i].othersDed);
-        this.formArray.controls[i].get("othersDed1")?.setValue(res.mrDtlsList[i].othersDed1);
-        this.formArray.controls[i].get("othersDed2")?.setValue(res.mrDtlsList[i].othersDed2);
-        this.formArray.controls[i].get("othersDed3")?.setValue(res.mrDtlsList[i].othersDed3);
-        // this.formArray.controls[i].get("recoverable")?.setValue(res.mrDtlsList[i].recoverable);
-        this.formArray.controls[i].get("totDed")?.setValue(res.mrDtlsList[i].totDed);
-        this.formArray.controls[i].get("tdsDed")?.setValue(res.mrDtlsList[i].tdsDed);
-        this.formArray.controls[i].get("sdEmdDed")?.setValue(res.mrDtlsList[i].sdEmdDed);
-        this.formArray.controls[i].get("excessRecd")?.setValue(res.mrDtlsList[i].excessRecd);
-        this.formArray.controls[i].get("others1Recd")?.setValue(res.mrDtlsList[i].others1Recd);        
-        this.formArray.controls[i].get("remarks")?.setValue(res.mrDtlsList[i].remarks);
+          this.formArray.controls[i].get("billLrMasterId")?.setValue(res.mrDtlsList[i].billLrMasterId);
+          this.formArray.controls[i].get("billLrYear")?.setValue(res.mrDtlsList[i].billLrYear);
+          this.formArray.controls[i].get("billLrStn")?.setValue(res.mrDtlsList[i].billLrStn);
+          this.formArray.controls[i].get("billLrNo")?.setValue(res.mrDtlsList[i].billLrNo);        
+          this.formArray.controls[i].get("billLrDate")?.setValue(this.commonService.formatDate(res.mrDtlsList[i].billLrDate));
+          //this.formArray.controls[i].get("partyCode")?.setValue(res.mrDtlsList[i].partyCode);
+          this.formArray.controls[i].get("dueAmt")?.setValue(res.mrDtlsList[i].dueAmt);
+          this.formArray.controls[i].get("oldDueAmt")?.setValue(res.mrDtlsList[i].oldDueAmt);
+          this.formArray.controls[i].get("recdAmt")?.setValue(res.mrDtlsList[i].recdAmt);
+          this.formArray.controls[i].get("freightDed")?.setValue(res.mrDtlsList[i].freightDed);
+          this.formArray.controls[i].get("claimsDed")?.setValue(res.mrDtlsList[i].claimsDed);
+          this.formArray.controls[i].get("bankChrgDed")?.setValue(res.mrDtlsList[i].bankChrgDed);
+          this.formArray.controls[i].get("othersDed")?.setValue(res.mrDtlsList[i].othersDed);
+          this.formArray.controls[i].get("othersDed1")?.setValue(res.mrDtlsList[i].othersDed1);
+          this.formArray.controls[i].get("othersDed2")?.setValue(res.mrDtlsList[i].othersDed2);
+          this.formArray.controls[i].get("othersDed3")?.setValue(res.mrDtlsList[i].othersDed3);
+          // this.formArray.controls[i].get("recoverable")?.setValue(res.mrDtlsList[i].recoverable);
+          this.formArray.controls[i].get("totDed")?.setValue(res.mrDtlsList[i].totDed);
+          this.formArray.controls[i].get("tdsDed")?.setValue(res.mrDtlsList[i].tdsDed);
+          this.formArray.controls[i].get("sdEmdDed")?.setValue(res.mrDtlsList[i].sdEmdDed);
+          this.formArray.controls[i].get("excessRecd")?.setValue(res.mrDtlsList[i].excessRecd);
+          this.formArray.controls[i].get("others1Recd")?.setValue(res.mrDtlsList[i].others1Recd);        
+          this.formArray.controls[i].get("remarks")?.setValue(res.mrDtlsList[i].remarks);
 
-        this.formArray.controls[i].get("billLrYear")?.disable();
-        this.formArray.controls[i].get("billLrStn")?.disable();
-        this.formArray.controls[i].get("billLrNo")?.disable();
-        this.formArray.controls[i].get("billLrDate")?.disable();  
-        //this.formArray.controls[i].get("partyCode")?.disable();  
-        this.formArray.controls[i].get("dueAmt")?.disable();
-        this.formArray.controls[i].get("totDed")?.disable();
+          this.formArray.controls[i].get("billLrYear")?.disable();
+          this.formArray.controls[i].get("billLrStn")?.disable();
+          this.formArray.controls[i].get("billLrNo")?.disable();
+          this.formArray.controls[i].get("billLrDate")?.disable();  
+          //this.formArray.controls[i].get("partyCode")?.disable();  
+          this.formArray.controls[i].get("dueAmt")?.disable();
+          this.formArray.controls[i].get("totDed")?.disable();
+        }
       }
+      else{   
+        this.formUser.controls['partyCode'].enable();    
+      }     
 
       this.formMrArray.clear();
       for (let i = 0; i < res.mrOnAcList.length; i++) {

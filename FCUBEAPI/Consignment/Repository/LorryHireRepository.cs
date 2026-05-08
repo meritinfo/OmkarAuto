@@ -256,6 +256,49 @@ namespace Consignment.Repository
             }
             return lorryHire;
         }
+        public async Task<LorryHireMasterModel> GetLHChallanDetails(RequestModel request)
+        {
+            LorryHireMasterModel lorryHire = new()
+            {
+                LhpmDetails = new List<LorryHireDetailModel>(),
+            };
+
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@ChallanId", request.strRequest),
+                        };
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getLHChallanDetails", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {                       
+                        lorryHire.LhpmDetails.Add(new LorryHireDetailModel
+                        {
+                            ChallanNo = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanNo"]),
+                            ChallanDt = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanDt"]),
+                            HireAmt = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalHire"]),
+                            TotalAdvance = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalAdvance"]),
+                            AdvPaid = Convert.ToString(dataSet.Tables[0].Rows[0]["AdvPaid"]),
+                            AdvDed = Convert.ToString(dataSet.Tables[0].Rows[0]["AdvDed"]),
+                            AdvDue = Convert.ToString(dataSet.Tables[0].Rows[0]["AdvDue"]),
+                            TotalBalance = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalBalance"]),
+                            BalPaid = Convert.ToString(dataSet.Tables[0].Rows[0]["BalPaid"]),
+                            BalDed = Convert.ToString(dataSet.Tables[0].Rows[0]["BalDed"]),
+                            BalDue = Convert.ToString(dataSet.Tables[0].Rows[0]["BalDue"]),
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return lorryHire;
+        }
         public async Task<ResponseModel> LorryHireMasterSave(LorryHireMasterModel lorryHire)
         {
             ResponseModel responseModel = new();

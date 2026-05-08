@@ -20,6 +20,19 @@ import { DocRenewalEntryService } from 'src/app/services/docrenewalentry.service
 })
 export class LorryhirepmtaddComponent {
   onAcBranchShow=true;
+  chlnDtlsShow=false;
+  chlnNo:string = '';
+  chlnDt:string = '';
+  totHire:string = '';
+  totAdv:string = '';
+  adPd:string = '';
+  adDed:string = '';
+  adDue:string = '';
+  totBal:string = '';
+  blpd:string = '';
+  blDed:string = '';
+  blDue:string = '';
+  brkr:string = '';
   loggedInUserID: string = '';
   year: string = '';
   branch: string = '';
@@ -539,6 +552,34 @@ export class LorryhirepmtaddComponent {
     if (confirm("Are you sure, you want to delete this row?")) {
       this.formArray.removeAt(index);
       this.caltot();
+    }
+  }
+
+  viewItem(i: number): void {
+    var selectedDataVal= this.formUser.getRawValue()
+    var arr = selectedDataVal.arrayList;
+
+    if(arr[i].challanId?arr[i].challanId.toString():""!=""){
+      this.requestmodel.strRequest = arr[i].challanId.toString();
+      this.lorryhirepmtService.getLHChallanDetails(this.requestmodel).subscribe((res) => {
+        this.chlnDtlsShow = true;
+        this.chlnNo = res.lhpmDetails[0].challanNo;
+        this.chlnDt = res.lhpmDetails[0].challanDt;
+        this.totHire = res.lhpmDetails[0].hireAmt;
+        this.totAdv = res.lhpmDetails[0].totalAdvance;
+        this.adPd = res.lhpmDetails[0].advPaid;
+        this.adDed = res.lhpmDetails[0].advDed;
+        this.adDue = res.lhpmDetails[0].advDue;
+        this.totBal = res.lhpmDetails[0].totalBalance;
+        this.blpd = res.lhpmDetails[0].balPaid;
+        this.blDed = res.lhpmDetails[0].balDed;
+        this.blDue = res.lhpmDetails[0].balDue;
+        this.brkr = arr[i].broker.toString();
+      });
+    }      
+    else {
+      this.toasterService.warning("Please Enter Challan Fields ");
+      return;
     }
   }
 
@@ -1068,6 +1109,7 @@ export class LorryhirepmtaddComponent {
           'challanBranch': selectedDataVal.arrayList[i].challanBranch,
           'challanNo': selectedDataVal.arrayList[i].challanNo,
           'challanId': selectedDataVal.arrayList[i].challanId,
+          'challanDt':"",
           'dueAmt': selectedDataVal.arrayList[i].dueAmt.toString(),
           'hireAmt': selectedDataVal.arrayList[i].hireAmt.toString(),
           'hamaliAmt': selectedDataVal.arrayList[i].hamaliAmt.toString(),
@@ -1085,8 +1127,16 @@ export class LorryhirepmtaddComponent {
           'extraRemarks': selectedDataVal.arrayList[i].extraRemarks.toString().toUpperCase(),
           'deductRemarks': selectedDataVal.arrayList[i].deductRemarks.toString().toUpperCase(),
          // 'benId': selectedDataVal.arrayList[i].benId.dataId,
-         'benId': selectedDataVal.arrayList[i].benId ? selectedDataVal.arrayList[i].benId.dataId : '',
-         'broker':"",
+          'benId': selectedDataVal.arrayList[i].benId ? selectedDataVal.arrayList[i].benId.dataId : '',
+          'broker':"",
+          'totalAdvance'	: "",
+          'advPaid'	:  "",
+          'advDed'	:  "",
+          'advDue'	:  "",
+          'totalBalance':  "",
+          'balPaid'	:  "",
+          'balDed'	:  "",
+          'balDue' :  "",
         });
       }
     }

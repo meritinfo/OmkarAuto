@@ -60,6 +60,7 @@
         public string? CreatedDate { get; set; }
         public string? ModifiedBy { get; set; }
         public string? ModifiedDate { get; set; }
+        public string? MrReceiptTypeStatus { get; set; }
 
         public string? LoggedInUser { get; set; }
         public List<MrDtlsModel> MrDtlsList { get; set; }

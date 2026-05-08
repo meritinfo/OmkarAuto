@@ -6,6 +6,7 @@ export class Lorryhiredetailmodel {
     challanBranch: string = "";
     challanNo : string = "";
     challanId : string = "";
+    challanDt : string = "";
     dueAmt: string = "";
     hireAmt: string = "";
     hamaliAmt : string = "";
@@ -23,7 +24,15 @@ export class Lorryhiredetailmodel {
     extraRemarks : string = "";
     deductRemarks: string = "";   
     benId : string = "";  
-    broker: string = "";  
+    broker: string = "";
+    totalAdvance	: string = "";
+    advPaid	: string = "";
+    advDed	: string = "";
+    advDue	: string = "";
+    totalBalance: string = "";	
+    balPaid	: string = "";
+    balDed	: string = "";
+    balDue : string = "";
     
     
 

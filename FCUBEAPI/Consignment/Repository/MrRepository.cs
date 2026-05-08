@@ -106,6 +106,7 @@ namespace Consignment.Repository
                                 CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
                                 ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
                                 ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
+                                MrReceiptTypeStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["MrReceiptTypeStatus"]),
                             });
                         }
 
