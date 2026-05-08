@@ -594,6 +594,7 @@ import { LrwisecostinglprptComponent } from './module/lrwisecostinglprpt/lrwisec
 import { FleetBillsmasterlistComponent } from './module/fleetbillsmaster/fleetbillsmasterlist/fleetbillsmasterlist.component';
 import { FleetBillsmasteraddComponent } from './module/fleetbillsmaster/fleetbillsmasteradd/fleetbillsmasteradd.component';
 import { BillprintgsrComponent } from './module/billprintgsr/billprintgsr.component';
+import { GstsalesregisterComponent } from './module/gstsalesregister/gstsalesregister/gstsalesregister.component';
 
 
 
@@ -796,7 +797,8 @@ import { BillprintgsrComponent } from './module/billprintgsr/billprintgsr.compon
     DocumentmasterlistComponent,
     LrwisecostinglprptComponent,
     FleetBillsmasteraddComponent,
-    BillprintgsrComponent
+    BillprintgsrComponent,
+    GstsalesregisterComponent
    
     
   ],
