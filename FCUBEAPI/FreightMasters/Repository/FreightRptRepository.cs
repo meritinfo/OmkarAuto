@@ -6184,7 +6184,7 @@ namespace FreightMasters.Repository
                         var filter = "From " + Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy");
                         filter = filter + " To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy");
 
-                        response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Bill GST Report", filter);
+                        response = await sharedRepository.GetDualGroupExcelReport(dataSet.Tables[0], "Bill GST Report", filter);
                     }
                     else
                     {
