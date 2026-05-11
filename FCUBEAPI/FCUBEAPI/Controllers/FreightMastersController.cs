@@ -449,6 +449,25 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetGstSalesRptExcel")]
+        public async Task<IActionResult> GetGstSalesRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await freightRptBusiness.GetGstSalesRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         [HttpPost("GetDeliveryDisputeRptExcel")]
         public async Task<IActionResult> GetDeliveryDisputeRptExcel(ReportRequestModel request)

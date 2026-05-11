@@ -6161,6 +6161,46 @@ namespace FreightMasters.Repository
             }
             return response;
         }
+        public async Task<ResponseModel> GetGstSalesRptExcel(ReportRequestModel request)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
+                            new SqlParameter("@Branch",     request.FilterStr),
+                            new SqlParameter("@Party",      request.FilterStr1),
+                            new SqlParameter("@BillSeries", request.FilterStr2),
+                        };
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getGstSalesRptExcel", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        var filter = "From " + Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy");
+                        filter = filter + " To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy");
+
+                        response = await sharedRepository.GetDualGroupExcelReport(dataSet.Tables[0], "Bill GST Report", filter);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+
 
         public async Task<ResponseModel> GetDeliveryDisputeRptExcel(ReportRequestModel request)
         {

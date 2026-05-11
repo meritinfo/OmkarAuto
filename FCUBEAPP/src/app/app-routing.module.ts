@@ -389,6 +389,7 @@ import { DocumentmasteraddComponent } from './module/documentmaster/documentmast
 import { DocumentmasterlistComponent } from './module/documentmaster/documentmasterlist/documentmasterlist.component';
 import { LrwisecostinglprptComponent } from './module/lrwisecostinglprpt/lrwisecostinglprpt.component';
 import { BillprintgsrComponent } from './module/billprintgsr/billprintgsr.component';
+import { GstsalesregisterComponent } from './module/gstsalesregister/gstsalesregister/gstsalesregister.component';
 
 
 const routes: Routes = [
@@ -810,6 +811,7 @@ const routes: Routes = [
   { path: 'admingroupmasteredit', component: AdminmastergroupaddComponent },
   { path: 'billprintllp',component: BillprintllpComponent},
   { path: 'gtsreg',component: BillgstrptComponent},
+   { path: 'gstregbill',component: GstsalesregisterComponent},
   { path: 'trippaymentlistllp',component: TrippaymentsllplistComponent},
   { path: 'trippaymentllpadd',component: TrippaymentsllpaddComponent },
   { path: 'trippaymentllpedit',component: TrippaymentsllpaddComponent },

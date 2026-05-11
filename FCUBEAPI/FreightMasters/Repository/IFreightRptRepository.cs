@@ -33,6 +33,7 @@ namespace FreightMasters.Repository
         Task<ResponseModel> GetBusinessSummRptExcel(ReportRequestModel request);
         Task<ResponseModel> GetChallanTdsStatementRptExcel(ReportRequestModel request);
         Task<ChallanRegisterRptListModel> GetChallanTdsStatementRptList(ReportRequestModel request);
+        Task<ResponseModel> GetGstSalesRptExcel(ReportRequestModel request);
 
         Task<ChallanRegisterRptListModel> GetChallanRegisterRptList(ReportRequestModel request);
         Task<ResponseModel> GetChallanRegisterRptExcel(ReportRequestModel request);

@@ -296,5 +296,9 @@ namespace FreightMasters.Business
         {
             return await freightRptRepository.GetLRwiseCostingLlpRptExcel(request);
         }
+        public async Task<ResponseModel> GetGstSalesRptExcel(ReportRequestModel request)
+        {
+            return await freightRptRepository.GetGstSalesRptExcel(request);
+        }
     }
 }
