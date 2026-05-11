@@ -398,7 +398,6 @@ namespace Consignment.Repository
                             new SqlParameter("@ContainerNo",              cn.ContainerNo),
                             new SqlParameter("@WorkPeriod",          cn.WorkPeriod),
                             new SqlParameter("@UnloadingAddress",    cn.UnloadingAddress),
-                         
                             new SqlParameter("@AdvanceRs",          cn.AdvanceRs),
                             new SqlParameter("@YearId",              cn.YearId),
                             new SqlParameter("@LoggedInUser",        cn.LoggedInUser),
@@ -1993,6 +1992,33 @@ namespace Consignment.Repository
                 {
                     SqlParameter[] param = { };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getFcmRcmConfig", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = false;
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> GetGstLrConfig()
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param = { };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getGstLrBill", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

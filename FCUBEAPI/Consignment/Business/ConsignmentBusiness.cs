@@ -143,6 +143,11 @@ namespace Consignment.Business
         {
             return await consignmentRepository.GetFcmRcmConfig();
         }
+        public async Task<ResponseModel> GetGstLrConfig()
+        {
+            return await consignmentRepository.GetGstLrConfig();
+        }
+
         public async Task<List<DropDownListModel>> GetTransTypeList()
         {
             return await consignmentRepository.GetTransTypeList();

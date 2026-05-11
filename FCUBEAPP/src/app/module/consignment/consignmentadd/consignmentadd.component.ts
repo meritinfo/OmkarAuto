@@ -65,6 +65,7 @@ export class ConsignmentaddComponent implements OnInit {
   
   attach1: string = "";
   gstApi = true; 
+  gstLr = false; 
   
   @ViewChild('attachInput', {
     static: true
@@ -162,6 +163,7 @@ export class ConsignmentaddComponent implements OnInit {
     this.getVehTypes();
     this.getCnorCneeList();
     this.getCnorList();
+    this.getGstConfig();
     this.chkMandatoryRequired("cneeMobile");
     this.chkMandatoryRequired("actualWt");
     this.chkMandatoryRequired("senderWt");
@@ -253,7 +255,14 @@ export class ConsignmentaddComponent implements OnInit {
       unLoadingDetnRs : new FormControl('',),    
       extrasRS : new FormControl('',),    
       othersRs : new FormControl('',),    
-      subTotalRs : new FormControl('',),   
+      subTotalRs : new FormControl('',), 
+      gstType: new FormControl('',), 
+      sgstPct : new FormControl('0',), 
+      sgstAmt  : new FormControl('0',), 
+      cgstPct : new FormControl('0',), 
+      cgstAmt : new FormControl('0',), 
+      igstPct : new FormControl('0',), 
+      igstAmt : new FormControl('0',), 
       nonGstAmt1 : new FormControl('',),  
       nonGstAmt1Desc : new FormControl('',),  
       nonGstAmt2 : new FormControl('',),  
@@ -278,6 +287,9 @@ export class ConsignmentaddComponent implements OnInit {
     this.formUser.controls["vehicleOutDt"].disable();
     this.formUser.controls["vehicleOutTime"].disable();
     this.formUser.controls['subTotalRs'].disable(); 
+    this.formUser.controls['sgstAmt'].disable(); 
+    this.formUser.controls['cgstAmt'].disable(); 
+    this.formUser.controls['igstAmt'].disable(); 
     this.formUser.controls['gtotalRs'].disable(); 
 
     setTimeout(() => {
@@ -436,6 +448,17 @@ export class ConsignmentaddComponent implements OnInit {
         this.formUser.patchValue({
           rcm_Fcm: res.message,         
         })  
+      }
+    });
+  }
+
+  getGstConfig(): void {
+    this.commonService.getGstLrConfig().subscribe((res) => {
+      if(res.message=="L") {
+        this.gstLr=true;
+      }
+      else{
+        this.gstLr=false;
       }
     });
   }
@@ -697,11 +720,31 @@ export class ConsignmentaddComponent implements OnInit {
     subTotalRs = freightRs + statisticalRs + fovRs + doorCollRs + handlingRs +
                     loadingDetnRs + enrouteRs + miscRs + doorDelRs + unLoadingRs +
                     unLoadingDetnRs + extrasRS + othersRs
+
+    
+    var sgstAmt = 0;
+    var cgstAmt = 0;
+    var igstAmt = 0;
+
+    if (selectedData.gstType == "IG" && selectedData.igstPct!="") {    
+      igstAmt = subTotalRs * parseFloat(selectedData.igstPct)/100;
+    }    
+    else if (selectedData.gstType == "SC")  {  
+      if(selectedData.sgstPct!="")  {
+        sgstAmt = subTotalRs * parseFloat(selectedData.sgstPct)/100; 
+      } 
+      if(selectedData.cgstPct!="")  {
+        cgstAmt = subTotalRs * parseFloat(selectedData.cgstPct)/100; 
+      }   
+    }  
       
-    gtotalRs = subTotalRs + nonGstAmt1 + nonGstAmt2
+    gtotalRs = subTotalRs + sgstAmt + cgstAmt + igstAmt + nonGstAmt1 + nonGstAmt2
 
     this.formUser.patchValue({
       subTotalRs: subTotalRs.toFixed(2),
+      sgstAmt:sgstAmt.toFixed(2),
+      cgstAmt:cgstAmt.toFixed(2),
+      igstAmt:igstAmt.toFixed(2),
       gtotalRs: gtotalRs.toFixed(2),
     });
   }  
@@ -1092,10 +1135,25 @@ export class ConsignmentaddComponent implements OnInit {
     //new added for advance rs check
     const advance = parseFloat(selectedDataValue.advanceRs) || 0;
     const netTotal = parseFloat(selectedDataValue.gtotalRs) || 0;
+
     if ( advance>netTotal) 
     {
       this.toastrService.warning("Advance amount cannot be greater than Net Total");
       return;
+    }
+    if(this.gstLr && selectedDataValue.gstBy == "F"){
+      if(selectedDataValue.gstType=="" ||  selectedDataValue.gstType=="NA") {
+        this.toastrService.warning("Please select GST Type");
+        return;
+      }
+      if(selectedDataValue.gstType=="SC" && (parseFloat(selectedDataValue.sgstAmt)==0 || parseFloat(selectedDataValue.cgstAmt)==0)) {
+        this.toastrService.warning("Please enter SGST and CGST Amt");
+        return;
+      } 
+      if(selectedDataValue.gstType=="IG" && parseFloat(selectedDataValue.igstAmt)==0) {
+        this.toastrService.warning("Please enter IGST Amt");
+        return;
+      }     
     }
     
     var indt = "", outdt ="";
@@ -1103,6 +1161,7 @@ export class ConsignmentaddComponent implements OnInit {
     indt = indt + " " + (selectedDataValue.vehicleInTime?selectedDataValue.vehicleInTime:"");  
     outdt = selectedDataValue.vehicleOutDt?selectedDataValue.vehicleOutDt :"";  
     outdt = outdt + " " + (selectedDataValue.vehicleOutTime?selectedDataValue.vehicleOutTime:"");  
+    
 
     this.sharedService.loading = true;
     this.formSubmitted = true;
@@ -1187,6 +1246,13 @@ export class ConsignmentaddComponent implements OnInit {
     this.lrmodel.extrasRS = selectedDataValue.extrasRS ? selectedDataValue.extrasRS.toString() : "0";
     this.lrmodel.othersRs = selectedDataValue.othersRs ? selectedDataValue.othersRs.toString() : "0";
     this.lrmodel.subTotalRs = selectedDataValue.subTotalRs ? selectedDataValue.subTotalRs.toString() : "0"; 
+    this.lrmodel.gstType   = selectedDataValue.gstType =="" ? "NA":selectedDataValue.gstType.toString();         
+    this.lrmodel.sgstPct   = selectedDataValue.sgstPct ? selectedDataValue.sgstPct.toString() : "0";       
+    this.lrmodel.sgstAmt   = selectedDataValue.sgstAmt ? selectedDataValue.sgstAmt.toString() : "0";         
+    this.lrmodel.cgstPct   = selectedDataValue.cgstPct ? selectedDataValue.cgstPct.toString() : "0";         
+    this.lrmodel.cgstAmt   = selectedDataValue.cgstAmt ? selectedDataValue.cgstAmt.toString() : "0";         
+    this.lrmodel.igstPct   = selectedDataValue.igstPct ? selectedDataValue.igstPct.toString() : "0";         
+    this.lrmodel.igstAmt   = selectedDataValue.igstAmt ? selectedDataValue.igstAmt.toString() : "0";  
     this.lrmodel.nonGstAmt1  = selectedDataValue.nonGstAmt1 ? selectedDataValue.nonGstAmt1.toString() : "0"; 
     this.lrmodel.nonGstAmt1Desc  = selectedDataValue.nonGstAmt1Desc?selectedDataValue.nonGstAmt1Desc.toString().toUpperCase():"";
     this.lrmodel.nonGstAmt2  = selectedDataValue.nonGstAmt2 ? selectedDataValue.nonGstAmt2.toString() : "0"; 

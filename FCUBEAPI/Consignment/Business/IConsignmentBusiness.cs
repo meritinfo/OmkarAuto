@@ -37,6 +37,7 @@ namespace Consignment.Business
         Task<ResponseModel> CheckDuplicateLrLLP(ReportRequestModel request);
         Task<ResponseModel> CheckLrExits(RequestModel request);
         Task<ResponseModel> GetFcmRcmConfig();
+        Task<ResponseModel> GetGstLrConfig();
         Task<List<DropDownListModel>> GetTransTypeList();
         Task<ResponseModel> ConsignmentLocalFrtUpdate(ConsignmentUpdateModel ConsignmentModel);
         Task<ResponseModel> GetDocAutoGenNo(RequestModel req);

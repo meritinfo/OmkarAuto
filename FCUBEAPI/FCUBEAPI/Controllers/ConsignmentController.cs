@@ -3195,7 +3195,21 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
+        [HttpPost("GetGstLrConfig")]
+        public async Task<IActionResult> GetGstLrConfig()
+        {
+            try
+            {
+                var result = await consignmentBusiness.GetGstLrConfig();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }       
+
 
         [HttpPost("GetCciInvoiceMstMasterList")]
         public async Task<IActionResult> GetCciInvoiceMstMasterList(ReportRequestModel request)
