@@ -1609,7 +1609,311 @@ namespace FreightMasters.Repository
             }
             return billRegisterRpt;
         }
+        public async Task<ResponseModel> GetOutstandingDetailLRRptExcel(ReportAgeModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@FromDate",       request.FromDate),
+                            new SqlParameter("@ToDate",         request.ToDate),
+                            new SqlParameter("@AsOnDate",       request.Search),
+                            new SqlParameter("@Branch",         request.FilterStr),
+                            new SqlParameter("@IncUnBilled",    request.FilterStr1),
+                            new SqlParameter("@SubmitYN",       request.FilterStr2),
+                            new SqlParameter("@Party",          request.FilterStr3),
+                            new SqlParameter("@RptType",        "ODL"),
+                            new SqlParameter("@Age1",           request.Age1),
+                            new SqlParameter("@Age2",           request.Age2),
+                            new SqlParameter("@Age3",           request.Age3),
+                            new SqlParameter("@Age4",           request.Age4),
+                            new SqlParameter("@Age5",           request.Age5),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillOutstandingLrRptList", param);
 
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        var filter = "From " + Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy");
+                        filter = filter + " To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy");
+
+                        using (XLWorkbook wb = new XLWorkbook())
+                        {
+                            responseModel = await sharedRepository.GetCompanyDetail();
+                            int colcnt = dataSet.Tables[0].Columns.Count-2;
+
+                            var ws = wb.Worksheets.Add("worksheet");
+                            ws.Range(1, 1, 1, colcnt).Merge();
+                            ws.Range(1, 1, 1, colcnt).Value = responseModel.Message;
+                            ws.Range(1, 1, 1, colcnt).Style.Font.Bold = true;
+                            ws.Range(1, 1, 1, colcnt).Style.Font.FontSize = 18;
+                            ws.Range(1, 1, 1, colcnt).Style.Font.FontColor = XLColor.Maroon;
+                            ws.Range(1, 1, 1, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                            ws.Range(2, 1, 2, colcnt).Merge();
+                            ws.Range(2, 1, 2, colcnt).Value = "Print Date : " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss tt");
+                            ws.Range(2, 1, 2, colcnt).Style.Font.Bold = true;
+                            ws.Range(2, 1, 2, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                            ws.Range(2, 1, 2, colcnt).Style.Font.FontSize = 11;
+
+                            ws.Range(3, 1, 3, colcnt).Merge();
+                            ws.Range(3, 1, 3, colcnt).Value = "OUTSTANDING DETAIL WITH LR";
+                            ws.Range(3, 1, 3, colcnt).Style.Font.Bold = true;
+                            ws.Range(3, 1, 3, colcnt).Style.Font.FontSize = 14;
+                            ws.Range(3, 1, 3, colcnt).Style.Font.FontColor = XLColor.Blue;
+                            ws.Range(3, 1, 3, colcnt).Style.Font.Underline = XLFontUnderlineValues.Single;
+                            ws.Range(3, 1, 3, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                            ws.Range(4, 1, 4, colcnt).Merge();
+                            ws.Range(4, 1, 4, colcnt).Value = filter;
+                            ws.Range(4, 1, 4, colcnt).Style.Font.Bold = true;
+                            ws.Range(4, 1, 4, colcnt).Style.Font.FontSize = 12;
+                            ws.Range(4, 1, 4, colcnt).Style.Font.FontColor = XLColor.Green;
+                            ws.Range(4, 1, 4, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                            DataTable dt = dataSet.Tables[0];
+
+                            ws.Cell(5, 1).Value = "Ref";
+                            ws.Cell(5, 2).Value = "Ref No";
+                            ws.Cell(5, 3).Value = "Ref Date";
+                            ws.Cell(5, 4).Value = "Sub Date";
+                            for (int i = 5; i <= colcnt; i++)
+                            {
+                                ws.Cell(5, i).Value = dt.Columns[i+1].ColumnName;
+                            }
+
+                            ws.Range(5, 1, 5, colcnt).Style.Font.Bold = true;
+                            ws.Range(5, 1, 5, colcnt).Style.Font.FontSize = 12;
+                            ws.Range(5, 1, 5, colcnt).Style.Font.FontColor = XLColor.DarkBlue;
+
+                            int r = 6;
+                            var BillStnName = "";
+                            var Party = "";
+                            var BillNo = "";
+                            decimal tot = 0, brtot = 0, tottot = 0;
+                            decimal onac = 0, bronac = 0, totonac = 0;
+                            decimal due = 0, brdue = 0, totdue = 0;
+                            decimal recv = 0, brrecv = 0, totrecv = 0;
+                            decimal ded = 0, brded = 0, totded = 0;
+                            decimal tds = 0, brtds = 0, tottds = 0;
+                            decimal netdue = 0, brnetdue = 0, totnetdue = 0;
+
+                            for (int j = 0; j < dt.Rows.Count; j++)
+                            {
+
+                                if (Party != dt.Rows[j][1].ToString())
+                                {
+                                    if (j > 0)
+                                    {
+                                        ws.Range(r, 1, r, 4).Merge();
+                                        ws.Range(r, 1, r, 4).Value = "Party Total";
+                                        ws.Cell(r, 6).Value = tot;
+                                        ws.Cell(r, 7).Value = recv;
+                                        ws.Cell(r, 8).Value = ded;
+                                        ws.Cell(r, 9).Value = tds;
+                                        ws.Cell(r, 10).Value = due;
+                                        ws.Cell(r, 11).Value = onac;
+                                        ws.Cell(r, 12).Value = netdue;
+
+                                        ws.Range(r, 1, r, colcnt).Style.Font.Bold = true;
+                                        ws.Range(r, 1, r, 4).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+
+                                        r++;
+
+                                        tot = 0;
+                                        onac = 0;
+                                        due = 0;
+                                        recv = 0;
+                                        ded = 0;
+                                        tds = 0;
+                                        netdue = 0;
+
+                                    }
+
+                                    if (BillStnName != dt.Rows[j][0].ToString())
+                                    {
+                                        if (j > 0)
+                                        {
+                                            ws.Range(r, 1, r, 4).Merge();
+                                            ws.Range(r, 1, r, 4).Value = "Branch Total";
+                                            ws.Cell(r, 6).Value = brtot;
+                                            ws.Cell(r, 7).Value = brrecv;
+                                            ws.Cell(r, 8).Value = brded;
+                                            ws.Cell(r, 9).Value = brtds;
+                                            ws.Cell(r, 10).Value = brdue;
+                                            ws.Cell(r, 11).Value = bronac;
+                                            ws.Cell(r, 12).Value = brnetdue;
+
+                                            ws.Range(r, 1, r, colcnt).Style.Font.Bold = true;
+                                            ws.Range(r, 1, r, 4).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+
+                                            r++;
+
+
+                                            brtot = 0;
+                                            bronac = 0;
+                                            brdue = 0;
+                                            brrecv = 0;
+                                            brded = 0;
+                                            brtds = 0;
+                                            brnetdue = 0;
+                                        }
+
+                                        BillStnName = dt.Rows[j][0].ToString();
+                                        ws.Range(r, 1, r, colcnt).Merge();
+                                        ws.Range(r, 1, r, colcnt).Value = BillStnName;
+                                        ws.Range(r, 1, r, colcnt).Style.Font.FontSize = 12;
+                                        ws.Range(r, 1, r, colcnt).Style.Font.Bold = true;
+                                        ws.Range(r, 1, r, colcnt).Style.Font.Underline = XLFontUnderlineValues.Single;
+                                        r++;
+                                    }
+
+                                    Party = dt.Rows[j][1].ToString();
+                                    ws.Range(r, 1, r, colcnt).Merge();
+                                    ws.Range(r, 1, r, colcnt).Value = Party;
+                                    ws.Range(r, 1, r, colcnt).Style.Font.FontSize = 11;
+                                    ws.Range(r, 1, r, colcnt).Style.Font.Bold = true;
+                                    r++;
+                                }
+                                if (BillNo != dt.Rows[j][3].ToString())
+                                {
+
+                                    for (int i = 1; i <= colcnt; i++)
+                                    {
+                                        ws.Cell(r, i).Value = Convert.ToString(dt.Rows[j][i + 1]);
+                                    }
+                                    BillNo = dt.Rows[j][3].ToString();
+
+                                    tot = tot + Convert.ToDecimal(dt.Rows[j][7].ToString());
+                                    recv = recv + Convert.ToDecimal(dt.Rows[j][8].ToString());
+                                    ded = ded + Convert.ToDecimal(dt.Rows[j][9].ToString());
+                                    tds = tds + Convert.ToDecimal(dt.Rows[j][10].ToString());
+                                    due = due + Convert.ToDecimal(dt.Rows[j][11].ToString());
+                                    onac = onac + Convert.ToDecimal(dt.Rows[j][12].ToString());
+                                    netdue = netdue + Convert.ToDecimal(dt.Rows[j][13].ToString());
+
+                                    brtot = brtot + Convert.ToDecimal(dt.Rows[j][7].ToString());
+                                    brrecv = brrecv + Convert.ToDecimal(dt.Rows[j][8].ToString());
+                                    brded = brded + Convert.ToDecimal(dt.Rows[j][9].ToString());
+                                    brtds = brtds + Convert.ToDecimal(dt.Rows[j][10].ToString());
+                                    brdue = brdue + Convert.ToDecimal(dt.Rows[j][11].ToString());
+                                    bronac = bronac + Convert.ToDecimal(dt.Rows[j][12].ToString());
+                                    brnetdue = brnetdue + Convert.ToDecimal(dt.Rows[j][13].ToString());
+
+                                    tottot = tottot + Convert.ToDecimal(dt.Rows[j][7].ToString());
+                                    totrecv = totrecv + Convert.ToDecimal(dt.Rows[j][8].ToString());
+                                    totded = totded + Convert.ToDecimal(dt.Rows[j][9].ToString());
+                                    tottds = tottds + Convert.ToDecimal(dt.Rows[j][10].ToString());
+                                    totdue = totdue + Convert.ToDecimal(dt.Rows[j][11].ToString());
+                                    totonac = totonac + Convert.ToDecimal(dt.Rows[j][12].ToString());
+                                    totnetdue = totnetdue + Convert.ToDecimal(dt.Rows[j][13].ToString());
+                                }
+                                else
+                                {
+
+                                    for (int i = 13; i < colcnt; i++)
+                                    {
+                                        ws.Cell(r, i).Value = Convert.ToString(dt.Rows[j][i + 1]);
+                                    }
+                                }
+
+                                r++;
+                            }
+                            ws.Range(r, 1, r, 4).Merge();
+                            ws.Range(r, 1, r, 4).Value = "Party Total";
+                            ws.Cell(r, 6).Value = tot;
+                            ws.Cell(r, 7).Value = recv;
+                            ws.Cell(r, 8).Value = ded;
+                            ws.Cell(r, 9).Value = tds;
+                            ws.Cell(r, 10).Value = due;
+                            ws.Cell(r, 11).Value = onac;
+                            ws.Cell(r, 12).Value = netdue;
+
+                            ws.Range(r, 1, r, colcnt).Style.Font.Bold = true;
+                            ws.Range(r, 1, r, 4).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+
+                            r++;
+
+                            ws.Range(r, 1, r, 4).Merge();
+                            ws.Range(r, 1, r, 4).Value = "Branch Total";
+                            ws.Cell(r, 6).Value = brtot;
+                            ws.Cell(r, 7).Value = brrecv;
+                            ws.Cell(r, 8).Value = brded;
+                            ws.Cell(r, 9).Value = brtds;
+                            ws.Cell(r, 10).Value = brdue;
+                            ws.Cell(r, 11).Value = bronac;
+                            ws.Cell(r, 12).Value = brnetdue;
+
+                            ws.Range(r, 1, r, colcnt).Style.Font.Bold = true;
+                            ws.Range(r, 1, r, 4).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+
+                            r++;
+
+                            ws.Range(r, 1, r, 4).Merge();
+                            ws.Range(r, 1, r, 4).Value = "Grand Total";
+                            ws.Cell(r, 6).Value = tottot;
+                            ws.Cell(r, 7).Value = totrecv;
+                            ws.Cell(r, 8).Value = totded;
+                            ws.Cell(r, 9).Value = tottds;
+                            ws.Cell(r, 10).Value = totdue;
+                            ws.Cell(r, 11).Value = totonac;
+                            ws.Cell(r, 12).Value = totnetdue;
+
+                            ws.Range(r, 1, r, colcnt).Style.Font.Bold = true;
+                            ws.Range(r, 1, r, 4).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+
+                            for (int m = 1; m <= colcnt; m++)
+                            {
+                                ws.Column(m).AdjustToContents();
+                            }
+                            ws.Column(1).Width = 12;
+                            ws.Column(2).Width = 12;
+                            ws.Column(3).Width = 12;
+                            ws.Column(4).Width = 12;
+                            ws.Column(5).Width = 12;
+
+                            ws.Range(6, 6, r, 12).Style.NumberFormat.Format = "0.00";
+
+                            ws.Range(5, 1, r, colcnt).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                            ws.Range(5, 1, r, colcnt).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+
+                            var foldername = System.IO.Path.Combine("reports", "Download");
+                            var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, foldername);
+                            var filename = "ExcelReport_" + System.DateTime.Now.ToString("ddMMyyyyHHmmssfff") + ".xlsx";
+
+                            var fullPath = System.IO.Path.Combine(pathToSave, filename);
+                            bool exists = System.IO.Directory.Exists(pathToSave);
+
+                            if (!exists)
+                            {
+                                Directory.CreateDirectory(pathToSave);
+                            }
+
+                            if (File.Exists(fullPath))
+                                File.Delete(fullPath);
+
+                            wb.SaveAs(fullPath);
+
+                            responseModel.Status = true;
+                            responseModel.Message = filename;
+                        }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = "No Data Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = false;
+                responseModel.Message = ex.Message;
+            }
+            return responseModel;
+        }
         public async Task<ResponseModel> GetBillSubmittedSummRptExcel(ReportAgeModel request)
         {
             ResponseModel responseModel = new();
@@ -6184,7 +6488,7 @@ namespace FreightMasters.Repository
                         var filter = "From " + Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy");
                         filter = filter + " To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy");
 
-                        response = await sharedRepository.GetDualGroupExcelReport(dataSet.Tables[0], "Bill GST Report", filter);
+                        response = await sharedRepository.GetGroupExcelReport(dataSet.Tables[0], "Bill GST Report", filter);
                     }
                     else
                     {

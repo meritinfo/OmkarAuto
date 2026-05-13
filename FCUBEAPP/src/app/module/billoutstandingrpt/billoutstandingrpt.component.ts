@@ -265,6 +265,19 @@ export class BilloutstandingrptComponent {
         }        
       });
     }
+    if(selectedDataVal.rptType=="ODL"){
+      this.billoutstandingrptService.getOutstandingDetailLRRptExcel(this.filter).subscribe((resp: any) => {
+        if(resp.status){
+          let link = document.createElement("a");
+          link.download = "OutstandingDetailWithLRReport" + "_" + new Date().getTime() + '.xlsx';
+          link.href = "assets\\reports\\Download\\" + resp.message;
+          link.click();
+        }
+        else{
+          this.toastrService.warning(resp.message)
+        }        
+      });
+    }
     if(selectedDataVal.rptType=="ODP"){
       this.billoutstandingrptService.getOutStandingDetailPartyRptExcel(this.filter).subscribe((resp: any) => {
         if(resp.status){

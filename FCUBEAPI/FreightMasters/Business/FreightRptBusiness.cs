@@ -50,6 +50,10 @@ namespace FreightMasters.Business
         {
             return await freightRptRepository.GetOutstandingDetailPartyRptList(request);
         }
+        public async Task<ResponseModel> GetOutstandingDetailLRRptExcel(ReportAgeModel request)
+        {
+            return await freightRptRepository.GetOutstandingDetailLRRptExcel(request);
+        }
         public async Task<ResponseModel> GetBillSubmittedSummRptExcel(ReportAgeModel request)
         {
             return await freightRptRepository.GetBillSubmittedSummRptExcel(request);
