@@ -86,12 +86,7 @@ export class FleetloadentrylistComponent {
       this.fromDate = this.minDate ;
 
 
-      this.formFilter = this.formBuilder.group({
-        fromDate: new FormControl(this.minDate,[Validators.required]),
-        toDate: new FormControl(this.loginDate,[Validators.required]),
-        loadFor: new FormControl('',),
-        vehicleMasterId: new FormControl('',),  
-      }); 
+     
       this.filter.fromDate = this.minDate;
       this.filter.toDate = this.loginDate;
       this.filter.filterStr   = "";
@@ -107,6 +102,7 @@ export class FleetloadentrylistComponent {
       toDate: new FormControl(this.loginDate,[Validators.required]),
       loadFor: new FormControl(''),
       vehicleMasterId: new FormControl(''),
+      loadMemoNo: new FormControl('',), 
     }); 
   
     this.sharedService.loading = true;
@@ -157,6 +153,7 @@ export class FleetloadentrylistComponent {
         this.filter.pageSize = dataTablesParameters.length;
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
+       // this.filter.search = '';
         callback({
           recordsTotal: 0,
           recordsFiltered: 0,
@@ -250,6 +247,7 @@ export class FleetloadentrylistComponent {
     this.filter.toDate = selecteddata.toDate;
     this.filter.filterStr =  selecteddata.loadFor;
     this.filter.filterStr1 =  selecteddata.vehicleMasterId?selecteddata.vehicleMasterId.dataId:"";
+    this.filter.search =  selecteddata.loadMemoNo;
     this.sharedService.loading=true;
     this.fleetLoadEntryList();
     this.sharedService.loading=false;
