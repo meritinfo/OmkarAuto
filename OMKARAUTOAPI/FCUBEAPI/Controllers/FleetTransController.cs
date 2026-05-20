@@ -12,7 +12,7 @@ using SqlHelper.Models;
 using FleetMasters.Business;
 
 
-namespace FCUBEAPI.Controllers
+namespace OmkarAutoApi.Controllers
 {
     [Route("api/[controller]")]
     [Authorize]

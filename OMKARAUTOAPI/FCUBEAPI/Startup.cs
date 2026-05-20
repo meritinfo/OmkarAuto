@@ -30,7 +30,7 @@ using FinanceMaster.Repository;
 using FinanceMaster.Business;
 using FreightMasters.Models;
 
-namespace FCUBEAPI
+namespace OmkarAutoApi
 {
     public class Startup
     {

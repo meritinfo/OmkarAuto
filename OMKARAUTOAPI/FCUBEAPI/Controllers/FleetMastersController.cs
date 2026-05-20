@@ -12,7 +12,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace FCUBEAPI.Controllers
+namespace OmkarAutoApi.Controllers
 {
     [Route("api/[controller]")]
     [Authorize]

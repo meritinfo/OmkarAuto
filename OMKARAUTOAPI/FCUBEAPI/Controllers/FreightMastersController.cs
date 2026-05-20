@@ -11,7 +11,7 @@ using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 
 
-namespace FCUBEAPI.Controllers
+namespace OmkarAutoApi.Controllers
 {
     [Route("api/[controller]")]
     [Authorize]

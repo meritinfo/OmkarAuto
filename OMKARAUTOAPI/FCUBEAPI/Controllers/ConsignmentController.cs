@@ -12,7 +12,7 @@ using SqlHelper.Models;
 using Microsoft.AspNetCore.Http;
 
 
-namespace FCUBEAPI.Controllers
+namespace OmkarAutoApi.Controllers
 {
     [Route("api/[controller]")]
     [Authorize]
