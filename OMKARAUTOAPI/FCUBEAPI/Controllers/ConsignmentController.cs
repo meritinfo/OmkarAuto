@@ -147,7 +147,7 @@ namespace OmkarAutoApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+        //
         [HttpPost("ConsignmentDelete")]
         public async Task<IActionResult> ConsignmentDelete(RequestModel req)
         {
